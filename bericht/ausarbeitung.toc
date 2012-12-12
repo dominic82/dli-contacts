@@ -1,0 +1,6 @@
+\contentsline {section}{\numberline {1}Einleitung}{3}{section.1}
+\contentsline {section}{\numberline {2}Hauptteil}{3}{section.2}
+\contentsline {subsection}{\numberline {2.1}Zwischen\"uberschrift}{4}{subsection.2.1}
+\contentsline {subsection}{\numberline {2.2}Zwischen\"uberschrift}{5}{subsection.2.2}
+\contentsline {section}{\numberline {3}Noch ein Hauptteil}{5}{section.3}
+\contentsline {section}{\numberline {4}Literaturverweise}{7}{section.4}

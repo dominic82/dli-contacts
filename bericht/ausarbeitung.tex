@@ -1,0 +1,49 @@
+%Schriftgröße, Layout, Papierformat, Art des Dokumentes
+\documentclass[12pt,oneside,a4paper]{scrartcl}
+%Das Paket erzeugt ein anklickbares Verzeichnis in der PDF-Datei.
+\usepackage{hyperref}
+
+%Einstellungen der Seitenränder
+\usepackage[left=3cm,right=4cm,top=2.5cm,bottom=2.5cm,includeheadfoot]{geometry}
+
+%Zeilenabstand
+%\renewcommand{\baselinestretch}{1.25}\normalsize %für 1,5 zeilig
+\usepackage{setspace}
+
+%Einrückung eines neuen Absatzes
+\setlength{\parindent}{0em}
+
+%neue Rechtschreibung
+\usepackage{ngerman}
+
+%Umlaute ermöglichen
+\usepackage[latin1]{inputenc}
+
+%Kopf- und Fußzeile
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+
+%Linie oben
+\renewcommand{\headrulewidth}{0.5pt}
+
+%Fußzeile rechts bzw. außen
+\fancyfoot[C]{\thepage}
+%Linie unten
+\renewcommand{\footrulewidth}{0.5pt}
+
+
+
+\begin{document}
+\input{titel}  
+%Inhaltsverzeichnis (aktualisiert sich erst nach dem zweiten Setzen)
+\tableofcontents
+\thispagestyle{empty}
+%Beginn einer neuen Seite
+\clearpage
+%Anderthalbzeiliger Zeilenabstand ab hier
+\onehalfspacing
+\input{inhalt}
+\clearpage
+\input{literatur}
+\end{document}
