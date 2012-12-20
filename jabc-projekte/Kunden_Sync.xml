@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<model version="2.1">
+  <id>d7e06782-e187-4cde-8336-713f124e0449</id>
+  <name>Kunden_Sync</name>
+  <changecounter>13</changecounter>
+  <sib>
+    <id>dcdbed6f-0d0d-4910-994e-8d4ba2059c69</id>
+    <name>TestSIB</name>
+    <label>TestSIB</label>
+    <sib-uid>TestSIB</sib-uid>
+    <taxonomy>dli_contacts.sibs.TestSIB</taxonomy>
+    <position>229.0,153.0</position>
+    <parameter name="IntegerParameter">
+      <int>1</int>
+    </parameter>
+    <parameter name="StringParameter">
+      <string>default value</string>
+    </parameter>
+    <parameter name="someContextKey">
+      <de.metaframe.jabc.framework.sib.parameter.ContextKey>
+        <ContextKeyFoundation>
+          <key>someKey</key>
+          <scope>GLOBAL</scope>
+          <scopeMutable>false</scopeMutable>
+        </ContextKeyFoundation>
+      </de.metaframe.jabc.framework.sib.parameter.ContextKey>
+    </parameter>
+    <finalbranches>default</finalbranches>
+    <finalbranches>error</finalbranches>
+    <userobject key="ABC$START">
+      <boolean>true</boolean>
+    </userobject>
+  </sib>
+  <values/>
+</model>
