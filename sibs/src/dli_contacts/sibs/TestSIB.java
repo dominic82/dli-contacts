@@ -5,6 +5,8 @@ import de.metaframe.jabc.framework.sib.annotation.SIBClass;
 import de.metaframe.jabc.framework.sib.parameter.ContextKey;
 import de.metaframe.jabc.sib.Executable;
 
+import dli_contacts.Contact;
+
 @SIBClass("TestSIB")
 public class TestSIB implements Executable {
 
