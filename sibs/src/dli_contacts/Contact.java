@@ -2,6 +2,8 @@ package dli_contacts;
 
 public class Contact {
 	
+	public static enum ContactType {CUSTOMER, SUPPLIER, EMPLOYEE}
+	
 	private String firstname;
 	private String lastname;
 	private String street;
@@ -9,6 +11,7 @@ public class Contact {
 	private String city;
 	private String phone;
 	private String email;
+	private ContactType type;
 	
 	
 	public String getFirstname() {
@@ -52,6 +55,12 @@ public class Contact {
 	}
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	public ContactType getType() {
+		return type;
+	}
+	public void setType(ContactType type) {
+		this.type = type;
 	}
 	
 	
