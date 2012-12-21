@@ -5,9 +5,11 @@ import de.metaframe.jabc.framework.sib.annotation.SIBClass;
 import de.metaframe.jabc.framework.sib.parameter.ContextKey;
 import de.metaframe.jabc.sib.Executable;
 
+import dli_contacts.Contact;
 
-@SIBClass("putContact")
-public class PutContact implements Executable {
+
+@SIBClass("editContact")
+public class EditContact implements Executable {
 
 	public final String[] BRANCHES = { "default", "error" };
 	
@@ -17,7 +19,8 @@ public class PutContact implements Executable {
 
 		try {
 			
-			
+			Contact person = (Contact) env.get(contact.getKey());
+			System.out.println("EditContact: Name = " + person.getFirstname());
 			
 			return "default";
 
@@ -25,6 +28,5 @@ public class PutContact implements Executable {
 			System.out.println(e.getMessage());
 			return "error";
 		}
-
 	}
 }

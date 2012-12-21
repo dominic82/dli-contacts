@@ -1,4 +1,7 @@
 *nbproject
 *~
-.DS_Store
-.*project
+.*
+
+/sibs/target/
+
+!/.gitignore
