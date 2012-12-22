@@ -5,3 +5,5 @@
 /sibs/target/
 
 !/.gitignore
+/bericht/temp/
+/google-contacts-connector/imports/
