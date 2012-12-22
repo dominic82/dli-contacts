@@ -7,4 +7,4 @@
 !/.gitignore
 /bericht/temp/
 /jabc-projekte/*.xml.*
-google-contacts-connector\DLI-GoogleContactsConnector\src\sample
+/google-contacts-connector/DLI-GoogleContactsConnector/src/sample
