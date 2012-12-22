@@ -15,27 +15,22 @@ public class TestSIB implements Executable {
 
 	public final String[] BRANCHES = { "default", "error" };
 
-	public String StringParameter = "test";
-	public ContextKey someContextKey = new ContextKey("someKey");
+	public ContextKey contact = new ContextKey("contact");
 
 	public String trace(ExecutionEnvironment env) {
 
 		try {
-			
-			Contact person = new Contact();
-			person.setFirstname("Dominic");
-			System.out.println("Mein Name ist " + person.getFirstname());
-			
-			//helloSwing();
-			env.putGlobally(StringParameter, person);
-			
+			Contact person = (Contact) env.get(contact);
+			System.out.println("Test-SIB: Name = " + person.getFirstname());
+                        
+                        helloSwing();
+                        
 			return "default";
 
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			return "error";
 		}
-
 	}
 	
 	private void helloSwing() {
@@ -43,7 +38,7 @@ public class TestSIB implements Executable {
 	    final JLabel label = new JLabel("Hello World");
 	    frame.getContentPane().add(label);
 
-	    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	    frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 	    frame.pack();
 	    frame.setVisible(true);
 	}

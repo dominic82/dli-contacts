@@ -7,6 +7,7 @@ import de.metaframe.jabc.sib.Executable;
 
 
 import dli_contacts.Contact;
+import dli_contacts.DummyConnector;
 
 
 @SIBClass("putContact")
@@ -20,13 +21,8 @@ public class PutContact implements Executable {
 
 		try {
 			Contact person = new Contact();
-			
-			person.setFirstname("Dominic");
-			System.out.println("PutContact: Name = " + person.getFirstname());
-			
-			//env.put(key, person);
-			env.put(contact.getKey(), person);
-						
+                        env.put(contact, person);
+                        System.out.println("PutContact: Contact generated");
 			return "default";
 
 		} catch (Exception e) {
