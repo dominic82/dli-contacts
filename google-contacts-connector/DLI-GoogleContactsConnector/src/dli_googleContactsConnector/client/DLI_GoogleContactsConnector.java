@@ -155,7 +155,7 @@ public class DLI_GoogleContactsConnector implements EntryPoint {
 			throws AuthenticationException {
 
 		ContactsService contactService = null;
-		contactService = new ContactsService("DLI IdesMigration");
+		contactService = new ContactsService("dli-google-connector");
 		contactService.setUserCredentials(userid, password);
 		this.userId = userid;
 		return contactService;
