@@ -6,3 +6,4 @@
 
 !/.gitignore
 /bericht/temp/
+/jabc-projekte/*.xml.*
