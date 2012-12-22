@@ -1,3 +1,3 @@
 #!/bin/bash
 
-cp -R ./bin/* ../jabc-projekte/bin/
+mvn clean && mvn package && cp ./target/*.jar ../jabc-projekte/

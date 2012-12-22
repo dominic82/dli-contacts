@@ -41,6 +41,18 @@ public class DummyConnector {
 		
 		System.out.println("DummyConnector: started...");
 	}
+	
+	public Contact getPerson1() {
+		return person1;
+	}
+
+	public Contact getPerson2() {
+		return person2;
+	}
+
+	public Contact getPerson3() {
+		return person3;
+	}
 
 	public List<Contact> getSapContacts(Contact contact) {
 		List<Contact> result = new ArrayList<Contact>();

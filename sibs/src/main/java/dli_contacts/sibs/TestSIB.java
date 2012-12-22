@@ -15,8 +15,7 @@ public class TestSIB implements Executable {
 
 	public final String[] BRANCHES = { "default", "error" };
 
-	public String StringParameter = "default value";
-	public Integer IntegerParameter = new Integer(1);
+	public String StringParameter = "test";
 	public ContextKey someContextKey = new ContextKey("someKey");
 
 	public String trace(ExecutionEnvironment env) {
@@ -28,6 +27,7 @@ public class TestSIB implements Executable {
 			System.out.println("Mein Name ist " + person.getFirstname());
 			
 			//helloSwing();
+			env.putGlobally(StringParameter, person);
 			
 			return "default";
 
