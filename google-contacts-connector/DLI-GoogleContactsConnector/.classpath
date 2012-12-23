@@ -6,7 +6,8 @@
 	<classpathentry kind="con" path="com.google.gwt.eclipse.core.GWT_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/MyLibrary"/>
-	<classpathentry kind="src" path="/DLI-Sibs"/>
 	<classpathentry kind="src" path="/dli-contacts"/>
+	<classpathentry kind="lib" path="C:/Users/E_m00n/workspace/gdata-samples.java-1.47.1/gdata/java/deps/guava-11.0.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/E_m00n/workspace/gdata-samples.java-1.47.1/gdata/java/deps/jsr305.jar"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>
