@@ -8,4 +8,4 @@
 /bericht/temp/
 /jabc-projekte/*.xml.*
 /google-contacts-connector/DLI-GoogleContactsConnector/src/sample
-/sibs/src/main/*.class
+/sibs/src/main/java/*.class
