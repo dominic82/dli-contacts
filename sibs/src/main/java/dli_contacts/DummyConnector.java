@@ -7,9 +7,9 @@ import dli_contacts.Contact.ContactType;
 
 public class DummyConnector {
 	
-	private Contact person1;
-	private Contact person2;
-	private Contact person3;
+	private Contact person1 = new Contact();
+	private Contact person2 = new Contact();
+	private Contact person3 = new Contact();
 	
 	public DummyConnector() {
 		person1.setFirstname("Dominic");

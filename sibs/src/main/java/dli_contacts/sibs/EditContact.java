@@ -19,7 +19,7 @@ public class EditContact implements Executable {
 
 		try {
 			
-			Contact person = (Contact) env.get(contact.getKey());
+			Contact person = (Contact) env.get(contact);
 			System.out.println("EditContact: Name = " + person.getFirstname());
 			
 			return "default";

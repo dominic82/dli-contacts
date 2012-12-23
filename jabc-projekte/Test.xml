@@ -2,14 +2,14 @@
 <model version="2.1">
   <id>254c67b8-cefc-414b-911d-839c5c91ddb0</id>
   <name>Test</name>
-  <changecounter>15</changecounter>
+  <changecounter>22</changecounter>
   <sib>
     <id>21d390af-61cc-4516-820b-e656dcd00586</id>
     <name>ShowMessageDialog</name>
     <label>ShowMessageDialog</label>
     <sib-uid>exercise-sibs/ShowMessageDialog</sib-uid>
     <taxonomy>tudo.sib.exercise.ShowMessageDialog</taxonomy>
-    <position>410.0,32.5</position>
+    <position>417.5,33.0</position>
     <parameter name="dialogTitle">
       <string>Title</string>
     </parameter>
@@ -34,10 +34,10 @@
     <finalbranches>ok</finalbranches>
   </sib>
   <edge>
-    <source>2630601b-4cb7-4387-8ac0-64e74e6ebd5c</source>
+    <source>d99adb40-6503-47f2-b291-890b69ac9db7</source>
     <target>21d390af-61cc-4516-820b-e656dcd00586</target>
-    <point>423.2926829268293,288.0</point>
-    <point>461.9318181818182,69.0</point>
+    <point>381.8478260869565,318.0</point>
+    <point>473.57142857142856,69.0</point>
     <labelposition>500.0,0.0</labelposition>
     <branch>default</branch>
   </edge>
@@ -47,7 +47,7 @@
     <label>ShowMessageDialog</label>
     <sib-uid>exercise-sibs/ShowMessageDialog</sib-uid>
     <taxonomy>tudo.sib.exercise.ShowMessageDialog</taxonomy>
-    <position>110.0,32.5</position>
+    <position>117.5,33.0</position>
     <parameter name="dialogTitle">
       <string>Title</string>
     </parameter>
@@ -76,38 +76,19 @@
   </sib>
   <edge>
     <source>02f60203-f8ef-40c5-adab-0dd9f4b97272</source>
-    <target>b8defd0d-eb34-4d12-b6f7-e2a1544ac6f8</target>
-    <point>165.96774193548387,69.0</point>
-    <point>178.9655172413793,303.0</point>
+    <target>6d20a952-93cb-431b-af3b-f7bdf97706c0</target>
+    <point>181.66666666666666,69.0</point>
+    <point>208.23529411764707,348.0</point>
     <labelposition>500.0,0.0</labelposition>
     <branch>ok</branch>
   </edge>
   <sib>
-    <id>2630601b-4cb7-4387-8ac0-64e74e6ebd5c</id>
-    <name>EditContact</name>
-    <label>EditContact</label>
-    <sib-uid>editContact</sib-uid>
-    <taxonomy>dli_contacts.sibs.EditContact</taxonomy>
-    <position>389.0,287.5</position>
-    <parameter name="contact">
-      <de.metaframe.jabc.framework.sib.parameter.ContextKey>
-        <ContextKeyFoundation>
-          <key>contact</key>
-          <scope>GLOBAL</scope>
-          <scopeMutable>false</scopeMutable>
-        </ContextKeyFoundation>
-      </de.metaframe.jabc.framework.sib.parameter.ContextKey>
-    </parameter>
-    <finalbranches>default</finalbranches>
-    <finalbranches>error</finalbranches>
-  </sib>
-  <sib>
-    <id>b8defd0d-eb34-4d12-b6f7-e2a1544ac6f8</id>
+    <id>6d20a952-93cb-431b-af3b-f7bdf97706c0</id>
     <name>PutContact</name>
     <label>PutContact</label>
     <sib-uid>putContact</sib-uid>
     <taxonomy>dli_contacts.sibs.PutContact</taxonomy>
-    <position>150.0,287.5</position>
+    <position>175.5,348.0</position>
     <parameter name="contact">
       <de.metaframe.jabc.framework.sib.parameter.ContextKey>
         <ContextKeyFoundation>
@@ -121,11 +102,31 @@
     <finalbranches>error</finalbranches>
   </sib>
   <edge>
-    <source>b8defd0d-eb34-4d12-b6f7-e2a1544ac6f8</source>
-    <target>2630601b-4cb7-4387-8ac0-64e74e6ebd5c</target>
-    <point>180.0,330.0</point>
-    <point>446.0,344.0</point>
+    <source>6d20a952-93cb-431b-af3b-f7bdf97706c0</source>
+    <target>d99adb40-6503-47f2-b291-890b69ac9db7</target>
+    <point>228.0,363.7090909090909</point>
+    <point>357.0,340.25454545454545</point>
+    <labelposition>500.0,0.0</labelposition>
     <branch>default</branch>
   </edge>
+  <sib>
+    <id>d99adb40-6503-47f2-b291-890b69ac9db7</id>
+    <name>TestSIB</name>
+    <label>TestSIB</label>
+    <sib-uid>TestSIB</sib-uid>
+    <taxonomy>dli_contacts.sibs.TestSIB</taxonomy>
+    <position>349.0,318.0</position>
+    <parameter name="contact">
+      <de.metaframe.jabc.framework.sib.parameter.ContextKey>
+        <ContextKeyFoundation>
+          <key>contact</key>
+          <scope>GLOBAL</scope>
+          <scopeMutable>false</scopeMutable>
+        </ContextKeyFoundation>
+      </de.metaframe.jabc.framework.sib.parameter.ContextKey>
+    </parameter>
+    <finalbranches>default</finalbranches>
+    <finalbranches>error</finalbranches>
+  </sib>
   <values/>
 </model>
