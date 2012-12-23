@@ -37,72 +37,43 @@ import dli_contacts.Contact.ContactType;
  * Entry point classes define <code>onModuleLoad()</code>.
  */
 public class DLI_GoogleContactsConnector {
-	private static String customerGroupURL = "http://www.google.com/m8/feeds/groups/tseelandho@web.de/base/Customer";
-	private static String supplierGroupURL = "http://www.google.com/m8/feeds/groups/tseelandho@web.de/base/Supplier";
-	private static String employeeGroupURL = "http://www.google.com/m8/feeds/groups/tseelandho@web.de/base/Employee";
+	private static String customerGroupURL = "http://www.google.com/m8/feeds/groups/dli.ides.api%40gmail.com/base/3abf361e0913da63";
+	private static String supplierGroupURL = "http://www.google.com/m8/feeds/groups/dli.ides.api%40gmail.com/base/2aada2220eaad8d4r";
+	private static String employeeGroupURL = "http://www.google.com/m8/feeds/groups/dli.ides.api%40gmail.com/base/587c880e884cdacb";
 
 	private static String customer = "Customer";
 	private static String supplier = "Supplier";
 	private static String employee = "Employee";
 
-	private final String username = "tseelandho@web.de";
+	private final String username = "dli.ides.api@gmail.com";
 	private final String password = "DLIP455w0rd!";
 	private final String servicename = "dli-google-connector";
-	private final String contactsURL = "https://www.google.com/m8/feeds/contacts/default/full";
-
+	private final String contactsURL = "https://www.google.com/m8/feeds/contacts/dli.ides.api@gmail.com/full";
+private final String groupsURL = "https://www.google.com/m8/feeds/groups/dli.ides.api@gmail.com/base"; 
+	
 	private ContactsService myService;
 
 	public DLI_GoogleContactsConnector() throws AuthenticationException {
 		authenticateId();
-		refreshGroups(contactsURL, myService);
 	}
 
-	private static void refreshGroups(String contactsURL,
-			ContactsService myService) {
-		// Request the feed
-		URL feedUrl = null;
-		try {
-			feedUrl = new URL(contactsURL);
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		}
-		ContactGroupFeed resultFeed = null;
-		try {
-			resultFeed = myService.getFeed(feedUrl, ContactGroupFeed.class);
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (ServiceException e) {
-			e.printStackTrace();
-		}
-
-		for (ContactGroupEntry groupEntry : resultFeed.getEntries()) {
-			if (groupEntry.getTitle().getPlainText().equalsIgnoreCase(customer)) {
-				customerGroupURL = groupEntry.getSelfLink().getHref();
-			}
-			if (groupEntry.getTitle().getPlainText().equalsIgnoreCase(supplier)) {
-				supplierGroupURL = groupEntry.getSelfLink().getHref();
-			}
-			if (groupEntry.getTitle().getPlainText().equalsIgnoreCase(employee)) {
-				employeeGroupURL = groupEntry.getSelfLink().getHref();
-			}
-		}
-	}
-
-	public ContactEntry createContact(Contact contactInfo) {
+	public ContactEntry createContact(Contact contactInfo) throws IOException, ServiceException {
 		return createContact(contactsURL, contactInfo, myService);
 
 	}
 
 	public static ContactEntry createContact(String contactsURL,
-			Contact contactInfo, Service myService) {
+			Contact contactInfo, Service myService) throws IOException, ServiceException {
+System.out.println("createContact gestartet");
 		if (!isValid(contactInfo)) {
+System.out.println("contact nicht valid");
 			return null;
 		}
+System.out.println("create entry");
 		// Create the entry to insert
 		ContactEntry contact = new ContactEntry();
 		contact.setTitle(new PlainTextConstruct(contactInfo.getFirstname()
 				+ contactInfo.getLastname()));
-		contact.setContent(new PlainTextConstruct(""));
 
 		// Name
 		Name name = new Name();
@@ -111,25 +82,31 @@ public class DLI_GoogleContactsConnector {
 		contact.setName(name);
 
 		// Email >> es kann NICHT NUR eine geben
+		if(contactInfo.getEmail()!=null){
 		Email primaryMail = new Email();
 		primaryMail.setAddress(contactInfo.getEmail());
 		primaryMail.setRel("http://schemas.google.com/g/2005#home");// Email Typ
 		primaryMail.setPrimary(true);
 		contact.addEmailAddress(primaryMail);
-
+		}
 		// Telefon >> es kann NICHT NUR eine geben
+		if(contactInfo.getPhone()!=null){
 		PhoneNumber phoneNumber = new PhoneNumber();
 		phoneNumber.setPhoneNumber(contactInfo.getPhone());
 		phoneNumber.setPrimary(true);
+		phoneNumber.setLabel("Primär");
 		contact.addPhoneNumber(phoneNumber);
-
+		}
 		// Adresse >> es kann NICHT NUR eine geben
+		if((contactInfo.getCity()!=null)||(contactInfo.getStreet()!=null)||(contactInfo.getZipcode()!=null)){
 		StructuredPostalAddress adresse = new StructuredPostalAddress();
 		adresse.setCity(new City(contactInfo.getCity()));
 		adresse.setPostcode(new PostCode(contactInfo.getZipcode()));
 		adresse.setStreet(new Street(contactInfo.getStreet()));
 		adresse.setPrimary(true);
+		adresse.setLabel("Primär");
 		contact.addStructuredPostalAddress(adresse);
+		}
 
 		// TODO Firma
 		/*
@@ -137,7 +114,6 @@ public class DLI_GoogleContactsConnector {
 		 * favouriteFlower.setValue(contactInfo.getOrganisation);
 		 * contact.addExtendedProperty(favouriteFlower);
 		 */
-
 		// Gruppe setzen
 		String groupURL = null;
 		switch (contactInfo.getType()) {
@@ -156,21 +132,11 @@ public class DLI_GoogleContactsConnector {
 		}
 		contact.addGroupMembershipInfo(new GroupMembershipInfo(false, groupURL));
 
+System.out.println("entry ready");
 		// Ask the service to insert the new entry
 		URL postUrl = null;
-		try {
 			postUrl = new URL(contactsURL);
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		}
-		try {
 			return myService.insert(postUrl, contact);
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (ServiceException e) {
-			e.printStackTrace();
-		}
-		return null;
 	}
 
 	public ContactsService authenticateId() {
@@ -216,13 +182,10 @@ public class DLI_GoogleContactsConnector {
 	 */
 	public static List<Contact> fetchContacts(String contactsURL,
 			Contact filter, ContactsService myService)throws ServiceException, IOException {
-System.out.println("fetchContacts gestartet");
 		// Create query and submit a request
 		URL feedUrl = null;
 			feedUrl = new URL(contactsURL);
-System.out.println("url erstellt");
 		Query myQuery = new Query(feedUrl);
-System.out.println("neuer Query");
 		ContactFeed resultFeed = null;
 		if (filter.getType() != null) {
 			String groupId = null;
@@ -240,29 +203,24 @@ System.out.println("neuer Query");
 			default:
 				break;
 			}
-System.out.println("erstelle query für gruppe");
 			myQuery.setStringCustomParameter("group", groupId);
-System.out.println("Query für Gruppe fertig");
-			// submit request
 
-			
+			// submit request
 				resultFeed = myService.query(myQuery, ContactFeed.class);
 			
 		} else {
-System.out.println("kein Query");
 			
 				resultFeed = myService.getFeed(feedUrl, ContactFeed.class);
 			
 		}
-System.out.println("Kontakte geholt, starte aussortieren");
 		// sort out
 		List<ContactEntry> ceResults = resultFeed.getEntries();
 		List<Contact> results = new ArrayList<Contact>();
 		for (ContactEntry ce : ceResults) {
 			Contact accepted = makeContact(ce);
-			//if (filterContact(filter, accepted)) {
+			if (filterContact(filter, accepted)) {
 				results.add(accepted);
-			//}
+			}
 		}
 
 		return results;
@@ -585,8 +543,21 @@ System.out.println("Kontakte geholt, starte aussortieren");
 
 			DLI_GoogleContactsConnector googleContactsAccess = new DLI_GoogleContactsConnector();
 System.out.println("DLI_GoogleContactsConnector erstellt und authentifiziert");
+
+printAllGroups(googleContactsAccess.contactsURL, googleContactsAccess.myService);
+
+			Contact contact = new Contact();
+			contact.setFirstname("Markus");
+			contact.setLastname("Marzotko");
+			contact.setEmail("zabc@def.gh");
+			contact.setPhone("023331234567890");
+			contact.setStreet("Otto-Hahn-Str. 6");
+			contact.setType(ContactType.CUSTOMER);
+System.out.println("Contact erstellt\n\n" + toStringWithContact(contact));			
+			googleContactsAccess.createContact(contact);
+System.out.println("Contact hinzugefuegt");
 			Contact filter = new Contact();
-			//filter.setFirstname("Dominic");
+//			filter.setFirstname("Thorben");
 System.out.println("Filter erstellt");
 System.out.println(toStringWithContact(filter));
 			List<Contact> contacts = googleContactsAccess.fetchContacts(filter);
@@ -597,9 +568,6 @@ System.out.println(contacts.size() + " Kontakte runtergeladen");
 System.out.println("printAllContacts");
 			DLI_GoogleContactsConnector.printAllContacts(googleContactsAccess.myService);
 
-			// Contact contact = new Contact();
-
-			// googleContactsAccess.createContact(contact);
 
 		} catch (Exception ex) {
 			System.out.println(ex);
@@ -614,12 +582,12 @@ System.out.println("printAllContacts");
 	 * @throws ServiceException
 	 * @throws IOException
 	 */
-	public static void printAllGroups(String contactsURL,
+	public static void printAllGroups(String groupsURL,
 			ContactsService myService) {
 		// Request the feed
 		URL feedUrl = null;
 		try {
-			feedUrl = new URL(contactsURL);
+			feedUrl = new URL(groupsURL);
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		}
