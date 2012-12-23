@@ -7,26 +7,25 @@ import de.metaframe.jabc.sib.Executable;
 
 import dli_contacts.Contact;
 
-
 @SIBClass("editContact")
 public class EditContact implements Executable {
 
-	public final String[] BRANCHES = { "default", "error" };
-	
-	public ContextKey contact = new ContextKey("contact");
-	
-	public String trace(ExecutionEnvironment env) {
+    public final String[] BRANCHES = {"default", "error"};
+    public ContextKey contact = new ContextKey("contact");
 
-		try {
-			
-			Contact person = (Contact) env.get(contact);
-			System.out.println("EditContact: Name = " + person.getFirstname());
-			
-			return "default";
+    @Override
+    public String trace(ExecutionEnvironment env) {
 
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-			return "error";
-		}
-	}
+        try {
+
+            Contact person = (Contact) env.get(contact);
+            System.out.println("EditContact: Name = " + person.getFirstname());
+
+            return "default";
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return "error";
+        }
+    }
 }
