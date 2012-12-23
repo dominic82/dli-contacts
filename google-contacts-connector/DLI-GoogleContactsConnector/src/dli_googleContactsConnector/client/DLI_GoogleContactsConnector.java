@@ -48,7 +48,7 @@ public class DLI_GoogleContactsConnector {
 	private final String username = "tseelandho@web.de";
 	private final String password = "DLIP455w0rd!";
 	private final String servicename = "dli-google-connector";
-	private final String contactsURL = "https://www.google.com/m8/feeds/groups/default/full";
+	private final String contactsURL = "https://www.google.com/m8/feeds/contacts/default/full";
 
 	private ContactsService myService;
 
@@ -199,8 +199,10 @@ public class DLI_GoogleContactsConnector {
 
 	}
 
-	public List<Contact> fetchContacts(Contact filter) {
-		return fetchContacts(contactsURL, filter, myService);
+	public List<Contact> fetchContacts(Contact filter) throws ServiceException, IOException {
+		
+			return fetchContacts(contactsURL, filter, myService);
+		
 	}
 
 	/**
@@ -213,15 +215,11 @@ public class DLI_GoogleContactsConnector {
 	 * @throws IOException
 	 */
 	public static List<Contact> fetchContacts(String contactsURL,
-			Contact filter, ContactsService myService) {
+			Contact filter, ContactsService myService)throws ServiceException, IOException {
 System.out.println("fetchContacts gestartet");
 		// Create query and submit a request
 		URL feedUrl = null;
-		try {
 			feedUrl = new URL(contactsURL);
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		}
 System.out.println("url erstellt");
 		Query myQuery = new Query(feedUrl);
 System.out.println("neuer Query");
@@ -247,21 +245,14 @@ System.out.println("erstelle query für gruppe");
 System.out.println("Query für Gruppe fertig");
 			// submit request
 
-			try {
+			
 				resultFeed = myService.query(myQuery, ContactFeed.class);
-			} catch (IOException e) {
-				e.printStackTrace();
-			} catch (ServiceException e) {
-				e.printStackTrace();
-			}
+			
 		} else {
-			try {
+System.out.println("kein Query");
+			
 				resultFeed = myService.getFeed(feedUrl, ContactFeed.class);
-			} catch (IOException e) {
-				e.printStackTrace();
-			} catch (ServiceException e) {
-				e.printStackTrace();
-			}
+			
 		}
 System.out.println("Kontakte geholt, starte aussortieren");
 		// sort out
@@ -269,9 +260,9 @@ System.out.println("Kontakte geholt, starte aussortieren");
 		List<Contact> results = new ArrayList<Contact>();
 		for (ContactEntry ce : ceResults) {
 			Contact accepted = makeContact(ce);
-			if (filterContact(filter, accepted)) {
+			//if (filterContact(filter, accepted)) {
 				results.add(accepted);
-			}
+			//}
 		}
 
 		return results;
@@ -453,17 +444,15 @@ System.out.println("Kontakte geholt, starte aussortieren");
 	 * This method will print details of all the contacts available in that
 	 * particular Google account.
 	 */
-	public void printAllContacts() throws ServiceException, IOException {
-
+	public static void printAllContacts(ContactsService myService)
+			throws ServiceException, IOException {
 		// Request the feed
-		URL feedUrl = new URL(contactsURL);
-
+		URL feedUrl = new URL(
+				"https://www.google.com/m8/feeds/contacts/default/full");
 		ContactFeed resultFeed = myService.getFeed(feedUrl, ContactFeed.class);
-
 		// Print the results
 		System.out.println(resultFeed.getTitle().getPlainText());
-		for (int i = 0; i < resultFeed.getEntries().size(); i++) {
-			ContactEntry entry = resultFeed.getEntries().get(i);
+		for (ContactEntry entry : resultFeed.getEntries()) {
 			if (entry.hasName()) {
 				Name name = entry.getName();
 				if (name.hasFullName()) {
@@ -472,16 +461,15 @@ System.out.println("Kontakte geholt, starte aussortieren");
 						fullNameToDisplay += " ("
 								+ name.getFullName().getYomi() + ")";
 					}
-					System.out.println("\t\t" + fullNameToDisplay);
+					System.out.println("\\\t\\\t" + fullNameToDisplay);
 				} else {
-					System.out.println("\t\t (no full name found)");
+					System.out.println("\\\t\\\t (no full name found)");
 				}
-
 				if (name.hasNamePrefix()) {
-					System.out
-							.println("\t\t" + name.getNamePrefix().getValue());
+					System.out.println("\\\t\\\t"
+							+ name.getNamePrefix().getValue());
 				} else {
-					System.out.println("\t\t (no name prefix found)");
+					System.out.println("\\\t\\\t (no name prefix found)");
 				}
 				if (name.hasGivenName()) {
 					String givenNameToDisplay = name.getGivenName().getValue();
@@ -489,11 +477,10 @@ System.out.println("Kontakte geholt, starte aussortieren");
 						givenNameToDisplay += " ("
 								+ name.getGivenName().getYomi() + ")";
 					}
-					System.out.println("\t\t" + givenNameToDisplay);
+					System.out.println("\\\t\\\t" + givenNameToDisplay);
 				} else {
-					System.out.println("\t\t (no given name found)");
+					System.out.println("\\\t\\\t (no given name found)");
 				}
-
 				if (name.hasAdditionalName()) {
 					String additionalNameToDisplay = name.getAdditionalName()
 							.getValue();
@@ -501,11 +488,10 @@ System.out.println("Kontakte geholt, starte aussortieren");
 						additionalNameToDisplay += " ("
 								+ name.getAdditionalName().getYomi() + ")";
 					}
-					System.out.println("\t\t" + additionalNameToDisplay);
+					System.out.println("\\\t\\\t" + additionalNameToDisplay);
 				} else {
-					System.out.println("\t\t (no additional name found)");
+					System.out.println("\\\t\\\t (no additional name found)");
 				}
-
 				if (name.hasFamilyName()) {
 					String familyNameToDisplay = name.getFamilyName()
 							.getValue();
@@ -513,26 +499,21 @@ System.out.println("Kontakte geholt, starte aussortieren");
 						familyNameToDisplay += " ("
 								+ name.getFamilyName().getYomi() + ")";
 					}
-					System.out.println("\t\t" + familyNameToDisplay);
+					System.out.println("\\\t\\\t" + familyNameToDisplay);
 				} else {
-					System.out.println("\t\t (no family name found)");
+					System.out.println("\\\t\\\t (no family name found)");
 				}
-
 				if (name.hasNameSuffix()) {
-					System.out
-							.println("\t\t" + name.getNameSuffix().getValue());
+					System.out.println("\\\t\\\t"
+							+ name.getNameSuffix().getValue());
 				} else {
-					System.out.println("\t\t (no name suffix found)");
+					System.out.println("\\\t\\\t (no name suffix found)");
 				}
-
 			} else {
 				System.out.println("\t (no name found)");
 			}
-
 			System.out.println("Email addresses:");
-
 			for (Email email : entry.getEmailAddresses()) {
-
 				System.out.print(" " + email.getAddress());
 				if (email.getRel() != null) {
 					System.out.print(" rel:" + email.getRel());
@@ -544,12 +525,9 @@ System.out.println("Kontakte geholt, starte aussortieren");
 					System.out.print(" (primary) ");
 				}
 				System.out.print("\n");
-
 			}
-
 			System.out.println("IM addresses:");
 			for (Im im : entry.getImAddresses()) {
-
 				System.out.print(" " + im.getAddress());
 				if (im.getLabel() != null) {
 					System.out.print(" label:" + im.getLabel());
@@ -564,23 +542,14 @@ System.out.println("Kontakte geholt, starte aussortieren");
 					System.out.print(" (primary) ");
 				}
 				System.out.print("\n");
-
 			}
-
 			System.out.println("Groups:");
 			for (GroupMembershipInfo group : entry.getGroupMembershipInfos()) {
 				String groupHref = group.getHref();
 				System.out.println("  Id: " + groupHref);
 			}
-
 			System.out.println("Extended Properties:");
-if(entry.getExtendedProperties() == null)
-	System.out.println("extendedProperties = null");
-System.out.println(entry.getExtendedProperties().size() + " extended properties");
 			for (ExtendedProperty property : entry.getExtendedProperties()) {
-System.out.println("hi");
-if(property == null)
-	System.out.println("property == null");
 				if (property.getValue() != null) {
 					System.out.println("  " + property.getName() + "(value) = "
 							+ property.getValue());
@@ -588,20 +557,17 @@ if(property == null)
 					System.out.println("  " + property.getName()
 							+ "(xmlBlob)= " + property.getXmlBlob().getBlob());
 				}
-
 			}
-
 			Link photoLink = entry.getContactPhotoLink();
 			String photoLinkHref = photoLink.getHref();
 			System.out.println("Photo Link: " + photoLinkHref);
-
 			if (photoLink.getEtag() != null) {
 				System.out.println("Contact Photo's ETag: "
 						+ photoLink.getEtag());
 			}
-
 			System.out.println("Contact's ETag: " + entry.getEtag());
 		}
+
 	}
 
 	/* This method will add a contact to that particular Google account */
@@ -629,7 +595,7 @@ System.out.println(contacts.size() + " Kontakte runtergeladen");
 				System.out.println(toStringWithContact(c));
 			}
 System.out.println("printAllContacts");
-			googleContactsAccess.printAllContacts();
+			DLI_GoogleContactsConnector.printAllContacts(googleContactsAccess.myService);
 
 			// Contact contact = new Contact();
 
