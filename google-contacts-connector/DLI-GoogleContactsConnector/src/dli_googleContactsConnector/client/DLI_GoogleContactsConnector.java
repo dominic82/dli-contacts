@@ -30,7 +30,6 @@ import com.google.gdata.data.extensions.StructuredPostalAddress;
 import com.google.gdata.util.AuthenticationException;
 import com.google.gdata.util.ServiceException;
 
-
 import dli_contacts.Contact;
 import dli_contacts.Contact.ContactType;
 
@@ -227,35 +226,35 @@ System.out.println("url erstellt");
 		Query myQuery = new Query(feedUrl);
 System.out.println("neuer Query");
 		ContactFeed resultFeed = null;
-		if(filter.getType()!=null){
-		String groupId = null;
-		switch (filter.getType()) {
-		case CUSTOMER:
-			groupId = customerGroupURL;
-			break;
-		case SUPPLIER:
-			groupId = supplierGroupURL;
-			break;
-		case EMPLOYEE:
-			groupId = employeeGroupURL;
-			break;
+		if (filter.getType() != null) {
+			String groupId = null;
+			switch (filter.getType()) {
+			case CUSTOMER:
+				groupId = customerGroupURL;
+				break;
+			case SUPPLIER:
+				groupId = supplierGroupURL;
+				break;
+			case EMPLOYEE:
+				groupId = employeeGroupURL;
+				break;
 
-		default:
-			break;
-		}
+			default:
+				break;
+			}
 System.out.println("erstelle query für gruppe");
-		myQuery.setStringCustomParameter("group", groupId);
+			myQuery.setStringCustomParameter("group", groupId);
 System.out.println("Query für Gruppe fertig");
-		// submit request
-		
-		try {
-			resultFeed = myService.query(myQuery, ContactFeed.class);
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (ServiceException e) {
-			e.printStackTrace();
-		}
-		}else{
+			// submit request
+
+			try {
+				resultFeed = myService.query(myQuery, ContactFeed.class);
+			} catch (IOException e) {
+				e.printStackTrace();
+			} catch (ServiceException e) {
+				e.printStackTrace();
+			}
+		} else {
 			try {
 				resultFeed = myService.getFeed(feedUrl, ContactFeed.class);
 			} catch (IOException e) {
@@ -308,14 +307,14 @@ System.out.println("Kontakte geholt, starte aussortieren");
 
 	private static Contact makeContact(ContactEntry ce) {
 		Contact result = new Contact();
-		result.setCity("");
-		result.setEmail("");
-		result.setFirstname("");
-		result.setLastname("");
-		result.setPhone("");
-		result.setStreet("");
-		result.setZipcode("");
-		result.setType(ContactType.CUSTOMER);
+//		result.setCity("");
+//		result.setEmail("");
+//		result.setFirstname("");
+//		result.setLastname("");
+//		result.setPhone("");
+//		result.setStreet("");
+//		result.setZipcode("");
+//		result.setType(ContactType.CUSTOMER);
 		if (ce.hasName()) {
 			Name name = ce.getName();
 			if (name.hasGivenName())
@@ -330,29 +329,29 @@ System.out.println("Kontakte geholt, starte aussortieren");
 			}
 
 		}
-		
-		for (StructuredPostalAddress adress : ce.getStructuredPostalAddresses()){
-			if(adress.getPrimary()){
+
+		for (StructuredPostalAddress adress : ce.getStructuredPostalAddresses()) {
+			if (adress.getPrimary()) {
 				result.setCity(adress.getCity().getValue());
 				result.setStreet(adress.getStreet().getValue());
 				result.setZipcode(adress.getPostcode().getValue());
 			}
 		}
-		
-		for(PhoneNumber phone : ce.getPhoneNumbers()){
-			if(phone.getPrimary()){
+
+		for (PhoneNumber phone : ce.getPhoneNumbers()) {
+			if (phone.getPrimary()) {
 				result.setPhone(phone.getPhoneNumber());
 			}
 		}
-		
-		for(GroupMembershipInfo group : ce.getGroupMembershipInfos()){
-			if(group.getHref().contentEquals(customerGroupURL)){
+
+		for (GroupMembershipInfo group : ce.getGroupMembershipInfos()) {
+			if (group.getHref().contentEquals(customerGroupURL)) {
 				result.setType(ContactType.CUSTOMER);
 			}
-			if(group.getHref().contentEquals(supplierGroupURL)){
+			if (group.getHref().contentEquals(supplierGroupURL)) {
 				result.setType(ContactType.SUPPLIER);
 			}
-			if(group.getHref().contentEquals(employeeGroupURL)){
+			if (group.getHref().contentEquals(employeeGroupURL)) {
 				result.setType(ContactType.EMPLOYEE);
 			}
 		}
@@ -392,14 +391,14 @@ System.out.println("Kontakte geholt, starte aussortieren");
 			nachname += c.getLastname() + "\n";
 		}
 
-		String email = "email: \t";
+		String email = "email: \t\t";
 		if (c.getEmail() == null) {
 			email += "null" + "\n";
 		} else {
 			email += c.getEmail() + "\n";
 		}
 
-		String phone = "phone: \t";
+		String phone = "phone: \t\t";
 		if (c.getPhone() == null) {
 			phone += "null" + "\n";
 		} else {
@@ -420,14 +419,14 @@ System.out.println("Kontakte geholt, starte aussortieren");
 			postal += c.getZipcode() + "\n";
 		}
 
-		String city = "city: \t";
+		String city = "city: \t\t";
 		if (c.getCity() == null) {
 			city += "null" + "\n";
 		} else {
 			city += c.getCity() + "\n";
 		}
 
-		String type = "type: \t";
+		String type = "type: \t\t";
 		if (c.getType() == null) {
 			type += "null" + "\n";
 		} else {
@@ -575,8 +574,13 @@ System.out.println("Kontakte geholt, starte aussortieren");
 			}
 
 			System.out.println("Extended Properties:");
+if(entry.getExtendedProperties() == null)
+	System.out.println("extendedProperties = null");
+System.out.println(entry.getExtendedProperties().size() + " extended properties");
 			for (ExtendedProperty property : entry.getExtendedProperties()) {
-
+System.out.println("hi");
+if(property == null)
+	System.out.println("property == null");
 				if (property.getValue() != null) {
 					System.out.println("  " + property.getName() + "(value) = "
 							+ property.getValue());
@@ -616,16 +620,20 @@ System.out.println("Kontakte geholt, starte aussortieren");
 			DLI_GoogleContactsConnector googleContactsAccess = new DLI_GoogleContactsConnector();
 System.out.println("DLI_GoogleContactsConnector erstellt und authentifiziert");
 			Contact filter = new Contact();
+			//filter.setFirstname("Dominic");
 System.out.println("Filter erstellt");
+System.out.println(toStringWithContact(filter));
 			List<Contact> contacts = googleContactsAccess.fetchContacts(filter);
-System.out.println("Kontakte runtergeladen");
-			for(Contact c : contacts){
+System.out.println(contacts.size() + " Kontakte runtergeladen");
+			for (Contact c : contacts) {
 				System.out.println(toStringWithContact(c));
 			}
-			
-			Contact contact = new Contact();
+System.out.println("printAllContacts");
+			googleContactsAccess.printAllContacts();
 
-			googleContactsAccess.createContact(contact);
+			// Contact contact = new Contact();
+
+			// googleContactsAccess.createContact(contact);
 
 		} catch (Exception ex) {
 			System.out.println(ex);
