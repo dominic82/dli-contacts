@@ -6,11 +6,12 @@ import de.metaframe.jabc.framework.sib.parameter.ContextKey;
 import de.metaframe.jabc.sib.Executable;
 
 import dli_contacts.Contact;
+import dli_contacts.sibs.gui.EditContactFrame;
 
 @SIBClass("editContact")
 public class EditContact implements Executable {
 
-    public final String[] BRANCHES = {"default", "error"};
+    public final String[] BRANCHES = {"selected", "cancel", "error"};
     public ContextKey contact = new ContextKey("contact");
 
     @Override
@@ -20,6 +21,13 @@ public class EditContact implements Executable {
 
             Contact person = (Contact) env.get(contact);
             System.out.println("EditContact: Name = " + person.getFirstname());
+            
+            //Start Frame and wait for Response
+            EditContactFrame frame = new EditContactFrame(person);
+            
+            //Handle Response
+            //EditContactFrame.ResultBranch result = frame.getResult();            
+            //env.put(contact, frame.getContact());
 
             return "default";
 

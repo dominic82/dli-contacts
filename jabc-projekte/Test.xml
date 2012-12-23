@@ -2,7 +2,7 @@
 <model version="2.1">
   <id>254c67b8-cefc-414b-911d-839c5c91ddb0</id>
   <name>Test</name>
-  <changecounter>22</changecounter>
+  <changecounter>23</changecounter>
   <sib>
     <id>21d390af-61cc-4516-820b-e656dcd00586</id>
     <name>ShowMessageDialog</name>
@@ -34,10 +34,10 @@
     <finalbranches>ok</finalbranches>
   </sib>
   <edge>
-    <source>d99adb40-6503-47f2-b291-890b69ac9db7</source>
+    <source>ba09b9cc-1839-4b6c-85c9-d748c8ab2b26</source>
     <target>21d390af-61cc-4516-820b-e656dcd00586</target>
-    <point>381.8478260869565,318.0</point>
-    <point>473.57142857142856,69.0</point>
+    <point>437.3076923076923,393.0</point>
+    <point>477.8048780487805,69.0</point>
     <labelposition>500.0,0.0</labelposition>
     <branch>default</branch>
   </edge>
@@ -103,19 +103,19 @@
   </sib>
   <edge>
     <source>6d20a952-93cb-431b-af3b-f7bdf97706c0</source>
-    <target>d99adb40-6503-47f2-b291-890b69ac9db7</target>
-    <point>228.0,363.7090909090909</point>
-    <point>357.0,340.25454545454545</point>
+    <target>ba09b9cc-1839-4b6c-85c9-d748c8ab2b26</target>
+    <point>228.0,370.32</point>
+    <point>417.0,408.12</point>
     <labelposition>500.0,0.0</labelposition>
     <branch>default</branch>
   </edge>
   <sib>
-    <id>d99adb40-6503-47f2-b291-890b69ac9db7</id>
-    <name>TestSIB</name>
-    <label>TestSIB</label>
-    <sib-uid>TestSIB</sib-uid>
-    <taxonomy>dli_contacts.sibs.TestSIB</taxonomy>
-    <position>349.0,318.0</position>
+    <id>ba09b9cc-1839-4b6c-85c9-d748c8ab2b26</id>
+    <name>EditContact</name>
+    <label>EditContact</label>
+    <sib-uid>editContact</sib-uid>
+    <taxonomy>dli_contacts.sibs.EditContact</taxonomy>
+    <position>354.0,348.0</position>
     <parameter name="contact">
       <de.metaframe.jabc.framework.sib.parameter.ContextKey>
         <ContextKeyFoundation>

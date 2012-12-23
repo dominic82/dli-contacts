@@ -2,13 +2,15 @@
 *~
 .*
 
-/sibs/target/
+*.class
 
 !/.gitignore
+
 /bericht/temp/
+
 /jabc-projekte/*.xml.*
+
 /google-contacts-connector/DLI-GoogleContactsConnector/src/sample
-/sibs/src/main/java/dli_contacts/Contact.class
-/sibs/src/main/java/dli_contacts/*.class
-/sibs/src/main/java/dli_contacts/sibs/*.class
-/sibs/src/main/java/test/sibs/*.class
+
+/sibs/target/
+
