@@ -214,6 +214,7 @@ System.out.println("entry ready");
 			
 		}
 		// sort out
+		System.out.println("sort out");
 		List<ContactEntry> ceResults = resultFeed.getEntries();
 		List<Contact> results = new ArrayList<Contact>();
 		for (ContactEntry ce : ceResults) {
@@ -544,7 +545,7 @@ System.out.println("entry ready");
 			DLI_GoogleContactsConnector googleContactsAccess = new DLI_GoogleContactsConnector();
 System.out.println("DLI_GoogleContactsConnector erstellt und authentifiziert");
 
-printAllGroups(googleContactsAccess.contactsURL, googleContactsAccess.myService);
+printAllGroups(googleContactsAccess.groupsURL, googleContactsAccess.myService);
 
 			Contact contact = new Contact();
 			contact.setFirstname("Markus");
