@@ -19,7 +19,7 @@ public class PutContact implements Executable {
         try {
             Contact person = new Contact();
             env.put(contact, person);
-            System.out.println("PutContact: Contact generated");
+            System.out.println("PutContact: Contact generated in Context " + contact.getKey());
             return "default";
 
         } catch (Exception e) {
