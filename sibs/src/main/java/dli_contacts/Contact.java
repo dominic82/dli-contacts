@@ -4,14 +4,14 @@ public class Contact {
 	
 	public static enum ContactType {CUSTOMER, SUPPLIER, EMPLOYEE}
 	
-	private String firstname;
-	private String lastname;
-	private String street;
-	private String zipcode;
-	private String city;
-	private String phone;
-	private String email;
-	private ContactType type;
+	private String firstname = "";
+	private String lastname = "";
+	private String street = "";
+	private String zipcode = "";
+	private String city = "";
+	private String phone = "";
+	private String email = "";
+	private ContactType type = ContactType.CUSTOMER;
 	
 	
 	public String getFirstname() {

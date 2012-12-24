@@ -2,7 +2,7 @@
 <model version="2.1">
   <id>254c67b8-cefc-414b-911d-839c5c91ddb0</id>
   <name>Test</name>
-  <changecounter>23</changecounter>
+  <changecounter>25</changecounter>
   <sib>
     <id>21d390af-61cc-4516-820b-e656dcd00586</id>
     <name>ShowMessageDialog</name>
@@ -36,10 +36,11 @@
   <edge>
     <source>ba09b9cc-1839-4b6c-85c9-d748c8ab2b26</source>
     <target>21d390af-61cc-4516-820b-e656dcd00586</target>
-    <point>437.3076923076923,393.0</point>
-    <point>477.8048780487805,69.0</point>
+    <point>395.29411764705884,348.0</point>
+    <point>475.0,69.0</point>
     <labelposition>500.0,0.0</labelposition>
-    <branch>default</branch>
+    <branch>cancel</branch>
+    <branch>selected</branch>
   </edge>
   <sib>
     <id>02f60203-f8ef-40c5-adab-0dd9f4b97272</id>
@@ -125,8 +126,9 @@
         </ContextKeyFoundation>
       </de.metaframe.jabc.framework.sib.parameter.ContextKey>
     </parameter>
-    <finalbranches>default</finalbranches>
+    <finalbranches>cancel</finalbranches>
     <finalbranches>error</finalbranches>
+    <finalbranches>selected</finalbranches>
   </sib>
   <values/>
 </model>

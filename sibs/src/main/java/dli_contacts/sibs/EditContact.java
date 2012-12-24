@@ -18,19 +18,27 @@ public class EditContact implements Executable {
     public String trace(ExecutionEnvironment env) {
 
         try {
-
             Contact person = (Contact) env.get(contact);
-            System.out.println("EditContact: Name = " + person.getFirstname());
-            
-            //Start Frame and wait for Response
-            EditContactFrame frame = new EditContactFrame("Kontakt suchen",person);
-            
-            //Handle Response
-            //EditContactFrame.ResultBranch result = frame.getResult();            
-            //env.put(contact, frame.getContact());
+            System.out.println("EditContact: Dialog geöffnet");
 
-            return "default";
+            synchronized (this) {
+                EditContactFrame frame = new EditContactFrame("Kontakt suchen", person, this);
 
+                this.wait();
+
+                EditContactFrame.ResultBranch result = frame.getResult();
+                env.put(contact, frame.getContact());
+                System.out.println("EditContact: Dialog geschlossen mit " + result);
+
+                switch (result) {
+                    case SELECT:
+                        return "selected";
+                    case CANCEL:
+                    case UNKNOWN:
+                    default:
+                        return "cancel";
+                }
+            }
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return "error";
