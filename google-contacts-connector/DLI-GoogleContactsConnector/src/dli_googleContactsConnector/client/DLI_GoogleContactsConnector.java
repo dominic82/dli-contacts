@@ -94,7 +94,7 @@ System.out.println("create entry");
 		PhoneNumber phoneNumber = new PhoneNumber();
 		phoneNumber.setPhoneNumber(contactInfo.getPhone());
 		phoneNumber.setPrimary(true);
-		phoneNumber.setLabel("Primär");
+		phoneNumber.setLabel("Primaer");
 		contact.addPhoneNumber(phoneNumber);
 		}
 		// Adresse >> es kann NICHT NUR eine geben
@@ -104,7 +104,7 @@ System.out.println("create entry");
 		adresse.setPostcode(new PostCode(contactInfo.getZipcode()));
 		adresse.setStreet(new Street(contactInfo.getStreet()));
 		adresse.setPrimary(true);
-		adresse.setLabel("Primär");
+		adresse.setLabel("Primaer");
 		contact.addStructuredPostalAddress(adresse);
 		}
 
@@ -172,7 +172,7 @@ System.out.println("entry ready");
 	}
 
 	/**
-	 * Sucht die Kontakte, die mit dem filter übereinstimmen
+	 * Sucht die Kontakte, die mit dem filter ï¿½bereinstimmen
 	 * 
 	 * @param filter
 	 * @param myService
@@ -318,7 +318,7 @@ System.out.println("entry ready");
 		if (cs) {
 			cs = cs || (!c.getFirstname().isEmpty());
 		}
-		// TODO gleiches für die Firma nochmal
+		// TODO gleiches fï¿½r die Firma nochmal
 		return cs;
 	}
 
@@ -576,7 +576,7 @@ System.out.println("printAllContacts");
 	}
 
 	/**
-	 * Beispielcode für die suche in Google
+	 * Beispielcode fï¿½r die suche in Google
 	 * 
 	 * @param myService
 	 * @param startTime

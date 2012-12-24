@@ -23,7 +23,7 @@ public class EditContact implements Executable {
             System.out.println("EditContact: Name = " + person.getFirstname());
             
             //Start Frame and wait for Response
-            EditContactFrame frame = new EditContactFrame(person);
+            EditContactFrame frame = new EditContactFrame("Kontakt suchen",person);
             
             //Handle Response
             //EditContactFrame.ResultBranch result = frame.getResult();            
