@@ -12,6 +12,8 @@ public class DummyConnector extends ContactsConnector {
     private Contact person3 = new Contact();
 
     public DummyConnector() {
+        person1.setGoogleId("g1");
+        person1.setSapId("s1");
         person1.setFirstname("Dominic");
         person1.setLastname("Wirkner");
         person1.setStreet("Unter den Bäumen");
@@ -21,6 +23,8 @@ public class DummyConnector extends ContactsConnector {
         person1.setEmail("dw@mail.de");
         person1.setType(ContactType.CUSTOMER);
 
+        person2.setGoogleId("g2");
+        person2.setSapId("s2");
         person2.setFirstname("Thorben");
         person2.setLastname("Seeland");
         person2.setStreet("Hinter den sieben Bergen");
@@ -30,6 +34,8 @@ public class DummyConnector extends ContactsConnector {
         person2.setEmail("ts@mail.de");
         person1.setType(ContactType.SUPPLIER);
 
+        person3.setGoogleId("g3");
+        person3.setSapId("s3");
         person3.setFirstname("Markus");
         person3.setLastname("Marzotko");
         person3.setStreet("nächste links");
@@ -55,7 +61,7 @@ public class DummyConnector extends ContactsConnector {
     }
 
     @Override
-    public List<Contact> getSapContacts(Contact contact) {
+    public List<Contact> getSapContacts(Contact filter) {
         List<Contact> list = new ArrayList<Contact>();
 
         list.add(person1);
@@ -68,7 +74,7 @@ public class DummyConnector extends ContactsConnector {
     }
 
     @Override
-    public List<Contact> getGoogleContacts(Contact contact) {
+    public List<Contact> getGoogleContacts(Contact filter) {
         List<Contact> list = new ArrayList<Contact>();
 
         list.add(person1);
@@ -84,6 +90,5 @@ public class DummyConnector extends ContactsConnector {
     public void addGoogleContact(Contact contact) {
 
         System.out.println("DummyConnector: add Google-Contact");
-        System.out.println("Contact-Data: " + contact.getFirstname() + " " + contact.getLastname());
     }
 }

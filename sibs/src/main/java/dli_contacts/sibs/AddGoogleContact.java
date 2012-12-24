@@ -23,10 +23,12 @@ public class AddGoogleContact implements Executable {
             ContactsConnector con = new DummyConnector();
             con.addGoogleContact(person);
             
+            System.out.println("AddGoogleContact: added Contact '" + person.getFirstname() + " " + person.getLastname() + "'");
+            
             return "default";
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            System.out.println(e);
             return "error";
         }
 

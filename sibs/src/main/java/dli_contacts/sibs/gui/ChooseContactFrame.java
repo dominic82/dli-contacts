@@ -19,7 +19,7 @@ import javax.swing.JList;
 public class ChooseContactFrame extends JFrame implements ActionListener {
 
     private List<Contact> contacts = new ArrayList<Contact>();
-    private Object lock = new Object();
+    private Contact contact = new Contact();
 
     public static enum ResultBranch {OK, CANCEL, UNKNOWN}
     private ResultBranch result = ResultBranch.UNKNOWN;
@@ -35,20 +35,12 @@ public class ChooseContactFrame extends JFrame implements ActionListener {
         initializeWindow();
     }
 
-    public ChooseContactFrame(String title, List<Contact> list, Object lock) {
-        this(title, list);
-        this.lock = lock;
-    }
-
     private void initializeWindow() {
         
         // Inhalte initialisieren
         DefaultListModel model = new DefaultListModel();
-        int i = 0;
-        for(Contact contact: contacts) {
-            String entry = contact.getFirstname() + " " + contact.getLastname();
-            i++;
-            model.addElement(entry);
+        for(Contact person: contacts) {
+            model.addElement(person);
         }
         listContacts = new JList(model);
 
@@ -93,24 +85,37 @@ public class ChooseContactFrame extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent ae) {
         
-        System.out.println("ChooseContactFrame: List size() = " + contacts.size());
-
         if (ae.getSource() == buttonCancel) {
             result = ResultBranch.CANCEL;
         }
 
         if (ae.getSource() == buttonSelect) {
-
+            Contact person = (Contact) listContacts.getSelectedValue();
+            
+            contact.setFirstname(person.getFirstname());
+            contact.setLastname(person.getLastname());
+            contact.setStreet(person.getStreet());
+            contact.setZipcode(person.getZipcode());
+            contact.setCity(person.getCity());
+            contact.setPhone(person.getPhone());
+            contact.setEmail(person.getEmail());
+            contact.setGoogleId(person.getGoogleId());
+            contact.setSapId(person.getSapId());
+            
             result = ResultBranch.OK;
         }
 
-        synchronized (lock) {
-            lock.notify();
+        synchronized (this) {
+            this.notify();
         }
 
         dispose();
     }
 
+    public Contact getContact() {
+        return contact;
+    }
+    
     public ResultBranch getResult() {
         return result;
     }

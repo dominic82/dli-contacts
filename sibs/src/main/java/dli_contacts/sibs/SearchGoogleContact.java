@@ -21,14 +21,15 @@ public class SearchGoogleContact implements Executable {
     public String trace(ExecutionEnvironment env) {
 
         try {
-            Contact person = (Contact) env.get(contact);
+            Contact filter = (Contact) env.get(contact);
             
             ContactsConnector con = new DummyConnector();
-            List<Contact> list = con.getGoogleContacts(person);
+            List<Contact> list = con.getGoogleContacts(filter);
             
             env.put(contactList, list);
+            System.out.println("SearchGoogleContact: got " + list.size() + " results");
             
-            if (list.size() == 0) {
+            if (list.isEmpty()) {
                 return "not found";
             }
             if (list.size() > 0) {
@@ -37,7 +38,7 @@ public class SearchGoogleContact implements Executable {
             return "error";
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            System.out.println(e);
             return "error";
         }
 

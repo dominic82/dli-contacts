@@ -2,19 +2,19 @@
 <model version="2.1">
   <id>254c67b8-cefc-414b-911d-839c5c91ddb0</id>
   <name>Test</name>
-  <changecounter>26</changecounter>
+  <changecounter>30</changecounter>
   <sib>
     <id>21d390af-61cc-4516-820b-e656dcd00586</id>
     <name>ShowMessageDialog</name>
     <label>ShowMessageDialog</label>
     <sib-uid>exercise-sibs/ShowMessageDialog</sib-uid>
     <taxonomy>tudo.sib.exercise.ShowMessageDialog</taxonomy>
-    <position>417.5,33.0</position>
+    <position>72.5,528.0</position>
     <parameter name="dialogTitle">
-      <string>Title</string>
+      <string>Test</string>
     </parameter>
     <parameter name="messageText">
-      <string>Message</string>
+      <string>Test endet</string>
     </parameter>
     <parameter name="messageType">
       <de.metaframe.common.sib.parameter.ListBox>
@@ -33,27 +33,18 @@
     <finalbranches>error</finalbranches>
     <finalbranches>ok</finalbranches>
   </sib>
-  <edge>
-    <source>ba09b9cc-1839-4b6c-85c9-d748c8ab2b26</source>
-    <target>21d390af-61cc-4516-820b-e656dcd00586</target>
-    <point>395.29411764705884,348.0</point>
-    <point>475.0,69.0</point>
-    <labelposition>500.0,0.0</labelposition>
-    <branch>cancel</branch>
-    <branch>ok</branch>
-  </edge>
   <sib>
     <id>02f60203-f8ef-40c5-adab-0dd9f4b97272</id>
     <name>ShowMessageDialog_1</name>
     <label>ShowMessageDialog</label>
     <sib-uid>exercise-sibs/ShowMessageDialog</sib-uid>
     <taxonomy>tudo.sib.exercise.ShowMessageDialog</taxonomy>
-    <position>117.5,33.0</position>
+    <position>72.5,93.0</position>
     <parameter name="dialogTitle">
-      <string>Title</string>
+      <string>Test</string>
     </parameter>
     <parameter name="messageText">
-      <string>Message</string>
+      <string>Test startet</string>
     </parameter>
     <parameter name="messageType">
       <de.metaframe.common.sib.parameter.ListBox>
@@ -77,38 +68,11 @@
   </sib>
   <edge>
     <source>02f60203-f8ef-40c5-adab-0dd9f4b97272</source>
-    <target>6d20a952-93cb-431b-af3b-f7bdf97706c0</target>
-    <point>181.66666666666666,69.0</point>
-    <point>208.23529411764707,348.0</point>
+    <target>5e804012-40b0-4a39-94c4-a487a98c5323</target>
+    <point>135.0,129.0</point>
+    <point>135.0,228.0</point>
     <labelposition>500.0,0.0</labelposition>
     <branch>ok</branch>
-  </edge>
-  <sib>
-    <id>6d20a952-93cb-431b-af3b-f7bdf97706c0</id>
-    <name>PutContact</name>
-    <label>PutContact</label>
-    <sib-uid>putContact</sib-uid>
-    <taxonomy>dli_contacts.sibs.PutContact</taxonomy>
-    <position>175.5,348.0</position>
-    <parameter name="contact">
-      <de.metaframe.jabc.framework.sib.parameter.ContextKey>
-        <ContextKeyFoundation>
-          <key>contact</key>
-          <scope>GLOBAL</scope>
-          <scopeMutable>false</scopeMutable>
-        </ContextKeyFoundation>
-      </de.metaframe.jabc.framework.sib.parameter.ContextKey>
-    </parameter>
-    <finalbranches>default</finalbranches>
-    <finalbranches>error</finalbranches>
-  </sib>
-  <edge>
-    <source>6d20a952-93cb-431b-af3b-f7bdf97706c0</source>
-    <target>ba09b9cc-1839-4b6c-85c9-d748c8ab2b26</target>
-    <point>228.0,370.32</point>
-    <point>417.0,408.12</point>
-    <labelposition>500.0,0.0</labelposition>
-    <branch>default</branch>
   </edge>
   <sib>
     <id>ba09b9cc-1839-4b6c-85c9-d748c8ab2b26</id>
@@ -116,7 +80,7 @@
     <label>EditContact</label>
     <sib-uid>editContact</sib-uid>
     <taxonomy>dli_contacts.sibs.EditContact</taxonomy>
-    <position>354.0,348.0</position>
+    <position>264.0,228.0</position>
     <parameter name="contact">
       <de.metaframe.jabc.framework.sib.parameter.ContextKey>
         <ContextKeyFoundation>
@@ -130,5 +94,171 @@
     <finalbranches>error</finalbranches>
     <finalbranches>ok</finalbranches>
   </sib>
+  <sib>
+    <id>fd283f0a-cc11-4e82-86f8-5e7d10d0e627</id>
+    <name>EditContact_1</name>
+    <label>EditContact</label>
+    <sib-uid>editContact</sib-uid>
+    <taxonomy>dli_contacts.sibs.EditContact</taxonomy>
+    <position>279.0,378.0</position>
+    <parameter name="contact">
+      <de.metaframe.jabc.framework.sib.parameter.ContextKey>
+        <ContextKeyFoundation>
+          <key>contact</key>
+          <scope>GLOBAL</scope>
+          <scopeMutable>false</scopeMutable>
+        </ContextKeyFoundation>
+      </de.metaframe.jabc.framework.sib.parameter.ContextKey>
+    </parameter>
+    <finalbranches>cancel</finalbranches>
+    <finalbranches>error</finalbranches>
+    <finalbranches>ok</finalbranches>
+  </sib>
+  <sib>
+    <id>3f9c9947-b9ca-428f-ae5e-1f977b76aba6</id>
+    <name>AddGoogleContact</name>
+    <label>AddGoogleContact</label>
+    <sib-uid>addGoogleContact</sib-uid>
+    <taxonomy>dli_contacts.sibs.AddGoogleContact</taxonomy>
+    <position>79.0,378.0</position>
+    <parameter name="contact">
+      <de.metaframe.jabc.framework.sib.parameter.ContextKey>
+        <ContextKeyFoundation>
+          <key>contact</key>
+          <scope>GLOBAL</scope>
+          <scopeMutable>false</scopeMutable>
+        </ContextKeyFoundation>
+      </de.metaframe.jabc.framework.sib.parameter.ContextKey>
+    </parameter>
+    <finalbranches>default</finalbranches>
+    <finalbranches>error</finalbranches>
+  </sib>
+  <sib>
+    <id>d097859f-4e26-47b2-b8d0-28ba6ee3b69d</id>
+    <name>ChooseContact</name>
+    <label>ChooseContact</label>
+    <sib-uid>chooseContact</sib-uid>
+    <taxonomy>dli_contacts.sibs.ChooseContact</taxonomy>
+    <position>433.0,378.0</position>
+    <parameter name="contact">
+      <de.metaframe.jabc.framework.sib.parameter.ContextKey>
+        <ContextKeyFoundation>
+          <key>contact</key>
+          <scope>GLOBAL</scope>
+          <scopeMutable>false</scopeMutable>
+        </ContextKeyFoundation>
+      </de.metaframe.jabc.framework.sib.parameter.ContextKey>
+    </parameter>
+    <parameter name="contactList">
+      <de.metaframe.jabc.framework.sib.parameter.ContextKey>
+        <ContextKeyFoundation>
+          <key>contactList</key>
+          <scope>GLOBAL</scope>
+          <scopeMutable>false</scopeMutable>
+        </ContextKeyFoundation>
+      </de.metaframe.jabc.framework.sib.parameter.ContextKey>
+    </parameter>
+    <finalbranches>cancel</finalbranches>
+    <finalbranches>error</finalbranches>
+    <finalbranches>ok</finalbranches>
+  </sib>
+  <sib>
+    <id>1faa02c7-7e69-4fa5-83f4-867070e8db05</id>
+    <name>SearchGoogleContact</name>
+    <label>SearchGoogleContact</label>
+    <sib-uid>searchGoogleContact</sib-uid>
+    <taxonomy>dli_contacts.sibs.SearchGoogleContact</taxonomy>
+    <position>414.5,228.0</position>
+    <parameter name="contact">
+      <de.metaframe.jabc.framework.sib.parameter.ContextKey>
+        <ContextKeyFoundation>
+          <key>contact</key>
+          <scope>GLOBAL</scope>
+          <scopeMutable>false</scopeMutable>
+        </ContextKeyFoundation>
+      </de.metaframe.jabc.framework.sib.parameter.ContextKey>
+    </parameter>
+    <parameter name="contactList">
+      <de.metaframe.jabc.framework.sib.parameter.ContextKey>
+        <ContextKeyFoundation>
+          <key>contactList</key>
+          <scope>GLOBAL</scope>
+          <scopeMutable>false</scopeMutable>
+        </ContextKeyFoundation>
+      </de.metaframe.jabc.framework.sib.parameter.ContextKey>
+    </parameter>
+    <finalbranches>error</finalbranches>
+    <finalbranches>found</finalbranches>
+    <finalbranches>not found</finalbranches>
+  </sib>
+  <edge>
+    <source>ba09b9cc-1839-4b6c-85c9-d748c8ab2b26</source>
+    <target>1faa02c7-7e69-4fa5-83f4-867070e8db05</target>
+    <point>303.0,192.36923076923077</point>
+    <point>462.0,241.2923076923077</point>
+    <labelposition>500.0,0.0</labelposition>
+    <branch>cancel</branch>
+    <branch>ok</branch>
+  </edge>
+  <edge>
+    <source>1faa02c7-7e69-4fa5-83f4-867070e8db05</source>
+    <target>d097859f-4e26-47b2-b8d0-28ba6ee3b69d</target>
+    <point>285.0,255.0</point>
+    <point>495.0,255.0</point>
+    <labelposition>500.0,0.0</labelposition>
+    <branch>found</branch>
+    <branch>not found</branch>
+  </edge>
+  <edge>
+    <source>d097859f-4e26-47b2-b8d0-28ba6ee3b69d</source>
+    <target>fd283f0a-cc11-4e82-86f8-5e7d10d0e627</target>
+    <point>495.0,255.0</point>
+    <point>495.0,405.0</point>
+    <labelposition>500.0,0.0</labelposition>
+    <branch>cancel</branch>
+    <branch>ok</branch>
+  </edge>
+  <edge>
+    <source>fd283f0a-cc11-4e82-86f8-5e7d10d0e627</source>
+    <target>3f9c9947-b9ca-428f-ae5e-1f977b76aba6</target>
+    <point>510.0,255.0</point>
+    <point>206.0,397.0</point>
+    <branch>cancel</branch>
+    <branch>ok</branch>
+  </edge>
+  <edge>
+    <source>3f9c9947-b9ca-428f-ae5e-1f977b76aba6</source>
+    <target>21d390af-61cc-4516-820b-e656dcd00586</target>
+    <point>135.0,405.0</point>
+    <point>135.0,555.0</point>
+    <labelposition>500.0,0.0</labelposition>
+    <branch>default</branch>
+  </edge>
+  <sib>
+    <id>5e804012-40b0-4a39-94c4-a487a98c5323</id>
+    <name>PutContact</name>
+    <label>PutContact</label>
+    <sib-uid>putContact</sib-uid>
+    <taxonomy>dli_contacts.sibs.PutContact</taxonomy>
+    <position>100.5,228.0</position>
+    <parameter name="contact">
+      <de.metaframe.jabc.framework.sib.parameter.ContextKey>
+        <ContextKeyFoundation>
+          <key>contact</key>
+          <scope>GLOBAL</scope>
+          <scopeMutable>false</scopeMutable>
+        </ContextKeyFoundation>
+      </de.metaframe.jabc.framework.sib.parameter.ContextKey>
+    </parameter>
+    <finalbranches>default</finalbranches>
+    <finalbranches>error</finalbranches>
+  </sib>
+  <edge>
+    <source>5e804012-40b0-4a39-94c4-a487a98c5323</source>
+    <target>ba09b9cc-1839-4b6c-85c9-d748c8ab2b26</target>
+    <point>135.0,255.0</point>
+    <point>287.0,238.0</point>
+    <branch>default</branch>
+  </edge>
   <values/>
 </model>

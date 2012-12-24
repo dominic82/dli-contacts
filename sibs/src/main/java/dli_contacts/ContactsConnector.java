@@ -5,7 +5,7 @@ import java.util.List;
 
 public class ContactsConnector {
 
-    public List<Contact> getSapContacts(Contact contact) {
+    public List<Contact> getSapContacts(Contact filter) {
         List<Contact> result = new ArrayList<Contact>();
 
         System.out.println("ContactsConnector: get SAP Contacts");
@@ -13,7 +13,7 @@ public class ContactsConnector {
         return result;
     }
 
-    public List<Contact> getGoogleContacts(Contact contact) {
+    public List<Contact> getGoogleContacts(Contact filter) {
         List<Contact> result = new ArrayList<Contact>();
 
         System.out.println("ContactsConnector: get Google Contacts");

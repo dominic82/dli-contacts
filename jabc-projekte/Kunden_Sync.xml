@@ -2,7 +2,7 @@
 <model version="2.1">
   <id>d7e06782-e187-4cde-8336-713f124e0449</id>
   <name>Kunden_Sync</name>
-  <changecounter>18</changecounter>
+  <changecounter>19</changecounter>
   <sib>
     <id>cbbb07b1-66fc-408b-9858-ed9c1f62ceac</id>
     <name>PutContact</name>
@@ -78,7 +78,6 @@
         </ContextKeyFoundation>
       </de.metaframe.jabc.framework.sib.parameter.ContextKey>
     </parameter>
-    <finalbranches>default</finalbranches>
     <finalbranches>error</finalbranches>
     <finalbranches>found</finalbranches>
     <finalbranches>not found</finalbranches>
@@ -117,9 +116,8 @@
       </de.metaframe.jabc.framework.sib.parameter.ContextKey>
     </parameter>
     <finalbranches>cancel</finalbranches>
-    <finalbranches>default</finalbranches>
     <finalbranches>error</finalbranches>
-    <finalbranches>selected</finalbranches>
+    <finalbranches>ok</finalbranches>
   </sib>
   <edge>
     <source>6269d42e-a684-494e-8ddd-f8bf7605beb7</source>
@@ -165,7 +163,7 @@
     <point>645.0,285.0</point>
     <point>645.0,600.0</point>
     <labelposition>500.0,0.0</labelposition>
-    <branch>selected</branch>
+    <branch>ok</branch>
   </edge>
   <sib>
     <id>8fa2924f-c0a3-4d85-a0f8-092667ca30a6</id>
@@ -192,7 +190,6 @@
         </ContextKeyFoundation>
       </de.metaframe.jabc.framework.sib.parameter.ContextKey>
     </parameter>
-    <finalbranches>default</finalbranches>
     <finalbranches>error</finalbranches>
     <finalbranches>found</finalbranches>
     <finalbranches>not found</finalbranches>
@@ -223,9 +220,8 @@
       </de.metaframe.jabc.framework.sib.parameter.ContextKey>
     </parameter>
     <finalbranches>cancel</finalbranches>
-    <finalbranches>default</finalbranches>
     <finalbranches>error</finalbranches>
-    <finalbranches>selected</finalbranches>
+    <finalbranches>ok</finalbranches>
   </sib>
   <edge>
     <source>8fa2924f-c0a3-4d85-a0f8-092667ca30a6</source>
@@ -288,7 +284,7 @@
     <point>135.0,420.0</point>
     <point>300.0,600.0</point>
     <labelposition>500.0,0.0</labelposition>
-    <branch>selected</branch>
+    <branch>ok</branch>
   </edge>
   <edge>
     <source>ab0e78b5-5b24-40c0-975a-84274329dd53</source>

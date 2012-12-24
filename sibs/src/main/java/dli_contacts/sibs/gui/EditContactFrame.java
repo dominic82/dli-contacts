@@ -17,8 +17,6 @@ public class EditContactFrame extends JFrame implements ActionListener {
 
     private Contact contact = new Contact();
     
-    private Object lock = new Object();
-
     public static enum ResultBranch {OK, CANCEL, UNKNOWN}
     private ResultBranch result = ResultBranch.UNKNOWN;
     
@@ -47,11 +45,6 @@ public class EditContactFrame extends JFrame implements ActionListener {
         initializeWindow();
     }
     
-    public EditContactFrame(String title, Contact person, Object lock) {
-        this(title, person);
-        this.lock = lock;
-    }
-
     private void initializeWindow() {
 
         // Inhalte initialisieren
@@ -177,8 +170,8 @@ public class EditContactFrame extends JFrame implements ActionListener {
             result = ResultBranch.OK;
         }
         
-        synchronized (lock) {
-            lock.notify();
+        synchronized (this) {
+            this.notify();
         }
         
         dispose();
