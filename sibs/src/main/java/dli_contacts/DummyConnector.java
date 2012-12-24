@@ -56,28 +56,28 @@ public class DummyConnector extends ContactsConnector {
 
     @Override
     public List<Contact> getSapContacts(Contact contact) {
-        List<Contact> result = new ArrayList<Contact>();
+        List<Contact> list = new ArrayList<Contact>();
 
-        result.add(person1);
-        result.add(person2);
-        result.add(person3);
+        list.add(person1);
+        list.add(person2);
+        list.add(person3);
 
         System.out.println("DummyConnector: get SAP-Contacts");
 
-        return result;
+        return list;
     }
 
     @Override
     public List<Contact> getGoogleContacts(Contact contact) {
-        List<Contact> result = new ArrayList<Contact>();
+        List<Contact> list = new ArrayList<Contact>();
 
-        result.add(person1);
-        result.add(person2);
-        result.add(person3);
+        list.add(person1);
+        list.add(person2);
+        list.add(person3);
 
         System.out.println("DummyConnector: get Google-Contacts");
 
-        return result;
+        return list;
     }
 
     @Override

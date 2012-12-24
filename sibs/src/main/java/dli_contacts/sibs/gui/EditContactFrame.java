@@ -8,7 +8,6 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.concurrent.Semaphore;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JButton;
@@ -20,7 +19,7 @@ public class EditContactFrame extends JFrame implements ActionListener {
     
     private Object lock = new Object();
 
-    public static enum ResultBranch {SELECT, CANCEL, UNKNOWN}
+    public static enum ResultBranch {OK, CANCEL, UNKNOWN}
     private ResultBranch result = ResultBranch.UNKNOWN;
     
     private JLabel labelFirstname = new JLabel("Vorname: ");
@@ -175,7 +174,7 @@ public class EditContactFrame extends JFrame implements ActionListener {
             contact.setPhone(fieldPhone.getText());
             contact.setEmail(fieldEmail.getText());
             
-            result = ResultBranch.SELECT;
+            result = ResultBranch.OK;
         }
         
         synchronized (lock) {

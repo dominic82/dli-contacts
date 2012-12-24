@@ -2,7 +2,7 @@
 <model version="2.1">
   <id>d7e06782-e187-4cde-8336-713f124e0449</id>
   <name>Kunden_Sync</name>
-  <changecounter>16</changecounter>
+  <changecounter>18</changecounter>
   <sib>
     <id>cbbb07b1-66fc-408b-9858-ed9c1f62ceac</id>
     <name>PutContact</name>
@@ -41,8 +41,9 @@
         </ContextKeyFoundation>
       </de.metaframe.jabc.framework.sib.parameter.ContextKey>
     </parameter>
-    <finalbranches>default</finalbranches>
+    <finalbranches>cancel</finalbranches>
     <finalbranches>error</finalbranches>
+    <finalbranches>ok</finalbranches>
   </sib>
   <edge>
     <source>cbbb07b1-66fc-408b-9858-ed9c1f62ceac</source>
@@ -88,7 +89,7 @@
     <point>300.0,165.0</point>
     <point>300.0,285.0</point>
     <labelposition>500.0,0.0</labelposition>
-    <branch>default</branch>
+    <branch>ok</branch>
   </edge>
   <sib>
     <id>bc7acec5-a0ea-4085-ad64-dc186ec87814</id>
@@ -277,8 +278,9 @@
         </ContextKeyFoundation>
       </de.metaframe.jabc.framework.sib.parameter.ContextKey>
     </parameter>
-    <finalbranches>default</finalbranches>
+    <finalbranches>cancel</finalbranches>
     <finalbranches>error</finalbranches>
+    <finalbranches>ok</finalbranches>
   </sib>
   <edge>
     <source>dd2ea9c4-fe2e-42a8-bbf7-0e32a09cfac3</source>
@@ -294,7 +296,7 @@
     <point>495.0,420.0</point>
     <point>300.0,600.0</point>
     <labelposition>500.0,0.0</labelposition>
-    <branch>default</branch>
+    <branch>ok</branch>
   </edge>
   <edge>
     <source>6269d42e-a684-494e-8ddd-f8bf7605beb7</source>

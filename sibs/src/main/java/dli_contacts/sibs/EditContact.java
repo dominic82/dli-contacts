@@ -11,7 +11,7 @@ import dli_contacts.sibs.gui.EditContactFrame;
 @SIBClass("editContact")
 public class EditContact implements Executable {
 
-    public final String[] BRANCHES = {"selected", "cancel", "error"};
+    public final String[] BRANCHES = {"ok", "cancel", "error"};
     public ContextKey contact = new ContextKey("contact");
 
     @Override
@@ -31,8 +31,8 @@ public class EditContact implements Executable {
                 System.out.println("EditContact: Dialog geschlossen mit " + result);
 
                 switch (result) {
-                    case SELECT:
-                        return "selected";
+                    case OK:
+                        return "ok";
                     case CANCEL:
                     case UNKNOWN:
                     default:
