@@ -11,12 +11,30 @@ public class Contact {
     private String sapId = "";
     private String firstname = "";
     private String lastname = "";
+    private String company = "";
     private String street = "";
     private String zipcode = "";
     private String city = "";
     private String phone = "";
     private String email = "";
     private ContactType type = ContactType.CUSTOMER;
+    
+    public static enum ValidationErrors {
+        FIRSTNAME_INCORRECT, LASTNAME_INCORRECT, COMPANY_INCORRECT, STREET_INCORRECT, 
+        ZIPCODE_INCORRECT, CITY_INCORRECT, PHONE_INCORRECT, EMAIL_INCORRECT
+    }
+    
+    public void validate() throws Exception {
+        if (firstname.isEmpty()) {
+            throw new Exception("Contact Validation Error!");
+        }
+    }
+
+    @Override
+    public String toString() {
+        String output = getFirstname() + " " + getLastname() + ", " + getCity();
+        return output;
+    }
 
     public String getGoogleId() {
         return googleId;
@@ -50,6 +68,14 @@ public class Contact {
         this.lastname = lastname;
     }
 
+    public String getCompany() {
+        return company;
+    }
+    
+    public void setCompany(String company) {
+        this.company = company;
+    }
+    
     public String getStreet() {
         return street;
     }
