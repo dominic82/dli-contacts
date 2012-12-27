@@ -1,5 +1,8 @@
 package dli_contacts;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Contact {
 
     public static enum ContactType {
@@ -24,15 +27,20 @@ public class Contact {
         ZIPCODE_INCORRECT, CITY_INCORRECT, PHONE_INCORRECT, EMAIL_INCORRECT
     }
     
-    public void validate() throws Exception {
+    public List<ValidationErrors> validate() {
+        List<ValidationErrors> errors = new ArrayList<ValidationErrors>();
         if (firstname.isEmpty()) {
-            throw new Exception("Contact Validation Error!");
+            errors.add(ValidationErrors.FIRSTNAME_INCORRECT);
         }
+        return errors;
     }
 
     @Override
     public String toString() {
-        String output = getFirstname() + " " + getLastname() + ", " + getCity();
+        String output = "";
+        output += getFirstname() + " " + getLastname();
+        if (!getCompany().isEmpty()) output += ", " + getCompany();
+        output += ", " + getCity();
         return output;
     }
 

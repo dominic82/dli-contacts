@@ -8,6 +8,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JButton;
@@ -167,7 +168,6 @@ public class EditContactFrame extends JFrame implements ActionListener {
 
         if (ae.getSource() == buttonCancel) {
             result = ResultBranch.CANCEL;
-
             synchronized (this) {
                 this.notify();
             }
@@ -185,21 +185,20 @@ public class EditContactFrame extends JFrame implements ActionListener {
             contact.setPhone(fieldPhone.getText());
             contact.setEmail(fieldEmail.getText());
 
-            try {
-                contact.validate();
-            } catch (Exception e) {
-                //Fehlerausgabe
-                System.out.println(e);
-                return;
+            List<Contact.ValidationErrors> errors = contact.validate();
+            if (errors.isEmpty()) {
+                result = ResultBranch.OK;
+                synchronized (this) {
+                    this.notify();
+                }
+                dispose();
+            } else {
+                //TODO Fehlerbehandlung
+                System.out.println("Contact Validation Error!");
             }
-
-            result = ResultBranch.OK;
-
-            synchronized (this) {
-                this.notify();
-            }
-            dispose();
         }
+
+
     }
 
     public Contact getContact() {

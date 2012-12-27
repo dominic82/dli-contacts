@@ -13,13 +13,14 @@ public class EditContact implements Executable {
 
     public final String[] BRANCHES = {"ok", "cancel", "error"};
     public ContextKey contact = new ContextKey("contact");
+    public String title = "Kontakt bearbeiten";
 
     @Override
     public String trace(ExecutionEnvironment env) {
 
         try {
             Contact person = (Contact) env.get(contact);
-            EditContactFrame frame = new EditContactFrame("Kontakt suchen", person);
+            EditContactFrame frame = new EditContactFrame(title, person);
 
             synchronized (frame) {
 
