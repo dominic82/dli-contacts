@@ -71,9 +71,8 @@ public class EditContactFrame extends JFrame implements ActionListener {
         GridBagConstraints c = new GridBagConstraints();
 
         //Labels setzen
-        c.anchor = GridBagConstraints.WEST;
+        c.anchor = GridBagConstraints.LINE_START;
         c.insets = new Insets(5, 20, 5, 0); //Margin
-        c.weightx = 0.2;
 
         c.gridx = 0;
         c.gridy = 0;
@@ -109,7 +108,6 @@ public class EditContactFrame extends JFrame implements ActionListener {
 
         //TextFields setzen
         c.gridwidth = 2;
-        c.weightx = 0.8;
         c.fill = GridBagConstraints.HORIZONTAL;
         c.insets = new Insets(5, 0, 5, 20); //Margin
 

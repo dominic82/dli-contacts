@@ -2,6 +2,7 @@ package dli_contacts.sibs.gui;
 
 import dli_contacts.Contact;
 
+import java.awt.Color;
 import java.awt.Container;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -51,8 +52,9 @@ public class ChooseContactFrame extends JFrame implements ActionListener, ListSe
         listContacts.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         ListSelectionModel listSelectionModel = listContacts.getSelectionModel();
         listSelectionModel.addListSelectionListener(this);
-        
+
         textContactDetails.setEditable(false);
+        textContactDetails.setText("\n\n\n\n\n\n\n\n\n");
 
         //ActionListener initialisieren
         buttonSelect.addActionListener(this);
@@ -63,45 +65,41 @@ public class ChooseContactFrame extends JFrame implements ActionListener, ListSe
         pane.setLayout(new GridBagLayout());
 
         GridBagConstraints c = new GridBagConstraints();
-
-        c.weightx = 1;
-        c.weighty = 0.5;
-        c.gridwidth = 3;
+        c.gridwidth = 2;
+        c.weightx = 1.0;
+        c.weighty = 1.0;
         c.fill = GridBagConstraints.BOTH;
-        c.insets = new Insets(10, 20, 10, 20); //Margin
+        c.insets = new Insets(10, 20, 0, 20); //Margin
 
         c.gridx = 0;
         c.gridy = 0;
         pane.add(listContacts, c);
 
-        c.weightx = 0.5;
-        c.weighty = 0.5;
-        c.gridwidth = 1;
-        c.fill = GridBagConstraints.HORIZONTAL;
-        c.insets = new Insets(10, 20, 10, 20); //Margin
-        
+        c = new GridBagConstraints();
+        c.gridwidth = 2;
+        c.fill = GridBagConstraints.BOTH;
+        c.insets = new Insets(10, 20, 0, 20); //Margin
+
         c.gridx = 0;
         c.gridy = 1;
         pane.add(textContactDetails, c);
 
 
         //Buttons setzen
-        c.gridwidth = 1;
-        c.weightx = 0.2;
-        c.weighty = 0.2;
-        c.anchor = GridBagConstraints.EAST;
-        c.insets = new Insets(10, 0, 10, 20); //Margin
-        
-        c.gridx = 1;
-        c.gridy = 1;
+        c = new GridBagConstraints();
+        c.anchor = GridBagConstraints.LAST_LINE_END;
+        c.insets = new Insets(10, 20, 20, 20); //Margin
+
+        c.gridx = 0;
+        c.gridy = 2;
         pane.add(buttonCancel, c);
 
-        c.gridx = 2;
-        c.gridy = 1;
+        c.gridx = 1;
+        c.gridy = 2;
         pane.add(buttonSelect, c);
 
         //Fenster konfigurieren
-        setResizable(false);
+        setResizable(true);
         setSize(500, 400);
         setVisible(true);
     }
@@ -141,7 +139,7 @@ public class ChooseContactFrame extends JFrame implements ActionListener, ListSe
 
         if (!lse.getValueIsAdjusting()) {
             Contact person = (Contact) listContacts.getSelectedValue();
-            textContactDetails.setText(generateDetailsLabel(person));
+            textContactDetails.setText(generateDetailsText(person));
         }
     }
 
@@ -153,19 +151,19 @@ public class ChooseContactFrame extends JFrame implements ActionListener, ListSe
         return result;
     }
 
-    private String generateDetailsLabel(Contact person) {
-        String label = "";
+    private String generateDetailsText(Contact person) {
+        String text = "";
         if (!person.getCompany().isEmpty()) {
-            label += person.getCompany() + "\n";
+            text += person.getCompany() + "\n";
         }
-        label += person.getFirstname() + " " + person.getLastname() + "\n";
-        label += person.getStreet() + "\n";
-        label += person.getZipcode() + " " + person.getCity() + "\n";
-        label += "\n" + person.getPhone() + "\n" + person.getEmail() + "\n";
+        text += person.getFirstname() + " " + person.getLastname() + "\n";
+        text += person.getStreet() + "\n";
+        text += person.getZipcode() + " " + person.getCity() + "\n";
+        text += "\n" + person.getPhone() + "\n" + person.getEmail() + "\n";
 
-        label += "\n" + "Sap-ID: " + person.getSapId();
-        label += "\n" + "Google-ID: " + person.getGoogleId();
+        text += "\n" + "Sap-ID: " + person.getSapId();
+        text += "\n" + "Google-ID: " + person.getGoogleId();
 
-        return label;
+        return text;
     }
 }
