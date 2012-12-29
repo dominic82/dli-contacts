@@ -161,6 +161,7 @@ public class ChooseContactFrame extends JFrame implements ActionListener, ListSe
             contact.setEmail(person.getEmail());
             contact.setGoogleId(person.getGoogleId());
             contact.setSapId(person.getSapId());
+            contact.setType(person.getType());
 
             result = ResultBranch.OK;
         }

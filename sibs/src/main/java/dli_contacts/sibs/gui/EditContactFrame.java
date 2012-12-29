@@ -12,6 +12,8 @@ import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 /**
@@ -20,8 +22,6 @@ import javax.swing.JTextField;
  */
 public class EditContactFrame extends JFrame implements ActionListener {
 
-    // TODO Auswahl der Kontakt-Gruppe einbinden
-    
     private Contact contact = new Contact();
 
     /**
@@ -42,6 +42,8 @@ public class EditContactFrame extends JFrame implements ActionListener {
     private JLabel labelCity = new JLabel("Stadt: ");
     private JLabel labelPhone = new JLabel("Tel: ");
     private JLabel labelEmail = new JLabel("Email: ");
+    private JLabel labelType = new JLabel("Gruppe: ");
+    private JLabel validationErrors = new JLabel("");
     private JTextField fieldFirstname = new JTextField();
     private JTextField fieldLastname = new JTextField();
     private JTextField fieldCompany = new JTextField();
@@ -50,6 +52,7 @@ public class EditContactFrame extends JFrame implements ActionListener {
     private JTextField fieldCity = new JTextField();
     private JTextField fieldPhone = new JTextField();
     private JTextField fieldEmail = new JTextField();
+    private JComboBox cboxType = new JComboBox(Contact.ContactType.values());
     private JButton buttonSelect = new JButton("Ok");
     private JButton buttonCancel = new JButton("Abbrechen");
 
@@ -122,6 +125,10 @@ public class EditContactFrame extends JFrame implements ActionListener {
         c.gridy = 7;
         pane.add(labelEmail, c);
 
+        c.gridx = 0;
+        c.gridy = 8;
+        pane.add(labelType, c);
+
         //TextFields setzen
         c.fill = GridBagConstraints.HORIZONTAL;
         c.insets = new Insets(5, 0, 5, 20); //Margin
@@ -160,17 +167,21 @@ public class EditContactFrame extends JFrame implements ActionListener {
         c.gridy = 7;
         pane.add(fieldEmail, c);
 
+        c.gridx = 1;
+        c.gridy = 8;
+        pane.add(cboxType, c);
+
         //Buttons setzen
         c.insets = new Insets(10, 0, 10, 20); //Margin
         c.gridwidth = 1;
         c.weightx = 0.5;
 
         c.gridx = 1;
-        c.gridy = 8;
+        c.gridy = 9;
         pane.add(buttonCancel, c);
 
         c.gridx = 2;
-        c.gridy = 8;
+        c.gridy = 9;
         pane.add(buttonSelect, c);
 
         //Fenster konfigurieren
@@ -204,6 +215,7 @@ public class EditContactFrame extends JFrame implements ActionListener {
             contact.setCity(fieldCity.getText());
             contact.setPhone(fieldPhone.getText());
             contact.setEmail(fieldEmail.getText());
+            contact.setType((Contact.ContactType) cboxType.getSelectedItem());
 
             List<Contact.ValidationErrors> errors = contact.validate();
             if (errors.isEmpty()) {
@@ -213,8 +225,10 @@ public class EditContactFrame extends JFrame implements ActionListener {
                 }
                 dispose();
             } else {
-                //TODO Fehlerbehandlung/Ausgabe
-                System.out.println("Contact Validation Error!");
+                JOptionPane.showMessageDialog(this,
+                        errors.get(0),
+                        "Eingabe nicht korrekt",
+                        JOptionPane.ERROR_MESSAGE);
             }
         }
 
