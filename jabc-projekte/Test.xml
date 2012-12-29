@@ -2,7 +2,7 @@
 <model version="2.1">
   <id>254c67b8-cefc-414b-911d-839c5c91ddb0</id>
   <name>Test</name>
-  <changecounter>30</changecounter>
+  <changecounter>31</changecounter>
   <sib>
     <id>21d390af-61cc-4516-820b-e656dcd00586</id>
     <name>ShowMessageDialog</name>
@@ -90,6 +90,9 @@
         </ContextKeyFoundation>
       </de.metaframe.jabc.framework.sib.parameter.ContextKey>
     </parameter>
+    <parameter name="title">
+      <string>Kontakt bearbeiten</string>
+    </parameter>
     <finalbranches>cancel</finalbranches>
     <finalbranches>error</finalbranches>
     <finalbranches>ok</finalbranches>
@@ -109,6 +112,9 @@
           <scopeMutable>false</scopeMutable>
         </ContextKeyFoundation>
       </de.metaframe.jabc.framework.sib.parameter.ContextKey>
+    </parameter>
+    <parameter name="title">
+      <string>Kontakt bearbeiten</string>
     </parameter>
     <finalbranches>cancel</finalbranches>
     <finalbranches>error</finalbranches>
@@ -157,6 +163,9 @@
           <scopeMutable>false</scopeMutable>
         </ContextKeyFoundation>
       </de.metaframe.jabc.framework.sib.parameter.ContextKey>
+    </parameter>
+    <parameter name="title">
+      <string>Kontakt auswählen</string>
     </parameter>
     <finalbranches>cancel</finalbranches>
     <finalbranches>error</finalbranches>

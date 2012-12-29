@@ -2,7 +2,7 @@
 <model version="2.1">
   <id>d7e06782-e187-4cde-8336-713f124e0449</id>
   <name>Kunden_Sync</name>
-  <changecounter>19</changecounter>
+  <changecounter>22</changecounter>
   <sib>
     <id>cbbb07b1-66fc-408b-9858-ed9c1f62ceac</id>
     <name>PutContact</name>
@@ -41,6 +41,9 @@
         </ContextKeyFoundation>
       </de.metaframe.jabc.framework.sib.parameter.ContextKey>
     </parameter>
+    <parameter name="title">
+      <string>Kontakt suchen</string>
+    </parameter>
     <finalbranches>cancel</finalbranches>
     <finalbranches>error</finalbranches>
     <finalbranches>ok</finalbranches>
@@ -72,7 +75,7 @@
     <parameter name="contactList">
       <de.metaframe.jabc.framework.sib.parameter.ContextKey>
         <ContextKeyFoundation>
-          <key>contactList</key>
+          <key>contactListGoogle</key>
           <scope>GLOBAL</scope>
           <scopeMutable>false</scopeMutable>
         </ContextKeyFoundation>
@@ -109,11 +112,14 @@
     <parameter name="contactList">
       <de.metaframe.jabc.framework.sib.parameter.ContextKey>
         <ContextKeyFoundation>
-          <key>contactList</key>
+          <key>contactListGoogle</key>
           <scope>GLOBAL</scope>
           <scopeMutable>false</scopeMutable>
         </ContextKeyFoundation>
       </de.metaframe.jabc.framework.sib.parameter.ContextKey>
+    </parameter>
+    <parameter name="title">
+      <string>Google-Kontakt auswählen</string>
     </parameter>
     <finalbranches>cancel</finalbranches>
     <finalbranches>error</finalbranches>
@@ -184,7 +190,7 @@
     <parameter name="contactList">
       <de.metaframe.jabc.framework.sib.parameter.ContextKey>
         <ContextKeyFoundation>
-          <key>contactList</key>
+          <key>contactListSap</key>
           <scope>GLOBAL</scope>
           <scopeMutable>false</scopeMutable>
         </ContextKeyFoundation>
@@ -213,11 +219,14 @@
     <parameter name="contactList">
       <de.metaframe.jabc.framework.sib.parameter.ContextKey>
         <ContextKeyFoundation>
-          <key>contactList</key>
+          <key>contactListSap</key>
           <scope>GLOBAL</scope>
           <scopeMutable>false</scopeMutable>
         </ContextKeyFoundation>
       </de.metaframe.jabc.framework.sib.parameter.ContextKey>
+    </parameter>
+    <parameter name="title">
+      <string>SAP-Kontakt auswählen</string>
     </parameter>
     <finalbranches>cancel</finalbranches>
     <finalbranches>error</finalbranches>
@@ -273,6 +282,9 @@
           <scopeMutable>false</scopeMutable>
         </ContextKeyFoundation>
       </de.metaframe.jabc.framework.sib.parameter.ContextKey>
+    </parameter>
+    <parameter name="title">
+      <string>neuen Kontakt anlegen</string>
     </parameter>
     <finalbranches>cancel</finalbranches>
     <finalbranches>error</finalbranches>

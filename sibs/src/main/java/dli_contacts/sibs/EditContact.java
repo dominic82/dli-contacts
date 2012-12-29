@@ -24,7 +24,7 @@ public class EditContact implements Executable {
      */
     public ContextKey contact = new ContextKey("contact");
     /**
-     * 
+     * Title of the displayed Swing-Frame
      */
     public String title = "Kontakt bearbeiten";
 

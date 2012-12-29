@@ -29,6 +29,10 @@ public class ChooseContact implements Executable {
      * Context Variable of the list of contact-objects to choose from
      */
     public ContextKey contactList = new ContextKey("contactList");
+    /**
+     * Title of the displayed Swing-Frame
+     */
+    public String title = "Kontakt auswählen";
 
     /**
      * This method is called by the Tracer in jabc
@@ -40,7 +44,7 @@ public class ChooseContact implements Executable {
 
         try {
             List<Contact> list = (List<Contact>) env.get(contactList);
-            ChooseContactFrame frame = new ChooseContactFrame("Kontakt auswählen", list);
+            ChooseContactFrame frame = new ChooseContactFrame(title, list);
 
             synchronized (frame) {
 

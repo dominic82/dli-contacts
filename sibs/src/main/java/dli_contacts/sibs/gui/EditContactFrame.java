@@ -20,6 +20,8 @@ import javax.swing.JTextField;
  */
 public class EditContactFrame extends JFrame implements ActionListener {
 
+    // TODO Auswahl der Kontakt-Gruppe einbinden
+    
     private Contact contact = new Contact();
 
     /**
@@ -121,9 +123,10 @@ public class EditContactFrame extends JFrame implements ActionListener {
         pane.add(labelEmail, c);
 
         //TextFields setzen
-        c.gridwidth = 2;
         c.fill = GridBagConstraints.HORIZONTAL;
         c.insets = new Insets(5, 0, 5, 20); //Margin
+        c.gridwidth = 2;
+        c.weightx = 1.0;
 
         c.gridx = 1;
         c.gridy = 0;
@@ -160,6 +163,7 @@ public class EditContactFrame extends JFrame implements ActionListener {
         //Buttons setzen
         c.insets = new Insets(10, 0, 10, 20); //Margin
         c.gridwidth = 1;
+        c.weightx = 0.5;
 
         c.gridx = 1;
         c.gridy = 8;
@@ -170,7 +174,7 @@ public class EditContactFrame extends JFrame implements ActionListener {
         pane.add(buttonSelect, c);
 
         //Fenster konfigurieren
-        setResizable(false);
+        setResizable(true);
         setSize(350, 350);
         setVisible(true);
     }
@@ -209,7 +213,7 @@ public class EditContactFrame extends JFrame implements ActionListener {
                 }
                 dispose();
             } else {
-                //TODO Fehlerbehandlung
+                //TODO Fehlerbehandlung/Ausgabe
                 System.out.println("Contact Validation Error!");
             }
         }

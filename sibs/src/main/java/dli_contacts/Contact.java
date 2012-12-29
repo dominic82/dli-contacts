@@ -27,6 +27,9 @@ public class Contact {
     private String phone = "";
     private String email = "";
     private ContactType type = ContactType.CUSTOMER;
+    private static final String EMAIL_PATTERN =
+            "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+            + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
 
     /**
      *  fixed definition of handled errors
@@ -49,8 +52,14 @@ public class Contact {
      */
     public List<ValidationErrors> validate() {
         List<ValidationErrors> errors = new ArrayList<ValidationErrors>();
-        if (firstname.isEmpty()) {
+        if (firstname.isEmpty() || !firstname.matches("^[A-Za-z ]*$")) {
             errors.add(ValidationErrors.FIRSTNAME_INCORRECT);
+        }
+        if (lastname.isEmpty() || !lastname.matches("^[A-Za-z ]*$")) {
+            errors.add(ValidationErrors.LASTNAME_INCORRECT);
+        }
+        if (!email.isEmpty() && !email.matches(EMAIL_PATTERN)) {
+            errors.add(ValidationErrors.EMAIL_INCORRECT);
         }
         return errors;
     }

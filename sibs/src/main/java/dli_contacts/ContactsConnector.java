@@ -17,6 +17,7 @@ public class ContactsConnector {
     public List<Contact> getSapContacts(Contact filter) {
         List<Contact> result = new ArrayList<Contact>();
 
+        // TODO (SAP) Einbinden der externen Klasse und Ausführung
         System.out.println("ContactsConnector: get SAP Contacts");
 
         return result;
@@ -30,6 +31,7 @@ public class ContactsConnector {
     public List<Contact> getGoogleContacts(Contact filter) {
         List<Contact> result = new ArrayList<Contact>();
 
+        // TODO (Google) Einbinden der externen Klasse und Ausführung
         System.out.println("ContactsConnector: get Google Contacts");
 
         return result;
@@ -41,6 +43,7 @@ public class ContactsConnector {
      */
     public void addGoogleContact(Contact contact) {
 
+        // TODO (Google) Einbinden der externen Klasse und Ausführung
         System.out.println("ContactsConnector: add Google Contact");
 
     }
