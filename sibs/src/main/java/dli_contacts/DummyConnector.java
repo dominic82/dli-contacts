@@ -5,12 +5,19 @@ import java.util.List;
 
 import dli_contacts.Contact.ContactType;
 
+/**
+ * 
+ * @author dominic
+ */
 public class DummyConnector extends ContactsConnector {
 
     private Contact person1 = new Contact();
     private Contact person2 = new Contact();
     private Contact person3 = new Contact();
 
+    /**
+     * Initialize some DummyObjects
+     */
     public DummyConnector() {
         person1.setGoogleId("g1");
         person1.setSapId("s1");
@@ -63,6 +70,11 @@ public class DummyConnector extends ContactsConnector {
         return person3;
     }
 
+    /**
+     * Search Contacts in the SAP-Database (DummyMethod)
+     * @param filter Contact-onject to specify the search
+     * @return List of matching Contact-objects
+     */
     @Override
     public List<Contact> getSapContacts(Contact filter) {
         List<Contact> list = new ArrayList<Contact>();
@@ -76,6 +88,11 @@ public class DummyConnector extends ContactsConnector {
         return list;
     }
 
+    /**
+     * Search Contacts in the Google-Database (DummyMethod)
+     * @param filter Contact-onject to specify the search
+     * @return List of matching Contact-objects
+     */
     @Override
     public List<Contact> getGoogleContacts(Contact filter) {
         List<Contact> list = new ArrayList<Contact>();
@@ -89,6 +106,10 @@ public class DummyConnector extends ContactsConnector {
         return list;
     }
 
+    /**
+     * Add the Data of a Contact-object to the Google-Database (DummyMethod)
+     * @param contact contact-object to save
+     */
     @Override
     public void addGoogleContact(Contact contact) {
 

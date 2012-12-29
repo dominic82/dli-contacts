@@ -3,13 +3,19 @@ package dli_contacts;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 
+ * @author dominic
+ */
 public class Contact {
 
+    /**
+     *  fixed definition of available contactgroups
+     */
     public static enum ContactType {
 
         CUSTOMER, SUPPLIER, EMPLOYEE
     }
-    
     private String googleId = "";
     private String sapId = "";
     private String firstname = "";
@@ -21,12 +27,26 @@ public class Contact {
     private String phone = "";
     private String email = "";
     private ContactType type = ContactType.CUSTOMER;
-    
+
+    /**
+     *  fixed definition of handled errors
+     */
     public static enum ValidationErrors {
-        FIRSTNAME_INCORRECT, LASTNAME_INCORRECT, COMPANY_INCORRECT, STREET_INCORRECT, 
-        ZIPCODE_INCORRECT, CITY_INCORRECT, PHONE_INCORRECT, EMAIL_INCORRECT
+
+        FIRSTNAME_INCORRECT,
+        LASTNAME_INCORRECT,
+        COMPANY_INCORRECT,
+        STREET_INCORRECT,
+        ZIPCODE_INCORRECT,
+        CITY_INCORRECT,
+        PHONE_INCORRECT,
+        EMAIL_INCORRECT
     }
-    
+
+    /**
+     * validates the values of the object-parameters
+     * @return List of defined ValidationErrors
+     */
     public List<ValidationErrors> validate() {
         List<ValidationErrors> errors = new ArrayList<ValidationErrors>();
         if (firstname.isEmpty()) {
@@ -35,11 +55,17 @@ public class Contact {
         return errors;
     }
 
+    /**
+     * 
+     * @return String-representation of the object
+     */
     @Override
     public String toString() {
         String output = "";
         output += getFirstname() + " " + getLastname();
-        if (!getCompany().isEmpty()) output += ", " + getCompany();
+        if (!getCompany().isEmpty()) {
+            output += ", " + getCompany();
+        }
         output += ", " + getCity();
         return output;
     }
@@ -79,11 +105,11 @@ public class Contact {
     public String getCompany() {
         return company;
     }
-    
+
     public void setCompany(String company) {
         this.company = company;
     }
-    
+
     public String getStreet() {
         return street;
     }

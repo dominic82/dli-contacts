@@ -2,7 +2,6 @@ package dli_contacts.sibs.gui;
 
 import dli_contacts.Contact;
 
-import java.awt.Color;
 import java.awt.Container;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -20,14 +19,23 @@ import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+/**
+ * 
+ * @author dominic
+ */
 public class ChooseContactFrame extends JFrame implements ActionListener, ListSelectionListener {
 
     private List<Contact> contacts = new ArrayList<Contact>();
     private Contact contact = new Contact();
 
+    /**
+     * List of defined output-branches of the jabc-SIB
+     */
     public static enum ResultBranch {
 
-        OK, CANCEL, UNKNOWN
+        OK,
+        CANCEL,
+        UNKNOWN
     }
     private ResultBranch result = ResultBranch.UNKNOWN;
     private JList listContacts = new JList();
@@ -35,6 +43,10 @@ public class ChooseContactFrame extends JFrame implements ActionListener, ListSe
     private JButton buttonSelect = new JButton("Ok");
     private JButton buttonCancel = new JButton("Abbrechen");
 
+    /**
+     * @param title of the Window
+     * @param list of contact-objects to choose from
+     */
     public ChooseContactFrame(String title, List<Contact> list) {
         super(title);
         contacts = list;
@@ -104,6 +116,10 @@ public class ChooseContactFrame extends JFrame implements ActionListener, ListSe
         setVisible(true);
     }
 
+    /**
+     * This Method is called when a button is clicked
+     * @param ae Swing-ActionEvent
+     */
     @Override
     public void actionPerformed(ActionEvent ae) {
 
@@ -116,6 +132,7 @@ public class ChooseContactFrame extends JFrame implements ActionListener, ListSe
 
             contact.setFirstname(person.getFirstname());
             contact.setLastname(person.getLastname());
+            contact.setCompany(person.getCompany());
             contact.setStreet(person.getStreet());
             contact.setZipcode(person.getZipcode());
             contact.setCity(person.getCity());
@@ -134,6 +151,10 @@ public class ChooseContactFrame extends JFrame implements ActionListener, ListSe
         dispose();
     }
 
+    /**
+     * THis method is called when the selection of the list has changed
+     * @param lse Swing ListSelectionEvent
+     */
     @Override
     public void valueChanged(ListSelectionEvent lse) {
 
@@ -143,10 +164,18 @@ public class ChooseContactFrame extends JFrame implements ActionListener, ListSe
         }
     }
 
+    /**
+     * Gets the chosen contact-object
+     * @return contact-object
+     */
     public Contact getContact() {
         return contact;
     }
 
+    /**
+     * Gets the chosen ouput-branch of the jabc-SIB
+     * @return value of enum ResultBranch
+     */
     public ResultBranch getResult() {
         return result;
     }

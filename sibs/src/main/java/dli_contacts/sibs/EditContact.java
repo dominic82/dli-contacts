@@ -8,13 +8,31 @@ import de.metaframe.jabc.sib.Executable;
 import dli_contacts.Contact;
 import dli_contacts.sibs.gui.EditContactFrame;
 
+/**
+ * 
+ * @author dominic
+ */
 @SIBClass("editContact")
 public class EditContact implements Executable {
 
+    /**
+     * Possible Output-Branches of the jabc-SIB
+     */
     public final String[] BRANCHES = {"ok", "cancel", "error"};
+    /**
+     * Context Variable of the contact-object to edit
+     */
     public ContextKey contact = new ContextKey("contact");
+    /**
+     * 
+     */
     public String title = "Kontakt bearbeiten";
 
+    /**
+     * This method is called by the Tracer in jabc
+     * @param env Execution-context in jabc
+     * @return chosen output-branch
+     */
     @Override
     public String trace(ExecutionEnvironment env) {
 
@@ -27,7 +45,7 @@ public class EditContact implements Executable {
                 frame.wait();
 
                 EditContactFrame.ResultBranch result = frame.getResult();
-                
+
                 System.out.println("EditContact: Dialog geschlossen mit " + result);
 
                 switch (result) {

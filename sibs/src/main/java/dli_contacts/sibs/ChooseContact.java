@@ -10,13 +10,31 @@ import java.util.List;
 import dli_contacts.Contact;
 import dli_contacts.sibs.gui.ChooseContactFrame;
 
+/**
+ * 
+ * @author dominic
+ */
 @SIBClass("chooseContact")
 public class ChooseContact implements Executable {
 
+    /**
+     * Possible Output-Branches of the jabc-SIB
+     */
     public final String[] BRANCHES = {"ok", "error", "cancel"};
+    /**
+     * Context Variable where to save the chosen contact
+     */
     public ContextKey contact = new ContextKey("contact");
+    /**
+     * Context Variable of the list of contact-objects to choose from
+     */
     public ContextKey contactList = new ContextKey("contactList");
 
+    /**
+     * This method is called by the Tracer in jabc
+     * @param env Execution-context in jabc
+     * @return chosen output-branch
+     */
     @Override
     public String trace(ExecutionEnvironment env) {
 

@@ -8,12 +8,28 @@ import dli_contacts.Contact;
 import dli_contacts.ContactsConnector;
 import dli_contacts.DummyConnector;
 
+/**
+ * 
+ * @author dominic
+ */
 @SIBClass("addGoogleContact")
 public class AddGoogleContact implements Executable {
 
+    /**
+     * Possible Output-Branches of the jabc-SIB
+     */
     public final String[] BRANCHES = {"default", "error"};
+    
+    /**
+     * Context Variable where to find the contact-object to save
+     */
     public ContextKey contact = new ContextKey("contact");
 
+    /**
+     * This method is called by the Tracer in jabc
+     * @param env Execution-context in jabc
+     * @return chosen output-branch
+     */
     @Override
     public String trace(ExecutionEnvironment env) {
 
@@ -22,9 +38,9 @@ public class AddGoogleContact implements Executable {
 
             ContactsConnector con = new DummyConnector();
             con.addGoogleContact(person);
-            
+
             System.out.println("AddGoogleContact: added Contact '" + person.getFirstname() + " " + person.getLastname() + "'");
-            
+
             return "default";
 
         } catch (Exception e) {

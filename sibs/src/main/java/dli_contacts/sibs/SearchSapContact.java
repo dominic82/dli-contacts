@@ -10,13 +10,31 @@ import dli_contacts.ContactsConnector;
 import dli_contacts.DummyConnector;
 import java.util.List;
 
+/**
+ * 
+ * @author dominic
+ */
 @SIBClass("searchSapContact")
 public class SearchSapContact implements Executable {
 
+    /**
+     * Possible Output-Branches of the jabc-SIB
+     */
     public final String[] BRANCHES = {"error", "found", "not found"};
+    /**
+     * Context Variable where to find the filter (contact-object)
+     */
     public ContextKey contact = new ContextKey("contact");
+    /**
+     * Context Variable where to save the result-list
+     */
     public ContextKey contactList = new ContextKey("contactList");
 
+    /**
+     * This method is called by the Tracer in jabc
+     * @param env Execution-context in jabc
+     * @return chosen output-branch
+     */
     @Override
     public String trace(ExecutionEnvironment env) {
 

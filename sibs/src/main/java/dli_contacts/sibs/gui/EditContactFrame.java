@@ -14,13 +14,22 @@ import javax.swing.JLabel;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 
+/**
+ * 
+ * @author dominic
+ */
 public class EditContactFrame extends JFrame implements ActionListener {
 
     private Contact contact = new Contact();
 
+    /**
+     * List of defined output-branches of the jabc-SIB
+     */
     public static enum ResultBranch {
 
-        OK, CANCEL, UNKNOWN
+        OK,
+        CANCEL,
+        UNKNOWN
     }
     private ResultBranch result = ResultBranch.UNKNOWN;
     private JLabel labelFirstname = new JLabel("Vorname: ");
@@ -42,6 +51,11 @@ public class EditContactFrame extends JFrame implements ActionListener {
     private JButton buttonSelect = new JButton("Ok");
     private JButton buttonCancel = new JButton("Abbrechen");
 
+    /**
+     * 
+     * @param title of the Window
+     * @param person contact-object for pre-filled formfields
+     */
     public EditContactFrame(String title, Contact person) {
         super(title);
         contact = person;
@@ -161,6 +175,10 @@ public class EditContactFrame extends JFrame implements ActionListener {
         setVisible(true);
     }
 
+    /**
+     * This Method is called when a button is clicked
+     * @param ae Swing-ActionEvent
+     */
     @Override
     public void actionPerformed(ActionEvent ae) {
 
@@ -199,14 +217,18 @@ public class EditContactFrame extends JFrame implements ActionListener {
 
     }
 
+    /**
+     * Gets the edited contact-object
+     * @return contact-object
+     */
     public Contact getContact() {
         return contact;
     }
 
-    public void setContact(Contact contact) {
-        this.contact = contact;
-    }
-
+    /**
+     * Gets the chosen ouput-branch of the jabc-SIB
+     * @return value of enum ResultBranch
+     */
     public ResultBranch getResult() {
         return result;
     }
