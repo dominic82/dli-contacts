@@ -1,7 +1,15 @@
 package dli_contacts;
 
+import com.google.gdata.util.ServiceException;
+import dli_contacts.googleconnector.DLI_GoogleContactsConnector;
+
+import com.google.gdata.util.AuthenticationException;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * 
@@ -30,10 +38,15 @@ public class ContactsConnector {
      */
     public List<Contact> getGoogleContacts(Contact filter) {
         List<Contact> result = new ArrayList<Contact>();
-
-        // TODO (Google) Einbinden der externen Klasse und Ausführung
         System.out.println("ContactsConnector: get Google Contacts");
-
+        try {
+            DLI_GoogleContactsConnector gc = new DLI_GoogleContactsConnector();
+            result = gc.fetchContacts(filter);
+        } catch (ServiceException ex) {
+            Logger.getLogger(ContactsConnector.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(ContactsConnector.class.getName()).log(Level.SEVERE, null, ex);
+        }
         return result;
     }
 
@@ -42,9 +55,14 @@ public class ContactsConnector {
      * @param contact contact-object to save
      */
     public void addGoogleContact(Contact contact) {
-
-        // TODO (Google) Einbinden der externen Klasse und Ausführung
         System.out.println("ContactsConnector: add Google Contact");
-
+        try {
+            DLI_GoogleContactsConnector gc = new DLI_GoogleContactsConnector();
+            gc.createContact(contact);
+        } catch (IOException ex) {
+            Logger.getLogger(ContactsConnector.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ServiceException ex) {
+            Logger.getLogger(ContactsConnector.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

@@ -26,7 +26,7 @@
             </plugin>
         </plugins>
     </build>
-
+    
     <dependencies>
         <dependency>
             <groupId>junit</groupId>
@@ -38,6 +38,11 @@
             <groupId>jabc.jar</groupId>
             <artifactId>jabclibs</artifactId>
             <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.gdata</groupId>
+            <artifactId>core</artifactId>
+            <version>1.47.1</version>
         </dependency>
     </dependencies>
 </project>
