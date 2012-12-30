@@ -36,16 +36,15 @@ public class SearchGoogleContact implements Executable {
      */
     @Override
     public String trace(ExecutionEnvironment env) {
-
         try {
             Contact filter = (Contact) env.get(contact);
+            
+            System.out.println(filter.getDataString());
 
             ContactsConnector con = new ContactsConnector();
             List<Contact> list = con.getGoogleContacts(filter);
-
+            
             env.put(contactList, list);
-            System.out.println("SearchGoogleContact: got " + list.size() + " results");
-
             if (list.isEmpty()) {
                 return "not found";
             }
@@ -56,6 +55,7 @@ public class SearchGoogleContact implements Executable {
 
         } catch (Exception e) {
             System.out.println(e);
+            e.printStackTrace();
             return "error";
         }
 

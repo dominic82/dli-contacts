@@ -44,7 +44,6 @@ public class EditContactFrame extends JFrame implements ActionListener {
     private JLabel labelPhone = new JLabel("Tel: ");
     private JLabel labelEmail = new JLabel("Email: ");
     private JLabel labelType = new JLabel("Gruppe: ");
-    private JLabel validationErrors = new JLabel("");
     private JTextField fieldFirstname = new JTextField();
     private JTextField fieldLastname = new JTextField();
     private JTextField fieldCompany = new JTextField();
@@ -81,6 +80,7 @@ public class EditContactFrame extends JFrame implements ActionListener {
         fieldCity.setText(contact.getCity());
         fieldPhone.setText(contact.getPhone());
         fieldEmail.setText(contact.getEmail());
+        cboxType.setSelectedItem(contact.getType());
 
         //ActionListener initialisieren
         buttonSelect.addActionListener(this);

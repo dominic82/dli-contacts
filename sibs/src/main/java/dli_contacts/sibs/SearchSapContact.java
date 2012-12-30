@@ -37,7 +37,6 @@ public class SearchSapContact implements Executable {
      */
     @Override
     public String trace(ExecutionEnvironment env) {
-
         try {
             Contact filter = (Contact) env.get(contact);
 
@@ -45,8 +44,6 @@ public class SearchSapContact implements Executable {
             List<Contact> list = con.getSapContacts(filter);
 
             env.put(contactList, list);
-            System.out.println("SearchSAPContact: got " + list.size() + " results");
-
             if (list.isEmpty()) {
                 return "not found";
             }
@@ -57,6 +54,7 @@ public class SearchSapContact implements Executable {
 
         } catch (Exception e) {
             System.out.println(e);
+            e.printStackTrace();
             return "error";
         }
 

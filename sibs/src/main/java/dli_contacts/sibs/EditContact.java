@@ -51,9 +51,6 @@ public class EditContact implements Executable {
                 frame.wait();
 
                 EditContactFrame.ResultBranch result = frame.getResult();
-
-                System.out.println("EditContact: Dialog geschlossen mit " + result);
-
                 switch (result) {
                     case OK:
                         env.put(contact, frame.getContact());

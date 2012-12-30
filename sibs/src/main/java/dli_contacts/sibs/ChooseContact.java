@@ -52,9 +52,6 @@ public class ChooseContact implements Executable {
                 frame.wait();
 
                 ChooseContactFrame.ResultBranch result = frame.getResult();
-
-                System.out.println("ChooseContact: Dialog geschlossen mit " + result);
-
                 switch (result) {
                     case OK:
                         env.put(contact, frame.getContact());

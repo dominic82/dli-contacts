@@ -31,19 +31,17 @@ public class AddGoogleContact implements Executable {
      */
     @Override
     public String trace(ExecutionEnvironment env) {
-
         try {
             Contact person = (Contact) env.get(contact);
 
             ContactsConnector con = new ContactsConnector();
             con.addGoogleContact(person);
 
-            System.out.println("AddGoogleContact: added Contact '" + person.getFirstname() + " " + person.getLastname() + "'");
-
             return "default";
 
         } catch (Exception e) {
             System.out.println(e);
+            e.printStackTrace();
             return "error";
         }
 

@@ -51,15 +51,35 @@ public class DLI_GoogleContactsConnector {
     private final String groupsURL = "https://www.google.com/m8/feeds/groups/dli.ides.api@gmail.com/base";
     private ContactsService myService;
 
+    /**
+     * 
+     * @throws AuthenticationException
+     */
     public DLI_GoogleContactsConnector() throws AuthenticationException {
         authenticateId();
     }
 
+    /**
+     * 
+     * @param contactInfo
+     * @return
+     * @throws IOException
+     * @throws ServiceException
+     */
     public ContactEntry createContact(Contact contactInfo) throws IOException, ServiceException {
         return createContact(contactsURL, contactInfo, myService);
 
     }
 
+    /**
+     * 
+     * @param contactsURL
+     * @param contactInfo
+     * @param myService
+     * @return
+     * @throws IOException
+     * @throws ServiceException
+     */
     public static ContactEntry createContact(String contactsURL,
             Contact contactInfo, Service myService) throws IOException, ServiceException {
         if (!isValid(contactInfo)) {
@@ -133,6 +153,10 @@ public class DLI_GoogleContactsConnector {
         return myService.insert(postUrl, contact);
     }
 
+    /**
+     * 
+     * @return
+     */
     public ContactsService authenticateId() {
 
         myService = authenticateId(username, password, servicename);
@@ -144,7 +168,10 @@ public class DLI_GoogleContactsConnector {
      * This method will authenticate the user credentials passed to it and
      * returns an instance of ContactService class.
      * 
-     * @throws AuthenticationException
+     * @param username 
+     * @param servicename 
+     * @param password 
+     * @return 
      */
     public static ContactsService authenticateId(String username,
             String password, String servicename) {
@@ -159,6 +186,13 @@ public class DLI_GoogleContactsConnector {
 
     }
 
+    /**
+     * 
+     * @param filter
+     * @return
+     * @throws ServiceException
+     * @throws IOException
+     */
     public List<Contact> fetchContacts(Contact filter) throws ServiceException, IOException {
 
         return fetchContacts(contactsURL, filter, myService);
@@ -168,6 +202,7 @@ public class DLI_GoogleContactsConnector {
     /**
      * Sucht die Kontakte, die mit dem filter �bereinstimmen
      * 
+     * @param contactsURL 
      * @param filter
      * @param myService
      * @return
@@ -407,6 +442,12 @@ public class DLI_GoogleContactsConnector {
      * This method will print details of all the contacts available in that
      * particular Google account.
      */
+    /**
+     * 
+     * @param myService
+     * @throws ServiceException
+     * @throws IOException
+     */
     public static void printAllContacts(ContactsService myService)
             throws ServiceException, IOException {
         // Request the feed
@@ -532,6 +573,10 @@ public class DLI_GoogleContactsConnector {
     }
 
     /* This method will add a contact to that particular Google account */
+    /**
+     * 
+     * @param ar
+     */
     public static void main(String ar[]) {
         System.out.println("main gestartet");
         test();
@@ -579,10 +624,8 @@ public class DLI_GoogleContactsConnector {
     /**
      * Beispielcode f�r die suche in Google
      * 
+     * @param groupsURL 
      * @param myService
-     * @param startTime
-     * @throws ServiceException
-     * @throws IOException
      */
     public static void printAllGroups(String groupsURL,
             ContactsService myService) {

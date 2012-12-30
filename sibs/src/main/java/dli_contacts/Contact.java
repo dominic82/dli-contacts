@@ -79,6 +79,20 @@ public class Contact {
         return output;
     }
 
+    public String getDataString() {
+        String output = "";
+        output += (getFirstname() + " " + getLastname() + "\n");
+        output += (getCompany() + "\n");
+        output += (getStreet() + "\n");
+        output += (getZipcode() + " " + getCity() + "\n");
+        output += (getPhone() + "\n");
+        output += (getEmail() + "\n \n");
+        output += ("Google-ID: " + getGoogleId() + "\n");
+        output += ("SAP-ID: " + getSapId() + "\n");
+        output += ("Gruppe: " + getType().toString());
+        return output;
+    }
+
     public String getGoogleId() {
         return googleId;
     }

@@ -2,7 +2,7 @@
 <model version="2.1">
   <id>d7e06782-e187-4cde-8336-713f124e0449</id>
   <name>Kunden_Sync</name>
-  <changecounter>25</changecounter>
+  <changecounter>28</changecounter>
   <sib>
     <id>cbbb07b1-66fc-408b-9858-ed9c1f62ceac</id>
     <name>PutContact</name>
@@ -102,7 +102,7 @@
     <label>ChooseContact</label>
     <sib-uid>chooseContact</sib-uid>
     <taxonomy>dli_contacts.sibs.ChooseContact</taxonomy>
-    <position>598.0,258.0</position>
+    <position>538.0,258.0</position>
     <parameter name="contact">
       <de.metaframe.jabc.framework.sib.parameter.ContextKey>
         <ContextKeyFoundation>
@@ -142,7 +142,7 @@
     <label>Ende</label>
     <sib-uid>exercise-sibs/ShowMessageDialog</sib-uid>
     <taxonomy>tudo.sib.exercise.ShowMessageDialog</taxonomy>
-    <position>623.0,573.0</position>
+    <position>563.0,573.0</position>
     <parameter name="dialogTitle">
       <string>Title</string>
     </parameter>
@@ -169,8 +169,8 @@
   <edge>
     <source>bc7acec5-a0ea-4085-ad64-dc186ec87814</source>
     <target>7a768bb4-b7f6-4b8d-a211-cf3cbcf6826e</target>
-    <point>645.0,285.0</point>
-    <point>645.0,600.0</point>
+    <point>585.0,285.0</point>
+    <point>585.0,600.0</point>
     <labelposition>500.0,0.0</labelposition>
     <branch>ok</branch>
   </edge>
@@ -249,7 +249,7 @@
     <label>AddGoogleContact</label>
     <sib-uid>addGoogleContact</sib-uid>
     <taxonomy>dli_contacts.sibs.AddGoogleContact</taxonomy>
-    <position>244.0,573.0</position>
+    <position>379.0,573.0</position>
     <parameter name="contact">
       <de.metaframe.jabc.framework.sib.parameter.ContextKey>
         <ContextKeyFoundation>
@@ -265,8 +265,8 @@
   <edge>
     <source>bdd685f6-6907-4b51-99ca-05a11eb24902</source>
     <target>7a768bb4-b7f6-4b8d-a211-cf3cbcf6826e</target>
-    <point>300.0,600.0</point>
-    <point>645.0,600.0</point>
+    <point>435.0,600.0</point>
+    <point>585.0,600.0</point>
     <labelposition>500.0,0.0</labelposition>
     <branch>default</branch>
   </edge>
@@ -276,7 +276,7 @@
     <label>EditContact</label>
     <sib-uid>editContact</sib-uid>
     <taxonomy>dli_contacts.sibs.EditContact</taxonomy>
-    <position>459.0,393.0</position>
+    <position>264.0,573.0</position>
     <parameter name="contact">
       <de.metaframe.jabc.framework.sib.parameter.ContextKey>
         <ContextKeyFoundation>
@@ -298,9 +298,9 @@
   </sib>
   <edge>
     <source>dd2ea9c4-fe2e-42a8-bbf7-0e32a09cfac3</source>
-    <target>bdd685f6-6907-4b51-99ca-05a11eb24902</target>
-    <point>135.0,420.0</point>
-    <point>300.0,600.0</point>
+    <target>ab0e78b5-5b24-40c0-975a-84274329dd53</target>
+    <point>150.71428571428572,429.0</point>
+    <point>282.63157894736844,573.0</point>
     <labelposition>500.0,0.0</labelposition>
     <branch>ok</branch>
   </edge>

@@ -184,7 +184,7 @@ public class ChooseContactFrame extends JFrame implements ActionListener, ListSe
 
         if (!lse.getValueIsAdjusting()) {
             Contact person = (Contact) listContacts.getSelectedValue();
-            textContactDetails.setText(generateDetailsText(person));
+            textContactDetails.setText(person.getDataString());
         }
     }
 
@@ -202,21 +202,5 @@ public class ChooseContactFrame extends JFrame implements ActionListener, ListSe
      */
     public ResultBranch getResult() {
         return result;
-    }
-
-    private String generateDetailsText(Contact person) {
-        String text = "";
-        if (!person.getCompany().isEmpty()) {
-            text += person.getCompany() + "\n";
-        }
-        text += person.getFirstname() + " " + person.getLastname() + "\n";
-        text += person.getStreet() + "\n";
-        text += person.getZipcode() + " " + person.getCity() + "\n";
-        text += "\n" + person.getPhone() + "\n" + person.getEmail() + "\n";
-
-        text += "\n" + "Sap-ID: " + person.getSapId();
-        text += "\n" + "Google-ID: " + person.getGoogleId();
-
-        return text;
     }
 }
