@@ -42,7 +42,7 @@ public class SearchSapContact implements Executable {
             Contact filter = (Contact) env.get(contact);
 
             ContactsConnector con = new DummyConnector();
-            List<Contact> list = con.getGoogleContacts(filter);
+            List<Contact> list = con.getSapContacts(filter);
 
             env.put(contactList, list);
             System.out.println("SearchSAPContact: got " + list.size() + " results");

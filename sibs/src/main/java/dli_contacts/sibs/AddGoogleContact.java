@@ -6,7 +6,6 @@ import de.metaframe.jabc.framework.sib.parameter.ContextKey;
 import de.metaframe.jabc.sib.Executable;
 import dli_contacts.Contact;
 import dli_contacts.ContactsConnector;
-import dli_contacts.DummyConnector;
 
 /**
  * 
@@ -36,7 +35,7 @@ public class AddGoogleContact implements Executable {
         try {
             Contact person = (Contact) env.get(contact);
 
-            ContactsConnector con = new DummyConnector();
+            ContactsConnector con = new ContactsConnector();
             con.addGoogleContact(person);
 
             System.out.println("AddGoogleContact: added Contact '" + person.getFirstname() + " " + person.getLastname() + "'");

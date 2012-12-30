@@ -45,6 +45,7 @@ public class ChooseContact implements Executable {
         try {
             List<Contact> list = (List<Contact>) env.get(contactList);
             ChooseContactFrame frame = new ChooseContactFrame(title, list);
+            frame.initializeWindow();
 
             synchronized (frame) {
 

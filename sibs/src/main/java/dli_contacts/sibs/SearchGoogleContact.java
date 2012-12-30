@@ -7,7 +7,6 @@ import de.metaframe.jabc.sib.Executable;
 
 import dli_contacts.Contact;
 import dli_contacts.ContactsConnector;
-import dli_contacts.DummyConnector;
 import java.util.List;
 
 /**
@@ -41,7 +40,7 @@ public class SearchGoogleContact implements Executable {
         try {
             Contact filter = (Contact) env.get(contact);
 
-            ContactsConnector con = new DummyConnector();
+            ContactsConnector con = new ContactsConnector();
             List<Contact> list = con.getGoogleContacts(filter);
 
             env.put(contactList, list);

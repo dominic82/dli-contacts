@@ -3,8 +3,6 @@ package dli_contacts;
 import com.google.gdata.util.ServiceException;
 import dli_contacts.googleconnector.DLI_GoogleContactsConnector;
 
-import com.google.gdata.util.AuthenticationException;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;

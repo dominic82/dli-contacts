@@ -2,7 +2,7 @@
 <model version="2.1">
   <id>d7e06782-e187-4cde-8336-713f124e0449</id>
   <name>Kunden_Sync</name>
-  <changecounter>22</changecounter>
+  <changecounter>25</changecounter>
   <sib>
     <id>cbbb07b1-66fc-408b-9858-ed9c1f62ceac</id>
     <name>PutContact</name>
@@ -43,6 +43,9 @@
     </parameter>
     <parameter name="title">
       <string>Kontakt suchen</string>
+    </parameter>
+    <parameter name="validate">
+      <boolean>false</boolean>
     </parameter>
     <finalbranches>cancel</finalbranches>
     <finalbranches>error</finalbranches>
@@ -285,6 +288,9 @@
     </parameter>
     <parameter name="title">
       <string>neuen Kontakt anlegen</string>
+    </parameter>
+    <parameter name="validate">
+      <boolean>true</boolean>
     </parameter>
     <finalbranches>cancel</finalbranches>
     <finalbranches>error</finalbranches>

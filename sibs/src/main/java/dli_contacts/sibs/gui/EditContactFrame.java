@@ -23,6 +23,7 @@ import javax.swing.JTextField;
 public class EditContactFrame extends JFrame implements ActionListener {
 
     private Contact contact = new Contact();
+    private boolean doValidation = true;
 
     /**
      * List of defined output-branches of the jabc-SIB
@@ -64,10 +65,12 @@ public class EditContactFrame extends JFrame implements ActionListener {
     public EditContactFrame(String title, Contact person) {
         super(title);
         contact = person;
-        initializeWindow();
     }
 
-    private void initializeWindow() {
+    /**
+     * initialize Windows an show it
+     */
+    public void initializeWindow() {
 
         // Inhalte initialisieren
         fieldFirstname.setText(contact.getFirstname());
@@ -218,7 +221,7 @@ public class EditContactFrame extends JFrame implements ActionListener {
             contact.setType((Contact.ContactType) cboxType.getSelectedItem());
 
             List<Contact.ValidationErrors> errors = contact.validate();
-            if (errors.isEmpty()) {
+            if (errors.isEmpty() || !doValidation) {
                 result = ResultBranch.OK;
                 synchronized (this) {
                     this.notify();
@@ -249,5 +252,21 @@ public class EditContactFrame extends JFrame implements ActionListener {
      */
     public ResultBranch getResult() {
         return result;
+    }
+    
+    /**
+     * Validation activated?
+     * @return boolean
+     */
+    public boolean isDoValidation() {
+        return doValidation;
+    }
+
+    /**
+     * Set Validation on/off
+     * @param doValidation boolean
+     */
+    public void setDoValidation(boolean doValidation) {
+        this.doValidation = doValidation;
     }
 }

@@ -26,8 +26,11 @@ public class App
         
         EditContactFrame frame = new EditContactFrame("Test Kontakt bearbeiten", contact);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDoValidation(true);
+        frame.initializeWindow();
         
         ChooseContactFrame frame2 = new ChooseContactFrame("Test Kontakt auswählen", list);
         frame2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame2.initializeWindow();
     }
 }

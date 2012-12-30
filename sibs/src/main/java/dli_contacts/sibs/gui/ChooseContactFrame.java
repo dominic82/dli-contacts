@@ -56,10 +56,12 @@ public class ChooseContactFrame extends JFrame implements ActionListener, ListSe
     public ChooseContactFrame(String title, List<Contact> list) {
         super(title);
         contacts = list;
-        initializeWindow();
     }
 
-    private void initializeWindow() {
+    /**
+     * initialize Windows an show it
+     */
+    public void initializeWindow() {
 
         /**
          *  Swing Components konfigurieren

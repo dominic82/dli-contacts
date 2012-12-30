@@ -27,6 +27,10 @@ public class EditContact implements Executable {
      * Title of the displayed Swing-Frame
      */
     public String title = "Kontakt bearbeiten";
+    /**
+     * Turn Form-Validation on/off
+     */
+    public boolean validate = false;
 
     /**
      * This method is called by the Tracer in jabc
@@ -39,6 +43,8 @@ public class EditContact implements Executable {
         try {
             Contact person = (Contact) env.get(contact);
             EditContactFrame frame = new EditContactFrame(title, person);
+            frame.setDoValidation(validate);
+            frame.initializeWindow();
 
             synchronized (frame) {
 
