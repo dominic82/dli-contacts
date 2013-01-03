@@ -39,7 +39,7 @@ import dli_contacts.Contact.ContactType;
 public class DLI_GoogleContactsConnector {
 	private static String sapId = "SAP-ID";
 	private static String customerGroupURL = "http://www.google.com/m8/feeds/groups/dli.ides.api%40gmail.com/base/3abf361e0913da63";
-	private static String supplierGroupURL = "http://www.google.com/m8/feeds/groups/dli.ides.api%40gmail.com/base/2aada2220eaad8d4r";
+	private static String supplierGroupURL = "http://www.google.com/m8/feeds/groups/dli.ides.api%40gmail.com/base/2aada2220eaad8d4";
 	private static String employeeGroupURL = "http://www.google.com/m8/feeds/groups/dli.ides.api%40gmail.com/base/587c880e884cdacb";
 
 	private static String customer = "Customer";
@@ -51,8 +51,8 @@ public class DLI_GoogleContactsConnector {
 	private final String password = "DLIP455w0rd!";
 	private final String servicename = "dli-google-connector";
 	private final String contactsURL = "https://www.google.com/m8/feeds/contacts/dli.ides.api@gmail.com/full";
-	// private final String groupsURL =
-	// "https://www.google.com/m8/feeds/groups/dli.ides.api@gmail.com/base";
+	 private final String groupsURL =
+	 "https://www.google.com/m8/feeds/groups/dli.ides.api@gmail.com/base";
 
 	private ContactsService myService;
 
@@ -647,25 +647,25 @@ public class DLI_GoogleContactsConnector {
 			// System.out.println("printAllContacts");
 			// DLI_GoogleContactsConnector
 			// .printAllContacts(googleContactsAccess.myService);
+//			printAllGroups(googleContactsAccess.groupsURL, googleContactsAccess.myService);
 
-			// Contact contact = new Contact();
-			// contact.setFirstname("Markus");
-			// contact.setLastname("Marzotko");
-			// contact.setEmail("zabc@def.gh");
-			// contact.setPhone("023331234567890");
-			// contact.setStreet("Otto-Hahn-Str. 6");
-			// contact.setType(ContactType.CUSTOMER);
-			// contact.setCompany("SAP");
-			// contact.setSapId("sapid01");
-			// System.out.println("Contact erstellt\n\n"
-			// + toStringWithContact(contact));
-			// googleContactsAccess.createContact(contact);
-			//
-			// System.out.println("Contact hinzugefuegt");
+//			 Contact contact = new Contact();
+//			 contact.setFirstname("Muster");
+//			 contact.setLastname("Muster");
+//			 contact.setEmail("zabc@def.gh");
+//			 contact.setPhone("123456789");
+//			 contact.setStreet("Musterstr. 123");
+//			 contact.setType(ContactType.SUPPLIER);
+//			 contact.setCompany("Firma");
+//			 contact.setSapId("sapMuster01");
+//			 System.out.println("Contact erstellt\n\n"
+//			 + toStringWithContact(contact));
+//			 googleContactsAccess.createContact(contact);
+			
+			 System.out.println("Contact hinzugefuegt");
 			Contact filter = new Contact();
-			filter.setType(ContactType.CUSTOMER);
-			filter.setCompany("SAP");
-			filter.setFirstname("Markus");
+			filter.setType(ContactType.SUPPLIER);
+			
 			System.out.println("Filter erstellt");
 			System.out.println(toStringWithContact(filter));
 			List<Contact> contacts = googleContactsAccess.fetchContacts(filter);
