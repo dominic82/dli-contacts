@@ -49,21 +49,23 @@ public class DLI_GoogleContactsConnector {
 	private final String password = "DLIP455w0rd!";
 	private final String servicename = "dli-google-connector";
 	private final String contactsURL = "https://www.google.com/m8/feeds/contacts/dli.ides.api@gmail.com/full";
-private final String groupsURL = "https://www.google.com/m8/feeds/groups/dli.ides.api@gmail.com/base"; 
-	
+	private final String groupsURL = "https://www.google.com/m8/feeds/groups/dli.ides.api@gmail.com/base";
+
 	private ContactsService myService;
 
 	public DLI_GoogleContactsConnector() throws AuthenticationException {
 		authenticateId();
 	}
 
-	public ContactEntry createContact(Contact contactInfo) throws IOException, ServiceException {
+	public ContactEntry createContact(Contact contactInfo) throws IOException,
+			ServiceException {
 		return createContact(contactsURL, contactInfo, myService);
-
+		
 	}
 
 	public static ContactEntry createContact(String contactsURL,
-			Contact contactInfo, Service myService) throws IOException, ServiceException {
+			Contact contactInfo, Service myService) throws IOException,
+			ServiceException {
 		if (!isValid(contactInfo)) {
 			return null;
 		}
@@ -79,30 +81,33 @@ private final String groupsURL = "https://www.google.com/m8/feeds/groups/dli.ide
 		contact.setName(name);
 
 		// Email >> es kann NICHT NUR eine geben
-		if(contactInfo.getEmail()!=null){
-		Email primaryMail = new Email();
-		primaryMail.setAddress(contactInfo.getEmail());
-		primaryMail.setRel("http://schemas.google.com/g/2005#home");// Email Typ
-		primaryMail.setPrimary(true);
-		contact.addEmailAddress(primaryMail);
+		if (contactInfo.getEmail() != null) {
+			Email primaryMail = new Email();
+			primaryMail.setAddress(contactInfo.getEmail());
+			primaryMail.setRel("http://schemas.google.com/g/2005#home");// Email
+																		// Typ
+			primaryMail.setPrimary(true);
+			contact.addEmailAddress(primaryMail);
 		}
 		// Telefon >> es kann NICHT NUR eine geben
-		if(contactInfo.getPhone()!=null){
-		PhoneNumber phoneNumber = new PhoneNumber();
-		phoneNumber.setPhoneNumber(contactInfo.getPhone());
-		phoneNumber.setPrimary(true);
-		phoneNumber.setLabel("Primaer");
-		contact.addPhoneNumber(phoneNumber);
+		if (contactInfo.getPhone() != null) {
+			PhoneNumber phoneNumber = new PhoneNumber();
+			phoneNumber.setPhoneNumber(contactInfo.getPhone());
+			phoneNumber.setPrimary(true);
+			phoneNumber.setLabel("Primaer");
+			contact.addPhoneNumber(phoneNumber);
 		}
 		// Adresse >> es kann NICHT NUR eine geben
-		if((contactInfo.getCity()!=null)||(contactInfo.getStreet()!=null)||(contactInfo.getZipcode()!=null)){
-		StructuredPostalAddress adresse = new StructuredPostalAddress();
-		adresse.setCity(new City(contactInfo.getCity()));
-		adresse.setPostcode(new PostCode(contactInfo.getZipcode()));
-		adresse.setStreet(new Street(contactInfo.getStreet()));
-		adresse.setPrimary(true);
-		adresse.setLabel("Primaer");
-		contact.addStructuredPostalAddress(adresse);
+		if ((contactInfo.getCity() != null)
+				|| (contactInfo.getStreet() != null)
+				|| (contactInfo.getZipcode() != null)) {
+			StructuredPostalAddress adresse = new StructuredPostalAddress();
+			adresse.setCity(new City(contactInfo.getCity()));
+			adresse.setPostcode(new PostCode(contactInfo.getZipcode()));
+			adresse.setStreet(new Street(contactInfo.getStreet()));
+			adresse.setPrimary(true);
+			adresse.setLabel("Primaer");
+			contact.addStructuredPostalAddress(adresse);
 		}
 
 		// TODO Firma
@@ -131,15 +136,15 @@ private final String groupsURL = "https://www.google.com/m8/feeds/groups/dli.ide
 
 		// Ask the service to insert the new entry
 		URL postUrl = null;
-			postUrl = new URL(contactsURL);
-			return myService.insert(postUrl, contact);
+		postUrl = new URL(contactsURL);
+		return myService.insert(postUrl, contact);
+		
 	}
 
 	public ContactsService authenticateId() {
-
 		myService = authenticateId(username, password, servicename);
 		return myService;
-
+		
 	}
 
 	/**
@@ -161,10 +166,11 @@ private final String groupsURL = "https://www.google.com/m8/feeds/groups/dli.ide
 
 	}
 
-	public List<Contact> fetchContacts(Contact filter) throws ServiceException, IOException {
-		
-			return fetchContacts(contactsURL, filter, myService);
-		
+	public List<Contact> fetchContacts(Contact filter) throws ServiceException,
+			IOException {
+
+		return fetchContacts(contactsURL, filter, myService);
+
 	}
 
 	/**
@@ -177,10 +183,11 @@ private final String groupsURL = "https://www.google.com/m8/feeds/groups/dli.ide
 	 * @throws IOException
 	 */
 	public static List<Contact> fetchContacts(String contactsURL,
-			Contact filter, ContactsService myService)throws ServiceException, IOException {
+			Contact filter, ContactsService myService) throws ServiceException,
+			IOException {
 		// Create query and submit a request
 		URL feedUrl = null;
-			feedUrl = new URL(contactsURL);
+		feedUrl = new URL(contactsURL);
 		Query myQuery = new Query(feedUrl);
 		ContactFeed resultFeed = null;
 		if (filter.getType() != null) {
@@ -202,14 +209,14 @@ private final String groupsURL = "https://www.google.com/m8/feeds/groups/dli.ide
 			myQuery.setStringCustomParameter("group", groupId);
 
 			// submit request
-				resultFeed = myService.query(myQuery, ContactFeed.class);
-			
+			resultFeed = myService.query(myQuery, ContactFeed.class);
+
 		} else {
-			
-				resultFeed = myService.getFeed(feedUrl, ContactFeed.class);
-			
+
+			resultFeed = myService.getFeed(feedUrl, ContactFeed.class);
+
 		}
-		
+
 		// sort out
 		List<ContactEntry> ceResults = resultFeed.getEntries();
 		List<Contact> results = new ArrayList<Contact>();
@@ -253,14 +260,14 @@ private final String groupsURL = "https://www.google.com/m8/feeds/groups/dli.ide
 
 	private static Contact makeContact(ContactEntry ce) {
 		Contact result = new Contact();
-//		result.setCity("");
-//		result.setEmail("");
-//		result.setFirstname("");
-//		result.setLastname("");
-//		result.setPhone("");
-//		result.setStreet("");
-//		result.setZipcode("");
-//		result.setType(ContactType.CUSTOMER);
+		// result.setCity("");
+		// result.setEmail("");
+		// result.setFirstname("");
+		// result.setLastname("");
+		// result.setPhone("");
+		// result.setStreet("");
+		// result.setZipcode("");
+		// result.setType(ContactType.CUSTOMER);
 		if (ce.hasName()) {
 			Name name = ce.getName();
 			if (name.hasGivenName())
@@ -276,12 +283,12 @@ private final String groupsURL = "https://www.google.com/m8/feeds/groups/dli.ide
 		}
 		for (StructuredPostalAddress adress : ce.getStructuredPostalAddresses()) {
 			if (adress.getPrimary()) {
-				if(adress.getCity()!=null)
-				result.setCity(adress.getCity().getValue());
-				if(adress.getStreet()!=null)
-				result.setStreet(adress.getStreet().getValue());
-				if(adress.getPostcode()!=null)
-				result.setZipcode(adress.getPostcode().getValue());
+				if (adress.getCity() != null)
+					result.setCity(adress.getCity().getValue());
+				if (adress.getStreet() != null)
+					result.setStreet(adress.getStreet().getValue());
+				if (adress.getPostcode() != null)
+					result.setZipcode(adress.getPostcode().getValue());
 			}
 		}
 		for (PhoneNumber phone : ce.getPhoneNumbers()) {
@@ -538,10 +545,12 @@ private final String groupsURL = "https://www.google.com/m8/feeds/groups/dli.ide
 		try {
 
 			DLI_GoogleContactsConnector googleContactsAccess = new DLI_GoogleContactsConnector();
-System.out.println("DLI_GoogleContactsConnector erstellt und authentifiziert");
+			System.out
+					.println("DLI_GoogleContactsConnector erstellt und authentifiziert");
 
-System.out.println("printAllContacts");
-DLI_GoogleContactsConnector.printAllContacts(googleContactsAccess.myService);
+			System.out.println("printAllContacts");
+			DLI_GoogleContactsConnector
+					.printAllContacts(googleContactsAccess.myService);
 
 			Contact contact = new Contact();
 			contact.setFirstname("Markus");
@@ -550,20 +559,20 @@ DLI_GoogleContactsConnector.printAllContacts(googleContactsAccess.myService);
 			contact.setPhone("023331234567890");
 			contact.setStreet("Otto-Hahn-Str. 6");
 			contact.setType(ContactType.CUSTOMER);
-System.out.println("Contact erstellt\n\n" + toStringWithContact(contact));			
-//			googleContactsAccess.createContact(contact);
-			
-//System.out.println("Contact hinzugefuegt");
+			System.out.println("Contact erstellt\n\n"
+					+ toStringWithContact(contact));
+			// googleContactsAccess.createContact(contact);
+
+			// System.out.println("Contact hinzugefuegt");
 			Contact filter = new Contact();
 			filter.setType(ContactType.EMPLOYEE);
-System.out.println("Filter erstellt");
-System.out.println(toStringWithContact(filter));
+			System.out.println("Filter erstellt");
+			System.out.println(toStringWithContact(filter));
 			List<Contact> contacts = googleContactsAccess.fetchContacts(filter);
-System.out.println(contacts.size() + " Kontakte runtergeladen");
+			System.out.println(contacts.size() + " Kontakte runtergeladen");
 			for (Contact c : contacts) {
 				System.out.println(toStringWithContact(c));
 			}
-
 
 		} catch (Exception ex) {
 			System.out.println(ex);
