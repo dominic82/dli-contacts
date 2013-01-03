@@ -422,9 +422,30 @@ public class DLI_GoogleContactsConnector {
 				break;
 			}
 		}
+		
+		String googleid = "googleid: \t";
+		if (c.getGoogleId() == null) {
+			googleid += "null" + "\n";
+		} else {
+			googleid += c.getGoogleId() + "\n";
+		}
+		
+		String sapId = "googleid: \t";
+		if (c.getSapId() == null) {
+			sapId += "null" + "\n";
+		} else {
+			sapId += c.getSapId() + "\n";
+		}
+		
+		String company = "googleid: \t";
+		if (c.getCompany() == null) {
+			company += "null" + "\n";
+		} else {
+			company += c.getCompany() + "\n";
+		}
 
 		String result = vorname + nachname + email + phone + street + postal
-				+ city + type;
+				+ city + type + googleid + sapId + company;
 
 		return result;
 	}
@@ -562,7 +583,7 @@ public class DLI_GoogleContactsConnector {
 	/* This method will add a contact to that particular Google account */
 
 	public static void main(String ar[]) {
-		System.out.println("main gestartet");
+		System.out.println("main gestartet!");
 		test();
 	}
 
@@ -576,9 +597,9 @@ public class DLI_GoogleContactsConnector {
 			System.out
 					.println("DLI_GoogleContactsConnector erstellt und authentifiziert");
 
-			System.out.println("printAllContacts");
-			DLI_GoogleContactsConnector
-					.printAllContacts(googleContactsAccess.myService);
+			//System.out.println("printAllContacts");
+			//DLI_GoogleContactsConnector
+			//		.printAllContacts(googleContactsAccess.myService);
 
 			Contact contact = new Contact();
 			contact.setFirstname("Markus");
@@ -587,13 +608,16 @@ public class DLI_GoogleContactsConnector {
 			contact.setPhone("023331234567890");
 			contact.setStreet("Otto-Hahn-Str. 6");
 			contact.setType(ContactType.CUSTOMER);
+			contact.setCompany("SAP");
+			contact.setSapId("sapid01");
 			System.out.println("Contact erstellt\n\n"
 					+ toStringWithContact(contact));
-			// googleContactsAccess.createContact(contact);
+			googleContactsAccess.createContact(contact);
 
-			// System.out.println("Contact hinzugefuegt");
+			System.out.println("Contact hinzugefuegt");
 			Contact filter = new Contact();
-			filter.setType(ContactType.EMPLOYEE);
+			filter.setType(ContactType.CUSTOMER);
+			filter.setCompany("SAP");
 			System.out.println("Filter erstellt");
 			System.out.println(toStringWithContact(filter));
 			List<Contact> contacts = googleContactsAccess.fetchContacts(filter);
