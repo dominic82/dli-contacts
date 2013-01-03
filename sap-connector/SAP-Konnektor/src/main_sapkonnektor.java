@@ -16,88 +16,23 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 
+import appl.se.global.SupplierSimpleByNameAndAddressQueryMessageSync;
+import appl.se.global.ServiceECCSUPPLIERSNAQRDEFAULTPROFILE;
+
+
+
 public class main_sapkonnektor {
 
 	/**
 	 * @param args
 	 */
 		public static void main(String argv[]) {
-			 
-			   try {
-				String filepath = "c:\\wdlzeugs/file.xml";
-				DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
-				DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
-				Document doc = docBuilder.parse(filepath);
-		 
-				// Get the root element
-				//Node company = doc.getFirstChild();
-		 
-				// Get the staff element , it may not working if tag has spaces, or
-				// whatever weird characters in front...it's better to use
-				// getElementsByTagName() to get it directly.
-				// Node staff = company.getFirstChild();
-		 
-				// Get the staff element by tag name directly
-
-//Knoten SupplierSimpleSelectionByNameAndAddress finden
-				
-				Node suppname1 = doc.getElementsByTagName("glob").item(0);
-
-// nicht interessant, für referenzzwecke
-/*				
-				//update staff attribute
-				NamedNodeMap attr = staff.getAttributes();
-				Node nodeAttr = attr.getNamedItem("id");
-				nodeAttr.setTextContent("2");
-
-				// append a new node to staff
-				Element age = doc.createElement("age");
-				age.appendChild(doc.createTextNode("28"));
-				staff.appendChild(age);
-*/		 
-				// loop the staff child node
-				
-//Einmal über alle Elemente des Knotens SupllierSimpleSelectionByNameAndAddress gehen
-				Element rootElement = doc.getDocumentElement();
-				NodeList list = rootElement.getChildNodes();
-                         list = list.item(0).getChildNodes();
-                         list = list.item(0).getChildNodes();
-//				NodeList list = supp.getChildNodes();
-		 
-				for (int i = 0; i < list.getLength(); i++) {
-		 
-		                   Node node = list.item(i);
-		 
-				   // get the salary element, and update the value
-//Testweise Vornamen mit festem Wert setzen
-				   if ("SupplierName1".equals(node.getNodeName())) {
-					node.setTextContent("Schmidt");
-					System.out.println("Hab was geschreiben, JUHUUU");
-				   }
-		 
-
-		 
-				}
-
-							
-				// write the content into xml file
-				TransformerFactory transformerFactory = TransformerFactory.newInstance();
-				Transformer transformer = transformerFactory.newTransformer();
-				DOMSource source = new DOMSource(doc);
-				StreamResult result = new StreamResult(new File(filepath));
-				transformer.transform(source, result);
-		 
-				System.out.println("Done");
-		 
-			   } catch (ParserConfigurationException pce) {
-				pce.printStackTrace();
-			   } catch (TransformerException tfe) {
-				tfe.printStackTrace();
-			   } catch (IOException ioe) {
-				ioe.printStackTrace();
-			   } catch (SAXException sae) {
-				sae.printStackTrace();
-			   }
-			}
-
+		
+		SupplierSimpleByNameAndAddressQueryMessageSync suppquery = new SupplierSimpleByNameAndAddressQueryMessageSync();
+		
+		ServiceECCSUPPLIERSNAQRDEFAULTPROFILE service = new ServiceECCSUPPLIERSNAQRDEFAULTPROFILE();
+		
+		
+		
+		}
 }
