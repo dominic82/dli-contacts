@@ -3,7 +3,6 @@
 .*
 
 *.class
-
 !/.gitignore
 
 /bericht/temp/
