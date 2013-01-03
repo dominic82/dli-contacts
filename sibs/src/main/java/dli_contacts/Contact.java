@@ -50,6 +50,7 @@ public class Contact {
      * validates the values of the object-parameters
      * @return List of defined ValidationErrors
      */
+    // TODO: ZIPCODE max 10 Zeichen, Rest max 40 Zeichen
     public List<ValidationErrors> validate() {
         List<ValidationErrors> errors = new ArrayList<ValidationErrors>();
         if (firstname.isEmpty()) {

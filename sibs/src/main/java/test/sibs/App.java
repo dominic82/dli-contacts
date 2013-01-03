@@ -4,7 +4,6 @@ import com.google.gdata.util.AuthenticationException;
 import com.google.gdata.util.ServiceException;
 import dli_contacts.Contact;
 import dli_contacts.ContactsConnector;
-import dli_contacts.DummyConnector;
 import dli_contacts.sibs.gui.ChooseContactFrame;
 
 import dli_contacts.sibs.gui.EditContactFrame;
@@ -34,7 +33,7 @@ public class App {
 //        newContact.setCity("Teststadt");
 //        newContact.setPhone("0190 222 222");
 //        newContact.setEmail("test@test.de");
-//        newContact.setType(Contact.ContactType.CUSTOMER);
+//        newContact.setType(Contact.ContactType.SUPPLIER);
 //        try {
 //            gCon.addGoogleContact(newContact);
 //        } catch (AuthenticationException ex) {
@@ -55,7 +54,7 @@ public class App {
             try {
                 frame.wait();
             } catch (InterruptedException ex) {
-                Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.println(ex);
             }
             filter = frame.getContact();
         }
@@ -66,11 +65,11 @@ public class App {
         try {
             glist = gCon.getGoogleContacts(filter);
         } catch (AuthenticationException ex) {
-            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex);
         } catch (ServiceException ex) {
-            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex);
         } catch (IOException ex) {
-            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex);
         }
 
         ChooseContactFrame frame2 = new ChooseContactFrame("Test Kontakt auswählen", glist);

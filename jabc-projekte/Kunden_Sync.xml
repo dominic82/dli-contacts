@@ -2,7 +2,7 @@
 <model version="2.1">
   <id>d7e06782-e187-4cde-8336-713f124e0449</id>
   <name>Kunden_Sync</name>
-  <changecounter>28</changecounter>
+  <changecounter>29</changecounter>
   <sib>
     <id>cbbb07b1-66fc-408b-9858-ed9c1f62ceac</id>
     <name>PutContact</name>
@@ -302,6 +302,7 @@
     <point>150.71428571428572,429.0</point>
     <point>282.63157894736844,573.0</point>
     <labelposition>500.0,0.0</labelposition>
+    <branch>cancel</branch>
     <branch>ok</branch>
   </edge>
   <edge>
@@ -327,6 +328,13 @@
     <point>495.0,420.0</point>
     <labelposition>500.0,0.0</labelposition>
     <branch>not found</branch>
+  </edge>
+  <edge>
+    <source>bc7acec5-a0ea-4085-ad64-dc186ec87814</source>
+    <target>8fa2924f-c0a3-4d85-a0f8-092667ca30a6</target>
+    <point>585.0,285.0</point>
+    <point>307.0,404.0</point>
+    <branch>cancel</branch>
   </edge>
   <values/>
 </model>
