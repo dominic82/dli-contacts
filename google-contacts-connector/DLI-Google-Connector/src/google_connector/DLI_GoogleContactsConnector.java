@@ -37,6 +37,7 @@ import dli_contacts.Contact.ContactType;
  * Entry point classes define <code>onModuleLoad()</code>.
  */
 public class DLI_GoogleContactsConnector {
+	private static String sapId = "SAP-ID";
 	private static String customerGroupURL = "http://www.google.com/m8/feeds/groups/dli.ides.api%40gmail.com/base/3abf361e0913da63";
 	private static String supplierGroupURL = "http://www.google.com/m8/feeds/groups/dli.ides.api%40gmail.com/base/2aada2220eaad8d4r";
 	private static String employeeGroupURL = "http://www.google.com/m8/feeds/groups/dli.ides.api%40gmail.com/base/587c880e884cdacb";
@@ -44,6 +45,7 @@ public class DLI_GoogleContactsConnector {
 	private static String customer = "Customer";
 	private static String supplier = "Supplier";
 	private static String employee = "Employee";
+	private static String company = "Company";
 
 	private final String username = "dli.ides.api@gmail.com";
 	private final String password = "DLIP455w0rd!";
@@ -60,13 +62,13 @@ public class DLI_GoogleContactsConnector {
 	public ContactEntry createContact(Contact contactInfo) throws IOException,
 			ServiceException {
 		return createContact(contactsURL, contactInfo, myService);
-		
+
 	}
 
 	public static ContactEntry createContact(String contactsURL,
 			Contact contactInfo, Service myService) throws IOException,
 			ServiceException {
-		if (!isValid(contactInfo)) {
+		if (!(contactInfo.validate().isEmpty())) {
 			return null;
 		}
 		// Create the entry to insert
@@ -110,12 +112,17 @@ public class DLI_GoogleContactsConnector {
 			contact.addStructuredPostalAddress(adresse);
 		}
 
-		// TODO Firma
-		/*
-		 * favouriteFlower.setName("Organisation");
-		 * favouriteFlower.setValue(contactInfo.getOrganisation);
-		 * contact.addExtendedProperty(favouriteFlower);
-		 */
+		// Firma
+		ExtendedProperty company = new ExtendedProperty();
+		company.setName(DLI_GoogleContactsConnector.company);
+		company.setValue(contactInfo.getCompany());
+		contact.addExtendedProperty(company);
+
+		// SAPID
+		ExtendedProperty sapId = new ExtendedProperty();
+		sapId.setName(DLI_GoogleContactsConnector.sapId);
+		sapId.setValue(contactInfo.getSapId());
+
 		// Gruppe setzen
 		String groupURL = null;
 		switch (contactInfo.getType()) {
@@ -138,13 +145,13 @@ public class DLI_GoogleContactsConnector {
 		URL postUrl = null;
 		postUrl = new URL(contactsURL);
 		return myService.insert(postUrl, contact);
-		
+
 	}
 
 	public ContactsService authenticateId() {
 		myService = authenticateId(username, password, servicename);
 		return myService;
-		
+
 	}
 
 	/**
@@ -190,6 +197,8 @@ public class DLI_GoogleContactsConnector {
 		feedUrl = new URL(contactsURL);
 		Query myQuery = new Query(feedUrl);
 		ContactFeed resultFeed = null;
+
+		// Gruppe
 		if (filter.getType() != null) {
 			String groupId = null;
 			switch (filter.getType()) {
@@ -207,25 +216,28 @@ public class DLI_GoogleContactsConnector {
 				break;
 			}
 			myQuery.setStringCustomParameter("group", groupId);
+		}
 
-			// submit request
-			resultFeed = myService.query(myQuery, ContactFeed.class);
-
-		} else {
-
+		// submit request
+		if (!myQuery.isValidState()) {
 			resultFeed = myService.getFeed(feedUrl, ContactFeed.class);
-
+		} else {
+			resultFeed = myService.query(myQuery, ContactFeed.class);
 		}
 
 		// sort out
 		List<ContactEntry> ceResults = resultFeed.getEntries();
 		List<Contact> results = new ArrayList<Contact>();
+		int failures = 0;
 		for (ContactEntry ce : ceResults) {
 			Contact accepted = makeContact(ce);
 			if (filterContact(filter, accepted)) {
 				results.add(accepted);
+			} else {
+				failures++;
 			}
 		}
+		System.out.println("Number of falsely submitted entries:\t" + failures);
 
 		return results;
 	}
@@ -255,19 +267,25 @@ public class DLI_GoogleContactsConnector {
 		if (!street)
 			street = accepted.getStreet().contains(filter.getStreet());
 
-		return city && email && firstname && lastname && phone && street;
+		boolean sapId = (filter.getSapId() == null);
+		if (!sapId)
+			sapId = accepted.getSapId().contentEquals(filter.getSapId());
+
+		boolean googleId = accepted.getGoogleId().contentEquals(
+				filter.getGoogleId());
+
+		boolean company = (filter.getCompany() == null);
+		if (!company)
+			company = accepted.getCompany().contains(filter.getCompany());
+
+		return city && email && firstname && lastname && phone && street
+				&& sapId && googleId && company;
 	}
 
 	private static Contact makeContact(ContactEntry ce) {
 		Contact result = new Contact();
-		// result.setCity("");
-		// result.setEmail("");
-		// result.setFirstname("");
-		// result.setLastname("");
-		// result.setPhone("");
-		// result.setStreet("");
-		// result.setZipcode("");
-		// result.setType(ContactType.CUSTOMER);
+
+		// Name (Vorname, Nachname)
 		if (ce.hasName()) {
 			Name name = ce.getName();
 			if (name.hasGivenName())
@@ -275,12 +293,16 @@ public class DLI_GoogleContactsConnector {
 			if (name.hasFamilyName())
 				result.setLastname(name.getFamilyName().getValue());
 		}
+
+		// E-Mail
 		for (Email email : ce.getEmailAddresses()) {
 			if (email.getPrimary()) {
 				result.setEmail(email.getAddress());
 			}
 
 		}
+
+		// Adresse (Strasse, Stadt, PLZ)
 		for (StructuredPostalAddress adress : ce.getStructuredPostalAddresses()) {
 			if (adress.getPrimary()) {
 				if (adress.getCity() != null)
@@ -291,11 +313,31 @@ public class DLI_GoogleContactsConnector {
 					result.setZipcode(adress.getPostcode().getValue());
 			}
 		}
+
+		// Phone
 		for (PhoneNumber phone : ce.getPhoneNumbers()) {
 			if (phone.getPrimary()) {
 				result.setPhone(phone.getPhoneNumber());
 			}
 		}
+
+		// Google-ID
+		result.setGoogleId(ce.getId());
+
+		if (ce.hasExtendedProperties()) {
+			for (ExtendedProperty ep : ce.getExtendedProperties()) {
+				// SAP-ID
+				if (ep.getName().contentEquals(sapId)) {
+					result.setSapId(ep.getValue());
+				}
+				// Firma
+				if (ep.getName().contentEquals(company)) {
+					result.setCompany(ep.getValue());
+				}
+			}
+		}
+
+		// Gruppe
 		for (GroupMembershipInfo group : ce.getGroupMembershipInfos()) {
 			if (group.getHref().contentEquals(customerGroupURL)) {
 				result.setType(ContactType.CUSTOMER);
@@ -308,20 +350,6 @@ public class DLI_GoogleContactsConnector {
 			}
 		}
 		return result;
-	}
-
-	private static boolean isValid(Contact c) {
-		boolean cs = false;
-		cs = (c.getLastname() != null);
-		if (cs) {
-			cs = !(c.getLastname().isEmpty());
-		}
-		cs = cs || (c.getFirstname() != null);
-		if (cs) {
-			cs = cs || (!c.getFirstname().isEmpty());
-		}
-		// TODO gleiches für die Firma nochmal
-		return cs;
 	}
 
 	private static String toStringWithContact(Contact c) {
