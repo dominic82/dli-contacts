@@ -159,38 +159,37 @@ public class DLI_GoogleContactsConnector {
 
 		// Name
 		String cfname = contact.getFirstname();
-		copy.setFirstname(cfname.contentEquals("") ? null : cfname);
+		copy.setFirstname(cfname != null && cfname.contentEquals("") ? null : cfname);
 		String clname = contact.getLastname();
 		copy.setLastname(clname.contentEquals("") ? null : clname);
 
 		// Mail
 		String cmail = contact.getEmail();
-		copy.setEmail(cmail.contentEquals("") ? null : cmail);
+		copy.setEmail(cmail != null && cmail.contentEquals("") ? null : cmail);
 
 		// Telefon
 		String cphone = contact.getPhone();
-		copy.setPhone(cphone.contentEquals("") ? null : cphone);
+		copy.setPhone(cphone != null && cphone.contentEquals("") ? null : cphone);
 
 		// Adresse
 		String ccity = contact.getCity();
-		copy.setCity(ccity.contentEquals("") ? null : ccity);
+		copy.setCity(ccity != null && ccity.contentEquals("") ? null : ccity);
 		String cstreet = contact.getStreet();
-		copy.setStreet(cstreet.contentEquals("") ? null : cstreet);
+		copy.setStreet(cstreet != null && cstreet.contentEquals("") ? null : cstreet);
 		String czip = contact.getZipcode();
-		copy.setZipcode(czip.contentEquals("") ? null : czip);
+		copy.setZipcode(czip != null && czip.contentEquals("") ? null : czip);
 
 		// Firma
 		String ccompany = contact.getCompany();
-		copy.setCompany(ccompany.contentEquals("") ? null : ccompany);
+		copy.setCompany(ccompany != null && ccompany.contentEquals("") ? null : ccompany);
 
 		// SapId
 		String csapid = contact.getSapId();
-		copy.setSapId(csapid.contentEquals("") ? null : csapid);
+		copy.setSapId(csapid != null && csapid.contentEquals("") ? null : csapid);
 
 		// GoogleId
 		String cgoogle = contact.getGoogleId();
-		copy.setSapId(cgoogle.contentEquals("") ? null : cgoogle);
-
+		copy.setGoogleId(cgoogle != null && cgoogle.contentEquals("") ? null : cgoogle);
 		// Gruppe
 		copy.setType(contact.getType());
 
@@ -246,9 +245,9 @@ public class DLI_GoogleContactsConnector {
 		feedUrl = new URL(contactsURL);
 		Query myQuery = new Query(feedUrl);
 		ContactFeed resultFeed = null;
-
+		
 		// TODO noch anstaendig mit Querys machen/besprechen
-
+		
 		// Gruppe
 		if (filter.getType() != null) {
 			String groupId = null;
@@ -275,28 +274,20 @@ public class DLI_GoogleContactsConnector {
 		} else {
 			resultFeed = myService.query(myQuery, ContactFeed.class);
 		}
-
 		// sort out
 		List<ContactEntry> ceResults = resultFeed.getEntries();
 		List<Contact> results = new ArrayList<Contact>();
-		int failures = 0;
 		for (ContactEntry ce : ceResults) {
 			Contact accepted = makeContact(ce);
 			if (filterContact(filter, accepted)) {
 				results.add(accepted);
-			} else {
-				failures++;
 			}
-			System.out.println(toStringWithContact(accepted));
 		}
-		System.out.println("Number of falsely submitted entries:\t" + failures);
-
 		return results;
 	}
 
 	private static boolean filterContact(Contact filter, Contact accepted) {
 		Contact cfilter = nullCopy(filter);
-		
 		boolean city = (cfilter.getCity() == null);
 		if (!city)
 			city = accepted.getCity().contains(cfilter.getCity());
@@ -673,7 +664,7 @@ public class DLI_GoogleContactsConnector {
 			// System.out.println("Contact hinzugefuegt");
 			Contact filter = new Contact();
 			filter.setType(ContactType.CUSTOMER);
-			//filter.setCompany("SAP");
+			filter.setCompany("SAP");
 			filter.setFirstname("Markus");
 			System.out.println("Filter erstellt");
 			System.out.println(toStringWithContact(filter));
