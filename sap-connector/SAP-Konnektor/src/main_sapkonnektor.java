@@ -24,7 +24,7 @@ public class main_sapkonnektor {
 		
 		ServiceECCSUPPLIERSNAQRDEFAULTPROFILE servic = new ServiceECCSUPPLIERSNAQRDEFAULTPROFILE();
 		
-		
+		//Kommentar
 		SupplierSimpleSelectionByNameAndAddress x = new SupplierSimpleSelectionByNameAndAddress();
 		
 		WebServiceFeature ws = new myWebServiceFeature();
