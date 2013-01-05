@@ -250,7 +250,7 @@ public class DLI_GoogleContactsConnector {
 		feedUrl = new URL(contactsURL);
 		Query myQuery = new Query(feedUrl);
 		ContactFeed resultFeed = null;
-		
+
 		Contact filterCopy = nullCopy(filter);
 
 		// TODO noch anstaendig mit Querys machen/besprechen
@@ -304,8 +304,7 @@ public class DLI_GoogleContactsConnector {
 
 		boolean firstname = (filter.getFirstname() == null);
 		if (!firstname)
-			firstname = accepted.getFirstname()
-					.contains(filter.getFirstname());
+			firstname = accepted.getFirstname().contains(filter.getFirstname());
 
 		boolean lastname = (filter.getLastname() == null);
 		if (!lastname)
