@@ -71,27 +71,29 @@ public class main_sapkonnektor {
 		  
 		  ServiceECCSUPPLIERSNAQRDEFAULTPROFILE service = new ServiceECCSUPPLIERSNAQRDEFAULTPROFILE();
 		  
-		  try {
+/*		  try { */
 		   SupplierSimpleByNameAndAddressQueryResponseIn binding = service.getBindingTHTTPAHTTPECCSUPPLIERSNAQRDEFAULTPROFILE();
 		   BindingProvider bp = (BindingProvider) binding;
-		   Map<String, Object> reqCont = bp.getRequestContext();
-		   result = binding.supplierSimpleByNameAndAddressQueryResponseIn(suppquery);
-		  } catch (StandardMessageFault e) {
+//		   Map<String, Object> reqCont = bp.getRequestContext();
+		   
+		   bp.getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, "Webaddresse");
+		   bp.getRequestContext().put(BindingProvider.USERNAME_PROPERTY, "S0008266219");
+		   bp.getRequestContext().put(BindingProvider.PASSWORD_PROPERTY, "Fleischgans85");
+		   
+/*		   result = binding.supplierSimpleByNameAndAddressQueryResponseIn(suppquery);
+		   
+		  }
+		  
+		  catch (StandardMessageFault e) {
 		   // TODO Auto-generated catch block
 		   e.printStackTrace();
 		  }
 		  result.getSupplier().get(0).getBasicData().getCommon().getName();
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+*/		
+		  
+		  
+		  
+		  
 		Contact xta = new Contact();
 		}
 }
