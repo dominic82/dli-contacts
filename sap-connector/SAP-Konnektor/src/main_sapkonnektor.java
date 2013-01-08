@@ -10,6 +10,8 @@ import com.sap.xi.appl.se.global.SupplierSimpleByNameAndAddressQueryMessageSync;
 import com.sap.xi.appl.se.global.SupplierSimpleByNameAndAddressQueryMessageSync.SupplierSimpleSelectionByNameAndAddress;
 import com.sap.xi.appl.se.global.SupplierSimpleByNameAndAddressQueryResponseIn;
 import com.sap.xi.appl.se.global.SupplierSimpleByNameAndAddressResponseMessageSync;
+import com.sap.xi.ea_hr.se.global.EmplERPSimplElmntsQryMsgS;
+import com.sap.xi.ea_hr.se.global.EmplERPSimplElmntsQrySSel;
 
 import dli_contacts.Contact;
 
@@ -76,12 +78,8 @@ public class main_sapkonnektor {
 
 		System.out.println(result.getSupplier().get(8).getBasicData()
 				.getCommon().getName().getFirstLineName());
-		
-		
+
 		System.out.println(result.getSupplier().get(8).getID().getValue());
-		
-		
-		
 
 		Contact xta = new Contact();
 
@@ -91,17 +89,6 @@ public class main_sapkonnektor {
 
 	}
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	public static List<Contact> fetchContact(Contact filter) {
 
 		// BindingProvider bs = (BindingProvider) ws;
@@ -160,12 +147,9 @@ public class main_sapkonnektor {
 		result.getSupplier().get(8).getBasicData().getCommon().getName()
 				.getFirstLineName();
 
-
 		System.out.println(result.getSupplier().get(8).getBasicData()
 				.getCommon().getName().getFirstLineName());
 
-
-        
 		Contact xta = new Contact();
 
 		xta.getType();
@@ -175,131 +159,125 @@ public class main_sapkonnektor {
 		return Kontaktliste;
 	}
 
+	public static SupplierSimpleByNameAndAddressResponseMessageSync getSupplierIDs(
+			Contact filter) {
 
+		SupplierSimpleByNameAndAddressQueryMessageSync lieferantAnfrage = new SupplierSimpleByNameAndAddressQueryMessageSync();
+		SupplierSimpleSelectionByNameAndAddress lieferantFilter = new SupplierSimpleSelectionByNameAndAddress();
 
-public static SupplierSimpleByNameAndAddressResponseMessageSync getSupplierIDs(Contact filter){
-	
-	SupplierSimpleByNameAndAddressQueryMessageSync lieferantAnfrage = new SupplierSimpleByNameAndAddressQueryMessageSync();
-	SupplierSimpleSelectionByNameAndAddress lieferantFilter = new SupplierSimpleSelectionByNameAndAddress();
+		// Hier die Werte der inneren Klasse des zu sendenden Objekts mit den
+		// Werten von Dominiks
+		// Contacts befüllen
 
+		lieferantFilter.setSupplierName1(filter.getFirstname());
+		lieferantFilter.setSupplierAddressCityName(filter.getCity());
+		lieferantFilter.setSupplierAddressStreetName(filter.getStreet());
+		lieferantFilter.setSupplierAddressStreetPostalCode(filter.getZipcode());
 
-	// Hier die Werte der inneren Klasse des zu sendenden Objekts mit den Werten von Dominiks
-	// Contacts befüllen
+		EmailURI dummerSAPEmailTyp = new EmailURI();
+		dummerSAPEmailTyp.setValue(filter.getEmail());
+		lieferantFilter.setSupplierAddressEMailAddress(dummerSAPEmailTyp);
 
-	lieferantFilter.setSupplierName1(filter.getFirstname());
-	lieferantFilter.setSupplierAddressCityName(filter.getCity());
-	lieferantFilter.setSupplierAddressStreetName(filter.getStreet());
-	lieferantFilter.setSupplierAddressStreetPostalCode(filter.getZipcode());
-	
-	EmailURI dummerSAPEmailTyp = new EmailURI();
-	dummerSAPEmailTyp.setValue(filter.getEmail());
-	lieferantFilter.setSupplierAddressEMailAddress(dummerSAPEmailTyp);
-	
-	lieferantFilter.setSupplierAddressPhoneNumber(filter.getPhone());
+		lieferantFilter.setSupplierAddressPhoneNumber(filter.getPhone());
 
-	//Alles dem sendenden Objekt hinzufügen
-	lieferantAnfrage.setSupplierSimpleSelectionByNameAndAddress(lieferantFilter);
-    
-	
-	//Verbindungs und Antwortobjekte bauen
-	SupplierSimpleByNameAndAddressResponseMessageSync result = null;
+		// Alles dem sendenden Objekt hinzufügen
+		lieferantAnfrage
+				.setSupplierSimpleSelectionByNameAndAddress(lieferantFilter);
 
-	ServiceECCSUPPLIERSNAQRDEFAULTPROFILE verbindungsObjekt = new ServiceECCSUPPLIERSNAQRDEFAULTPROFILE();
+		// Verbindungs und Antwortobjekte bauen
+		SupplierSimpleByNameAndAddressResponseMessageSync result = null;
 
-	SupplierSimpleByNameAndAddressQueryResponseIn bindungDaten = verbindungsObjekt
-			.getBindingTHTTPAHTTPECCSUPPLIERSNAQRDEFAULTPROFILE();
-	BindingProvider bindungDatenCast = (BindingProvider) bindungDaten;
+		ServiceECCSUPPLIERSNAQRDEFAULTPROFILE verbindungsObjekt = new ServiceECCSUPPLIERSNAQRDEFAULTPROFILE();
 
-	
-	// Username und Passwort setzen (Webaddresse schon im Objekt enthalten)
-	bindungDatenCast.getRequestContext().put(BindingProvider.USERNAME_PROPERTY,
-			"S0008266219");
-	bindungDatenCast.getRequestContext().put(BindingProvider.PASSWORD_PROPERTY,
-			"Fleischgans85");
-    
-	// Verbindung herstellen, StandardMessageFault für SAP notwendig
-	try {
-		result = bindungDaten
-				.supplierSimpleByNameAndAddressQueryResponseIn(lieferantAnfrage);
-	} catch (StandardMessageFault e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	} catch (SOAPFaultException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
+		SupplierSimpleByNameAndAddressQueryResponseIn bindungDaten = verbindungsObjekt
+				.getBindingTHTTPAHTTPECCSUPPLIERSNAQRDEFAULTPROFILE();
+		BindingProvider bindungDatenCast = (BindingProvider) bindungDaten;
+
+		// Username und Passwort setzen (Webaddresse schon im Objekt enthalten)
+		bindungDatenCast.getRequestContext().put(
+				BindingProvider.USERNAME_PROPERTY, "S0008266219");
+		bindungDatenCast.getRequestContext().put(
+				BindingProvider.PASSWORD_PROPERTY, "Fleischgans85");
+
+		// Verbindung herstellen, StandardMessageFault für SAP notwendig
+		try {
+			result = bindungDaten
+					.supplierSimpleByNameAndAddressQueryResponseIn(lieferantAnfrage);
+		} catch (StandardMessageFault e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SOAPFaultException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		// Ergebnis zurückgeben
+		return result;
 	}
 
-    //Ergebnis zurückgeben
-	return result;
-}
+	public static SupplierSimpleByNameAndAddressResponseMessageSync getEmployeeIDs(
+			Contact filter) {
 
-public static SupplierSimpleByNameAndAddressResponseMessageSync getEmployeeIDs(Contact filter){
-	
-	SupplierSimpleByNameAndAddressQueryMessageSync lieferantAnfrage = new SupplierSimpleByNameAndAddressQueryMessageSync();
-	SupplierSimpleSelectionByNameAndAddress lieferantFilter = new SupplierSimpleSelectionByNameAndAddress();
+		EmplERPSimplElmntsQryMsgS angestellterAnfrage = new EmplERPSimplElmntsQryMsgS();
+		EmplERPSimplElmntsQrySSel angestellterFilter = new EmplERPSimplElmntsQrySSel();
 
-
-	// Hier die Werte der inneren Klasse des zu sendenden Objekts mit den Werten von Dominiks
-	// Contacts befüllen
-
-	lieferantFilter.setSupplierName1(filter.getFirstname());
-	lieferantFilter.setSupplierAddressCityName(filter.getCity());
-	lieferantFilter.setSupplierAddressStreetName(filter.getStreet());
-	lieferantFilter.setSupplierAddressStreetPostalCode(filter.getZipcode());
-	
-	EmailURI dummerSAPEmailTyp = new EmailURI();
-	dummerSAPEmailTyp.setValue(filter.getEmail());
-	lieferantFilter.setSupplierAddressEMailAddress(dummerSAPEmailTyp);
-	
-	lieferantFilter.setSupplierAddressPhoneNumber(filter.getPhone());
-
-	//Alles dem sendenden Objekt hinzufügen
-	lieferantAnfrage.setSupplierSimpleSelectionByNameAndAddress(lieferantFilter);
-    
-	
-	//Verbindungs und Antwortobjekte bauen
-	SupplierSimpleByNameAndAddressResponseMessageSync result = null;
-
-	ServiceECCSUPPLIERSNAQRDEFAULTPROFILE verbindungsObjekt = new ServiceECCSUPPLIERSNAQRDEFAULTPROFILE();
-
-	SupplierSimpleByNameAndAddressQueryResponseIn bindungDaten = verbindungsObjekt
-			.getBindingTHTTPAHTTPECCSUPPLIERSNAQRDEFAULTPROFILE();
-	BindingProvider bindungDatenCast = (BindingProvider) bindungDaten;
-
-	
-	// Username und Passwort setzen (Webaddresse schon im Objekt enthalten)
-	bindungDatenCast.getRequestContext().put(BindingProvider.USERNAME_PROPERTY,
-			"S0008266219");
-	bindungDatenCast.getRequestContext().put(BindingProvider.PASSWORD_PROPERTY,
-			"Fleischgans85");
-    
-	// Verbindung herstellen, StandardMessageFault für SAP notwendig
-	try {
-		result = bindungDaten
-				.supplierSimpleByNameAndAddressQueryResponseIn(lieferantAnfrage);
-	} catch (StandardMessageFault e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	} catch (SOAPFaultException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
+		// Hier die Werte der inneren Klasse des zu sendenden Objekts mit den
+		// Werten von Dominiks
+		// Contacts befüllen
+		/*
+		 * angestellterFilter.setSupplierName1(filter.getFirstname());
+		 * angestellterFilter.setSupplierAddressCityName(filter.getCity());
+		 * lieferantFilter.setSupplierAddressStreetName(filter.getStreet());
+		 * lieferantFilter
+		 * .setSupplierAddressStreetPostalCode(filter.getZipcode());
+		 * 
+		 * EmailURI dummerSAPEmailTyp = new EmailURI();
+		 * dummerSAPEmailTyp.setValue(filter.getEmail());
+		 * lieferantFilter.setSupplierAddressEMailAddress(dummerSAPEmailTyp);
+		 * 
+		 * lieferantFilter.setSupplierAddressPhoneNumber(filter.getPhone());
+		 * 
+		 * //Alles dem sendenden Objekt hinzufügen
+		 * lieferantAnfrage.setSupplierSimpleSelectionByNameAndAddress
+		 * (lieferantFilter);
+		 * 
+		 * 
+		 * //Verbindungs und Antwortobjekte bauen
+		 * SupplierSimpleByNameAndAddressResponseMessageSync result = null;
+		 * 
+		 * ServiceECCSUPPLIERSNAQRDEFAULTPROFILE verbindungsObjekt = new
+		 * ServiceECCSUPPLIERSNAQRDEFAULTPROFILE();
+		 * 
+		 * SupplierSimpleByNameAndAddressQueryResponseIn bindungDaten =
+		 * verbindungsObjekt
+		 * .getBindingTHTTPAHTTPECCSUPPLIERSNAQRDEFAULTPROFILE();
+		 * BindingProvider bindungDatenCast = (BindingProvider) bindungDaten;
+		 * 
+		 * 
+		 * // Username und Passwort setzen (Webaddresse schon im Objekt
+		 * enthalten) bindungDatenCast.getRequestContext().put(BindingProvider.
+		 * USERNAME_PROPERTY, "S0008266219");
+		 * bindungDatenCast.getRequestContext(
+		 * ).put(BindingProvider.PASSWORD_PROPERTY, "Fleischgans85");
+		 * 
+		 * // Verbindung herstellen, StandardMessageFault für SAP notwendig try
+		 * { result = bindungDaten
+		 * .supplierSimpleByNameAndAddressQueryResponseIn(lieferantAnfrage); }
+		 * catch (StandardMessageFault e) { // TODO Auto-generated catch block
+		 * e.printStackTrace(); } catch (SOAPFaultException e) { // TODO
+		 * Auto-generated catch block e.printStackTrace(); }
+		 */
+		// Ergebnis zurückgeben
+		SupplierSimpleByNameAndAddressResponseMessageSync result = null;
+		return result;
 	}
 
-    //Ergebnis zurückgeben
-	return result;
-}
+	public static List<Contact> getSupplierData(
+			SupplierSimpleByNameAndAddressResponseMessageSync supplierIDList) {
 
+		List<Contact> Kontaktliste = null;
 
-
-
-public static List<Contact> getSupplierData(SupplierSimpleByNameAndAddressResponseMessageSync supplierIDList){
-	
-	
-	List<Contact> Kontaktliste = null;
-
-	return Kontaktliste;
-}
-
+		return Kontaktliste;
+	}
 
 }
-
