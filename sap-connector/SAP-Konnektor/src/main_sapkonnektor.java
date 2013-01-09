@@ -5,12 +5,15 @@ import javax.xml.ws.soap.SOAPFaultException;
 
 import com.sap.xi.appl.se.global.EmailURI;
 import com.sap.xi.appl.se.global.ServiceECCSUPPLIERSNAQRDEFAULTPROFILE;
-import com.sap.xi.appl.se.global.StandardMessageFault;
 import com.sap.xi.appl.se.global.StandardMessageFault_Exception;
 import com.sap.xi.appl.se.global.SupplierSimpleByNameAndAddressQueryMessageSync;
 import com.sap.xi.appl.se.global.SupplierSimpleByNameAndAddressQueryMessageSync.SupplierSimpleSelectionByNameAndAddress;
 import com.sap.xi.appl.se.global.SupplierSimpleByNameAndAddressQueryResponseIn;
 import com.sap.xi.appl.se.global.SupplierSimpleByNameAndAddressResponseMessageSync;
+
+
+
+
 
 import dli_contacts.Contact;
 
