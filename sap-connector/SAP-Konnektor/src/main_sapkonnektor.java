@@ -6,6 +6,7 @@ import javax.xml.ws.soap.SOAPFaultException;
 import com.sap.xi.appl.se.global.EmailURI;
 import com.sap.xi.appl.se.global.ServiceECCSUPPLIERSNAQRDEFAULTPROFILE;
 import com.sap.xi.appl.se.global.StandardMessageFault;
+import com.sap.xi.appl.se.global.StandardMessageFault_Exception;
 import com.sap.xi.appl.se.global.SupplierSimpleByNameAndAddressQueryMessageSync;
 import com.sap.xi.appl.se.global.SupplierSimpleByNameAndAddressQueryMessageSync.SupplierSimpleSelectionByNameAndAddress;
 import com.sap.xi.appl.se.global.SupplierSimpleByNameAndAddressQueryResponseIn;
@@ -62,7 +63,7 @@ public class main_sapkonnektor {
 		try {
 			result = binding
 					.supplierSimpleByNameAndAddressQueryResponseIn(suppquery);
-		} catch (StandardMessageFault e) {
+		} catch (StandardMessageFault_Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (SOAPFaultException e) {
@@ -131,7 +132,7 @@ public class main_sapkonnektor {
 		try {
 			result = binding
 					.supplierSimpleByNameAndAddressQueryResponseIn(suppquery);
-		} catch (StandardMessageFault e) {
+		} catch (StandardMessageFault_Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (SOAPFaultException e) {
@@ -202,7 +203,7 @@ public class main_sapkonnektor {
 		try {
 			result = bindungDaten
 					.supplierSimpleByNameAndAddressQueryResponseIn(lieferantAnfrage);
-		} catch (StandardMessageFault e) {
+		} catch (StandardMessageFault_Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (SOAPFaultException e) {

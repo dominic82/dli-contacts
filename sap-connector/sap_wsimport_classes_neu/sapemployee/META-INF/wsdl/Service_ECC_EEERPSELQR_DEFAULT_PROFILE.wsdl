@@ -1,0 +1,559 @@
+<wsdl:definitions xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:n1="http://sap.com/xi/SAPGlobal20/Global" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://sap.com/xi/EA-HR/SE/Global" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://sap.com/xi/EA-HR/SE/Global">
+  <wsdl:documentation>
+    <sidl:sidl xmlns:sidl="http://www.sap.com/2007/03/sidl"></sidl:sidl>
+  </wsdl:documentation>
+  <wsp:UsingPolicy wsdl:required="true"></wsp:UsingPolicy>
+  <wsp:Policy wsu:Id="BN_BN_Binding_T_HTTP_A_HTTP_ECC_EEERPSELQR_DEFAULT_PROFILE">
+    <wsp:ExactlyOne xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy">
+      <wsp:All>
+        <sp:TransportBinding xmlns:sapsp="http://www.sap.com/webas/630/soap/features/security/policy" xmlns:sp="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702" xmlns:wsa="http://www.w3.org/2005/08/addressing" xmlns:wst="http://docs.oasis-open.org/ws-sx/ws-trust/200512" xmlns:wsu="http://schemas.xmlsoap.org/ws/2002/07/utility" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex">
+          <wsp:Policy>
+            <sp:TransportToken>
+              <wsp:Policy>
+                <sp:HttpsToken>
+                  <wsp:Policy>
+                    <sp:HttpBasicAuthentication></sp:HttpBasicAuthentication>
+                  </wsp:Policy>
+                </sp:HttpsToken>
+              </wsp:Policy>
+            </sp:TransportToken>
+            <sp:AlgorithmSuite>
+              <wsp:Policy>
+                <sp:TripleDesRsa15></sp:TripleDesRsa15>
+              </wsp:Policy>
+            </sp:AlgorithmSuite>
+            <sp:Layout>
+              <wsp:Policy>
+                <sp:Strict></sp:Strict>
+              </wsp:Policy>
+            </sp:Layout>
+          </wsp:Policy>
+        </sp:TransportBinding>
+      </wsp:All>
+      <wsp:All>
+        <sp:TransportBinding xmlns:sapsp="http://www.sap.com/webas/630/soap/features/security/policy" xmlns:sp="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702" xmlns:wsa="http://www.w3.org/2005/08/addressing" xmlns:wst="http://docs.oasis-open.org/ws-sx/ws-trust/200512" xmlns:wsu="http://schemas.xmlsoap.org/ws/2002/07/utility" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex">
+          <wsp:Policy>
+            <sp:TransportToken>
+              <wsp:Policy>
+                <sp:HttpsToken>
+                  <wsp:Policy>
+                    <sapsp:HTTPSSO2></sapsp:HTTPSSO2>
+                  </wsp:Policy>
+                </sp:HttpsToken>
+              </wsp:Policy>
+            </sp:TransportToken>
+            <sp:AlgorithmSuite>
+              <wsp:Policy>
+                <sp:TripleDesRsa15></sp:TripleDesRsa15>
+              </wsp:Policy>
+            </sp:AlgorithmSuite>
+            <sp:Layout>
+              <wsp:Policy>
+                <sp:Strict></sp:Strict>
+              </wsp:Policy>
+            </sp:Layout>
+          </wsp:Policy>
+        </sp:TransportBinding>
+      </wsp:All>
+    </wsp:ExactlyOne>
+    <sapcentraladmin:CentralAdministration xmlns:sapcentraladmin="http://www.sap.com/webas/700/soap/features/CentralAdministration/" wsp:Optional="true">
+      <sapcentraladmin:ProfileName>DEFAULT_PROFILE</sapcentraladmin:ProfileName>
+      <sapcentraladmin:ProfileVersion>2</sapcentraladmin:ProfileVersion>
+    </sapcentraladmin:CentralAdministration>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="IF_IF_EmployeeERPSimpleByElementsQueryResponse_In">
+    <sapcentraladmin:CentralAdministration xmlns:sapcentraladmin="http://www.sap.com/webas/700/soap/features/CentralAdministration/" wsp:Optional="true">
+      <sapcentraladmin:BusinessApplicationID>DE7AB4A019203CF19FD500145E5ADE89</sapcentraladmin:BusinessApplicationID>
+    </sapcentraladmin:CentralAdministration>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="OP_IF_OP_EmployeeERPSimpleByElementsQueryResponse_In">
+    <sapcomhnd:enableCommit xmlns:sapcomhnd="http://www.sap.com/NW05/soap/features/commit/">false</sapcomhnd:enableCommit>
+    <sapblock:enableBlocking xmlns:sapblock="http://www.sap.com/NW05/soap/features/blocking/">true</sapblock:enableBlocking>
+    <saptrhnw05:required xmlns:saptrhnw05="http://www.sap.com/NW05/soap/features/transaction/">no</saptrhnw05:required>
+    <saprmnw05:enableWSRM xmlns:saprmnw05="http://www.sap.com/NW05/soap/features/wsrm/">false</saprmnw05:enableWSRM>
+  </wsp:Policy>
+  <wsdl:types>
+    <xsd:schema xmlns="http://sap.com/xi/SAPGlobal20/Global" xmlns:ccts="urn:un:unece:uncefact:documentation:standard:CoreComponentsTechnicalSpecification:3.0" xmlns:xi0="http://sap.com/xi/SAPGlobal20/Global" xmlns:xi1="http://sap.com/xi/EA-HR/SE/Global" targetNamespace="http://sap.com/xi/SAPGlobal20/Global">
+      <xsd:import namespace="http://sap.com/xi/EA-HR/SE/Global"></xsd:import>
+      <xsd:element name="EmployeeERPSimpleByElementsQuery_sync" type="xi1:EmplERPSimplElmntsQryMsg_s"></xsd:element>
+      <xsd:element name="EmployeeERPSimpleByElementsResponse_sync" type="xi1:EmplERPSimplElmntsRspMsg_s"></xsd:element>
+      <xsd:element name="StandardMessageFault">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="standard" type="xi1:ExchangeFaultData"></xsd:element>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:schema>
+    <xsd:schema xmlns="http://sap.com/xi/EA-HR/SE/Global" xmlns:ccts="urn:un:unece:uncefact:documentation:standard:CoreComponentsTechnicalSpecification:3.0" xmlns:xi0="http://sap.com/xi/SAPGlobal20/Global" xmlns:xi1="http://sap.com/xi/EA-HR/SE/Global" targetNamespace="http://sap.com/xi/EA-HR/SE/Global">
+      <xsd:simpleType name="CountryCode">
+        <xsd:annotation>
+          <xsd:documentation xml:lang="EN">
+            <ccts:RepresentationTerm>Code</ccts:RepresentationTerm>
+          </xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:token">
+          <xsd:maxLength value="3"></xsd:maxLength>
+          <xsd:minLength value="2"></xsd:minLength>
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="Date">
+        <xsd:annotation>
+          <xsd:documentation xml:lang="EN">
+            <ccts:RepresentationTerm>Date</ccts:RepresentationTerm>
+          </xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:date">
+          <xsd:pattern value="[0-9]{4}-[0-9]{2}-[0-9]{2}"></xsd:pattern>
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:complexType name="EmplERPSimplElmntsQryMsg_s">
+        <xsd:sequence>
+          <xsd:element name="EmployeeSimpleSelectionByElements" type="EmplERPSimplElmntsQry_sSel"></xsd:element>
+          <xsd:element minOccurs="0" name="QueryProcessingConditions" type="WITHOUT_LASTRETURNED_QueryProcessingConditions"></xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="EmplERPSimplElmntsQry_sSel">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="Employment_CountryCode" type="CountryCode"></xsd:element>
+          <xsd:element minOccurs="0" name="EmployeeGenderCode" type="GenderCode"></xsd:element>
+          <xsd:element minOccurs="0" name="ValidityPeriod" type="UPPEROPEN_DatePeriod"></xsd:element>
+          <xsd:element minOccurs="0" name="EmployeeBirthDate" type="Date"></xsd:element>
+          <xsd:element minOccurs="0" name="EmployeeBirthPlaceName" type="MEDIUM_Name"></xsd:element>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" name="SelectionByEmployeeCompetency" type="EmplERPSimplElmntsQry_sSelByEmplCmpty"></xsd:element>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" name="SelectionByOrganisationalCentreID" type="EmplERPSimplElmntsQry_sSelByOrgCtrID"></xsd:element>
+          <xsd:element minOccurs="0" name="SelectionByEmployeeGivenName" type="EmplERPSimplElmntsQry_sSelByEmplGvnName"></xsd:element>
+          <xsd:element minOccurs="0" name="SelectionByEmployeeFamilyName" type="EmplERPSimplElmntsQry_sSelByEmplFamName"></xsd:element>
+          <xsd:element minOccurs="0" name="SelectionByEmployeeTitle" type="EmplERPSimplElmntsQry_sSelByEmplTtl"></xsd:element>
+          <xsd:element minOccurs="0" name="SelectionByEmployeeHomeAddressPostalCode" type="EmplERPSimplElmntsQry_sSelByHomeAddrPostlCode"></xsd:element>
+          <xsd:element minOccurs="0" name="SelectionByEmployeeHomeAddressStreetName" type="EmplERPSimplElmntsQry_sSelByHomeAddrStName"></xsd:element>
+          <xsd:element minOccurs="0" name="SelectionByEmployeeHomeAddressCityName" type="EmplERPSimplElmntsQry_sSelByHomeAddrCityName"></xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="EmplERPSimplElmntsQry_sSelByEmplCmpty">
+        <xsd:sequence>
+          <xsd:element name="Competency" type="EmplERPSimplElmntsQry_sSelCmpty"></xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="EmplERPSimplElmntsQry_sSelByEmplFamName">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="InclusionExclusionCode" type="InclusionExclusionCode"></xsd:element>
+          <xsd:element minOccurs="0" name="IntervalBoundaryTypeCode" type="IntervalBoundaryTypeCode"></xsd:element>
+          <xsd:element name="LowerBoundaryEmployeeFamilyName" type="MEDIUM_Name"></xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="EmplERPSimplElmntsQry_sSelByEmplGvnName">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="InclusionExclusionCode" type="InclusionExclusionCode"></xsd:element>
+          <xsd:element minOccurs="0" name="IntervalBoundaryTypeCode" type="IntervalBoundaryTypeCode"></xsd:element>
+          <xsd:element name="LowerBoundaryEmployeeGivenName" type="MEDIUM_Name"></xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="EmplERPSimplElmntsQry_sSelByEmplTtl">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="InclusionExclusionCode" type="InclusionExclusionCode"></xsd:element>
+          <xsd:element minOccurs="0" name="IntervalBoundaryTypeCode" type="IntervalBoundaryTypeCode"></xsd:element>
+          <xsd:element name="LowerBoundaryEmployeeTitle" type="MEDIUM_Name"></xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="EmplERPSimplElmntsQry_sSelByHomeAddrCityName">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="InclusionExclusionCode" type="InclusionExclusionCode"></xsd:element>
+          <xsd:element minOccurs="0" name="IntervalBoundaryTypeCode" type="IntervalBoundaryTypeCode"></xsd:element>
+          <xsd:element name="LowerBoundaryEmployeeHomeAddressCityName" type="MEDIUM_Name"></xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="EmplERPSimplElmntsQry_sSelByHomeAddrPostlCode">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="InclusionExclusionCode" type="InclusionExclusionCode"></xsd:element>
+          <xsd:element minOccurs="0" name="IntervalBoundaryTypeCode" type="IntervalBoundaryTypeCode"></xsd:element>
+          <xsd:element name="LowerBoundaryEmployeeHomeAddressPostalCode" type="PostalCode"></xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="EmplERPSimplElmntsQry_sSelByHomeAddrStName">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="InclusionExclusionCode" type="InclusionExclusionCode"></xsd:element>
+          <xsd:element minOccurs="0" name="IntervalBoundaryTypeCode" type="IntervalBoundaryTypeCode"></xsd:element>
+          <xsd:element name="LowerBoundaryEmployeeHomeAddressStreetName" type="StreetName"></xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="EmplERPSimplElmntsQry_sSelByOrgCtrID">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="InclusionExclusionCode" type="InclusionExclusionCode"></xsd:element>
+          <xsd:element minOccurs="0" name="IntervalBoundaryTypeCode" type="IntervalBoundaryTypeCode"></xsd:element>
+          <xsd:element name="LowerBoundaryOrganisationalCentreID" type="NOSC_OrganisationalCentreID"></xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="EmplERPSimplElmntsQry_sSelCmpty">
+        <xsd:sequence>
+          <xsd:element name="ID" type="NOSC_CompetencyID"></xsd:element>
+          <xsd:element minOccurs="0" name="CompetencyRatingCodeInterval" type="EmplERPSimplElmntsQry_sSelCmptyRatgCodeIntvl"></xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="EmplERPSimplElmntsQry_sSelCmptyRatgCodeIntvl">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="LowerBoundaryEmployeeCompetencyRatingCode" type="NOSC_CompetencyRatingCode"></xsd:element>
+          <xsd:element minOccurs="0" name="UpperBoundaryEmployeeCompetencyRatingCode" type="NOSC_CompetencyRatingCode"></xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="EmplERPSimplElmntsRspMsg_s">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" name="Employee" type="EmplERPSimplElmntsRsp_sEmpl"></xsd:element>
+          <xsd:element name="ResponseProcessingConditions" type="WITHOUT_LASTRETURNED_ResponseProcessingConditions"></xsd:element>
+          <xsd:element name="Log" type="NOSC_Log"></xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="EmplERPSimplElmntsRsp_sEmpl">
+        <xsd:sequence>
+          <xsd:element name="ID" type="NOSC_EmployeeID"></xsd:element>
+          <xsd:element minOccurs="0" name="PersonFormattedName" type="PersonFormattedName"></xsd:element>
+          <xsd:element maxOccurs="unbounded" name="WorkAgreement" type="EmplERPSimplElmntsRsp_sWrkAgrmt"></xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="EmplERPSimplElmntsRsp_sWrkAgrmt">
+        <xsd:sequence>
+          <xsd:element name="ID" type="NOSC_WorkAgreementID"></xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ExchangeFaultData">
+        <xsd:sequence>
+          <xsd:element name="faultText" type="xsd:string"></xsd:element>
+          <xsd:element minOccurs="0" name="faultUrl" type="xsd:string"></xsd:element>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" name="faultDetail" type="ExchangeLogData"></xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ExchangeLogData">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="severity" type="xsd:string"></xsd:element>
+          <xsd:element name="text" type="xsd:string"></xsd:element>
+          <xsd:element minOccurs="0" name="url" type="xsd:string"></xsd:element>
+          <xsd:element minOccurs="0" name="id" type="xsd:string"></xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:simpleType name="GenderCode">
+        <xsd:annotation>
+          <xsd:documentation xml:lang="EN">
+            <ccts:RepresentationTerm>Code</ccts:RepresentationTerm>
+          </xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:token">
+          <xsd:length value="1"></xsd:length>
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="InclusionExclusionCode">
+        <xsd:annotation>
+          <xsd:documentation xml:lang="EN">
+            <ccts:RepresentationTerm>Code</ccts:RepresentationTerm>
+          </xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:token">
+          <xsd:length value="1"></xsd:length>
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="Indicator">
+        <xsd:annotation>
+          <xsd:documentation xml:lang="EN">
+            <ccts:RepresentationTerm>Indicator</ccts:RepresentationTerm>
+          </xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:boolean"></xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="IntervalBoundaryTypeCode">
+        <xsd:annotation>
+          <xsd:documentation xml:lang="EN">
+            <ccts:RepresentationTerm>Code</ccts:RepresentationTerm>
+          </xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:token">
+          <xsd:length value="1"></xsd:length>
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="LANGUAGEINDEPENDENT_LONG_Name">
+        <xsd:annotation>
+          <xsd:documentation xml:lang="EN">
+            <ccts:RepresentationTerm>Name</ccts:RepresentationTerm>
+          </xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string">
+          <xsd:maxLength value="80"></xsd:maxLength>
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="LanguageCode">
+        <xsd:annotation>
+          <xsd:documentation xml:lang="EN">
+            <ccts:RepresentationTerm>Code</ccts:RepresentationTerm>
+          </xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:language">
+          <xsd:length value="2"></xsd:length>
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="LogItemNote">
+        <xsd:annotation>
+          <xsd:documentation xml:lang="EN">
+            <ccts:RepresentationTerm>Note</ccts:RepresentationTerm>
+          </xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string">
+          <xsd:maxLength value="200"></xsd:maxLength>
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="LogItemSeverityCode">
+        <xsd:annotation>
+          <xsd:documentation xml:lang="EN">
+            <ccts:RepresentationTerm>Code</ccts:RepresentationTerm>
+          </xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:token">
+          <xsd:enumeration value="1"></xsd:enumeration>
+          <xsd:enumeration value="2"></xsd:enumeration>
+          <xsd:enumeration value="3"></xsd:enumeration>
+          <xsd:enumeration value="4"></xsd:enumeration>
+          <xsd:length value="1"></xsd:length>
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="LogItemTypeID">
+        <xsd:annotation>
+          <xsd:documentation xml:lang="EN">
+            <ccts:RepresentationTerm>Identifier</ccts:RepresentationTerm>
+          </xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:token">
+          <xsd:maxLength value="40"></xsd:maxLength>
+          <xsd:minLength value="1"></xsd:minLength>
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:complexType name="MEDIUM_Name">
+        <xsd:annotation>
+          <xsd:documentation xml:lang="EN">
+            <ccts:RepresentationTerm>Name</ccts:RepresentationTerm>
+          </xsd:documentation>
+        </xsd:annotation>
+        <xsd:simpleContent>
+          <xsd:extension base="MEDIUM_Name.Content">
+            <xsd:attribute name="languageCode" type="LanguageCode"></xsd:attribute>
+          </xsd:extension>
+        </xsd:simpleContent>
+      </xsd:complexType>
+      <xsd:simpleType name="MEDIUM_Name.Content">
+        <xsd:restriction base="xsd:string">
+          <xsd:maxLength value="40"></xsd:maxLength>
+          <xsd:minLength value="1"></xsd:minLength>
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="NOSC_CompetencyID">
+        <xsd:annotation>
+          <xsd:documentation xml:lang="EN">
+            <ccts:RepresentationTerm>Identifier</ccts:RepresentationTerm>
+          </xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:token">
+          <xsd:maxLength value="20"></xsd:maxLength>
+          <xsd:minLength value="1"></xsd:minLength>
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="NOSC_CompetencyRatingCode">
+        <xsd:annotation>
+          <xsd:documentation xml:lang="EN">
+            <ccts:RepresentationTerm>Code</ccts:RepresentationTerm>
+          </xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:token">
+          <xsd:maxLength value="4"></xsd:maxLength>
+          <xsd:minLength value="1"></xsd:minLength>
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="NOSC_EmployeeID">
+        <xsd:annotation>
+          <xsd:documentation xml:lang="EN">
+            <ccts:RepresentationTerm>Identifier</ccts:RepresentationTerm>
+          </xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:token">
+          <xsd:maxLength value="20"></xsd:maxLength>
+          <xsd:minLength value="1"></xsd:minLength>
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:complexType name="NOSC_Log">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="BusinessDocumentProcessingResultCode" type="ProcessingResultCode"></xsd:element>
+          <xsd:element minOccurs="0" name="MaximumLogItemSeverityCode" type="LogItemSeverityCode"></xsd:element>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" name="Item" type="NOSC_LogItem"></xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="NOSC_LogItem">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="TypeID" type="LogItemTypeID"></xsd:element>
+          <xsd:element minOccurs="0" name="CategoryCode" type="NOSC_LogItemCategoryCode"></xsd:element>
+          <xsd:element minOccurs="0" name="SeverityCode" type="LogItemSeverityCode"></xsd:element>
+          <xsd:element name="Note" type="LogItemNote"></xsd:element>
+          <xsd:element minOccurs="0" name="WebURI" type="WebURI"></xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:simpleType name="NOSC_LogItemCategoryCode">
+        <xsd:annotation>
+          <xsd:documentation xml:lang="EN">
+            <ccts:RepresentationTerm>Code</ccts:RepresentationTerm>
+          </xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:token">
+          <xsd:maxLength value="15"></xsd:maxLength>
+          <xsd:minLength value="1"></xsd:minLength>
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="NOSC_OrganisationalCentreID">
+        <xsd:annotation>
+          <xsd:documentation xml:lang="EN">
+            <ccts:RepresentationTerm>Identifier</ccts:RepresentationTerm>
+          </xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:token">
+          <xsd:maxLength value="20"></xsd:maxLength>
+          <xsd:minLength value="1"></xsd:minLength>
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="NOSC_WorkAgreementID">
+        <xsd:annotation>
+          <xsd:documentation xml:lang="EN">
+            <ccts:RepresentationTerm>Identifier</ccts:RepresentationTerm>
+          </xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:token">
+          <xsd:maxLength value="40"></xsd:maxLength>
+          <xsd:minLength value="1"></xsd:minLength>
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="NumberValue">
+        <xsd:annotation>
+          <xsd:documentation xml:lang="EN">
+            <ccts:RepresentationTerm>Value</ccts:RepresentationTerm>
+          </xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:int">
+          <xsd:maxInclusive value="999999999"></xsd:maxInclusive>
+          <xsd:minInclusive value="0"></xsd:minInclusive>
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="PersonFormattedName">
+        <xsd:annotation>
+          <xsd:documentation xml:lang="EN">
+            <ccts:RepresentationTerm>Name</ccts:RepresentationTerm>
+          </xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="LANGUAGEINDEPENDENT_LONG_Name">
+          <xsd:maxLength value="80"></xsd:maxLength>
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="PostalCode">
+        <xsd:annotation>
+          <xsd:documentation xml:lang="EN">
+            <ccts:RepresentationTerm>Code</ccts:RepresentationTerm>
+          </xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:token">
+          <xsd:maxLength value="10"></xsd:maxLength>
+          <xsd:minLength value="1"></xsd:minLength>
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="ProcessingResultCode">
+        <xsd:annotation>
+          <xsd:documentation xml:lang="EN">
+            <ccts:RepresentationTerm>Code</ccts:RepresentationTerm>
+          </xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:token">
+          <xsd:maxLength value="2"></xsd:maxLength>
+          <xsd:minLength value="1"></xsd:minLength>
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="StreetName">
+        <xsd:annotation>
+          <xsd:documentation xml:lang="EN">
+            <ccts:RepresentationTerm>Name</ccts:RepresentationTerm>
+          </xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string">
+          <xsd:maxLength value="60"></xsd:maxLength>
+          <xsd:minLength value="1"></xsd:minLength>
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:complexType name="UPPEROPEN_DatePeriod">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="StartDate" type="Date"></xsd:element>
+          <xsd:element minOccurs="0" name="EndDate" type="Date"></xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="WITHOUT_LASTRETURNED_QueryProcessingConditions">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="QueryHitsMaximumNumberValue" type="NumberValue"></xsd:element>
+          <xsd:element name="QueryHitsUnlimitedIndicator" type="Indicator"></xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="WITHOUT_LASTRETURNED_ResponseProcessingConditions">
+        <xsd:sequence>
+          <xsd:element name="ReturnedQueryHitsNumberValue" type="NumberValue"></xsd:element>
+          <xsd:element name="MoreHitsAvailableIndicator" type="Indicator"></xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:simpleType name="WebURI">
+        <xsd:annotation>
+          <xsd:documentation xml:lang="EN">
+            <ccts:RepresentationTerm>URI</ccts:RepresentationTerm>
+          </xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:anyURI"></xsd:restriction>
+      </xsd:simpleType>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="EmployeeERPSimpleByElementsQuery_sync">
+    <wsdl:part element="n1:EmployeeERPSimpleByElementsQuery_sync" name="EmployeeERPSimpleByElementsQuery_sync"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="EmployeeERPSimpleByElementsResponse_sync">
+    <wsdl:part element="n1:EmployeeERPSimpleByElementsResponse_sync" name="EmployeeERPSimpleByElementsResponse_sync"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="StandardMessageFault">
+    <wsdl:part element="n1:StandardMessageFault" name="StandardMessageFault"></wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="EmployeeERPSimpleByElementsQueryResponse_In">
+    <wsdl:documentation>
+      <sapdoc:sapdoc xmlns:sapdoc="urn:sap:esi:documentation" docURL="http://esworkplace.sap.com/socoview?SC-NAME=ECC-SE&amp;SC-VERSION=604&amp;TYPE=ifmoper&amp;NAME=EmployeeERPSimpleByElementsQueryResponse_In&amp;NAMESPACE=http%3a%2f%2fsap%2ecom%2fxi%2fEA-HR%2fSE%2fGlobal"></sapdoc:sapdoc>
+    </wsdl:documentation>
+    <wsp:Policy>
+      <wsp:PolicyReference URI="#IF_IF_EmployeeERPSimpleByElementsQueryResponse_In"></wsp:PolicyReference>
+    </wsp:Policy>
+    <wsdl:operation name="EmployeeERPSimpleByElementsQueryResponse_In">
+      <wsdl:documentation>
+        <sapdoc:sapdoc xmlns:sapdoc="urn:sap:esi:documentation" docURL="http://esworkplace.sap.com/socoview?SC-NAME=ECC-SE&amp;SC-VERSION=604&amp;TYPE=ifmoper&amp;NAME=EmployeeERPSimpleByElementsQueryResponse_In&amp;NAMESPACE=http%3a%2f%2fsap%2ecom%2fxi%2fEA-HR%2fSE%2fGlobal"></sapdoc:sapdoc>
+      </wsdl:documentation>
+      <wsp:Policy>
+        <wsp:PolicyReference URI="#OP_IF_OP_EmployeeERPSimpleByElementsQueryResponse_In"></wsp:PolicyReference>
+      </wsp:Policy>
+      <wsdl:input message="tns:EmployeeERPSimpleByElementsQuery_sync"></wsdl:input>
+      <wsdl:output message="tns:EmployeeERPSimpleByElementsResponse_sync"></wsdl:output>
+      <wsdl:fault message="tns:StandardMessageFault" name="StandardMessageFault"></wsdl:fault>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="Binding_T_HTTP_A_HTTP_ECC_EEERPSELQR_DEFAULT_PROFILE" type="tns:EmployeeERPSimpleByElementsQueryResponse_In">
+    <wsp:Policy>
+      <wsp:PolicyReference URI="#BN_BN_Binding_T_HTTP_A_HTTP_ECC_EEERPSELQR_DEFAULT_PROFILE"></wsp:PolicyReference>
+    </wsp:Policy>
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"></soap:binding>
+    <wsdl:operation name="EmployeeERPSimpleByElementsQueryResponse_In">
+      <soap:operation soapAction="EmployeeERPSimpleByElementsQueryResponse_In" style="document"></soap:operation>
+      <wsdl:input>
+        <soap:body use="literal"></soap:body>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"></soap:body>
+      </wsdl:output>
+      <wsdl:fault name="StandardMessageFault">
+        <soap:fault name="StandardMessageFault" use="literal"></soap:fault>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Service_ECC_EEERPSELQR_DEFAULT_PROFILE">
+    <wsdl:port binding="tns:Binding_T_HTTP_A_HTTP_ECC_EEERPSELQR_DEFAULT_PROFILE" name="Binding_T_HTTP_A_HTTP_ECC_EEERPSELQR_DEFAULT_PROFILE">
+      <soap:address location="http://erp.esworkplace.sap.com/sap/bc/srt/pm/sap/ecc_eeerpselqr/800/default_profile/2/binding_t_http_a_http_ecc_eeerpselqr_default_profile"></soap:address>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
