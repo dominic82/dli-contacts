@@ -1,0 +1,569 @@
+<wsdl:definitions xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:n1="http://sap.com/xi/SAPGlobal20/Global" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://sap.com/xi/APPL/SE/Global" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://sap.com/xi/APPL/SE/Global">
+  <wsdl:documentation>
+    <sidl:sidl xmlns:sidl="http://www.sap.com/2007/03/sidl"></sidl:sidl>
+  </wsdl:documentation>
+  <wsp:UsingPolicy wsdl:required="true"></wsp:UsingPolicy>
+  <wsp:Policy wsu:Id="BN_BN_Binding_T_HTTP_A_HTTP_ECC_SUPPLIERSNAQR_DEFAULT_PROFILE">
+    <wsp:ExactlyOne xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy">
+      <wsp:All>
+        <sp:TransportBinding xmlns:sapsp="http://www.sap.com/webas/630/soap/features/security/policy" xmlns:sp="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702" xmlns:wsa="http://www.w3.org/2005/08/addressing" xmlns:wst="http://docs.oasis-open.org/ws-sx/ws-trust/200512" xmlns:wsu="http://schemas.xmlsoap.org/ws/2002/07/utility" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex">
+          <wsp:Policy>
+            <sp:TransportToken>
+              <wsp:Policy>
+                <sp:HttpsToken>
+                  <wsp:Policy>
+                    <sp:HttpBasicAuthentication></sp:HttpBasicAuthentication>
+                  </wsp:Policy>
+                </sp:HttpsToken>
+              </wsp:Policy>
+            </sp:TransportToken>
+            <sp:AlgorithmSuite>
+              <wsp:Policy>
+                <sp:TripleDesRsa15></sp:TripleDesRsa15>
+              </wsp:Policy>
+            </sp:AlgorithmSuite>
+            <sp:Layout>
+              <wsp:Policy>
+                <sp:Strict></sp:Strict>
+              </wsp:Policy>
+            </sp:Layout>
+          </wsp:Policy>
+        </sp:TransportBinding>
+      </wsp:All>
+      <wsp:All>
+        <sp:TransportBinding xmlns:sapsp="http://www.sap.com/webas/630/soap/features/security/policy" xmlns:sp="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702" xmlns:wsa="http://www.w3.org/2005/08/addressing" xmlns:wst="http://docs.oasis-open.org/ws-sx/ws-trust/200512" xmlns:wsu="http://schemas.xmlsoap.org/ws/2002/07/utility" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex">
+          <wsp:Policy>
+            <sp:TransportToken>
+              <wsp:Policy>
+                <sp:HttpsToken>
+                  <wsp:Policy>
+                    <sapsp:HTTPSSO2></sapsp:HTTPSSO2>
+                  </wsp:Policy>
+                </sp:HttpsToken>
+              </wsp:Policy>
+            </sp:TransportToken>
+            <sp:AlgorithmSuite>
+              <wsp:Policy>
+                <sp:TripleDesRsa15></sp:TripleDesRsa15>
+              </wsp:Policy>
+            </sp:AlgorithmSuite>
+            <sp:Layout>
+              <wsp:Policy>
+                <sp:Strict></sp:Strict>
+              </wsp:Policy>
+            </sp:Layout>
+          </wsp:Policy>
+        </sp:TransportBinding>
+      </wsp:All>
+    </wsp:ExactlyOne>
+    <sapcentraladmin:CentralAdministration xmlns:sapcentraladmin="http://www.sap.com/webas/700/soap/features/CentralAdministration/" wsp:Optional="true">
+      <sapcentraladmin:ProfileName>DEFAULT_PROFILE</sapcentraladmin:ProfileName>
+      <sapcentraladmin:ProfileVersion>2</sapcentraladmin:ProfileVersion>
+    </sapcentraladmin:CentralAdministration>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="IF_IF_SupplierSimpleByNameAndAddressQueryResponse_In">
+    <sapcentraladmin:CentralAdministration xmlns:sapcentraladmin="http://www.sap.com/webas/700/soap/features/CentralAdministration/" wsp:Optional="true">
+      <sapcentraladmin:BusinessApplicationID>DE7AB4A019203CF19FD500145E5ADE89</sapcentraladmin:BusinessApplicationID>
+    </sapcentraladmin:CentralAdministration>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="OP_IF_OP_SupplierSimpleByNameAndAddressQueryResponse_In">
+    <sapcomhnd:enableCommit xmlns:sapcomhnd="http://www.sap.com/NW05/soap/features/commit/">false</sapcomhnd:enableCommit>
+    <sapblock:enableBlocking xmlns:sapblock="http://www.sap.com/NW05/soap/features/blocking/">true</sapblock:enableBlocking>
+    <saptrhnw05:required xmlns:saptrhnw05="http://www.sap.com/NW05/soap/features/transaction/">no</saptrhnw05:required>
+    <saprmnw05:enableWSRM xmlns:saprmnw05="http://www.sap.com/NW05/soap/features/wsrm/">false</saprmnw05:enableWSRM>
+  </wsp:Policy>
+  <wsdl:types>
+    <xsd:schema xmlns="http://sap.com/xi/SAPGlobal20/Global" xmlns:ccts="urn:un:unece:uncefact:documentation:standard:CoreComponentsTechnicalSpecification:3.0" xmlns:xi0="http://sap.com/xi/SAPGlobal20/Global" xmlns:xi1="http://sap.com/xi/APPL/SE/Global" targetNamespace="http://sap.com/xi/SAPGlobal20/Global">
+      <xsd:import namespace="http://sap.com/xi/APPL/SE/Global"></xsd:import>
+      <xsd:element name="StandardMessageFault">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="standard" type="xi1:ExchangeFaultData"></xsd:element>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="SupplierSimpleByNameAndAddressQuery_sync" type="xi1:SupplierSimpleByNameAndAddressQueryMessage_sync"></xsd:element>
+      <xsd:element name="SupplierSimpleByNameAndAddressResponse_sync" type="xi1:SupplierSimpleByNameAndAddressResponseMessage_sync"></xsd:element>
+    </xsd:schema>
+    <xsd:schema xmlns="http://sap.com/xi/APPL/SE/Global" xmlns:ccts="urn:un:unece:uncefact:documentation:standard:CoreComponentsTechnicalSpecification:3.0" xmlns:xi0="http://sap.com/xi/SAPGlobal20/Global" xmlns:xi1="http://sap.com/xi/APPL/SE/Global" targetNamespace="http://sap.com/xi/APPL/SE/Global">
+      <xsd:simpleType name="AgencyIdentificationCode">
+        <xsd:annotation>
+          <xsd:documentation xml:lang="EN">
+            <ccts:RepresentationTerm>Code</ccts:RepresentationTerm>
+          </xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:token">
+          <xsd:maxLength value="3"></xsd:maxLength>
+          <xsd:minLength value="1"></xsd:minLength>
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="CountryCode">
+        <xsd:annotation>
+          <xsd:documentation xml:lang="EN">
+            <ccts:RepresentationTerm>Code</ccts:RepresentationTerm>
+          </xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:token">
+          <xsd:maxLength value="3"></xsd:maxLength>
+          <xsd:minLength value="2"></xsd:minLength>
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:complexType name="EmailURI">
+        <xsd:annotation>
+          <xsd:documentation xml:lang="EN">
+            <ccts:RepresentationTerm>URI</ccts:RepresentationTerm>
+          </xsd:documentation>
+        </xsd:annotation>
+        <xsd:simpleContent>
+          <xsd:extension base="xsd:anyURI">
+            <xsd:attribute name="schemeID">
+              <xsd:simpleType>
+                <xsd:restriction base="xsd:token">
+                  <xsd:maxLength value="60"></xsd:maxLength>
+                  <xsd:minLength value="1"></xsd:minLength>
+                </xsd:restriction>
+              </xsd:simpleType>
+            </xsd:attribute>
+          </xsd:extension>
+        </xsd:simpleContent>
+      </xsd:complexType>
+      <xsd:complexType name="ExchangeFaultData">
+        <xsd:sequence>
+          <xsd:element name="faultText" type="xsd:string"></xsd:element>
+          <xsd:element minOccurs="0" name="faultUrl" type="xsd:string"></xsd:element>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" name="faultDetail" type="ExchangeLogData"></xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ExchangeLogData">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="severity" type="xsd:string"></xsd:element>
+          <xsd:element name="text" type="xsd:string"></xsd:element>
+          <xsd:element minOccurs="0" name="url" type="xsd:string"></xsd:element>
+          <xsd:element minOccurs="0" name="id" type="xsd:string"></xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="FormOfAddressCode">
+        <xsd:annotation>
+          <xsd:documentation xml:lang="EN">
+            <ccts:RepresentationTerm>Code</ccts:RepresentationTerm>
+          </xsd:documentation>
+        </xsd:annotation>
+        <xsd:simpleContent>
+          <xsd:extension base="FormOfAddressCode.Content">
+            <xsd:attribute name="listID">
+              <xsd:simpleType>
+                <xsd:restriction base="xsd:token">
+                  <xsd:maxLength value="60"></xsd:maxLength>
+                  <xsd:minLength value="1"></xsd:minLength>
+                </xsd:restriction>
+              </xsd:simpleType>
+            </xsd:attribute>
+            <xsd:attribute name="listVersionID">
+              <xsd:simpleType>
+                <xsd:restriction base="xsd:token">
+                  <xsd:maxLength value="15"></xsd:maxLength>
+                  <xsd:minLength value="1"></xsd:minLength>
+                </xsd:restriction>
+              </xsd:simpleType>
+            </xsd:attribute>
+            <xsd:attribute name="listAgencyID">
+              <xsd:simpleType>
+                <xsd:restriction base="xsd:token">
+                  <xsd:maxLength value="60"></xsd:maxLength>
+                  <xsd:minLength value="1"></xsd:minLength>
+                </xsd:restriction>
+              </xsd:simpleType>
+            </xsd:attribute>
+            <xsd:attribute name="listAgencySchemeID">
+              <xsd:simpleType>
+                <xsd:restriction base="xsd:token">
+                  <xsd:maxLength value="60"></xsd:maxLength>
+                  <xsd:minLength value="1"></xsd:minLength>
+                </xsd:restriction>
+              </xsd:simpleType>
+            </xsd:attribute>
+            <xsd:attribute name="listAgencySchemeAgencyID" type="AgencyIdentificationCode"></xsd:attribute>
+          </xsd:extension>
+        </xsd:simpleContent>
+      </xsd:complexType>
+      <xsd:simpleType name="FormOfAddressCode.Content">
+        <xsd:restriction base="xsd:token">
+          <xsd:maxLength value="4"></xsd:maxLength>
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="Indicator">
+        <xsd:annotation>
+          <xsd:documentation xml:lang="EN">
+            <ccts:RepresentationTerm>Indicator</ccts:RepresentationTerm>
+          </xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:boolean"></xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="KeyWordsText">
+        <xsd:annotation>
+          <xsd:documentation xml:lang="EN">
+            <ccts:RepresentationTerm>Text</ccts:RepresentationTerm>
+          </xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string">
+          <xsd:maxLength value="20"></xsd:maxLength>
+          <xsd:minLength value="1"></xsd:minLength>
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="LANGUAGEINDEPENDENT_MEDIUM_Description">
+        <xsd:annotation>
+          <xsd:documentation xml:lang="EN">
+            <ccts:RepresentationTerm>Description</ccts:RepresentationTerm>
+          </xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string">
+          <xsd:maxLength value="80"></xsd:maxLength>
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="LANGUAGEINDEPENDENT_MEDIUM_Name">
+        <xsd:annotation>
+          <xsd:documentation xml:lang="EN">
+            <ccts:RepresentationTerm>Name</ccts:RepresentationTerm>
+          </xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string">
+          <xsd:maxLength value="40"></xsd:maxLength>
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:complexType name="Log">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="BusinessDocumentProcessingResultCode" type="ProcessingResultCode"></xsd:element>
+          <xsd:element minOccurs="0" name="MaximumLogItemSeverityCode" type="LogItemSeverityCode"></xsd:element>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" name="Item" type="LogItem"></xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="LogItem">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="TypeID" type="LogItemTypeID"></xsd:element>
+          <xsd:element name="CategoryCode" type="LogItemCategoryCode"></xsd:element>
+          <xsd:element minOccurs="0" name="SeverityCode" type="LogItemSeverityCode"></xsd:element>
+          <xsd:element name="Note" type="LogItemNote"></xsd:element>
+          <xsd:element minOccurs="0" name="WebURI" type="WebURI"></xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="LogItemCategoryCode">
+        <xsd:simpleContent>
+          <xsd:extension base="LogItemCategoryCodeContent">
+            <xsd:attribute name="listAgencyID">
+              <xsd:simpleType>
+                <xsd:restriction base="xsd:token">
+                  <xsd:maxLength value="60"></xsd:maxLength>
+                  <xsd:minLength value="1"></xsd:minLength>
+                </xsd:restriction>
+              </xsd:simpleType>
+            </xsd:attribute>
+            <xsd:attribute name="listVersionID">
+              <xsd:simpleType>
+                <xsd:restriction base="xsd:token">
+                  <xsd:maxLength value="15"></xsd:maxLength>
+                  <xsd:minLength value="1"></xsd:minLength>
+                </xsd:restriction>
+              </xsd:simpleType>
+            </xsd:attribute>
+            <xsd:attribute name="listAgencySchemeID">
+              <xsd:simpleType>
+                <xsd:restriction base="xsd:token">
+                  <xsd:maxLength value="60"></xsd:maxLength>
+                  <xsd:minLength value="1"></xsd:minLength>
+                </xsd:restriction>
+              </xsd:simpleType>
+            </xsd:attribute>
+            <xsd:attribute name="listAgencySchemeAgencyID">
+              <xsd:simpleType>
+                <xsd:restriction base="xsd:token">
+                  <xsd:maxLength value="3"></xsd:maxLength>
+                  <xsd:minLength value="1"></xsd:minLength>
+                </xsd:restriction>
+              </xsd:simpleType>
+            </xsd:attribute>
+          </xsd:extension>
+        </xsd:simpleContent>
+      </xsd:complexType>
+      <xsd:simpleType name="LogItemCategoryCodeContent">
+        <xsd:restriction base="xsd:token">
+          <xsd:maxLength value="15"></xsd:maxLength>
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="LogItemNote">
+        <xsd:annotation>
+          <xsd:documentation xml:lang="EN">
+            <ccts:RepresentationTerm>Note</ccts:RepresentationTerm>
+          </xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string">
+          <xsd:maxLength value="200"></xsd:maxLength>
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="LogItemSeverityCode">
+        <xsd:annotation>
+          <xsd:documentation xml:lang="EN">
+            <ccts:RepresentationTerm>Code</ccts:RepresentationTerm>
+          </xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:token">
+          <xsd:enumeration value="1"></xsd:enumeration>
+          <xsd:enumeration value="2"></xsd:enumeration>
+          <xsd:enumeration value="3"></xsd:enumeration>
+          <xsd:enumeration value="4"></xsd:enumeration>
+          <xsd:length value="1"></xsd:length>
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="LogItemTypeID">
+        <xsd:annotation>
+          <xsd:documentation xml:lang="EN">
+            <ccts:RepresentationTerm>Identifier</ccts:RepresentationTerm>
+          </xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:token">
+          <xsd:maxLength value="40"></xsd:maxLength>
+          <xsd:minLength value="1"></xsd:minLength>
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:complexType name="OrganisationName">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="FormOfAddressCode" type="FormOfAddressCode"></xsd:element>
+          <xsd:element minOccurs="0" name="FirstLineName" type="LANGUAGEINDEPENDENT_MEDIUM_Name"></xsd:element>
+          <xsd:element minOccurs="0" name="SecondLineName" type="LANGUAGEINDEPENDENT_MEDIUM_Name"></xsd:element>
+          <xsd:element minOccurs="0" name="ThirdLineName" type="LANGUAGEINDEPENDENT_MEDIUM_Name"></xsd:element>
+          <xsd:element minOccurs="0" name="FourthLineName" type="LANGUAGEINDEPENDENT_MEDIUM_Name"></xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="PartyID">
+        <xsd:annotation>
+          <xsd:documentation xml:lang="EN">
+            <ccts:RepresentationTerm>Identifier</ccts:RepresentationTerm>
+          </xsd:documentation>
+        </xsd:annotation>
+        <xsd:simpleContent>
+          <xsd:extension base="PartyID.Content">
+            <xsd:attribute name="schemeID">
+              <xsd:simpleType>
+                <xsd:restriction base="xsd:token">
+                  <xsd:maxLength value="60"></xsd:maxLength>
+                </xsd:restriction>
+              </xsd:simpleType>
+            </xsd:attribute>
+            <xsd:attribute name="schemeAgencyID">
+              <xsd:simpleType>
+                <xsd:restriction base="xsd:token">
+                  <xsd:maxLength value="60"></xsd:maxLength>
+                </xsd:restriction>
+              </xsd:simpleType>
+            </xsd:attribute>
+            <xsd:attribute name="schemeAgencySchemeID">
+              <xsd:simpleType>
+                <xsd:restriction base="xsd:token">
+                  <xsd:maxLength value="60"></xsd:maxLength>
+                </xsd:restriction>
+              </xsd:simpleType>
+            </xsd:attribute>
+            <xsd:attribute name="schemeAgencySchemeAgencyID" type="AgencyIdentificationCode"></xsd:attribute>
+          </xsd:extension>
+        </xsd:simpleContent>
+      </xsd:complexType>
+      <xsd:simpleType name="PartyID.Content">
+        <xsd:restriction base="xsd:token">
+          <xsd:maxLength value="60"></xsd:maxLength>
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="PostalCode">
+        <xsd:annotation>
+          <xsd:documentation xml:lang="EN">
+            <ccts:RepresentationTerm>Code</ccts:RepresentationTerm>
+          </xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:token">
+          <xsd:maxLength value="10"></xsd:maxLength>
+          <xsd:minLength value="1"></xsd:minLength>
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="ProcessingResultCode">
+        <xsd:annotation>
+          <xsd:documentation xml:lang="EN">
+            <ccts:RepresentationTerm>Code</ccts:RepresentationTerm>
+          </xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:token">
+          <xsd:maxLength value="2"></xsd:maxLength>
+          <xsd:minLength value="1"></xsd:minLength>
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:complexType name="RegionCode">
+        <xsd:annotation>
+          <xsd:documentation xml:lang="EN">
+            <ccts:RepresentationTerm>Code</ccts:RepresentationTerm>
+          </xsd:documentation>
+        </xsd:annotation>
+        <xsd:simpleContent>
+          <xsd:extension base="RegionCode.Content">
+            <xsd:attribute name="listID">
+              <xsd:simpleType>
+                <xsd:restriction base="xsd:token">
+                  <xsd:maxLength value="60"></xsd:maxLength>
+                  <xsd:minLength value="1"></xsd:minLength>
+                </xsd:restriction>
+              </xsd:simpleType>
+            </xsd:attribute>
+            <xsd:attribute name="listVersionID">
+              <xsd:simpleType>
+                <xsd:restriction base="xsd:token">
+                  <xsd:maxLength value="15"></xsd:maxLength>
+                  <xsd:minLength value="1"></xsd:minLength>
+                </xsd:restriction>
+              </xsd:simpleType>
+            </xsd:attribute>
+            <xsd:attribute name="listAgencyID">
+              <xsd:simpleType>
+                <xsd:restriction base="xsd:token">
+                  <xsd:maxLength value="60"></xsd:maxLength>
+                  <xsd:minLength value="1"></xsd:minLength>
+                </xsd:restriction>
+              </xsd:simpleType>
+            </xsd:attribute>
+            <xsd:attribute name="listAgencySchemeID">
+              <xsd:simpleType>
+                <xsd:restriction base="xsd:token">
+                  <xsd:maxLength value="60"></xsd:maxLength>
+                  <xsd:minLength value="1"></xsd:minLength>
+                </xsd:restriction>
+              </xsd:simpleType>
+            </xsd:attribute>
+            <xsd:attribute name="listAgencySchemeAgencyID" type="AgencyIdentificationCode"></xsd:attribute>
+          </xsd:extension>
+        </xsd:simpleContent>
+      </xsd:complexType>
+      <xsd:simpleType name="RegionCode.Content">
+        <xsd:restriction base="xsd:token">
+          <xsd:maxLength value="6"></xsd:maxLength>
+          <xsd:minLength value="1"></xsd:minLength>
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="StreetName">
+        <xsd:annotation>
+          <xsd:documentation xml:lang="EN">
+            <ccts:RepresentationTerm>Name</ccts:RepresentationTerm>
+          </xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string">
+          <xsd:maxLength value="60"></xsd:maxLength>
+          <xsd:minLength value="1"></xsd:minLength>
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:complexType name="SupplierSimpleByNameAndAddressQueryMessage_sync">
+        <xsd:sequence>
+          <xsd:element name="SupplierSimpleSelectionByNameAndAddress">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element minOccurs="0" name="SupplierName1" type="LANGUAGEINDEPENDENT_MEDIUM_Name"></xsd:element>
+                <xsd:element minOccurs="0" name="SupplierName2" type="LANGUAGEINDEPENDENT_MEDIUM_Name"></xsd:element>
+                <xsd:element minOccurs="0" name="SupplierAddressCountryCode" type="CountryCode"></xsd:element>
+                <xsd:element minOccurs="0" name="SupplierAddressRegionCode" type="RegionCode"></xsd:element>
+                <xsd:element minOccurs="0" name="SupplierAddressCityName" type="LANGUAGEINDEPENDENT_MEDIUM_Name"></xsd:element>
+                <xsd:element minOccurs="0" name="SupplierAddressDistrictName" type="LANGUAGEINDEPENDENT_MEDIUM_Name"></xsd:element>
+                <xsd:element minOccurs="0" name="SupplierAddressStreetPostalCode" type="PostalCode"></xsd:element>
+                <xsd:element minOccurs="0" name="SupplierAddressStreetName" type="StreetName"></xsd:element>
+                <xsd:element minOccurs="0" name="SupplierKeyWordsText" type="KeyWordsText"></xsd:element>
+                <xsd:element minOccurs="0" name="SupplierAdditionalKeyWordsText" type="KeyWordsText"></xsd:element>
+                <xsd:element minOccurs="0" name="SupplierAddressPhoneNumber" type="LANGUAGEINDEPENDENT_MEDIUM_Description"></xsd:element>
+                <xsd:element minOccurs="0" name="SupplierAddressFacsimileNumber" type="LANGUAGEINDEPENDENT_MEDIUM_Description"></xsd:element>
+                <xsd:element minOccurs="0" name="SupplierAddressEMailAddress" type="EmailURI"></xsd:element>
+              </xsd:sequence>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="SupplierSimpleByNameAndAddressResponseMessage_sync">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" name="Supplier">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="ID" type="PartyID"></xsd:element>
+                <xsd:element minOccurs="0" name="BasicData">
+                  <xsd:complexType>
+                    <xsd:sequence>
+                      <xsd:element minOccurs="0" name="Common">
+                        <xsd:complexType>
+                          <xsd:sequence>
+                            <xsd:element minOccurs="0" name="Name" type="OrganisationName"></xsd:element>
+                            <xsd:element minOccurs="0" name="DeletedIndicator" type="Indicator"></xsd:element>
+                            <xsd:element minOccurs="0" name="PostingBlockedIndicator" type="Indicator"></xsd:element>
+                            <xsd:element minOccurs="0" name="PurchasingBlockedIndicator" type="Indicator"></xsd:element>
+                          </xsd:sequence>
+                        </xsd:complexType>
+                      </xsd:element>
+                    </xsd:sequence>
+                  </xsd:complexType>
+                </xsd:element>
+              </xsd:sequence>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="Log" type="Log"></xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:simpleType name="WebURI">
+        <xsd:annotation>
+          <xsd:documentation xml:lang="EN">
+            <ccts:RepresentationTerm>URI</ccts:RepresentationTerm>
+          </xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:anyURI"></xsd:restriction>
+      </xsd:simpleType>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="SupplierSimpleByNameAndAddressQuery_sync">
+    <wsdl:part element="n1:SupplierSimpleByNameAndAddressQuery_sync" name="SupplierSimpleByNameAndAddressQuery_sync"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SupplierSimpleByNameAndAddressResponse_sync">
+    <wsdl:part element="n1:SupplierSimpleByNameAndAddressResponse_sync" name="SupplierSimpleByNameAndAddressResponse_sync"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="StandardMessageFault">
+    <wsdl:part element="n1:StandardMessageFault" name="StandardMessageFault"></wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="SupplierSimpleByNameAndAddressQueryResponse_In">
+    <wsdl:documentation>
+      <sapdoc:sapdoc xmlns:sapdoc="urn:sap:esi:documentation" docURL="http://esworkplace.sap.com/socoview?SC-NAME=ECC-SE&amp;SC-VERSION=604&amp;TYPE=ifmoper&amp;NAME=SupplierSimpleByNameAndAddressQueryResponse_In&amp;NAMESPACE=http%3a%2f%2fsap%2ecom%2fxi%2fAPPL%2fSE%2fGlobal"></sapdoc:sapdoc>
+    </wsdl:documentation>
+    <wsp:Policy>
+      <wsp:PolicyReference URI="#IF_IF_SupplierSimpleByNameAndAddressQueryResponse_In"></wsp:PolicyReference>
+    </wsp:Policy>
+    <wsdl:operation name="SupplierSimpleByNameAndAddressQueryResponse_In">
+      <wsdl:documentation>
+        <sapdoc:sapdoc xmlns:sapdoc="urn:sap:esi:documentation" docURL="http://esworkplace.sap.com/socoview?SC-NAME=ECC-SE&amp;SC-VERSION=604&amp;TYPE=ifmoper&amp;NAME=SupplierSimpleByNameAndAddressQueryResponse_In&amp;NAMESPACE=http%3a%2f%2fsap%2ecom%2fxi%2fAPPL%2fSE%2fGlobal"></sapdoc:sapdoc>
+      </wsdl:documentation>
+      <wsp:Policy>
+        <wsp:PolicyReference URI="#OP_IF_OP_SupplierSimpleByNameAndAddressQueryResponse_In"></wsp:PolicyReference>
+      </wsp:Policy>
+      <wsdl:input message="tns:SupplierSimpleByNameAndAddressQuery_sync"></wsdl:input>
+      <wsdl:output message="tns:SupplierSimpleByNameAndAddressResponse_sync"></wsdl:output>
+      <wsdl:fault message="tns:StandardMessageFault" name="StandardMessageFault"></wsdl:fault>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="Binding_T_HTTP_A_HTTP_ECC_SUPPLIERSNAQR_DEFAULT_PROFILE" type="tns:SupplierSimpleByNameAndAddressQueryResponse_In">
+    <wsp:Policy>
+      <wsp:PolicyReference URI="#BN_BN_Binding_T_HTTP_A_HTTP_ECC_SUPPLIERSNAQR_DEFAULT_PROFILE"></wsp:PolicyReference>
+    </wsp:Policy>
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"></soap:binding>
+    <wsdl:operation name="SupplierSimpleByNameAndAddressQueryResponse_In">
+      <soap:operation soapAction="SupplierSimpleByNameAndAddressQueryResponse_In" style="document"></soap:operation>
+      <wsdl:input>
+        <soap:body use="literal"></soap:body>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"></soap:body>
+      </wsdl:output>
+      <wsdl:fault name="StandardMessageFault">
+        <soap:fault name="StandardMessageFault" use="literal"></soap:fault>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Service_ECC_SUPPLIERSNAQR_DEFAULT_PROFILE">
+    <wsdl:port binding="tns:Binding_T_HTTP_A_HTTP_ECC_SUPPLIERSNAQR_DEFAULT_PROFILE" name="Binding_T_HTTP_A_HTTP_ECC_SUPPLIERSNAQR_DEFAULT_PROFILE">
+      <soap:address location="http://erp.esworkplace.sap.com/sap/bc/srt/pm/sap/ecc_suppliersnaqr/800/default_profile/2/binding_t_http_a_http_ecc_suppliersnaqr_default_profile"></soap:address>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
