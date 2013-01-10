@@ -5,16 +5,18 @@ import javax.xml.ws.soap.SOAPFaultException;
 
 import com.sap.xi.appl.se.global.EmailURI;
 import com.sap.xi.appl.se.global.ServiceECCSUPPLIERSNAQRDEFAULTPROFILE;
-import com.sap.xi.appl.se.global.StandardMessageFault;
 import com.sap.xi.appl.se.global.StandardMessageFault_Exception;
 import com.sap.xi.appl.se.global.SupplierSimpleByNameAndAddressQueryMessageSync;
 import com.sap.xi.appl.se.global.SupplierSimpleByNameAndAddressQueryMessageSync.SupplierSimpleSelectionByNameAndAddress;
 import com.sap.xi.appl.se.global.SupplierSimpleByNameAndAddressQueryResponseIn;
 import com.sap.xi.appl.se.global.SupplierSimpleByNameAndAddressResponseMessageSync;
-import com.sap.xi.ea_hr.se.global.EmplERPSimplElmntsQryMsgS;
-import com.sap.xi.ea_hr.se.global.EmplERPSimplElmntsQrySSel;
+
+
+
+
 
 import dli_contacts.Contact;
+
 
 public class main_sapkonnektor {
 
@@ -219,8 +221,8 @@ public class main_sapkonnektor {
 	public static SupplierSimpleByNameAndAddressResponseMessageSync getEmployeeIDs(
 			Contact filter) {
 
-		EmplERPSimplElmntsQryMsgS angestellterAnfrage = new EmplERPSimplElmntsQryMsgS();
-		EmplERPSimplElmntsQrySSel angestellterFilter = new EmplERPSimplElmntsQrySSel();
+		//EmplERPSimplElmntsQryMsgS angestellterAnfrage = new EmplERPSimplElmntsQryMsgS();
+		//EmplERPSimplElmntsQrySSel angestellterFilter = new EmplERPSimplElmntsQrySSel();
 
 		// Hier die Werte der inneren Klasse des zu sendenden Objekts mit den
 		// Werten von Dominiks
