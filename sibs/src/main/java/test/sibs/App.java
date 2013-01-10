@@ -4,6 +4,7 @@ import com.google.gdata.util.AuthenticationException;
 import com.google.gdata.util.ServiceException;
 import dli_contacts.Contact;
 import dli_contacts.ContactsConnector;
+import dli_contacts.sapconnector.main_sapkonnektor;
 import dli_contacts.sibs.gui.ChooseContactFrame;
 
 import dli_contacts.sibs.gui.EditContactFrame;
@@ -81,6 +82,7 @@ public class App {
 //        frame.setDoValidation(true);
 //        frame.initializeWindow();
 
+        main_sapkonnektor.main(args);
 
     }
 }

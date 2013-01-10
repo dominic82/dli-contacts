@@ -20,8 +20,8 @@
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
-                    <source>1.6</source>
-                    <target>1.6</target>
+                    <source>1.7</source>
+                    <target>1.7</target>
                 </configuration>
             </plugin>
             <plugin>
@@ -64,6 +64,36 @@
             <groupId>com.google.gdata</groupId>
             <artifactId>core</artifactId>
             <version>1.47.1</version>
+        </dependency>
+        <dependency>
+            <groupId>dli_contacts.sap.wsdl</groupId>
+            <artifactId>employee</artifactId>
+            <version>0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>dli_contacts.sap.wsdl</groupId>
+            <artifactId>employee_address</artifactId>
+            <version>0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>dli_contacts.sap.wsdl</groupId>
+            <artifactId>supplier</artifactId>
+            <version>0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>dli_contacts.sap.wsdl</groupId>
+            <artifactId>supplier_address</artifactId>
+            <version>0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>dli_contacts.sap.wsdl</groupId>
+            <artifactId>customer</artifactId>
+            <version>0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>dli_contacts.sap.wsdl</groupId>
+            <artifactId>customer_address</artifactId>
+            <version>0.1</version>
         </dependency>
     </dependencies>
 </project>
