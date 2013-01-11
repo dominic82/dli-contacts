@@ -4,6 +4,7 @@ import java.util.List;
 import javax.xml.ws.BindingProvider;
 import javax.xml.ws.soap.SOAPFaultException;
 
+import com.sap.xi.appl.se.global.CustomerBasicDataByIDResponseMessageSync;
 import com.sap.xi.appl.se.global.EmailURI;
 import com.sap.xi.appl.se.global.PartyID;
 import com.sap.xi.appl.se.global.ServiceECCSUPPLIERBASICDATABYIDQRDEFAULTPROFILE;
@@ -18,6 +19,7 @@ import com.sap.xi.appl.se.global.SupplierSimpleByNameAndAddressQueryMessageSync;
 import com.sap.xi.appl.se.global.SupplierSimpleByNameAndAddressQueryMessageSync.SupplierSimpleSelectionByNameAndAddress;
 import com.sap.xi.appl.se.global.SupplierSimpleByNameAndAddressQueryResponseIn;
 import com.sap.xi.appl.se.global.SupplierSimpleByNameAndAddressResponseMessageSync;
+import com.sap.xi.ea_hr.se.global.EmplERPSimplElmntsRspMsgS;
 
 import dli_contacts.Contact;
 
@@ -105,22 +107,45 @@ public class main_sapkonnektor {
 
 	public static List<Contact> fetchContact(Contact filter) {
 
-		   switch (filter.getType()) {
-		   case CUSTOMER:
-				SupplierSimpleByNameAndAddressResponseMessageSync hilfsObjekt = new SupplierSimpleByNameAndAddressResponseMessageSync();
-				hilfsObjekt = getSupplierIDs(filter);
-				return getSupplierData(hilfsObjekt);
-		   case SUPPLIER:
+		switch (filter.getType()) {
+		case CUSTOMER:
+			CustomerBasicDataByIDResponseMessageSync cushilfsObjekt = new CustomerBasicDataByIDResponseMessageSync();
+			cushilfsObjekt = getCustomerIDs(filter);
+			return getCustomerData(cushilfsObjekt);
+			
+		case SUPPLIER:
 
-		    break;
-		   case EMPLOYEE:
+			SupplierSimpleByNameAndAddressResponseMessageSync suphilfsObjekt = new SupplierSimpleByNameAndAddressResponseMessageSync();
+			suphilfsObjekt = getSupplierIDs(filter);
+			return getSupplierData(suphilfsObjekt);
 
-		    break;
-		   }
-		
-		
-		   return null;
+		case EMPLOYEE:
+			EmplERPSimplElmntsRspMsgS emphilfsObjekt = new EmplERPSimplElmntsRspMsgS();
+			emphilfsObjekt = getEmployeeIDs(filter);
+			return getEmployeeData(emphilfsObjekt);
 
+		}
+
+		return null;
+
+	}
+
+	private static List<Contact> getEmployeeData(
+			EmplERPSimplElmntsRspMsgS emphilfsObjekt) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	private static List<Contact> getCustomerData(
+			CustomerBasicDataByIDResponseMessageSync cushilfsObjekt) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	private static CustomerBasicDataByIDResponseMessageSync getCustomerIDs(
+			Contact filter) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	private static SupplierSimpleByNameAndAddressResponseMessageSync getSupplierIDs(
@@ -184,7 +209,7 @@ public class main_sapkonnektor {
 		return result;
 	}
 
-	private static SupplierSimpleByNameAndAddressResponseMessageSync getEmployeeIDs(
+	private static EmplERPSimplElmntsRspMsgS getEmployeeIDs(
 			Contact filter) {
 
 		// EmplERPSimplElmntsQryMsgS angestellterAnfrage = new
@@ -240,7 +265,7 @@ public class main_sapkonnektor {
 		 */
 		// Ergebnis zurückgeben
 		SupplierSimpleByNameAndAddressResponseMessageSync result = null;
-		return result;
+		return null;
 	}
 
 	private static List<Contact> getSupplierData(
