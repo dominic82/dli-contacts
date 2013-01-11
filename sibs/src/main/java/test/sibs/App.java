@@ -86,7 +86,7 @@ public class App {
         Contact sapfilter = new Contact();
         sapfilter.setFirstname("Test");
         sapfilter.setType(Contact.ContactType.SUPPLIER);
-        saplist = main_sapkonnektor.fetchContact(sapfilter);
+        saplist = gCon.getSapContacts(sapfilter);
         
         ChooseContactFrame frame3 = new ChooseContactFrame("Test Kontakt auswählen", saplist);
         frame3.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

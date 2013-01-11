@@ -38,8 +38,11 @@ public class ContactsConnector {
     public List<Contact> getGoogleContacts(Contact filter) throws AuthenticationException, ServiceException, IOException {
         List<Contact> result = new ArrayList<Contact>();
         DLI_GoogleContactsConnector gc = new DLI_GoogleContactsConnector();
+
         result = gc.fetchContacts(filter);
+
         System.out.println("Connector: Google returned " + result.size() + " results");
+
         return result;
     }
 

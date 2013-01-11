@@ -7,7 +7,6 @@ import de.metaframe.jabc.sib.Executable;
 
 import dli_contacts.Contact;
 import dli_contacts.ContactsConnector;
-import dli_contacts.DummyConnector;
 import java.util.List;
 
 /**
@@ -40,7 +39,7 @@ public class SearchSapContact implements Executable {
         try {
             Contact filter = (Contact) env.get(contact);
 
-            ContactsConnector con = new DummyConnector();
+            ContactsConnector con = new ContactsConnector();
             List<Contact> list = con.getSapContacts(filter);
 
             env.put(contactList, list);
@@ -53,7 +52,7 @@ public class SearchSapContact implements Executable {
             return "error";
 
         } catch (Exception e) {
-            System.out.println(e);
+            System.out.println(e.getMessage());
             e.printStackTrace();
             return "error";
         }
