@@ -4,8 +4,15 @@ import javax.xml.ws.BindingProvider;
 import javax.xml.ws.soap.SOAPFaultException;
 
 import com.sap.xi.appl.se.global.EmailURI;
+import com.sap.xi.appl.se.global.PartyID;
+import com.sap.xi.appl.se.global.ServiceECCSUPPLIERBASICDATABYIDQRDEFAULTPROFILE;
 import com.sap.xi.appl.se.global.ServiceECCSUPPLIERSNAQRDEFAULTPROFILE;
-import com.sap.xi.appl.se.global.StandardMessageFault_Exception;
+import com.sap.xi.appl.se.global.StandardMessageFault;
+import com.sap.xi.appl.se.global.SupplierBasicDataByIDQueryMessageSync;
+import com.sap.xi.appl.se.global.SupplierBasicDataByIDQueryMessageSync.SupplierBasicDataSelectionByID;
+import com.sap.xi.appl.se.global.SupplierBasicDataByIDQueryResponseIn;
+import com.sap.xi.appl.se.global.SupplierBasicDataByIDResponseMessageSync;
+import com.sap.xi.appl.se.global.SupplierBasicDataByIDResponseMessageSync.Supplier.BasicData.CommunicationData.Address;
 import com.sap.xi.appl.se.global.SupplierSimpleByNameAndAddressQueryMessageSync;
 import com.sap.xi.appl.se.global.SupplierSimpleByNameAndAddressQueryMessageSync.SupplierSimpleSelectionByNameAndAddress;
 import com.sap.xi.appl.se.global.SupplierSimpleByNameAndAddressQueryResponseIn;
@@ -66,7 +73,7 @@ public class main_sapkonnektor {
 		try {
 			result = binding
 					.supplierSimpleByNameAndAddressQueryResponseIn(suppquery);
-		} catch (StandardMessageFault_Exception e) {
+		} catch (StandardMessageFault e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (SOAPFaultException e) {
@@ -78,7 +85,8 @@ public class main_sapkonnektor {
 
 		result.getSupplier().get(8).getBasicData().getCommon().getName()
 				.getFirstLineName();
-
+		
+		
 		System.out.println(result.getSupplier().get(8).getBasicData()
 				.getCommon().getName().getFirstLineName());
 
@@ -135,7 +143,7 @@ public class main_sapkonnektor {
 		try {
 			result = binding
 					.supplierSimpleByNameAndAddressQueryResponseIn(suppquery);
-		} catch (StandardMessageFault_Exception e) {
+		} catch (StandardMessageFault e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (SOAPFaultException e) {
@@ -194,6 +202,8 @@ public class main_sapkonnektor {
 
 		SupplierSimpleByNameAndAddressQueryResponseIn bindungDaten = verbindungsObjekt
 				.getBindingTHTTPAHTTPECCSUPPLIERSNAQRDEFAULTPROFILE();
+		
+		
 		BindingProvider bindungDatenCast = (BindingProvider) bindungDaten;
 
 		// Username und Passwort setzen (Webaddresse schon im Objekt enthalten)
@@ -206,7 +216,7 @@ public class main_sapkonnektor {
 		try {
 			result = bindungDaten
 					.supplierSimpleByNameAndAddressQueryResponseIn(lieferantAnfrage);
-		} catch (StandardMessageFault_Exception e) {
+		} catch (StandardMessageFault e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (SOAPFaultException e) {
@@ -277,8 +287,75 @@ public class main_sapkonnektor {
 
 	public static List<Contact> getSupplierData(
 			SupplierSimpleByNameAndAddressResponseMessageSync supplierIDList) {
+		
+		Contact kontaktEintrag = new Contact();
+		kontaktEintrag.setType(Contact.ContactType.SUPPLIER);
+		
+		String conca1;
+		String conca2;
+		
 
+		
+		
 		List<Contact> Kontaktliste = null;
+		int anzahlEintraege;
+		anzahlEintraege = supplierIDList.getSupplier().size();
+		
+		//Leere Supplierliste abfangen und zurückgeben
+		if(anzahlEintraege == 0){
+			return Kontaktliste;
+		}
+		
+		//Andere Objekte
+		SupplierBasicDataByIDResponseMessageSync result = new SupplierBasicDataByIDResponseMessageSync();
+		SupplierBasicDataByIDQueryMessageSync supplierAnfrage = new SupplierBasicDataByIDQueryMessageSync();
+		SupplierBasicDataSelectionByID supplierAnfrageID = new SupplierBasicDataSelectionByID();
+		PartyID supPartyID = new PartyID();
+		
+		
+		//Verbindungsobjekte fertigbauen
+		ServiceECCSUPPLIERBASICDATABYIDQRDEFAULTPROFILE verbindungsObjekt = new ServiceECCSUPPLIERBASICDATABYIDQRDEFAULTPROFILE();
+		SupplierBasicDataByIDQueryResponseIn bindungDaten = verbindungsObjekt.getBindingTHTTPAHTTPECCSUPPLIERBASICDATABYIDQRDEFAULTPROFILE();
+		
+		BindingProvider bindungDatenCast = (BindingProvider) bindungDaten;
+
+		// Username und Passwort setzen (Webaddresse schon im Objekt enthalten)
+		bindungDatenCast.getRequestContext().put(
+				BindingProvider.USERNAME_PROPERTY, "S0008266219");
+		bindungDatenCast.getRequestContext().put(
+				BindingProvider.PASSWORD_PROPERTY, "Fleischgans85");
+		
+		//Aufbau 
+		
+		//Schleife die für alle Einträge den Webservice mit der entsprechenden ID losschickt und die empfangenen Daten
+		//in die Kontaktliste schreibt
+		for(int i=0; i<anzahlEintraege;i++){
+			
+			// Supplier ID in PartyID Objekt eintragen und dann alles hochreichen
+			supPartyID.setValue(supplierIDList.getSupplier().get(i).getID().getValue());
+			supplierAnfrageID.setSupplierID(supPartyID);
+			supplierAnfrage.setSupplierBasicDataSelectionByID(supplierAnfrageID);
+			
+			kontaktEintrag.setCity(result.getSupplier().getBasicData().getAddressInformation().getAddress().getPhysicalAddress().getCityName());
+			kontaktEintrag.setZipcode(result.getSupplier().getBasicData().getAddressInformation().getAddress().getPhysicalAddress().getStreetPostalCode());
+			
+			conca1 = result.getSupplier().getBasicData().getAddressInformation().getAddress().getPhysicalAddress().getStreetName();
+			conca2 = result.getSupplier().getBasicData().getAddressInformation().getAddress().getPhysicalAddress().getStreetPostalCode();
+			conca1 = conca1 + conca2;
+			kontaktEintrag.setStreet(conca1);
+			
+			//kontaktEintrag
+			//kontaktEintrag.setCity(result.getSupplier().getBasicData().getAddressInformation().getAddress().getPhysicalAddress().getCityName());
+			kontaktEintrag.setCity(result.getSupplier().getBasicData().getAddressInformation().getAddress().getPhysicalAddress().getCityName());
+			kontaktEintrag.setCity(result.getSupplier().getBasicData().getAddressInformation().getAddress().getPhysicalAddress().getCityName());
+			kontaktEintrag.setCity(result.getSupplier().getBasicData().getAddressInformation().getAddress().getPhysicalAddress().getCityName());
+			kontaktEintrag.setCity(result.getSupplier().getBasicData().getAddressInformation().getAddress().getPhysicalAddress().getCityName());
+		}
+		
+		
+		//Schleife die 
+		
+
 
 		return Kontaktliste;
 	}
