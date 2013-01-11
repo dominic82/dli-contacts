@@ -3,6 +3,7 @@ package dli_contacts;
 import com.google.gdata.util.AuthenticationException;
 import com.google.gdata.util.ServiceException;
 import dli_contacts.googleconnector.DLI_GoogleContactsConnector;
+import dli_contacts.sapconnector.main_sapkonnektor;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -23,6 +24,7 @@ public class ContactsConnector {
         List<Contact> result = new ArrayList<Contact>();
 
         // TODO (SAP) Einbinden der externen Klasse und Ausführung
+        result = main_sapkonnektor.fetchContact(filter);
         System.out.println("Connector: SAP returned " + result.size() + " results");
 
         return result;
