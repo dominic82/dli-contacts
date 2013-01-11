@@ -1,3 +1,4 @@
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.xml.ws.BindingProvider;
@@ -18,12 +19,7 @@ import com.sap.xi.appl.se.global.SupplierSimpleByNameAndAddressQueryMessageSync.
 import com.sap.xi.appl.se.global.SupplierSimpleByNameAndAddressQueryResponseIn;
 import com.sap.xi.appl.se.global.SupplierSimpleByNameAndAddressResponseMessageSync;
 
-
-
-
-
 import dli_contacts.Contact;
-
 
 public class main_sapkonnektor {
 
@@ -85,8 +81,7 @@ public class main_sapkonnektor {
 
 		result.getSupplier().get(8).getBasicData().getCommon().getName()
 				.getFirstLineName();
-		
-		
+
 		System.out.println(result.getSupplier().get(8).getBasicData()
 				.getCommon().getName().getFirstLineName());
 
@@ -98,76 +93,24 @@ public class main_sapkonnektor {
 
 		xta.setType(Contact.ContactType.SUPPLIER);
 
+		List<Contact> Kontaktliste = null;
+
+		Kontaktliste = getSupplierData(result);
+
+		if (Kontaktliste.isEmpty()) {
+		} else {
+			System.out.println(Kontaktliste.get(0).getStreet());
+		}
 	}
 
 	public static List<Contact> fetchContact(Contact filter) {
 
-		// BindingProvider bs = (BindingProvider) ws;
+		SupplierSimpleByNameAndAddressResponseMessageSync hilfsObjekt = new SupplierSimpleByNameAndAddressResponseMessageSync();
 
-		// Binding ha = bs.getBinding();
+		hilfsObjekt = getSupplierIDs(filter);
 
-		// Testcode
-		SupplierSimpleByNameAndAddressQueryMessageSync suppquery = new SupplierSimpleByNameAndAddressQueryMessageSync();
-		SupplierSimpleSelectionByNameAndAddress supSelection = new SupplierSimpleSelectionByNameAndAddress();
+		return getSupplierData(hilfsObjekt);
 
-		// supSelection.setXXX();
-		// Hier die Werte des zu sendenden Objekts mit den Werten von Dominiks
-		// Contacts befüllen
-		// supSelection.setSupplierName1("");
-		// supSelection.setSupplierName2("Sa");
-		supSelection.setSupplierAddressCountryCode("DE");
-		suppquery.setSupplierSimpleSelectionByNameAndAddress(supSelection);
-
-		SupplierSimpleByNameAndAddressResponseMessageSync result = null;
-
-		ServiceECCSUPPLIERSNAQRDEFAULTPROFILE service = new ServiceECCSUPPLIERSNAQRDEFAULTPROFILE();
-
-		SupplierSimpleByNameAndAddressQueryResponseIn binding = service
-				.getBindingTHTTPAHTTPECCSUPPLIERSNAQRDEFAULTPROFILE();
-		BindingProvider bp = (BindingProvider) binding;
-		// Map<String, Object> reqCont = bp.getRequestContext();
-
-		// bp.getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY,
-		// "Webaddresse");
-		/*
-		 * bp.getRequestContext()
-		 * .put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY,
-		 * "http://erp.esworkplace.sap.com/sap/bc/srt/pm/sap/ecc_supplierbasicdatabyidqr/800/default_profile/2/binding_t_http_a_http_ecc_supplierbasicdatabyidqr_default_profile"
-		 * );
-		 */
-		bp.getRequestContext().put(BindingProvider.USERNAME_PROPERTY,
-				"S0008266219");
-		bp.getRequestContext().put(BindingProvider.PASSWORD_PROPERTY,
-				"Fleischgans85");
-
-		try {
-			result = binding
-					.supplierSimpleByNameAndAddressQueryResponseIn(suppquery);
-		} catch (StandardMessageFault e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SOAPFaultException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		// TODO
-
-		// result.getSupplier().get(0).getBasicData().getCommon().getName();
-
-		result.getSupplier().get(8).getBasicData().getCommon().getName()
-				.getFirstLineName();
-
-		System.out.println(result.getSupplier().get(8).getBasicData()
-				.getCommon().getName().getFirstLineName());
-
-		Contact xta = new Contact();
-
-		xta.getType();
-
-		List<Contact> Kontaktliste = null;
-
-		return Kontaktliste;
 	}
 
 	public static SupplierSimpleByNameAndAddressResponseMessageSync getSupplierIDs(
@@ -179,18 +122,22 @@ public class main_sapkonnektor {
 		// Hier die Werte der inneren Klasse des zu sendenden Objekts mit den
 		// Werten von Dominiks
 		// Contacts befüllen
+		// TODO Testfall herausnehmen
+		if (filter.getFirstname() == "Test") {
+			lieferantFilter.setSupplierAddressCountryCode("US");
+		} else {
+			lieferantFilter.setSupplierName1(filter.getFirstname());
+			lieferantFilter.setSupplierAddressCityName(filter.getCity());
+			lieferantFilter.setSupplierAddressStreetName(filter.getStreet());
+			lieferantFilter.setSupplierAddressStreetPostalCode(filter
+					.getZipcode());
 
-		lieferantFilter.setSupplierName1(filter.getFirstname());
-		lieferantFilter.setSupplierAddressCityName(filter.getCity());
-		lieferantFilter.setSupplierAddressStreetName(filter.getStreet());
-		lieferantFilter.setSupplierAddressStreetPostalCode(filter.getZipcode());
+			EmailURI dummerSAPEmailTyp = new EmailURI();
+			dummerSAPEmailTyp.setValue(filter.getEmail());
+			lieferantFilter.setSupplierAddressEMailAddress(dummerSAPEmailTyp);
 
-		EmailURI dummerSAPEmailTyp = new EmailURI();
-		dummerSAPEmailTyp.setValue(filter.getEmail());
-		lieferantFilter.setSupplierAddressEMailAddress(dummerSAPEmailTyp);
-
-		lieferantFilter.setSupplierAddressPhoneNumber(filter.getPhone());
-
+			lieferantFilter.setSupplierAddressPhoneNumber(filter.getPhone());
+		}
 		// Alles dem sendenden Objekt hinzufügen
 		lieferantAnfrage
 				.setSupplierSimpleSelectionByNameAndAddress(lieferantFilter);
@@ -202,8 +149,7 @@ public class main_sapkonnektor {
 
 		SupplierSimpleByNameAndAddressQueryResponseIn bindungDaten = verbindungsObjekt
 				.getBindingTHTTPAHTTPECCSUPPLIERSNAQRDEFAULTPROFILE();
-		
-		
+
 		BindingProvider bindungDatenCast = (BindingProvider) bindungDaten;
 
 		// Username und Passwort setzen (Webaddresse schon im Objekt enthalten)
@@ -231,8 +177,10 @@ public class main_sapkonnektor {
 	public static SupplierSimpleByNameAndAddressResponseMessageSync getEmployeeIDs(
 			Contact filter) {
 
-		//EmplERPSimplElmntsQryMsgS angestellterAnfrage = new EmplERPSimplElmntsQryMsgS();
-		//EmplERPSimplElmntsQrySSel angestellterFilter = new EmplERPSimplElmntsQrySSel();
+		// EmplERPSimplElmntsQryMsgS angestellterAnfrage = new
+		// EmplERPSimplElmntsQryMsgS();
+		// EmplERPSimplElmntsQrySSel angestellterFilter = new
+		// EmplERPSimplElmntsQrySSel();
 
 		// Hier die Werte der inneren Klasse des zu sendenden Objekts mit den
 		// Werten von Dominiks
@@ -287,36 +235,30 @@ public class main_sapkonnektor {
 
 	public static List<Contact> getSupplierData(
 			SupplierSimpleByNameAndAddressResponseMessageSync supplierIDList) {
-		
+
 		Contact kontaktEintrag = new Contact();
 		kontaktEintrag.setType(Contact.ContactType.SUPPLIER);
-		
-		String conca1;
-		String conca2;
-		
 
-		
-		
-		List<Contact> Kontaktliste = null;
+		List<Contact> Kontaktliste = new LinkedList<Contact>();
 		int anzahlEintraege;
 		anzahlEintraege = supplierIDList.getSupplier().size();
-		
-		//Leere Supplierliste abfangen und zurückgeben
-		if(anzahlEintraege == 0){
+
+		// Leere Supplierliste abfangen und zurückgeben
+		if (anzahlEintraege == 0) {
 			return Kontaktliste;
 		}
-		
-		//Andere Objekte
+
+		// Andere Objekte
 		SupplierBasicDataByIDResponseMessageSync result = new SupplierBasicDataByIDResponseMessageSync();
 		SupplierBasicDataByIDQueryMessageSync supplierAnfrage = new SupplierBasicDataByIDQueryMessageSync();
 		SupplierBasicDataSelectionByID supplierAnfrageID = new SupplierBasicDataSelectionByID();
 		PartyID supPartyID = new PartyID();
-		
-		
-		//Verbindungsobjekte fertigbauen
+
+		// Verbindungsobjekte fertigbauen
 		ServiceECCSUPPLIERBASICDATABYIDQRDEFAULTPROFILE verbindungsObjekt = new ServiceECCSUPPLIERBASICDATABYIDQRDEFAULTPROFILE();
-		SupplierBasicDataByIDQueryResponseIn bindungDaten = verbindungsObjekt.getBindingTHTTPAHTTPECCSUPPLIERBASICDATABYIDQRDEFAULTPROFILE();
-		
+		SupplierBasicDataByIDQueryResponseIn bindungDaten = verbindungsObjekt
+				.getBindingTHTTPAHTTPECCSUPPLIERBASICDATABYIDQRDEFAULTPROFILE();
+
 		BindingProvider bindungDatenCast = (BindingProvider) bindungDaten;
 
 		// Username und Passwort setzen (Webaddresse schon im Objekt enthalten)
@@ -324,38 +266,67 @@ public class main_sapkonnektor {
 				BindingProvider.USERNAME_PROPERTY, "S0008266219");
 		bindungDatenCast.getRequestContext().put(
 				BindingProvider.PASSWORD_PROPERTY, "Fleischgans85");
-		
-		//Aufbau 
-		
-		//Schleife die für alle Einträge den Webservice mit der entsprechenden ID losschickt und die empfangenen Daten
-		//in die Kontaktliste schreibt
-		for(int i=0; i<anzahlEintraege;i++){
-			
-			// Supplier ID in PartyID Objekt eintragen und dann alles hochreichen
-			supPartyID.setValue(supplierIDList.getSupplier().get(i).getID().getValue());
-			supplierAnfrageID.setSupplierID(supPartyID);
-			supplierAnfrage.setSupplierBasicDataSelectionByID(supplierAnfrageID);
-			
-			kontaktEintrag.setCity(result.getSupplier().getBasicData().getAddressInformation().getAddress().getPhysicalAddress().getCityName());
-			kontaktEintrag.setZipcode(result.getSupplier().getBasicData().getAddressInformation().getAddress().getPhysicalAddress().getStreetPostalCode());
-			
-			conca1 = result.getSupplier().getBasicData().getAddressInformation().getAddress().getPhysicalAddress().getStreetName();
-			conca2 = result.getSupplier().getBasicData().getAddressInformation().getAddress().getPhysicalAddress().getStreetPostalCode();
-			conca1 = conca1 + conca2;
-			kontaktEintrag.setStreet(conca1);
-			
-			//kontaktEintrag
-			//kontaktEintrag.setCity(result.getSupplier().getBasicData().getAddressInformation().getAddress().getPhysicalAddress().getCityName());
-			kontaktEintrag.setCity(result.getSupplier().getBasicData().getAddressInformation().getAddress().getPhysicalAddress().getCityName());
-			kontaktEintrag.setCity(result.getSupplier().getBasicData().getAddressInformation().getAddress().getPhysicalAddress().getCityName());
-			kontaktEintrag.setCity(result.getSupplier().getBasicData().getAddressInformation().getAddress().getPhysicalAddress().getCityName());
-			kontaktEintrag.setCity(result.getSupplier().getBasicData().getAddressInformation().getAddress().getPhysicalAddress().getCityName());
-		}
-		
-		
-		//Schleife die 
-		
 
+		// Aufbau
+
+		// Schleife die für alle Einträge den Webservice mit der entsprechenden
+		// ID losschickt und die empfangenen Daten
+		// in die Kontaktliste schreibt
+		for (int i = 0; i < anzahlEintraege; i++) {
+
+			// Supplier ID in PartyID Objekt eintragen
+			supPartyID.setValue(supplierIDList.getSupplier().get(i).getID()
+					.getValue());
+			supplierAnfrageID.setSupplierID(supPartyID);
+			supplierAnfrage
+					.setSupplierBasicDataSelectionByID(supplierAnfrageID);
+
+			// Hochreichen
+			try {
+				result = bindungDaten
+						.supplierBasicDataByIDQueryResponseIn(supplierAnfrage);
+			} catch (StandardMessageFault e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SOAPFaultException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+			// SAPID setzen
+			kontaktEintrag.setSapId(supplierIDList.getSupplier().get(i).getID()
+					.getValue());
+			// Firma setzen
+			kontaktEintrag.setCompany(supplierIDList.getSupplier().get(i)
+					.getBasicData().getCommon().getName().getFirstLineName());
+			// Stadt und Postleitzahl setzen
+			kontaktEintrag.setCity(result.getSupplier().getBasicData()
+					.getAddressInformation().getAddress().getPhysicalAddress()
+					.getCityName());
+			kontaktEintrag.setZipcode(result.getSupplier().getBasicData()
+					.getAddressInformation().getAddress().getPhysicalAddress()
+					.getCompanyPostalCode());
+			// Straße und Hausnummer setzen
+			kontaktEintrag.setStreet(result.getSupplier().getBasicData()
+					.getAddressInformation().getAddress().getPhysicalAddress()
+					.getStreetName());
+
+			// Email und Telefon
+			if (result.getSupplier().getBasicData().getCommunicationData()
+					.getAddress().getCommunication().getTelephone().size() > 0) {
+				kontaktEintrag.setPhone(result.getSupplier().getBasicData()
+						.getCommunicationData().getAddress().getCommunication()
+						.getTelephone().get(0).getNumber().getSubscriberID());
+			}
+			if (result.getSupplier().getBasicData().getCommunicationData()
+					.getAddress().getCommunication().getEmail().size() > 0) {
+				kontaktEintrag.setEmail(result.getSupplier().getBasicData()
+						.getCommunicationData().getAddress().getCommunication()
+						.getEmail().get(0).getAddress().getValue());
+			}
+			// Kontakt hinzufügen
+			Kontaktliste.add(kontaktEintrag);
+		}
 
 		return Kontaktliste;
 	}
