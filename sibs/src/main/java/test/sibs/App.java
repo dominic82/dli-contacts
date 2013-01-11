@@ -82,7 +82,15 @@ public class App {
 //        frame.setDoValidation(true);
 //        frame.initializeWindow();
 
-        main_sapkonnektor.main(args);
+        List<Contact> saplist = null;
+        Contact sapfilter = new Contact();
+        sapfilter.setFirstname("Test");
+        sapfilter.setType(Contact.ContactType.SUPPLIER);
+        saplist = main_sapkonnektor.fetchContact(sapfilter);
+        
+        ChooseContactFrame frame3 = new ChooseContactFrame("Test Kontakt auswählen", saplist);
+        frame3.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame3.initializeWindow();
 
     }
 }
