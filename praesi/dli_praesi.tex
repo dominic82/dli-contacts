@@ -1,0 +1,131 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+% BITTE IN UTF-8 OEFFNEN %
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[xcolor=dvipsnames, compress, 10pt]{beamer}
+
+\usepackage[ngerman] {babel}
+\usepackage[ansinew] {inputenc}
+
+\usepackage{tikz}
+\usepackage{graphics}
+\usepackage{BeamerColor}
+\usepackage{expdlist} 
+\usepackage{eurosym}
+
+\usetheme{Warsaw}
+\usefonttheme{professionalfonts}
+
+\usecolortheme[named=ForestGreen]{structure}
+
+\usepackage{ownTheme}
+\setbeamertemplate{footline}[infolines theme]
+\setbeamertemplate{headline}[miniframes theme]
+\setbeamercovered{transparent=8}
+
+\AtBeginSubsection[]
+{
+\begin{frame}
+\frametitle{}
+\tableofcontents[currentsection]
+\end{frame}
+}
+
+\begin{document}
+
+\title[DLI Projekt: Kontakte]{DLI Projekt: Kontakte}
+\subtitle[DLI]{Vorlesung Aktuelle Themen der Dienstleistungsinformatik}
+%\date{\today} % gibt aktuelles Datum zurueck
+\date{22. Januar 2013}
+\author[M.\ Marzotko, T.\ Seeland, D. Wirkner]{Markus Marzotko, Thorben Seeland \& Dominic Wirkner\\ {\scriptsize Prof.\ Dr.\ Bernhard Steffen, Dipl.-Inf. Markus Doet}} 
+\institute[TU Dortmund]{Technische Universit\"at Dortmund}
+
+\nocite{*}
+
+\frame{\titlepage}
+
+\begin{frame}
+%%%%%%%%%%%%%%	Gliederung		%%%%%%%%%%%%%%
+\tableofcontents
+\end{frame}			
+
+\section{Einf\"uhrung}
+
+\subsection*{Begriffskl\"arung}
+
+\begin{frame}{Was ist Compliance?}
+\pause
+\begin{block}{Definition 1}
+		\begin{quote}
+			"`Die Binsenweisheit, dass Unternehmen Gesetze einhalten m\"ussen, hei{\ss}t nun
+			Compliance."'
+		\end{quote}
+			Uwe H. Schneider, ZIP 2003, S. 645f
+\end{block}
+\pause
+\begin{block}{Definition 2}
+	\begin{quote}
+		Bei "`Compliance"' geht es um die "`Erf\"ullung"', "`Entsprechung"' bzw.
+		"`Konformit\"at"' mit staatlichen Gesetzen sowie mit Regeln und Spezifikationen,
+		mit Grunds\"atzen (ethische und moralische) und Verfahren sowie mit Standards
+		(z.B. ISO) und Konventionen, die klar definiert worden sind. Die Erf\"ullung der
+		Compliance kann sowohl auf Zwang (z.B. durch Gesetze) als auch auf
+		Freiwilligkeit (z.B. Einhaltung von Standards) beruhen.
+	\end{quote}
+		laut Compliance-Magazin.de
+\end{block}
+\end{frame}
+
+\subsection*{Typische Anwendungsfelder}
+
+\begin{frame}{Typische Anwendungsfelder}
+\pause
+\begin{itemize}[<+->]
+	\item Medizin
+		\begin{itemize}[<+->]
+			\item ordnungsgem\"a{\ss}es Verschreiben von Medikamenten
+			\item Befolgen der Ratschl\"age von \"Arzten
+			\item Physiologie: Dehnbarkeit von K\"orperstrukturen
+		\end{itemize}
+	\item Cross-Compliance
+		\begin{itemize}[<+->]
+			\item landwirtschaftlicher Kontext
+			\item betrifft Verpflichtungen f\"ur den Erhalt von EU-Direktbeihilfen:
+				\begin{itemize}[<+->]
+					\item landwirtschaftlicher und \"okologischer Zustand der Fl\"achen
+					\item Futtermittel und Lebensmittelsicherheit
+					\item Tiergesundheit und Tierschutz
+				\end{itemize}
+		\end{itemize}
+	\item IT-Compliance
+	\begin{itemize}[<+->]
+		\item "`unsere"' Compliance
+		\item Bedeutungsgewinn durch Digitalisierung von Gesch\"aftsprozessen
+		\item Gesetze und Standards als Reaktion auf Computerpannen etc.
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\section{Rechtliche Grundlagen}
+
+\begin{frame}{Enron, Worldcom und Neuer Markt}
+\begin{itemize}
+	\pause
+	\item \textbf{Enron} (USA, Energiekonzern)
+	\pause
+	\item \textbf{Worldcom} (USA, Telekommunikationskonzern)
+	\pause
+	\item \textbf{Neuer Markt}
+\end{itemize}
+\end{frame}
+
+\subsection*{Sarbanes-Oxley Act}
+
+
+\begin{frame}
+%%%%%%%%%%%%%%	Ende		%%%%%%%%%%%%%%
+\begin{center}
+Vielen Dank f\"ur die Aufmerksamkeit!
+\end{center}
+\end{frame}
+
+\end{document}
