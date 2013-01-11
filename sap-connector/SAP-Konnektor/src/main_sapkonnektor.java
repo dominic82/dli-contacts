@@ -112,7 +112,7 @@ public class main_sapkonnektor {
 			CustomerBasicDataByIDResponseMessageSync cushilfsObjekt = new CustomerBasicDataByIDResponseMessageSync();
 			cushilfsObjekt = getCustomerIDs(filter);
 			return getCustomerData(cushilfsObjekt);
-			
+
 		case SUPPLIER:
 
 			SupplierSimpleByNameAndAddressResponseMessageSync suphilfsObjekt = new SupplierSimpleByNameAndAddressResponseMessageSync();
@@ -209,8 +209,7 @@ public class main_sapkonnektor {
 		return result;
 	}
 
-	private static EmplERPSimplElmntsRspMsgS getEmployeeIDs(
-			Contact filter) {
+	private static EmplERPSimplElmntsRspMsgS getEmployeeIDs(Contact filter) {
 
 		// EmplERPSimplElmntsQryMsgS angestellterAnfrage = new
 		// EmplERPSimplElmntsQryMsgS();
@@ -271,8 +270,7 @@ public class main_sapkonnektor {
 	private static List<Contact> getSupplierData(
 			SupplierSimpleByNameAndAddressResponseMessageSync supplierIDList) {
 
-		Contact kontaktEintrag = new Contact();
-		kontaktEintrag.setType(Contact.ContactType.SUPPLIER);
+		Contact kontaktEintrag = null;
 
 		List<Contact> Kontaktliste = new LinkedList<Contact>();
 		int anzahlEintraege;
@@ -308,6 +306,9 @@ public class main_sapkonnektor {
 		// ID losschickt und die empfangenen Daten
 		// in die Kontaktliste schreibt
 		for (int i = 0; i < anzahlEintraege; i++) {
+
+			kontaktEintrag = new Contact();
+			kontaktEintrag.setType(Contact.ContactType.SUPPLIER);
 
 			// Supplier ID in PartyID Objekt eintragen
 			supPartyID.setValue(supplierIDList.getSupplier().get(i).getID()
