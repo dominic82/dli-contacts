@@ -105,21 +105,22 @@ public class main_sapkonnektor {
 
 	public static List<Contact> fetchContact(Contact filter) {
 
-		   switch (filter.getType()) {
-		   case CUSTOMER:
-				SupplierSimpleByNameAndAddressResponseMessageSync hilfsObjekt = new SupplierSimpleByNameAndAddressResponseMessageSync();
-				hilfsObjekt = getSupplierIDs(filter);
-				return getSupplierData(hilfsObjekt);
-		   case SUPPLIER:
+		switch (filter.getType()) {
+		case CUSTOMER:
 
-		    break;
-		   case EMPLOYEE:
+			break;
+		case SUPPLIER:
 
-		    break;
-		   }
-		
-		
-		   return null;
+			SupplierSimpleByNameAndAddressResponseMessageSync hilfsObjekt = new SupplierSimpleByNameAndAddressResponseMessageSync();
+			hilfsObjekt = getSupplierIDs(filter);
+			return getSupplierData(hilfsObjekt);
+
+		case EMPLOYEE:
+
+			break;
+		}
+
+		return null;
 
 	}
 
