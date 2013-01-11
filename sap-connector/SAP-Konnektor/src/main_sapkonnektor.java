@@ -123,7 +123,7 @@ public class main_sapkonnektor {
 
 	}
 
-	public static SupplierSimpleByNameAndAddressResponseMessageSync getSupplierIDs(
+	private static SupplierSimpleByNameAndAddressResponseMessageSync getSupplierIDs(
 			Contact filter) {
 
 		SupplierSimpleByNameAndAddressQueryMessageSync lieferantAnfrage = new SupplierSimpleByNameAndAddressQueryMessageSync();
@@ -184,7 +184,7 @@ public class main_sapkonnektor {
 		return result;
 	}
 
-	public static SupplierSimpleByNameAndAddressResponseMessageSync getEmployeeIDs(
+	private static SupplierSimpleByNameAndAddressResponseMessageSync getEmployeeIDs(
 			Contact filter) {
 
 		// EmplERPSimplElmntsQryMsgS angestellterAnfrage = new
@@ -243,7 +243,7 @@ public class main_sapkonnektor {
 		return result;
 	}
 
-	public static List<Contact> getSupplierData(
+	private static List<Contact> getSupplierData(
 			SupplierSimpleByNameAndAddressResponseMessageSync supplierIDList) {
 
 		Contact kontaktEintrag = new Contact();
