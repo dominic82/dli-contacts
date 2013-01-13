@@ -469,20 +469,35 @@ public class main_sapkonnektor {
 			kontaktEintrag.setSapId(supplierIDList.getSupplier().get(i).getID()
 					.getValue());
 			// Firma setzen
+			if(supplierIDList.getSupplier().get(i)
+					.getBasicData().getCommon().getName().getFirstLineName()!= null){
 			kontaktEintrag.setCompany(supplierIDList.getSupplier().get(i)
 					.getBasicData().getCommon().getName().getFirstLineName());
+			}
 			// Stadt und Postleitzahl setzen
+			if(result.getSupplier().getBasicData()
+					.getAddressInformation().getAddress().getPhysicalAddress()
+					.getCityName()!= null){
 			kontaktEintrag.setCity(result.getSupplier().getBasicData()
 					.getAddressInformation().getAddress().getPhysicalAddress()
 					.getCityName());
+			}
+			if(result.getSupplier().getBasicData()
+					.getAddressInformation().getAddress().getPhysicalAddress()
+					.getCompanyPostalCode()!= null){
 			kontaktEintrag.setZipcode(result.getSupplier().getBasicData()
 					.getAddressInformation().getAddress().getPhysicalAddress()
 					.getCompanyPostalCode());
+			}
+			
 			// Straße und Hausnummer setzen
+			if(result.getSupplier().getBasicData()
+					.getAddressInformation().getAddress().getPhysicalAddress()
+					.getStreetName()!= null){
 			kontaktEintrag.setStreet(result.getSupplier().getBasicData()
 					.getAddressInformation().getAddress().getPhysicalAddress()
 					.getStreetName());
-
+			}
 			// Email und Telefon
 			if (result.getSupplier().getBasicData().getCommunicationData()
 					.getAddress().getCommunication().getTelephone().size() > 0) {
