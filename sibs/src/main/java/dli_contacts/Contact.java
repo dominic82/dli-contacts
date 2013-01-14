@@ -52,10 +52,10 @@ public class Contact {
      */
     public List<ValidationErrors> validate() {
         List<ValidationErrors> errors = new ArrayList<ValidationErrors>();
-        if (firstname.isEmpty()) {
+        if (firstname.isEmpty() || (firstname.length() > 35)) {
             errors.add(ValidationErrors.FIRSTNAME_INCORRECT);
         }
-        if (lastname.isEmpty()) {
+        if (lastname.isEmpty() || (lastname.length() > 35)) {
             errors.add(ValidationErrors.LASTNAME_INCORRECT);
         }
         if (company.length() > 35) {
