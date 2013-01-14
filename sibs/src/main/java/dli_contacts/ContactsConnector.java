@@ -23,8 +23,8 @@ public class ContactsConnector {
     public List<Contact> getSapContacts(Contact filter) {
         List<Contact> result = new ArrayList<Contact>();
 
-        // TODO (SAP) Einbinden der externen Klasse und Ausführung
         result = main_sapkonnektor.fetchContact(filter);
+        
         System.out.println("Connector: SAP returned " + result.size() + " results");
 
         return result;
@@ -37,9 +37,12 @@ public class ContactsConnector {
      */
     public List<Contact> getGoogleContacts(Contact filter) throws AuthenticationException, ServiceException, IOException {
         List<Contact> result = new ArrayList<Contact>();
+        
         DLI_GoogleContactsConnector gc = new DLI_GoogleContactsConnector();
         result = gc.fetchContacts(filter);
+
         System.out.println("Connector: Google returned " + result.size() + " results");
+
         return result;
     }
 
@@ -48,8 +51,10 @@ public class ContactsConnector {
      * @param contact contact-object to save
      */
     public void addGoogleContact(Contact contact) throws AuthenticationException, IOException, ServiceException {
+        
         DLI_GoogleContactsConnector gc = new DLI_GoogleContactsConnector();
         gc.createContact(contact);
+        
         System.out.println("Connector: added Google Contact '" + contact.getFirstname() + " " + contact.getLastname() + "'");
     }
 }

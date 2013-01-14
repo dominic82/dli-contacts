@@ -16,6 +16,7 @@ import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -148,31 +149,49 @@ public class ChooseContactFrame extends JFrame implements ActionListener, ListSe
 
         if (ae.getSource() == buttonCancel) {
             result = ResultBranch.CANCEL;
+
+            synchronized (this) {
+                this.notify();
+            }
+
+            dispose();
         }
 
         if (ae.getSource() == buttonSelect) {
-            Contact person = (Contact) listContacts.getSelectedValue();
+            if (listContacts.getSelectedIndex() != -1) {
+                Contact person = (Contact) listContacts.getSelectedValue();
 
-            contact.setFirstname(person.getFirstname());
-            contact.setLastname(person.getLastname());
-            contact.setCompany(person.getCompany());
-            contact.setStreet(person.getStreet());
-            contact.setZipcode(person.getZipcode());
-            contact.setCity(person.getCity());
-            contact.setPhone(person.getPhone());
-            contact.setEmail(person.getEmail());
-            contact.setGoogleId(person.getGoogleId());
-            contact.setSapId(person.getSapId());
-            contact.setType(person.getType());
+                contact.setFirstname(person.getFirstname());
+                contact.setLastname(person.getLastname());
+                contact.setCompany(person.getCompany());
+                contact.setStreet(person.getStreet());
+                contact.setZipcode(person.getZipcode());
+                contact.setCity(person.getCity());
+                contact.setPhone(person.getPhone());
+                contact.setEmail(person.getEmail());
+                contact.setGoogleId(person.getGoogleId());
+                contact.setSapId(person.getSapId());
+                contact.setType(person.getType());
 
-            result = ResultBranch.OK;
+                result = ResultBranch.OK;
+                
+                System.out.println(contact.getDataString());
+
+                synchronized (this) {
+                    this.notify();
+                }
+
+                dispose();
+                
+            } else {
+                JOptionPane.showMessageDialog(this,
+                        "Bitte einen Eintrag wählen oder Auswahl abbrechen!",
+                        "Eingabe nicht korrekt",
+                        JOptionPane.ERROR_MESSAGE);
+            }
         }
 
-        synchronized (this) {
-            this.notify();
-        }
 
-        dispose();
     }
 
     /**

@@ -1,5 +1,7 @@
 package dli_contacts.sibs;
 
+import com.google.gdata.util.AuthenticationException;
+import com.google.gdata.util.ServiceException;
 import de.metaframe.jabc.framework.execution.ExecutionEnvironment;
 import de.metaframe.jabc.framework.sib.annotation.SIBClass;
 import de.metaframe.jabc.framework.sib.parameter.ContextKey;
@@ -7,6 +9,8 @@ import de.metaframe.jabc.sib.Executable;
 
 import dli_contacts.Contact;
 import dli_contacts.ContactsConnector;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -36,28 +40,35 @@ public class SearchGoogleContact implements Executable {
      */
     @Override
     public String trace(ExecutionEnvironment env) {
+
+        List<Contact> list = new ArrayList<Contact>();
+        Contact filter = (Contact) env.get(contact);
+
+        System.setProperty("javax.xml.parsers.SAXParserFactory", "org.apache.xerces.jaxp.SAXParserFactoryImpl");
+        System.setProperty("javax.xml.parsers.SAXParser", "org.apache.xerces.jaxp.SAXParserImpl");
+        System.setProperty("oracle.xml.parser.v2.SAXParser", "org.apache.xerces.jaxp.SAXParserImpl");
+
         try {
-            Contact filter = (Contact) env.get(contact);
-            
-            System.out.println(filter.getDataString());
-
             ContactsConnector con = new ContactsConnector();
-            List<Contact> list = con.getGoogleContacts(filter);
+            list = con.getGoogleContacts(filter);
             
-            env.put(contactList, list);
-            if (list.isEmpty()) {
-                return "not found";
-            }
-            if (list.size() > 0) {
-                return "found";
-            }
+        } catch (AuthenticationException e) {
+            System.out.println(e.getMessage());
             return "error";
-
-        } catch (Exception e) {
-            System.out.println(e);
-            e.printStackTrace();
+        } catch (ServiceException | IOException e) {
+            System.out.println(e.getMessage());
             return "error";
         }
 
+        if (list.isEmpty()) {
+            env.put(contactList, list);
+            return "not found";
+        }
+        if (list.size() > 0) {
+            env.put(contactList, list);
+            return "found";
+        }
+
+        return "error";
     }
 }

@@ -37,7 +37,7 @@ public class PutContact implements Executable {
             return "default";
 
         } catch (Exception e) {
-            System.out.println(e);
+            System.out.println(e.getMessage());
             return "error";
         }
 

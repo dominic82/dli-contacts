@@ -63,7 +63,7 @@ public class EditContact implements Executable {
                 }
             }
         } catch (Exception e) {
-            System.out.println(e);
+            System.out.println(e.getMessage());
             return "error";
         }
     }

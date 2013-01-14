@@ -7,7 +7,7 @@ import de.metaframe.jabc.sib.Executable;
 
 import dli_contacts.Contact;
 import dli_contacts.ContactsConnector;
-import dli_contacts.DummyConnector;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -37,26 +37,32 @@ public class SearchSapContact implements Executable {
      */
     @Override
     public String trace(ExecutionEnvironment env) {
+
+        List<Contact> list = new ArrayList<Contact>();
+        Contact filter = (Contact) env.get(contact);
+
+        System.setProperty("javax.xml.parsers.SAXParserFactory", "org.apache.xerces.jaxp.SAXParserFactoryImpl");
+        System.setProperty("javax.xml.parsers.SAXParser", "org.apache.xerces.jaxp.SAXParserImpl");
+        System.setProperty("oracle.xml.parser.v2.SAXParser", "org.apache.xerces.jaxp.SAXParserImpl");
+
         try {
-            Contact filter = (Contact) env.get(contact);
-
-            ContactsConnector con = new DummyConnector();
-            List<Contact> list = con.getSapContacts(filter);
-
-            env.put(contactList, list);
-            if (list.isEmpty()) {
-                return "not found";
-            }
-            if (list.size() > 0) {
-                return "found";
-            }
-            return "error";
+            ContactsConnector con = new ContactsConnector();
+            list = con.getSapContacts(filter);
 
         } catch (Exception e) {
-            System.out.println(e);
-            e.printStackTrace();
+            System.out.println(e.getMessage());
             return "error";
         }
 
+        if (list.isEmpty()) {
+            env.put(contactList, list);
+            return "not found";
+        }
+        if (list.size() > 0) {
+            env.put(contactList, list);
+            return "found";
+        }
+
+        return "error";
     }
 }

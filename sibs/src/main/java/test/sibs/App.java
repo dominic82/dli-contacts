@@ -4,14 +4,11 @@ import com.google.gdata.util.AuthenticationException;
 import com.google.gdata.util.ServiceException;
 import dli_contacts.Contact;
 import dli_contacts.ContactsConnector;
-import dli_contacts.sapconnector.main_sapkonnektor;
 import dli_contacts.sibs.gui.ChooseContactFrame;
 
 import dli_contacts.sibs.gui.EditContactFrame;
 import java.io.IOException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JFrame;
 
 /**
@@ -60,16 +57,12 @@ public class App {
             filter = frame.getContact();
         }
 
-        System.out.println("Gruppe: " + filter.getType().toString());
-
         List<Contact> glist = null;
         try {
             glist = gCon.getGoogleContacts(filter);
         } catch (AuthenticationException ex) {
             System.out.println(ex);
-        } catch (ServiceException ex) {
-            System.out.println(ex);
-        } catch (IOException ex) {
+        } catch (ServiceException | IOException ex) {
             System.out.println(ex);
         }
 
@@ -82,11 +75,22 @@ public class App {
 //        frame.setDoValidation(true);
 //        frame.initializeWindow();
 
-        List<Contact> saplist = null;
         Contact sapfilter = new Contact();
-        sapfilter.setFirstname("Test");
-        sapfilter.setType(Contact.ContactType.SUPPLIER);
-        saplist = main_sapkonnektor.fetchContact(sapfilter);
+        EditContactFrame sapframe = new EditContactFrame("Test Kontakt suchen", sapfilter);
+        sapframe.setDoValidation(false);
+        sapframe.initializeWindow();
+
+        synchronized (sapframe) {
+            try {
+                sapframe.wait();
+            } catch (InterruptedException ex) {
+                System.out.println(ex);
+            }
+            sapfilter = sapframe.getContact();
+        }
+        
+        List<Contact> saplist = null;
+        saplist = gCon.getSapContacts(sapfilter);
         
         ChooseContactFrame frame3 = new ChooseContactFrame("Test Kontakt auswählen", saplist);
         frame3.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

@@ -50,7 +50,6 @@ public class Contact {
      * validates the values of the object-parameters
      * @return List of defined ValidationErrors
      */
-    // TODO: ZIPCODE max 10 Zeichen, Rest max 40 Zeichen
     public List<ValidationErrors> validate() {
         List<ValidationErrors> errors = new ArrayList<ValidationErrors>();
         if (firstname.isEmpty()) {
@@ -58,6 +57,21 @@ public class Contact {
         }
         if (lastname.isEmpty()) {
             errors.add(ValidationErrors.LASTNAME_INCORRECT);
+        }
+        if (company.length() > 35) {
+            errors.add(ValidationErrors.COMPANY_INCORRECT);
+        }
+        if (street.length() > 35) {
+            errors.add(ValidationErrors.STREET_INCORRECT);
+        }
+        if (zipcode.length() > 10) {
+            errors.add(ValidationErrors.ZIPCODE_INCORRECT);
+        }
+        if (city.length() > 35) {
+            errors.add(ValidationErrors.CITY_INCORRECT);
+        }
+        if (phone.length() > 35) {
+            errors.add(ValidationErrors.PHONE_INCORRECT);
         }
         if (!email.isEmpty() && !email.matches(EMAIL_PATTERN)) {
             errors.add(ValidationErrors.EMAIL_INCORRECT);
@@ -72,22 +86,28 @@ public class Contact {
     @Override
     public String toString() {
         String output = "";
-        output += getFirstname() + " " + getLastname();
-        if (!getCompany().isEmpty()) {
-            output += ", " + getCompany();
+        if (!getFirstname().isEmpty() || !getLastname().isEmpty()) {
+            output += getFirstname() + " " + getLastname() + ", ";
         }
-        output += ", " + getCity();
+        if (getCompany() != null && !getCompany().isEmpty()) {
+            output += getCompany() + ", ";
+        }
+        
+        if (getCity() != null && !getCity().isEmpty()) {
+            output += getCity();
+        }
+        
         return output;
     }
 
     public String getDataString() {
         String output = "";
-        output += (getFirstname() + " " + getLastname() + "\n");
-        output += (getCompany() + "\n");
-        output += (getStreet() + "\n");
-        output += (getZipcode() + " " + getCity() + "\n");
-        output += (getPhone() + "\n");
-        output += (getEmail() + "\n \n");
+        output += ("Name: " + getFirstname() + " " + getLastname() + "\n");
+        output += ("Firma: " + getCompany() + "\n");
+        output += ("Strasse: " + getStreet() + "\n");
+        output += ("Ort: " + getZipcode() + " " + getCity() + "\n");
+        output += ("Tel.: " + getPhone() + "\n");
+        output += ("Email: " + getEmail() + "\n");
         output += ("Google-ID: " + getGoogleId() + "\n");
         output += ("SAP-ID: " + getSapId() + "\n");
         output += ("Gruppe: " + getType().toString());
