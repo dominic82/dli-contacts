@@ -130,6 +130,7 @@ public class DLI_GoogleContactsConnector {
 			ExtendedProperty sapId = new ExtendedProperty();
 			sapId.setName(DLI_GoogleContactsConnector.sapId);
 			sapId.setValue(contactInfoCopy.getSapId());
+			contact.addExtendedProperty(sapId);
 		}
 
 		// Gruppe setzen
