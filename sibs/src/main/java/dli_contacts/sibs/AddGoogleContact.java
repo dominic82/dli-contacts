@@ -39,11 +39,15 @@ public class AddGoogleContact implements Executable {
         try {
             ContactsConnector con = new ContactsConnector();
             con.addGoogleContact(person);
+            
+            System.out.println(person.getDataString());
 
             return "default";
 
         } catch (IOException | ServiceException e) {
+            System.out.println(e);
             System.out.println(e.getMessage());
+            e.printStackTrace();
             return "error";
         }
 
