@@ -2,7 +2,7 @@
 <model version="2.1">
   <id>254c67b8-cefc-414b-911d-839c5c91ddb0</id>
   <name>Test</name>
-  <changecounter>31</changecounter>
+  <changecounter>43</changecounter>
   <sib>
     <id>21d390af-61cc-4516-820b-e656dcd00586</id>
     <name>ShowMessageDialog</name>
@@ -93,6 +93,9 @@
     <parameter name="title">
       <string>Kontakt bearbeiten</string>
     </parameter>
+    <parameter name="validate">
+      <boolean>false</boolean>
+    </parameter>
     <finalbranches>cancel</finalbranches>
     <finalbranches>error</finalbranches>
     <finalbranches>ok</finalbranches>
@@ -115,6 +118,9 @@
     </parameter>
     <parameter name="title">
       <string>Kontakt bearbeiten</string>
+    </parameter>
+    <parameter name="validate">
+      <boolean>true</boolean>
     </parameter>
     <finalbranches>cancel</finalbranches>
     <finalbranches>error</finalbranches>
@@ -177,7 +183,7 @@
     <label>SearchGoogleContact</label>
     <sib-uid>searchGoogleContact</sib-uid>
     <taxonomy>dli_contacts.sibs.SearchGoogleContact</taxonomy>
-    <position>414.5,228.0</position>
+    <position>399.5,228.0</position>
     <parameter name="contact">
       <de.metaframe.jabc.framework.sib.parameter.ContextKey>
         <ContextKeyFoundation>
@@ -202,18 +208,18 @@
   </sib>
   <edge>
     <source>ba09b9cc-1839-4b6c-85c9-d748c8ab2b26</source>
-    <target>1faa02c7-7e69-4fa5-83f4-867070e8db05</target>
-    <point>303.0,192.36923076923077</point>
-    <point>462.0,241.2923076923077</point>
+    <target>4da12b16-557b-4950-aaad-6a8f4cea27f5</target>
+    <point>318.0,239.94545454545454</point>
+    <point>612.0,133.03636363636363</point>
     <labelposition>500.0,0.0</labelposition>
     <branch>cancel</branch>
     <branch>ok</branch>
   </edge>
   <edge>
-    <source>1faa02c7-7e69-4fa5-83f4-867070e8db05</source>
+    <source>4da12b16-557b-4950-aaad-6a8f4cea27f5</source>
     <target>d097859f-4e26-47b2-b8d0-28ba6ee3b69d</target>
-    <point>285.0,255.0</point>
-    <point>495.0,255.0</point>
+    <point>620.3225806451613,144.0</point>
+    <point>490.3448275862069,378.0</point>
     <labelposition>500.0,0.0</labelposition>
     <branch>found</branch>
     <branch>not found</branch>
@@ -232,7 +238,6 @@
     <target>3f9c9947-b9ca-428f-ae5e-1f977b76aba6</target>
     <point>510.0,255.0</point>
     <point>206.0,397.0</point>
-    <branch>cancel</branch>
     <branch>ok</branch>
   </edge>
   <edge>
@@ -269,5 +274,34 @@
     <point>287.0,238.0</point>
     <branch>default</branch>
   </edge>
+  <sib>
+    <id>4da12b16-557b-4950-aaad-6a8f4cea27f5</id>
+    <name>SearchSapContact</name>
+    <label>SearchSapContact</label>
+    <sib-uid>searchSapContact</sib-uid>
+    <taxonomy>dli_contacts.sibs.SearchSapContact</taxonomy>
+    <position>573.5,108.0</position>
+    <parameter name="contact">
+      <de.metaframe.jabc.framework.sib.parameter.ContextKey>
+        <ContextKeyFoundation>
+          <key>contact</key>
+          <scope>GLOBAL</scope>
+          <scopeMutable>false</scopeMutable>
+        </ContextKeyFoundation>
+      </de.metaframe.jabc.framework.sib.parameter.ContextKey>
+    </parameter>
+    <parameter name="contactList">
+      <de.metaframe.jabc.framework.sib.parameter.ContextKey>
+        <ContextKeyFoundation>
+          <key>contactList</key>
+          <scope>GLOBAL</scope>
+          <scopeMutable>false</scopeMutable>
+        </ContextKeyFoundation>
+      </de.metaframe.jabc.framework.sib.parameter.ContextKey>
+    </parameter>
+    <finalbranches>error</finalbranches>
+    <finalbranches>found</finalbranches>
+    <finalbranches>not found</finalbranches>
+  </sib>
   <values/>
 </model>

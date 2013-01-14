@@ -44,46 +44,31 @@ public class SearchGoogleContact implements Executable {
         List<Contact> list = new ArrayList<Contact>();
         Contact filter = (Contact) env.get(contact);
 
-        System.out.println(filter.getDataString());
+        System.setProperty("javax.xml.parsers.SAXParserFactory", "org.apache.xerces.jaxp.SAXParserFactoryImpl");
+        System.setProperty("javax.xml.parsers.SAXParser", "org.apache.xerces.jaxp.SAXParserImpl");
+        System.setProperty("oracle.xml.parser.v2.SAXParser", "org.apache.xerces.jaxp.SAXParserImpl");
 
-        ContactsConnector con = new ContactsConnector();
         try {
-
-//            System.setProperty("javax.xml.parsers.SAXParserFactory", "org.apache.xerces.jaxp.SAXParserFactoryImpl");
-//            System.setProperty("javax.xml.parsers.SAXParser", "org.apache.xerces.jaxp.SAXParserImpl");
-//            System.setProperty("oracle.xml.parser.v2.SAXParser", "org.apache.xerces.jaxp.SAXParserImpl");
-
+            ContactsConnector con = new ContactsConnector();
             list = con.getGoogleContacts(filter);
             
-        } catch (AuthenticationException ex) {
-            System.out.println(ex.getMessage());
-            System.out.println(ex.getDebugInfo());
-            System.out.println(ex.getExtendedHelp());
-            System.out.println(ex.toString());
-            ex.printStackTrace();
-        } catch (ServiceException ex) {
-            System.out.println(ex.getMessage());
-            System.out.println(ex.getDebugInfo());
-            System.out.println(ex.getExtendedHelp());
-            System.out.println(ex.toString());
-            ex.printStackTrace();
-        } catch (IOException ex) {
-            System.out.println(ex.getMessage());
-            System.out.println(ex.toString());
-            ex.printStackTrace();
+        } catch (AuthenticationException e) {
+            System.out.println(e.getMessage());
+            return "error";
+        } catch (ServiceException | IOException e) {
+            System.out.println(e.getMessage());
+            return "error";
         }
 
-
-        env.put(contactList, list);
         if (list.isEmpty()) {
+            env.put(contactList, list);
             return "not found";
         }
         if (list.size() > 0) {
+            env.put(contactList, list);
             return "found";
         }
+
         return "error";
-
-
-
     }
 }

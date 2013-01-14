@@ -219,6 +219,7 @@ public class DLI_GoogleContactsConnector {
 		myService = new ContactsService(servicename);
 		try {
 			myService.setUserCredentials(username, password);
+                        myService.setProtocolVersion(ContactsService.Versions.V3);
 		} catch (AuthenticationException e) {
 			e.printStackTrace();
 		}

@@ -223,6 +223,9 @@ public class EditContactFrame extends JFrame implements ActionListener {
             List<Contact.ValidationErrors> errors = contact.validate();
             if (errors.isEmpty() || !doValidation) {
                 result = ResultBranch.OK;
+                
+                System.out.println(contact.getDataString());
+                
                 synchronized (this) {
                     this.notify();
                 }
