@@ -136,7 +136,7 @@ public class ChooseContactFrame extends JFrame implements ActionListener, ListSe
 
         //Fenster konfigurieren
         setResizable(true);
-        setSize(500, 400);
+        setSize(500, 450);
         setVisible(true);
     }
 
