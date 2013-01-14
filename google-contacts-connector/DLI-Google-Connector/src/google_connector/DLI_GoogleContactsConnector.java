@@ -118,15 +118,19 @@ public class DLI_GoogleContactsConnector {
 		}
 
 		// Firma
-		ExtendedProperty company = new ExtendedProperty();
-		company.setName(DLI_GoogleContactsConnector.company);
-		company.setValue(contactInfoCopy.getCompany());
-		contact.addExtendedProperty(company);
+		if (contactInfoCopy.getCompany() != null) {
+			ExtendedProperty company = new ExtendedProperty();
+			company.setName(DLI_GoogleContactsConnector.company);
+			company.setValue(contactInfoCopy.getCompany());
+			contact.addExtendedProperty(company);
+		}
 
 		// SAPID
-		ExtendedProperty sapId = new ExtendedProperty();
-		sapId.setName(DLI_GoogleContactsConnector.sapId);
-		sapId.setValue(contactInfoCopy.getSapId());
+		if (contactInfoCopy.getSapId() != null) {
+			ExtendedProperty sapId = new ExtendedProperty();
+			sapId.setName(DLI_GoogleContactsConnector.sapId);
+			sapId.setValue(contactInfoCopy.getSapId());
+		}
 
 		// Gruppe setzen
 		String groupURL = null;
@@ -294,27 +298,33 @@ public class DLI_GoogleContactsConnector {
 	private static boolean filterContact(Contact filter, Contact accepted) {
 		boolean city = (filter.getCity() == null);
 		if (!city)
-			city = accepted.getCity().contains(filter.getCity());
+			city = accepted.getCity().toLowerCase()
+					.contains(filter.getCity().toLowerCase());
 
 		boolean email = (filter.getEmail() == null);
 		if (!email)
-			email = accepted.getEmail().contains(filter.getEmail());
+			email = accepted.getEmail().toLowerCase()
+					.contains(filter.getEmail().toLowerCase());
 
 		boolean firstname = (filter.getFirstname() == null);
 		if (!firstname)
-			firstname = accepted.getFirstname().contains(filter.getFirstname());
+			firstname = accepted.getFirstname().toLowerCase()
+					.contains(filter.getFirstname().toLowerCase());
 
 		boolean lastname = (filter.getLastname() == null);
 		if (!lastname)
-			lastname = accepted.getLastname().contains(filter.getLastname());
+			lastname = accepted.getLastname().toLowerCase()
+					.contains(filter.getLastname().toLowerCase());
 
 		boolean phone = (filter.getPhone() == null);
 		if (!phone)
-			phone = accepted.getPhone().contains(filter.getPhone());
+			phone = accepted.getPhone().toLowerCase()
+					.contains(filter.getPhone().toLowerCase());
 
 		boolean street = (filter.getStreet() == null);
 		if (!street)
-			street = accepted.getStreet().contains(filter.getStreet());
+			street = accepted.getStreet().toLowerCase()
+					.contains(filter.getStreet().toLowerCase());
 
 		boolean sapId = (filter.getSapId() == null);
 		if (!sapId)
@@ -322,15 +332,20 @@ public class DLI_GoogleContactsConnector {
 
 		boolean googleId = (filter.getGoogleId() == null);
 		if (!googleId)
-			googleId = accepted.getGoogleId().contains(
-					filter.getGoogleId());
+			googleId = accepted.getGoogleId().contains(filter.getGoogleId());
 
 		boolean company = (filter.getCompany() == null);
 		if (!company)
-			company = accepted.getCompany().contains(filter.getCompany());
+			company = accepted.getCompany().toLowerCase()
+					.contains(filter.getCompany().toLowerCase());
+
+		boolean zipcode = (filter.getZipcode() == null);
+		if (!zipcode)
+			zipcode = accepted.getZipcode().toLowerCase()
+					.contains(filter.getZipcode().toLowerCase());
 
 		return city && email && firstname && lastname && phone && street
-				&& sapId && googleId && company;
+				&& sapId && googleId && company && zipcode;
 	}
 
 	private static Contact makeContact(ContactEntry ce) {
