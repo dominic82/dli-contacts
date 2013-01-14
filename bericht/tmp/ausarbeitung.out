@@ -3,8 +3,12 @@
 \BOOKMARK [2][-]{subsection.1.2}{Erste \334berlegungen}{section.1}% 3
 \BOOKMARK [1][-]{section.2}{Unsere Projektbausteine}{}% 4
 \BOOKMARK [2][-]{subsection.2.1}{Google-Connector}{section.2}% 5
-\BOOKMARK [2][-]{subsection.2.2}{SAP-Connector}{section.2}% 6
-\BOOKMARK [2][-]{subsection.2.3}{GUI-Elemente}{section.2}% 7
-\BOOKMARK [2][-]{subsection.2.4}{SIB-Klassen}{section.2}% 8
-\BOOKMARK [1][-]{section.3}{Zusammenfassung / Eigene Meinung / Weiterf\374hrendes}{}% 9
-\BOOKMARK [1][-]{section.4}{Literaturverweise}{}% 10
+\BOOKMARK [3][-]{subsubsection.2.1.1}{Die Bibliothek gdata}{subsection.2.1}% 6
+\BOOKMARK [3][-]{subsubsection.2.1.2}{Authentifizieren und Verbinden mit gdata}{subsection.2.1}% 7
+\BOOKMARK [3][-]{subsubsection.2.1.3}{Kontakte suchen}{subsection.2.1}% 8
+\BOOKMARK [3][-]{subsubsection.2.1.4}{Kontakte einf\374gen}{subsection.2.1}% 9
+\BOOKMARK [2][-]{subsection.2.2}{SAP-Connector}{section.2}% 10
+\BOOKMARK [2][-]{subsection.2.3}{GUI-Elemente}{section.2}% 11
+\BOOKMARK [2][-]{subsection.2.4}{SIB-Klassen}{section.2}% 12
+\BOOKMARK [1][-]{section.3}{Zusammenfassung / Eigene Meinung / Weiterf\374hrendes}{}% 13
+\BOOKMARK [1][-]{section.4}{Literaturverweise}{}% 14

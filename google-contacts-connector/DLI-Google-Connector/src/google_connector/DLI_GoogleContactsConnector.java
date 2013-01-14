@@ -256,24 +256,22 @@ public class DLI_GoogleContactsConnector {
 		// TODO noch anstaendig mit Querys machen/besprechen
 
 		// Gruppe
-		if (filterCopy.getType() != null) {
-			String groupId = null;
-			switch (filterCopy.getType()) {
-			case CUSTOMER:
-				groupId = customerGroupURL;
-				break;
-			case SUPPLIER:
-				groupId = supplierGroupURL;
-				break;
-			case EMPLOYEE:
-				groupId = employeeGroupURL;
-				break;
+		String groupId = null;
+		switch (filterCopy.getType()) {
+		case CUSTOMER:
+			groupId = customerGroupURL;
+			break;
+		case SUPPLIER:
+			groupId = supplierGroupURL;
+			break;
+		case EMPLOYEE:
+			groupId = employeeGroupURL;
+			break;
 
-			default:
-				break;
-			}
-			myQuery.setStringCustomParameter("group", groupId);
+		default:
+			break;
 		}
+		myQuery.setStringCustomParameter("group", groupId);
 
 		// submit request
 		if (!myQuery.isValidState()) {
@@ -324,7 +322,7 @@ public class DLI_GoogleContactsConnector {
 
 		boolean googleId = (filter.getGoogleId() == null);
 		if (!googleId)
-			googleId = accepted.getGoogleId().contentEquals(
+			googleId = accepted.getGoogleId().contains(
 					filter.getGoogleId());
 
 		boolean company = (filter.getCompany() == null);
@@ -672,6 +670,7 @@ public class DLI_GoogleContactsConnector {
 			System.out.println("Contact hinzugefuegt");
 			Contact filter = new Contact();
 			filter.setType(ContactType.SUPPLIER);
+			filter.setFirstname("Dominic");
 
 			System.out.println("Filter erstellt");
 			System.out.println(toStringWithContact(filter));
