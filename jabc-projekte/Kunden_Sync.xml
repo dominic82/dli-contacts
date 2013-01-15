@@ -2,14 +2,14 @@
 <model version="2.1">
   <id>d7e06782-e187-4cde-8336-713f124e0449</id>
   <name>Kunden_Sync</name>
-  <changecounter>30</changecounter>
+  <changecounter>32</changecounter>
   <sib>
     <id>cbbb07b1-66fc-408b-9858-ed9c1f62ceac</id>
     <name>PutContact</name>
     <label>PutContact</label>
     <sib-uid>putContact</sib-uid>
     <taxonomy>dli_contacts.sibs.PutContact</taxonomy>
-    <position>120.0,137.5</position>
+    <position>115.5,138.0</position>
     <parameter name="contact">
       <de.metaframe.jabc.framework.sib.parameter.ContextKey>
         <ContextKeyFoundation>
@@ -31,7 +31,7 @@
     <label>EditContact</label>
     <sib-uid>editContact</sib-uid>
     <taxonomy>dli_contacts.sibs.EditContact</taxonomy>
-    <position>269.0,137.5</position>
+    <position>264.0,138.0</position>
     <parameter name="contact">
       <de.metaframe.jabc.framework.sib.parameter.ContextKey>
         <ContextKeyFoundation>
@@ -65,7 +65,7 @@
     <label>SearchGoogleContact</label>
     <sib-uid>searchGoogleContact</sib-uid>
     <taxonomy>dli_contacts.sibs.SearchGoogleContact</taxonomy>
-    <position>243.0,257.5</position>
+    <position>234.5,258.0</position>
     <parameter name="contact">
       <de.metaframe.jabc.framework.sib.parameter.ContextKey>
         <ContextKeyFoundation>
@@ -102,7 +102,7 @@
     <label>ChooseContact</label>
     <sib-uid>chooseContact</sib-uid>
     <taxonomy>dli_contacts.sibs.ChooseContact</taxonomy>
-    <position>544.0,257.5</position>
+    <position>538.0,258.0</position>
     <parameter name="contact">
       <de.metaframe.jabc.framework.sib.parameter.ContextKey>
         <ContextKeyFoundation>
@@ -142,7 +142,7 @@
     <label>Ende</label>
     <sib-uid>exercise-sibs/ShowMessageDialog</sib-uid>
     <taxonomy>tudo.sib.exercise.ShowMessageDialog</taxonomy>
-    <position>563.0,572.5</position>
+    <position>563.0,573.0</position>
     <parameter name="dialogTitle">
       <string>Title</string>
     </parameter>
@@ -180,7 +180,7 @@
     <label>SearchSapContact</label>
     <sib-uid>searchSapContact</sib-uid>
     <taxonomy>dli_contacts.sibs.SearchSapContact</taxonomy>
-    <position>250.5,392.5</position>
+    <position>243.5,393.0</position>
     <parameter name="contact">
       <de.metaframe.jabc.framework.sib.parameter.ContextKey>
         <ContextKeyFoundation>
@@ -209,7 +209,7 @@
     <label>ChooseContact</label>
     <sib-uid>chooseContact</sib-uid>
     <taxonomy>dli_contacts.sibs.ChooseContact</taxonomy>
-    <position>94.0,392.5</position>
+    <position>88.0,393.0</position>
     <parameter name="contact">
       <de.metaframe.jabc.framework.sib.parameter.ContextKey>
         <ContextKeyFoundation>
@@ -249,7 +249,7 @@
     <label>AddGoogleContact</label>
     <sib-uid>addGoogleContact</sib-uid>
     <taxonomy>dli_contacts.sibs.AddGoogleContact</taxonomy>
-    <position>385.5,572.5</position>
+    <position>379.0,573.0</position>
     <parameter name="contact">
       <de.metaframe.jabc.framework.sib.parameter.ContextKey>
         <ContextKeyFoundation>
@@ -276,7 +276,7 @@
     <label>EditContact</label>
     <sib-uid>editContact</sib-uid>
     <taxonomy>dli_contacts.sibs.EditContact</taxonomy>
-    <position>269.0,572.5</position>
+    <position>264.0,573.0</position>
     <parameter name="contact">
       <de.metaframe.jabc.framework.sib.parameter.ContextKey>
         <ContextKeyFoundation>

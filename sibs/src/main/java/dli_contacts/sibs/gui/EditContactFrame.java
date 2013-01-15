@@ -189,7 +189,7 @@ public class EditContactFrame extends JFrame implements ActionListener {
 
         //Fenster konfigurieren
         setResizable(true);
-        setSize(350, 350);
+        setSize(350, 370);
         setVisible(true);
     }
 
