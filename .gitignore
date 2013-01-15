@@ -5,7 +5,7 @@
 *.class
 !/.gitignore
 
-/bericht/temp/
+/bericht/tmp/
 /bericht/ausarbeitung.pdf
 
 /jabc-projekte/*.xml.*
