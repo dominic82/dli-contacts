@@ -4,9 +4,14 @@ import java.util.List;
 import javax.xml.ws.BindingProvider;
 import javax.xml.ws.soap.SOAPFaultException;
 
-import com.sap.xi.appl.se.global.CustomerBasicDataByIDResponseMessageSync;
+import com.sap.xi.appl.se.global.CustomerERPAddressBasicDataByNameAndAddressQueryMessageSync;
+import com.sap.xi.appl.se.global.CustomerERPAddressBasicDataByNameAndAddressQueryMessageSync.CustomerSelectionByNameAndAddress;
+import com.sap.xi.appl.se.global.CustomerERPAddressBasicDataByNameAndAddressQueryResponseIn;
+import com.sap.xi.appl.se.global.CustomerERPAddressBasicDataByNameAndAddressResponseMessageSync;
 import com.sap.xi.appl.se.global.EmailURI;
 import com.sap.xi.appl.se.global.PartyID;
+import com.sap.xi.appl.se.global.RegionCode;
+import com.sap.xi.appl.se.global.ServiceECCCUSTOMERADDRESSBASICDATAQRDEFAULTPROFILE;
 import com.sap.xi.appl.se.global.ServiceECCSUPPLIERBASICDATABYIDQRDEFAULTPROFILE;
 import com.sap.xi.appl.se.global.ServiceECCSUPPLIERSNAQRDEFAULTPROFILE;
 import com.sap.xi.appl.se.global.StandardMessageFault;
@@ -14,7 +19,6 @@ import com.sap.xi.appl.se.global.SupplierBasicDataByIDQueryMessageSync;
 import com.sap.xi.appl.se.global.SupplierBasicDataByIDQueryMessageSync.SupplierBasicDataSelectionByID;
 import com.sap.xi.appl.se.global.SupplierBasicDataByIDQueryResponseIn;
 import com.sap.xi.appl.se.global.SupplierBasicDataByIDResponseMessageSync;
-import com.sap.xi.appl.se.global.SupplierBasicDataByIDResponseMessageSync.Supplier.BasicData.CommunicationData.Address;
 import com.sap.xi.appl.se.global.SupplierSimpleByNameAndAddressQueryMessageSync;
 import com.sap.xi.appl.se.global.SupplierSimpleByNameAndAddressQueryMessageSync.SupplierSimpleSelectionByNameAndAddress;
 import com.sap.xi.appl.se.global.SupplierSimpleByNameAndAddressQueryResponseIn;
@@ -121,13 +125,48 @@ public class main_sapkonnektor {
 		}
 	}
 
+	public static Contact entferneNulls(Contact kontaktDaten) {
+		if (kontaktDaten.getFirstname() == null) {
+			kontaktDaten.setFirstname("");
+		}
+		if (kontaktDaten.getLastname() == null) {
+			kontaktDaten.setLastname("");
+		}
+		if (kontaktDaten.getCity() == null) {
+			kontaktDaten.setCity("");
+		}
+		if (kontaktDaten.getCompany() == null) {
+			kontaktDaten.setCompany("");
+		}
+		if (kontaktDaten.getZipcode() == null) {
+			kontaktDaten.setZipcode("");
+		}
+		if (kontaktDaten.getStreet() == null) {
+			kontaktDaten.setStreet("");
+		}
+		if (kontaktDaten.getPhone() == null) {
+			kontaktDaten.setPhone("");
+		}
+		if (kontaktDaten.getEmail() == null) {
+			kontaktDaten.setEmail("");
+		}
+		if (kontaktDaten.getSapId() == null) {
+			kontaktDaten.setSapId("");
+		}
+		return kontaktDaten;
+
+	}
+
 	public static List<Contact> fetchContact(Contact filter) {
-		
+
 		switch (filter.getType()) {
 		case CUSTOMER:
-			CustomerBasicDataByIDResponseMessageSync cushilfsObjekt = new CustomerBasicDataByIDResponseMessageSync();
-			cushilfsObjekt = getCustomerIDs(filter);
-			return getCustomerData(cushilfsObjekt);
+			return getCustomerIDs(filter);
+			// Beim Customer reicht eine Methode...
+			// CustomerBasicDataByIDResponseMessageSync cushilfsObjekt = new
+			// CustomerBasicDataByIDResponseMessageSync();
+			// cushilfsObjekt = getCustomerIDs(filter);
+			// return getCustomerData(cushilfsObjekt);
 
 		case SUPPLIER:
 
@@ -148,7 +187,7 @@ public class main_sapkonnektor {
 
 	private static List<Contact> getEmployeeData(
 			EmplERPSimplElmntsRspMsgS empIDList) {
-		
+
 		Contact kontaktEintrag = null;
 
 		List<Contact> Kontaktliste = new LinkedList<Contact>();
@@ -164,7 +203,7 @@ public class main_sapkonnektor {
 		EmployeeAddressByEmployeeResponseMessage result = new EmployeeAddressByEmployeeResponseMessage();
 		EmployeeAddressByEmployeeQueryMessage empAnfrage = new EmployeeAddressByEmployeeQueryMessage();
 		EmployeeAddressSelectionByEmployee empAnfrageID = new EmployeeAddressSelectionByEmployee();
-		EmployeeID empID = new EmployeeID ();
+		EmployeeID empID = new EmployeeID();
 
 		// Verbindungsobjekte fertigbauen
 		ServiceECCEMPADDREMPQRDEFAULTPROFILE verbindungsObjekt = new ServiceECCEMPADDREMPQRDEFAULTPROFILE();
@@ -192,14 +231,13 @@ public class main_sapkonnektor {
 			// Supplier ID in PartyID Objekt eintragen
 			empID.setValue(empIDList.getEmployee().get(i).getID());
 			empAnfrageID.setEmployeeID(empID);
-			empAnfrage
-					.setEmployeeAddressSelectionByEmployee(empAnfrageID);
+			empAnfrage.setEmployeeAddressSelectionByEmployee(empAnfrageID);
 
 			// Hochreichen
 			try {
 				result = bindungDaten
 						.employeeAddressByEmployeeQueryResponseIn(empAnfrage);
-			}  catch (SOAPFaultException e) {
+			} catch (SOAPFaultException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (com.sap.xi.ea_hr.se.global.StandardMessageFault e) {
@@ -209,62 +247,169 @@ public class main_sapkonnektor {
 
 			// SAPID setzen
 			kontaktEintrag.setSapId(empIDList.getEmployee().get(i).getID());
-			//Vorname setzen
-			if(result.getEmployee().getAddress().get(i).getAddress().getPersonName().getGivenName()!= null){
-				kontaktEintrag.setFirstname(result.getEmployee().getAddress().get(i).getAddress().getPersonName().getGivenName());
-			}
-			//Nachname setzen
-			if(result.getEmployee().getAddress().get(i).getAddress().getPersonName().getFamilyName()!= null){
-				kontaktEintrag.setLastname(result.getEmployee().getAddress().get(i).getAddress().getPersonName().getFamilyName());
-			}
+			// Vorname setzen
+
+			kontaktEintrag.setFirstname(result.getEmployee().getAddress()
+					.get(i).getAddress().getPersonName().getGivenName());
+
+			// Nachname setzen
+
+			kontaktEintrag.setLastname(result.getEmployee().getAddress().get(i)
+					.getAddress().getPersonName().getFamilyName());
+
 			// Firma setzen
-			if(result.getEmployee().getAddress().get(i).getAddress().getDepartmentName()!= null){
-				kontaktEintrag.setCompany(result.getEmployee().getAddress().get(i).getAddress().getDepartmentName());
-			}
+
+			kontaktEintrag.setCompany(result.getEmployee().getAddress().get(i)
+					.getAddress().getDepartmentName());
 
 			// Stadt und Postleitzahl setzen
-			if(result.getEmployee().getAddress().get(i).getAddress().getPhysicalAddress().getCityName()!= null){
-				kontaktEintrag.setCity(result.getEmployee().getAddress().get(i).getAddress().getPhysicalAddress().getCityName());
-			}
-			if(result.getEmployee().getAddress().get(i).getAddress().getPhysicalAddress().getRegionCode()!= null){
-				kontaktEintrag.setZipcode(result.getEmployee().getAddress().get(i).getAddress().getPhysicalAddress().getRegionCode().getValue());
-			}
-			
+
+			kontaktEintrag.setCity(result.getEmployee().getAddress().get(i)
+					.getAddress().getPhysicalAddress().getCityName());
+			kontaktEintrag.setZipcode(result.getEmployee().getAddress().get(i)
+					.getAddress().getPhysicalAddress().getRegionCode()
+					.getValue());
 
 			// Straße und Hausnummer setzen
-			if(result.getEmployee().getAddress().get(i).getAddress().getPhysicalAddress().getStreetName()!= null){
-				kontaktEintrag.setStreet(result.getEmployee().getAddress().get(i).getAddress().getPhysicalAddress().getStreetName());
-			}
+
+			kontaktEintrag.setStreet(result.getEmployee().getAddress().get(i)
+					.getAddress().getPhysicalAddress().getStreetName());
 
 			// Email und Telefon
-			if(result.getEmployee().getAddress().get(i).getAddress().getCommunication().getEmail().size()>0){
-				kontaktEintrag.setEmail(result.getEmployee().getAddress().get(i).getAddress().getCommunication().getEmail().get(0).getURI().getValue());
+			if (result.getEmployee().getAddress().get(i).getAddress()
+					.getCommunication().getEmail().size() > 0) {
+				kontaktEintrag.setEmail(result.getEmployee().getAddress()
+						.get(i).getAddress().getCommunication().getEmail()
+						.get(0).getURI().getValue());
 			}
-			if(result.getEmployee().getAddress().get(i).getAddress().getCommunication().getTelephone().size()>0){
-				kontaktEintrag.setEmail(result.getEmployee().getAddress().get(i).getAddress().getCommunication().getTelephone().get(0).getNumber().getSubscriberID());
+			if (result.getEmployee().getAddress().get(i).getAddress()
+					.getCommunication().getTelephone().size() > 0) {
+				kontaktEintrag.setEmail(result.getEmployee().getAddress()
+						.get(i).getAddress().getCommunication().getTelephone()
+						.get(0).getNumber().getSubscriberID());
 			}
-			
-			
-			
-			
+
+			kontaktEintrag = entferneNulls(kontaktEintrag);
+
 			// Kontakt hinzufügen
 			Kontaktliste.add(kontaktEintrag);
 		}
-		
+
 		// TODO Auto-generated method stub
 		return Kontaktliste;
 	}
 
-	private static List<Contact> getCustomerData(
-			CustomerBasicDataByIDResponseMessageSync cushilfsObjekt) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	/*
+	 * private static List<Contact> getCustomerData(
+	 * CustomerBasicDataByIDResponseMessageSync cushilfsObjekt) {
+	 * 
+	 * // TODO Auto-generated method stub return null; }
+	 */
+	private static List<Contact> getCustomerIDs(Contact filter) {
+		// Diese Methode holt sich die ntwendigen Daten direkt und muss keinen
+		// umweg über die IDs gehen
+		CustomerERPAddressBasicDataByNameAndAddressQueryMessageSync kundeAnfrage = new CustomerERPAddressBasicDataByNameAndAddressQueryMessageSync();
+		CustomerSelectionByNameAndAddress kundeFilter = new CustomerSelectionByNameAndAddress();
 
-	private static CustomerBasicDataByIDResponseMessageSync getCustomerIDs(
-			Contact filter) {
-		// TODO Auto-generated method stub
-		return null;
+		RegionCode kundePLZ = new RegionCode();
+
+		// Hier die Werte der inneren Klasse des zu sendenden Objekts mit den
+		// Werten von Dominiks
+		// Contacts befüllen
+		// TODO Testfall herausnehmen
+
+		if (filter.getFirstname() == "Test") {
+			kundeFilter.getAddressInformation().getAddress()
+					.getPhysicalAddress().setCountryCode("US");
+		} else {
+			kundeFilter.getCommon().getName()
+					.setFirstLineName(filter.getCompany());
+			kundeFilter.getAddressInformation().getAddress()
+					.getPhysicalAddress().setCityName(filter.getCity());
+			kundePLZ.setValue(filter.getZipcode());
+			kundeFilter.getAddressInformation().getAddress()
+					.getPhysicalAddress().setRegionCode(kundePLZ);
+			kundeFilter.getAddressInformation().getAddress()
+					.getPhysicalAddress().setStreetName(filter.getStreet());
+
+		}
+		// Alles dem sendenden Objekt hinzufügen
+		kundeAnfrage.setCustomerSelectionByNameAndAddress(kundeFilter);
+
+		// Verbindungs und Antwortobjekte bauen
+		CustomerERPAddressBasicDataByNameAndAddressResponseMessageSync resultDaten = null;
+
+		ServiceECCCUSTOMERADDRESSBASICDATAQRDEFAULTPROFILE verbindungsObjekt = new ServiceECCCUSTOMERADDRESSBASICDATAQRDEFAULTPROFILE();
+
+		CustomerERPAddressBasicDataByNameAndAddressQueryResponseIn bindungDaten = verbindungsObjekt
+				.getBindingTHTTPAHTTPECCCUSTOMERADDRESSBASICDATAQRDEFAULTPROFILE();
+
+		BindingProvider bindungDatenCast = (BindingProvider) bindungDaten;
+
+		// Username und Passwort setzen (Webaddresse schon im Objekt enthalten)
+		bindungDatenCast.getRequestContext().put(
+				BindingProvider.USERNAME_PROPERTY, "S0008266219");
+		bindungDatenCast.getRequestContext().put(
+				BindingProvider.PASSWORD_PROPERTY, "Fleischgans85");
+
+		// Verbindung herstellen, StandardMessageFault für SAP notwendig
+		try {
+			resultDaten = bindungDaten
+					.customerERPAddressBasicDataByNameAndAddressQueryResponseIn(kundeAnfrage);
+		} catch (StandardMessageFault e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SOAPFaultException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		int anzahlEintraege = resultDaten.getCustomer().size();
+
+		Contact kontaktEintrag;
+		List<Contact> Kontaktliste = new LinkedList<Contact>();
+
+		// Schleife auf dem gegebenen Objekt aufrufen
+
+		for (int i = 0; i < anzahlEintraege; i++) {
+
+			kontaktEintrag = new Contact();
+			kontaktEintrag.setType(Contact.ContactType.SUPPLIER);
+
+			// SAPID setzen
+			kontaktEintrag.setSapId(resultDaten.getCustomer().get(i).getID()
+					.getValue());
+			// Firma setzen
+
+			kontaktEintrag.setCompany(resultDaten.getCustomer().get(i)
+					.getCommon().getName().getFirstLineName());
+
+			// Stadt und Postleitzahl setzen
+
+			kontaktEintrag.setCity(resultDaten.getCustomer().get(i)
+					.getAddressInformation().getAddress().getPhysicalAddress()
+					.getCityName());
+
+			kontaktEintrag.setZipcode(resultDaten.getCustomer().get(i)
+					.getAddressInformation().getAddress().getPhysicalAddress()
+					.getRegionCode().getValue());
+
+			// Straße und Hausnummer setzen
+
+			kontaktEintrag.setStreet(resultDaten.getCustomer().get(i)
+					.getAddressInformation().getAddress().getPhysicalAddress()
+					.getStreetName());
+
+			// Email und Telefon
+			// Hier keine Kommunikationsdaten vorhanden
+
+			// Kontakt hinzufügen
+			kontaktEintrag = entferneNulls(kontaktEintrag);
+			Kontaktliste.add(kontaktEintrag);
+		}
+
+		return Kontaktliste;
+
 	}
 
 	private static SupplierSimpleByNameAndAddressResponseMessageSync getSupplierIDs(
@@ -333,20 +478,19 @@ public class main_sapkonnektor {
 		EmplERPSimplElmntsQryMsgS mitarbeiterAnfrage = new EmplERPSimplElmntsQryMsgS();
 		EmplERPSimplElmntsQrySSel mitarbeiterFilter = new EmplERPSimplElmntsQrySSel();
 		MEDIUMName filterWert = new MEDIUMName();
-		
-		//Ein paar EmployeeObjekte bauen:
+
+		// Ein paar EmployeeObjekte bauen:
 		EmplERPSimplElmntsQrySSelByEmplGvnName empVorname = new EmplERPSimplElmntsQrySSelByEmplGvnName();
 		EmplERPSimplElmntsQrySSelByEmplFamName empName = new EmplERPSimplElmntsQrySSelByEmplFamName();
 		EmplERPSimplElmntsQrySSelByHomeAddrCityName empStadt = new EmplERPSimplElmntsQrySSelByHomeAddrCityName();
-		EmplERPSimplElmntsQrySSelByHomeAddrPostlCode empPLZ	= new EmplERPSimplElmntsQrySSelByHomeAddrPostlCode();
+		EmplERPSimplElmntsQrySSelByHomeAddrPostlCode empPLZ = new EmplERPSimplElmntsQrySSelByHomeAddrPostlCode();
 		EmplERPSimplElmntsQrySSelByHomeAddrStName empStrasse = new EmplERPSimplElmntsQrySSelByHomeAddrStName();
-		
+
 		// Hier die Werte der inneren Klasse des zu sendenden Objekts mit den
 		// Werten von Dominiks
 		// Contacts befüllen
 		// TODO Testfall herausnehmen
-		
-		
+
 		if (filter.getFirstname() == "Test") {
 			filterWert.setValue("a");
 			empName.setLowerBoundaryEmployeeFamilyName(filterWert);
@@ -360,16 +504,22 @@ public class main_sapkonnektor {
 			mitarbeiterFilter.setSelectionByEmployeeGivenName(empVorname);
 			filterWert.setValue(filter.getCity());
 			empStadt.setLowerBoundaryEmployeeHomeAddressCityName(filterWert);
-			mitarbeiterFilter.setSelectionByEmployeeHomeAddressCityName(empStadt);
-			
-			empPLZ.setLowerBoundaryEmployeeHomeAddressPostalCode(filter.getZipcode());
-			mitarbeiterFilter.setSelectionByEmployeeHomeAddressPostalCode(empPLZ);
-			
-			empStrasse.setLowerBoundaryEmployeeHomeAddressStreetName(filter.getStreet());
-			mitarbeiterFilter.setSelectionByEmployeeHomeAddressStreetName(empStrasse);
+			mitarbeiterFilter
+					.setSelectionByEmployeeHomeAddressCityName(empStadt);
+
+			empPLZ.setLowerBoundaryEmployeeHomeAddressPostalCode(filter
+					.getZipcode());
+			mitarbeiterFilter
+					.setSelectionByEmployeeHomeAddressPostalCode(empPLZ);
+
+			empStrasse.setLowerBoundaryEmployeeHomeAddressStreetName(filter
+					.getStreet());
+			mitarbeiterFilter
+					.setSelectionByEmployeeHomeAddressStreetName(empStrasse);
 		}
 		// Alles dem sendenden Objekt hinzufügen
-		mitarbeiterAnfrage.setEmployeeSimpleSelectionByElements(mitarbeiterFilter);
+		mitarbeiterAnfrage
+				.setEmployeeSimpleSelectionByElements(mitarbeiterFilter);
 
 		// Verbindungs und Antwortobjekte bauen
 		EmplERPSimplElmntsRspMsgS result = null;
@@ -394,12 +544,16 @@ public class main_sapkonnektor {
 		} catch (SOAPFaultException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (com.sap.xi.ea_hr.se.global.StandardMessageFault e) { //catch hier mit anderem messagefault
+		} catch (com.sap.xi.ea_hr.se.global.StandardMessageFault e) { // catch
+																		// hier
+																		// mit
+																		// anderem
+																		// messagefault
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		// Ergebnis zurückgeben
-		
+
 		return result;
 	}
 
@@ -469,35 +623,26 @@ public class main_sapkonnektor {
 			kontaktEintrag.setSapId(supplierIDList.getSupplier().get(i).getID()
 					.getValue());
 			// Firma setzen
-			if(supplierIDList.getSupplier().get(i)
-					.getBasicData().getCommon().getName().getFirstLineName()!= null){
+
 			kontaktEintrag.setCompany(supplierIDList.getSupplier().get(i)
 					.getBasicData().getCommon().getName().getFirstLineName());
-			}
+
 			// Stadt und Postleitzahl setzen
-			if(result.getSupplier().getBasicData()
-					.getAddressInformation().getAddress().getPhysicalAddress()
-					.getCityName()!= null){
+
 			kontaktEintrag.setCity(result.getSupplier().getBasicData()
 					.getAddressInformation().getAddress().getPhysicalAddress()
 					.getCityName());
-			}
-			if(result.getSupplier().getBasicData()
-					.getAddressInformation().getAddress().getPhysicalAddress()
-					.getCompanyPostalCode()!= null){
+
 			kontaktEintrag.setZipcode(result.getSupplier().getBasicData()
 					.getAddressInformation().getAddress().getPhysicalAddress()
 					.getCompanyPostalCode());
-			}
-			
+
 			// Straße und Hausnummer setzen
-			if(result.getSupplier().getBasicData()
-					.getAddressInformation().getAddress().getPhysicalAddress()
-					.getStreetName()!= null){
+
 			kontaktEintrag.setStreet(result.getSupplier().getBasicData()
 					.getAddressInformation().getAddress().getPhysicalAddress()
 					.getStreetName());
-			}
+
 			// Email und Telefon
 			if (result.getSupplier().getBasicData().getCommunicationData()
 					.getAddress().getCommunication().getTelephone().size() > 0) {
@@ -512,6 +657,8 @@ public class main_sapkonnektor {
 						.getEmail().get(0).getAddress().getValue());
 			}
 			// Kontakt hinzufügen
+			kontaktEintrag = entferneNulls(kontaktEintrag);
+
 			Kontaktliste.add(kontaktEintrag);
 		}
 
