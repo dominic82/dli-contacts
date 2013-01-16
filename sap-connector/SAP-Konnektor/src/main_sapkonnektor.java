@@ -42,6 +42,7 @@ import com.sap.xi.ea_hr.se.global.EmployeeID;
 import com.sap.xi.ea_hr.se.global.MEDIUMName;
 import com.sap.xi.ea_hr.se.global.ServiceECCEEERPSELQRDEFAULTPROFILE;
 import com.sap.xi.ea_hr.se.global.ServiceECCEMPADDREMPQRDEFAULTPROFILE;
+import com.sap.xi.ea_hr.se.global.WITHOUTLASTRETURNEDQueryProcessingConditions;
 
 import dli_contacts.Contact;
 
@@ -57,6 +58,8 @@ public class main_sapkonnektor {
 		List<Contact> lk = new LinkedList<Contact>();
 		
 		tk.setType(Contact.ContactType.EMPLOYEE);
+		
+		tk.setFirstname("Anja");
 		
 		lk = fetchContact(tk);
 		if(lk.size()>0){
@@ -248,7 +251,7 @@ public class main_sapkonnektor {
 		bindungDatenCast.getRequestContext().put(
 				BindingProvider.PASSWORD_PROPERTY, "Fleischgans85");
 
-		// Aufbau
+		// 2 Strings:
 
 		// Schleife die für alle Einträge den Webservice mit der entsprechenden
 		// ID losschickt und die empfangenen Daten
@@ -278,47 +281,56 @@ public class main_sapkonnektor {
 			// SAPID setzen
 			kontaktEintrag.setSapId(empIDList.getEmployee().get(i).getID());
 			// Vorname setzen
-
-			kontaktEintrag.setFirstname(result.getEmployee().getAddress()
-					.get(i).getAddress().getPersonName().getGivenName());
-
+			kontaktEintrag.setFirstname(empIDList.getEmployee().get(i).getPersonFormattedName());
+			if(result.getEmployee().getAddress().get(0)
+					.getAddress().getPersonName()!=null)
+			kontaktEintrag.setFirstname(result.getEmployee().getAddress().get(0)
+					.getAddress().getPersonName().getInitialsName());
+			
 			// Nachname setzen
-
-			kontaktEintrag.setLastname(result.getEmployee().getAddress().get(i)
+			// Vorname setzen
+						if(result.getEmployee().getAddress().get(0)
+								.getAddress().getPersonName()!=null)
+			kontaktEintrag.setLastname(result.getEmployee().getAddress().get(0)
 					.getAddress().getPersonName().getFamilyName());
 
 			// Firma setzen
 
-			kontaktEintrag.setCompany(result.getEmployee().getAddress().get(i)
-					.getAddress().getDepartmentName());
+			kontaktEintrag.setCity(result.getEmployee().getAddress().get(0).getAddress().getPhysicalAddress().getCityName());
+						
 
+			
 			// Stadt und Postleitzahl setzen
 
-			kontaktEintrag.setCity(result.getEmployee().getAddress().get(i)
+			kontaktEintrag.setCity(result.getEmployee().getAddress().get(0)
 					.getAddress().getPhysicalAddress().getCityName());
-			kontaktEintrag.setZipcode(result.getEmployee().getAddress().get(i)
-					.getAddress().getPhysicalAddress().getRegionCode()
-					.getValue());
-
+			
+			com.sap.xi.ea_hr.se.global.RegionCode regCode = new com.sap.xi.ea_hr.se.global.RegionCode();
+			/*
+			regCode= result.getEmployee().getAddress().get(0)
+					.getAddress().getPhysicalAddress().getRegionCode();
+			kontaktEintrag.setZipcode(regCode.getValue());
+			*/
 			// Straße und Hausnummer setzen
 
-			kontaktEintrag.setStreet(result.getEmployee().getAddress().get(i)
+			kontaktEintrag.setStreet(result.getEmployee().getAddress().get(0)
 					.getAddress().getPhysicalAddress().getStreetName());
 
 			// Email und Telefon
-			if (result.getEmployee().getAddress().get(i).getAddress()
+	/*		
+			if (result.getEmployee().getAddress().get(0).getAddress()
 					.getCommunication().getEmail().size() > 0) {
 				kontaktEintrag.setEmail(result.getEmployee().getAddress()
-						.get(i).getAddress().getCommunication().getEmail()
+						.get(0).getAddress().getCommunication().getEmail()
 						.get(0).getURI().getValue());
 			}
-			if (result.getEmployee().getAddress().get(i).getAddress()
+			if (result.getEmployee().getAddress().get(0).getAddress()
 					.getCommunication().getTelephone().size() > 0) {
 				kontaktEintrag.setEmail(result.getEmployee().getAddress()
-						.get(i).getAddress().getCommunication().getTelephone()
+						.get(0).getAddress().getCommunication().getTelephone()
 						.get(0).getNumber().getSubscriberID());
 			}
-
+		*/	
 			kontaktEintrag = entferneNulls(kontaktEintrag);
 
 			// Kontakt hinzufügen
@@ -528,30 +540,47 @@ public class main_sapkonnektor {
 		// Contacts befüllen
 		// Suche nur in Deutschland durchführen
 
-		mitarbeiterFilter.setEmploymentCountryCode("US");
+		//mitarbeiterFilter.setEmploymentCountryCode("US");
+
+		if(filter.getLastname()!= ""){
 		filterWert.setValue(filter.getLastname());
 		empName.setLowerBoundaryEmployeeFamilyName(filterWert);
 		mitarbeiterFilter.setSelectionByEmployeeFamilyName(empName);
+		}
+		if(filter.getFirstname()!= ""){
 		filterWert.setValue(filter.getFirstname());
 		empVorname.setLowerBoundaryEmployeeGivenName(filterWert);
 		mitarbeiterFilter.setSelectionByEmployeeGivenName(empVorname);
+		}
+		if(filter.getCity()!= ""){
 		filterWert.setValue(filter.getCity());
 		empStadt.setLowerBoundaryEmployeeHomeAddressCityName(filterWert);
 		mitarbeiterFilter.setSelectionByEmployeeHomeAddressCityName(empStadt);
-
+		}
+		if(filter.getZipcode()!= ""){
 		empPLZ.setLowerBoundaryEmployeeHomeAddressPostalCode(filter
 				.getZipcode());
 		mitarbeiterFilter.setSelectionByEmployeeHomeAddressPostalCode(empPLZ);
-
+		}
+		if(filter.getStreet()!= ""){
 		empStrasse.setLowerBoundaryEmployeeHomeAddressStreetName(filter
 				.getStreet());
 		mitarbeiterFilter
 				.setSelectionByEmployeeHomeAddressStreetName(empStrasse);
-
+		}
+			
+		
 		// Alles dem sendenden Objekt hinzufügen
 		mitarbeiterAnfrage
 				.setEmployeeSimpleSelectionByElements(mitarbeiterFilter);
-
+		
+		WITHOUTLASTRETURNEDQueryProcessingConditions prozessAnfrage = new WITHOUTLASTRETURNEDQueryProcessingConditions();
+		
+		prozessAnfrage.setQueryHitsMaximumNumberValue(100);
+		mitarbeiterAnfrage.setQueryProcessingConditions(prozessAnfrage);
+		
+		
+		
 		// Verbindungs und Antwortobjekte bauen
 		EmplERPSimplElmntsRspMsgS result = null;
 
@@ -567,6 +596,7 @@ public class main_sapkonnektor {
 				BindingProvider.USERNAME_PROPERTY, "S0008266219");
 		bindungDatenCast.getRequestContext().put(
 				BindingProvider.PASSWORD_PROPERTY, "Fleischgans85");
+		
 
 		// Verbindung herstellen, StandardMessageFault für SAP notwendig
 		try {
@@ -575,12 +605,21 @@ public class main_sapkonnektor {
 		} catch (SOAPFaultException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			System.out.println("Fehler1");
 		} catch (com.sap.xi.ea_hr.se.global.StandardMessageFault e) {
 			// catch hier mit anderem messagefault
 			e.printStackTrace();
+			System.out.println("Fehler2");
 		}
 		// Ergebnis zurückgeben
-
+		//TODO Test löschen
+		if(result.getEmployee().isEmpty()){
+			System.out.println("Problem");
+		}
+		
+		System.out.println(result.getResponseProcessingConditions().getReturnedQueryHitsNumberValue());
+		
+		
 		return result;
 	}
 
