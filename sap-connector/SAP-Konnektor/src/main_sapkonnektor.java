@@ -252,6 +252,10 @@ public class main_sapkonnektor {
 				BindingProvider.PASSWORD_PROPERTY, "Fleischgans85");
 
 		// 2 Strings:
+		
+		String teilName1;
+		String teilName2;
+		int charIndex;
 
 		// Schleife die für alle Einträge den Webservice mit der entsprechenden
 		// ID losschickt und die empfangenen Daten
@@ -282,21 +286,19 @@ public class main_sapkonnektor {
 			kontaktEintrag.setSapId(empIDList.getEmployee().get(i).getID());
 			// Vorname setzen
 			kontaktEintrag.setFirstname(empIDList.getEmployee().get(i).getPersonFormattedName());
-			if(result.getEmployee().getAddress().get(0)
-					.getAddress().getPersonName()!=null)
-			kontaktEintrag.setFirstname(result.getEmployee().getAddress().get(0)
-					.getAddress().getPersonName().getInitialsName());
+			
+			charIndex = empIDList.getEmployee().get(i).getPersonFormattedName().indexOf(" ");
+			teilName1 = empIDList.getEmployee().get(i).getPersonFormattedName().substring(0, charIndex);
+			teilName2 = empIDList.getEmployee().get(i).getPersonFormattedName().substring(charIndex + 1);
 			
 			// Nachname setzen
-			// Vorname setzen
-						if(result.getEmployee().getAddress().get(0)
-								.getAddress().getPersonName()!=null)
-			kontaktEintrag.setLastname(result.getEmployee().getAddress().get(0)
-					.getAddress().getPersonName().getFamilyName());
-
+			kontaktEintrag.setLastname(teilName2);
+			// Vorname setzen		
+			kontaktEintrag.setFirstname(teilName1);
+			
 			// Firma setzen
 
-			kontaktEintrag.setCity(result.getEmployee().getAddress().get(0).getAddress().getPhysicalAddress().getCityName());
+			kontaktEintrag.setCompany(result.getEmployee().getAddress().get(0).getAddress().getDepartmentName());
 						
 
 			
