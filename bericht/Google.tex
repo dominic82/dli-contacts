@@ -34,20 +34,7 @@ Die Authentifizierung wird für ein \emph{ContacsService}-Objekt, wie im Codesch
  \ref{lst:authpwbeispiel} abgebildet, einmal durchgeführt, danach wird sie vom Framework
  automatisch durchgeführt.
 
-\lstset{% general command to set parameter(s)
-	basicstyle=\small\ttfamily, % print whole listing small
-	keywordstyle=\color{DarkOrchid}\bfseries,
-	% underlined bold black keywords
-	identifierstyle=, % nothing happens
-	commentstyle=\color{Gray}, % white comments
-	stringstyle=\color{Blue}, % typewriter type for strings
-	showstringspaces=false % no special string spaces 
-	tabsize=3,
-	language=Java,
-	caption={Beispiel für die Authentifizierung ohne \emph{OAuth}},
-	label=lst:authpwbeispiel,
-	breaklines=true,
-	breakatwhitespace=true}
+\javalstset{Beispiel für die Authentifizierung ohne \emph{OAuth}}{lst:authpwbeispiel}
 \begin{lstlisting}
 ContactsService myService;
 myService = new ContactsService(servicename);
@@ -69,3 +56,49 @@ Das Suchen von Kontakten geschieht in unserem Projekt durch das Herunterladen al
 
 \subsubsection{Kontakte einf\"ugen}
 Das Einfügen von Kontakten ist über ein erstelltes Service-Objekt 
+
+\javalstset{Kontakt-Objekt erstellen}{lst:createContact}
+\begin{lstlisting}
+// Create the entry to insert
+ContactEntry contact = new ContactEntry();
+contact.setTitle(new PlainTextConstruct(contactInfoCopy.getFirstname()
+		+ contactInfoCopy.getLastname()));
+\end{lstlisting}
+
+\javalstset{Namen in ein Kontakt-Objekt einfügen}{lst:ccsetname}
+\begin{lstlisting}
+// Name
+Name name = new Name();
+name.setFamilyName(new FamilyName(contactInfoCopy.getLastname(), null));
+name.setGivenName(new GivenName(contactInfoCopy.getFirstname(), null));
+contact.setName(name);
+\end{lstlisting}
+
+\javalstset{Benutzerdefinierte Einträge zu einem Kontakt-Objekt hinzufügen}{lst:cccustomEntry}
+\begin{lstlisting}	
+// Firma
+if (contactInfoCopy.getCompany() != null) {
+	ExtendedProperty company = new ExtendedProperty();
+	company.setName(DLI_GoogleContactsConnector.company);
+	company.setValue(contactInfoCopy.getCompany());
+	contact.addExtendedProperty(company);
+}
+\end{lstlisting}
+
+\javalstset{Den Kontakt einer Gruppe hinzufügen}{lst:ccjoingroup}
+\begin{lstlisting}
+// Gruppe setzen
+String groupURL = null;
+switch (contactInfoCopy.getType()) {
+case CUSTOMER:
+groupURL = customerGroupURL;
+contact.addGroupMembershipInfo(new GroupMembershipInfo(false, groupURL));
+\end{lstlisting}
+
+\javalstset{Das Kontakt-Objekt senden}{lst:ccsendcontact}
+\begin{lstlisting}
+// Kontakt senden		
+URL postUrl = new URL(contactsURL);
+return myService.insert(postUrl, contact);
+			
+\end{lstlisting}
