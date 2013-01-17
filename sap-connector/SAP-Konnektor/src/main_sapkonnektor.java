@@ -439,6 +439,9 @@ public class main_sapkonnektor {
 
 			kontaktEintrag.setCompany(resultDaten.getCustomer().get(i)
 					.getCommon().getName().getFirstLineName());
+			
+			kontaktEintrag.setFirstname(resultDaten.getCustomer().get(i)
+					.getCommon().getName().getFirstLineName());
 
 			// Stadt und Postleitzahl setzen
 
@@ -695,6 +698,9 @@ public class main_sapkonnektor {
 			// Firma setzen
 
 			kontaktEintrag.setCompany(supplierIDList.getSupplier().get(i)
+					.getBasicData().getCommon().getName().getFirstLineName());
+			
+			kontaktEintrag.setFirstname(supplierIDList.getSupplier().get(i)
 					.getBasicData().getCommon().getName().getFirstLineName());
 
 			// Stadt und Postleitzahl setzen
