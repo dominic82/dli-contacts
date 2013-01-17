@@ -57,9 +57,9 @@ public class main_sapkonnektor {
 		
 		List<Contact> lk = new LinkedList<Contact>();
 		
-		tk.setType(Contact.ContactType.SUPPLIER);
+		tk.setType(Contact.ContactType.EMPLOYEE);
 		
-		
+		tk.setFirstname("Bahnhofstrasse 21");
 		
 		lk = fetchContact(tk);
 		if(lk.size()>0){
@@ -430,7 +430,7 @@ public class main_sapkonnektor {
 		for (int i = 0; i < anzahlEintraege; i++) {
 
 			kontaktEintrag = new Contact();
-			kontaktEintrag.setType(Contact.ContactType.SUPPLIER);
+			kontaktEintrag.setType(Contact.ContactType.CUSTOMER);
 
 			// SAPID setzen
 			kontaktEintrag.setSapId(resultDaten.getCustomer().get(i).getID()
@@ -559,6 +559,7 @@ public class main_sapkonnektor {
 		filterWert.setValue(filter.getCity());
 		empStadt.setLowerBoundaryEmployeeHomeAddressCityName(filterWert);
 		mitarbeiterFilter.setSelectionByEmployeeHomeAddressCityName(empStadt);
+		
 		}
 		if(filter.getZipcode()!= ""){
 		empPLZ.setLowerBoundaryEmployeeHomeAddressPostalCode(filter
