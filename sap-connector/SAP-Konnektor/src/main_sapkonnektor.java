@@ -57,13 +57,14 @@ public class main_sapkonnektor {
 		
 		List<Contact> lk = new LinkedList<Contact>();
 		
-		tk.setType(Contact.ContactType.EMPLOYEE);
+		tk.setType(Contact.ContactType.SUPPLIER);
 		
-		tk.setFirstname("Anja");
+		
 		
 		lk = fetchContact(tk);
 		if(lk.size()>0){
 		System.out.println(lk.get(0).getFirstname());
+		System.out.println(lk.get(0).getLastname());
 		System.out.println(lk.get(0).getCity());
 		System.out.println(lk.get(0).getZipcode());
 		System.out.println(lk.get(0).getCompany());
@@ -477,7 +478,7 @@ public class main_sapkonnektor {
 
 		lieferantFilter.setSupplierAddressCountryCode("DE");
 
-		lieferantFilter.setSupplierName1(filter.getFirstname());
+		lieferantFilter.setSupplierName1(filter.getCompany());
 		lieferantFilter.setSupplierAddressCityName(filter.getCity());
 		lieferantFilter.setSupplierAddressStreetName(filter.getStreet());
 		lieferantFilter.setSupplierAddressStreetPostalCode(filter.getZipcode());
