@@ -30,7 +30,7 @@ Da wir unseren eigenen Account nutzen und die Daten nicht sicherheitskritisch si
  wir die zweite Variante gew\"ahlt und authentifizieren uns bei jedem Service-Aufruf mit
  Username und Passwort.
 
-Die Authentifizierung wird für ein \emph{ContacsService}-Objekt, wie im Codeschnipsel
+Die Authentifizierung wird für ein \emph{ContacsService}-Objekt, wie in Listing
  \ref{lst:authpwbeispiel} abgebildet, einmal durchgeführt, danach wird sie vom Framework
  automatisch durchgeführt.
 
@@ -46,10 +46,36 @@ try {
 \end{lstlisting}
 
 \subsubsection{Kontakte suchen}
-Die \emph{gdata}-Bibliothek bietet die Möglichkeit, Kontakte mit Angabe eines \emph{Querys}
- herunterzuladen.
+Die \emph{gdata}-Bibliothek bietet die Möglichkeit, Kontakte wie in Listing \ref{lst:searchQuery}
+ mit Angabe eines \emph{Querys} herunterzuladen.
 Das \emph{Query} kann jedoch nur zwischen Gruppen unterscheiden, jedoch nicht nach anderen
  Kriterien wie z.\ B.\ dem Vornamen oder dem Nachnamen eines Kontakts filtern.
+
+\javalstset{Kontaktsuche per Query}{lst:searchQuery}
+\begin{lstlisting}
+URL feedUrl = new URL(contactsURL);
+Query myQuery = new Query(feedUrl);
+ContactFeed resultFeed = null;
+// Gruppe
+String groupId = null;
+// Parameter Contact filter
+switch (filter.getType()) {
+case CUSTOMER:
+	groupId = customerGroupURL;
+	break;
+case SUPPLIER:
+	groupId = supplierGroupURL;
+	break;
+case EMPLOYEE:
+	groupId = employeeGroupURL;
+	break;
+default:
+	break;
+}
+myQuery.setStringCustomParameter("group", groupId);
+// submit request
+resultFeed = myService.getFeed(feedUrl, ContactFeed.class);
+\end{lstlisting}
 
 Das Suchen von Kontakten geschieht in unserem Projekt durch das Herunterladen aller Kontakte
  einer Gruppe und anschließendem sortieren "`von Hand"'.
@@ -100,5 +126,4 @@ contact.addGroupMembershipInfo(new GroupMembershipInfo(false, groupURL));
 // Kontakt senden		
 URL postUrl = new URL(contactsURL);
 return myService.insert(postUrl, contact);
-			
 \end{lstlisting}
