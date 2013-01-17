@@ -4,6 +4,12 @@ Die Google-Bibliothek \emph{gdata} ist eine frei verf\"ugbare Bibliothek zum ers
 \emph{gdata} kapselt die Webservices komplett in Java-Klassen, so dass ein importieren
  (z.\ B.\ mit \emph{wsimport}) nicht mehr notwendig ist.
 
+In der Beschreibung der \emph{gdata}-Bibliothek wird beschrieben, wie man aus der zip-Datei
+ ein JAR compilieren kann, da dies bei mir in mehreren Versuchen nicht geklappt hat,
+ haben wir die pragmatische Lösung gewählt und die in der zip-Datei enthaltenen JARs von Hand
+ in das Projekt eingefügt.
+%TODO Link zu gdata
+
 \subsubsection{Authentifizieren und Verbinden mit \emph{gdata}}
 Google bietet zwei Authentifizierungsverfahren an
 \begin{enumerate}
@@ -20,9 +26,37 @@ In Abbildung \ref{fig:google_oauth} wird ein Beispiel f\"ur die Nutzung von \emp
 \label{fig:google_oauth}
 \end{figure}
 
-Da wir unseren eigenen Account nutzen und die Daten nicht Sicherheitskritisch sind, haben
+Da wir unseren eigenen Account nutzen und die Daten nicht sicherheitskritisch sind, haben
  wir die zweite Variante gew\"ahlt und authentifizieren uns bei jedem Service-Aufruf mit
  Username und Passwort.
+
+Die Authentifizierung wird für ein \emph{ContacsService}-Objekt, wie im Codeschnipsel
+ \ref{lst:authpwbeispiel} abgebildet, einmal durchgeführt, danach wird sie vom Framework
+ automatisch durchgeführt.
+
+\lstset{% general command to set parameter(s)
+	basicstyle=\small\ttfamily, % print whole listing small
+	keywordstyle=\color{DarkOrchid}\bfseries,
+	% underlined bold black keywords
+	identifierstyle=, % nothing happens
+	commentstyle=\color{Gray}, % white comments
+	stringstyle=\color{Blue}, % typewriter type for strings
+	showstringspaces=false % no special string spaces 
+	tabsize=3,
+	language=Java,
+	caption={Beispiel für die Authentifizierung ohne \emph{OAuth}},
+	label=lst:authpwbeispiel,
+	breaklines=true,
+	breakatwhitespace=true}
+\begin{lstlisting}
+ContactsService myService;
+myService = new ContactsService(servicename);
+try {
+	myService.setUserCredentials(username, password);
+} catch (AuthenticationException e) {
+	e.printStackTrace();
+}
+\end{lstlisting}
 
 \subsubsection{Kontakte suchen}
 Die \emph{gdata}-Bibliothek bietet die Möglichkeit, Kontakte mit Angabe eines \emph{Querys}
