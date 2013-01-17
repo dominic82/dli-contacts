@@ -71,24 +71,22 @@ public class DLI_GoogleContactsConnector {
 		if (!(contactInfo.validate().isEmpty())) {
 			return null;
 		}
-		// Kopieren mit null statt ""
-		Contact contactInfoCopy = nullCopy(contactInfo);
 
 		// Create the entry to insert
 		ContactEntry contact = new ContactEntry();
-		contact.setTitle(new PlainTextConstruct(contactInfoCopy.getFirstname()
-				+ contactInfoCopy.getLastname()));
+		contact.setTitle(new PlainTextConstruct(contactInfo.getFirstname()
+				+ contactInfo.getLastname()));
 
 		// Name
 		Name name = new Name();
-		name.setFamilyName(new FamilyName(contactInfoCopy.getLastname(), null));
-		name.setGivenName(new GivenName(contactInfoCopy.getFirstname(), null));
+		name.setFamilyName(new FamilyName(contactInfo.getLastname(), null));
+		name.setGivenName(new GivenName(contactInfo.getFirstname(), null));
 		contact.setName(name);
 
 		// Email >> es kann NICHT NUR eine geben
-		if (contactInfoCopy.getEmail() != null) {
+		if (!contactInfo.getEmail().isEmpty()) {
 			Email primaryMail = new Email();
-			primaryMail.setAddress(contactInfoCopy.getEmail());
+			primaryMail.setAddress(contactInfo.getEmail());
 			primaryMail.setRel("http://schemas.google.com/g/2005#home");/*
 																		 * Email
 																		 * Typ
@@ -97,45 +95,48 @@ public class DLI_GoogleContactsConnector {
 			contact.addEmailAddress(primaryMail);
 		}
 		// Telefon >> es kann NICHT NUR eine geben
-		if (contactInfoCopy.getPhone() != null) {
+		if (!contactInfo.getPhone().isEmpty()) {
 			PhoneNumber phoneNumber = new PhoneNumber();
-			phoneNumber.setPhoneNumber(contactInfoCopy.getPhone());
+			phoneNumber.setPhoneNumber(contactInfo.getPhone());
 			phoneNumber.setPrimary(true);
 			phoneNumber.setLabel("Primaer");
 			contact.addPhoneNumber(phoneNumber);
 		}
 		// Adresse >> es kann NICHT NUR eine geben
-		if ((contactInfoCopy.getCity() != null)
-				|| (contactInfoCopy.getStreet() != null)
-				|| (contactInfoCopy.getZipcode() != null)) {
+		if ((!contactInfo.getCity().isEmpty())
+				|| (!contactInfo.getStreet().isEmpty())
+				|| (!contactInfo.getZipcode().isEmpty())) {
 			StructuredPostalAddress adresse = new StructuredPostalAddress();
-			adresse.setCity(new City(contactInfoCopy.getCity()));
-			adresse.setPostcode(new PostCode(contactInfoCopy.getZipcode()));
-			adresse.setStreet(new Street(contactInfoCopy.getStreet()));
+			if (!contactInfo.getCity().isEmpty())
+				adresse.setCity(new City(contactInfo.getCity()));
+			if (!contactInfo.getZipcode().isEmpty())
+				adresse.setPostcode(new PostCode(contactInfo.getZipcode()));
+			if (!contactInfo.getStreet().isEmpty())
+				adresse.setStreet(new Street(contactInfo.getStreet()));
 			adresse.setPrimary(true);
 			adresse.setLabel("Primaer");
 			contact.addStructuredPostalAddress(adresse);
 		}
 
 		// Firma
-		if (contactInfoCopy.getCompany() != null) {
+		if (!contactInfo.getCompany().isEmpty()) {
 			ExtendedProperty company = new ExtendedProperty();
 			company.setName(DLI_GoogleContactsConnector.company);
-			company.setValue(contactInfoCopy.getCompany());
+			company.setValue(contactInfo.getCompany());
 			contact.addExtendedProperty(company);
 		}
 
 		// SAPID
-		if (contactInfoCopy.getSapId() != null) {
+		if (!contactInfo.getSapId().isEmpty()) {
 			ExtendedProperty sapId = new ExtendedProperty();
 			sapId.setName(DLI_GoogleContactsConnector.sapId);
-			sapId.setValue(contactInfoCopy.getSapId());
+			sapId.setValue(contactInfo.getSapId());
 			contact.addExtendedProperty(sapId);
 		}
 
 		// Gruppe setzen
 		String groupURL = null;
-		switch (contactInfoCopy.getType()) {
+		switch (contactInfo.getType()) {
 		case CUSTOMER:
 			groupURL = customerGroupURL;
 			break;
@@ -156,54 +157,6 @@ public class DLI_GoogleContactsConnector {
 		postUrl = new URL(contactsURL);
 		return myService.insert(postUrl, contact);
 
-	}
-
-	private static Contact nullCopy(Contact contact) {
-		Contact copy = new Contact();
-
-		// Name
-		String cfname = contact.getFirstname();
-		copy.setFirstname(cfname != null && cfname.contentEquals("") ? null
-				: cfname);
-		String clname = contact.getLastname();
-		copy.setLastname(clname.contentEquals("") ? null : clname);
-
-		// Mail
-		String cmail = contact.getEmail();
-		copy.setEmail(cmail != null && cmail.contentEquals("") ? null : cmail);
-
-		// Telefon
-		String cphone = contact.getPhone();
-		copy.setPhone(cphone != null && cphone.contentEquals("") ? null
-				: cphone);
-
-		// Adresse
-		String ccity = contact.getCity();
-		copy.setCity(ccity != null && ccity.contentEquals("") ? null : ccity);
-		String cstreet = contact.getStreet();
-		copy.setStreet(cstreet != null && cstreet.contentEquals("") ? null
-				: cstreet);
-		String czip = contact.getZipcode();
-		copy.setZipcode(czip != null && czip.contentEquals("") ? null : czip);
-
-		// Firma
-		String ccompany = contact.getCompany();
-		copy.setCompany(ccompany != null && ccompany.contentEquals("") ? null
-				: ccompany);
-
-		// SapId
-		String csapid = contact.getSapId();
-		copy.setSapId(csapid != null && csapid.contentEquals("") ? null
-				: csapid);
-
-		// GoogleId
-		String cgoogle = contact.getGoogleId();
-		copy.setGoogleId(cgoogle != null && cgoogle.contentEquals("") ? null
-				: cgoogle);
-		// Gruppe
-		copy.setType(contact.getType());
-
-		return copy;
 	}
 
 	public ContactsService authenticateId() {
@@ -241,7 +194,7 @@ public class DLI_GoogleContactsConnector {
 	/**
 	 * Sucht die Kontakte, die mit dem filter übereinstimmen
 	 * 
-	 * @param filter
+	 * @param filter1
 	 * @param myService
 	 * @return
 	 * @throws ServiceException
@@ -256,13 +209,9 @@ public class DLI_GoogleContactsConnector {
 		Query myQuery = new Query(feedUrl);
 		ContactFeed resultFeed = null;
 
-		Contact filterCopy = nullCopy(filter);
-
-		// TODO noch anstaendig mit Querys machen/besprechen
-
 		// Gruppe
 		String groupId = null;
-		switch (filterCopy.getType()) {
+		switch (filter.getType()) {
 		case CUSTOMER:
 			groupId = customerGroupURL;
 			break;
@@ -289,7 +238,7 @@ public class DLI_GoogleContactsConnector {
 		List<Contact> results = new ArrayList<Contact>();
 		for (ContactEntry ce : ceResults) {
 			Contact accepted = makeContact(ce);
-			if (filterContact(filterCopy, accepted)) {
+			if (filterContact(filter, accepted)) {
 				results.add(accepted);
 			}
 		}
@@ -297,50 +246,50 @@ public class DLI_GoogleContactsConnector {
 	}
 
 	private static boolean filterContact(Contact filter, Contact accepted) {
-		boolean city = (filter.getCity() == null);
+		boolean city = (filter.getCity().isEmpty());
 		if (!city)
 			city = accepted.getCity().toLowerCase()
 					.contains(filter.getCity().toLowerCase());
 
-		boolean email = (filter.getEmail() == null);
+		boolean email = (filter.getEmail().isEmpty());
 		if (!email)
 			email = accepted.getEmail().toLowerCase()
 					.contains(filter.getEmail().toLowerCase());
 
-		boolean firstname = (filter.getFirstname() == null);
+		boolean firstname = (filter.getFirstname().isEmpty());
 		if (!firstname)
 			firstname = accepted.getFirstname().toLowerCase()
 					.contains(filter.getFirstname().toLowerCase());
 
-		boolean lastname = (filter.getLastname() == null);
+		boolean lastname = (filter.getLastname().isEmpty());
 		if (!lastname)
 			lastname = accepted.getLastname().toLowerCase()
 					.contains(filter.getLastname().toLowerCase());
 
-		boolean phone = (filter.getPhone() == null);
+		boolean phone = (filter.getPhone().isEmpty());
 		if (!phone)
 			phone = accepted.getPhone().toLowerCase()
 					.contains(filter.getPhone().toLowerCase());
 
-		boolean street = (filter.getStreet() == null);
+		boolean street = (filter.getStreet().isEmpty());
 		if (!street)
 			street = accepted.getStreet().toLowerCase()
 					.contains(filter.getStreet().toLowerCase());
 
-		boolean sapId = (filter.getSapId() == null);
+		boolean sapId = (filter.getSapId().isEmpty());
 		if (!sapId)
 			sapId = accepted.getSapId().contentEquals(filter.getSapId());
 
-		boolean googleId = (filter.getGoogleId() == null);
+		boolean googleId = (filter.getGoogleId().isEmpty());
 		if (!googleId)
 			googleId = accepted.getGoogleId().contains(filter.getGoogleId());
 
-		boolean company = (filter.getCompany() == null);
+		boolean company = (filter.getCompany().isEmpty());
 		if (!company)
 			company = accepted.getCompany().toLowerCase()
 					.contains(filter.getCompany().toLowerCase());
 
-		boolean zipcode = (filter.getZipcode() == null);
+		boolean zipcode = (filter.getZipcode().isEmpty());
 		if (!zipcode)
 			zipcode = accepted.getZipcode().toLowerCase()
 					.contains(filter.getZipcode().toLowerCase());
@@ -419,60 +368,114 @@ public class DLI_GoogleContactsConnector {
 		return result;
 	}
 
+	/* This method will add a contact to that particular Google account */
+
+	public static void main(String ar[]) {
+		System.out.println("main gestartet!");
+		test();
+	}
+
+	/**
+	 * 
+	 */
+	private static void test() {
+		try {
+
+			DLI_GoogleContactsConnector googleContactsAccess = new DLI_GoogleContactsConnector();
+			System.out
+					.println("DLI_GoogleContactsConnector erstellt und authentifiziert");
+
+			// System.out.println("printAllContacts");
+			// DLI_GoogleContactsConnector
+			// .printAllContacts(googleContactsAccess.myService);
+			// printAllGroups(googleContactsAccess.groupsURL,
+			// googleContactsAccess.myService);
+
+			// Contact contact = new Contact();
+			// contact.setFirstname("Muster");
+			// contact.setLastname("Muster");
+			// contact.setEmail("zabc@def.gh");
+			// contact.setPhone("123456789");
+			// contact.setStreet("Musterstr. 123");
+			// contact.setType(ContactType.SUPPLIER);
+			// contact.setCompany("Firma");
+			// contact.setSapId("sapMuster01");
+			// System.out.println("Contact erstellt\n\n"
+			// + toStringWithContact(contact));
+			// googleContactsAccess.createContact(contact);
+
+			System.out.println("Contact hinzugefuegt");
+			Contact filter = new Contact();
+			filter.setType(ContactType.SUPPLIER);
+			filter.setFirstname("Dominic");
+
+			System.out.println("Filter erstellt");
+			System.out.println(toStringWithContact(filter));
+			List<Contact> contacts = googleContactsAccess.fetchContacts(filter);
+			System.out.println(contacts.size() + " Kontakte runtergeladen");
+			for (Contact c : contacts) {
+				System.out.println(toStringWithContact(c));
+			}
+
+		} catch (Exception ex) {
+			System.out.println(ex);
+		}
+	}
+
 	private static String toStringWithContact(Contact c) {
 		if (c == null) {
 			return "Contact ist null\n";
 		}
-
+	
 		String vorname = "first name:\t";
 		if (c.getFirstname() == null) {
 			vorname += "null" + "\n";
 		} else {
 			vorname += c.getFirstname() + "\n";
 		}
-
+	
 		String nachname = "last name: \t";
 		if (c.getLastname() == null) {
 			nachname += "null" + "\n";
 		} else {
 			nachname += c.getLastname() + "\n";
 		}
-
+	
 		String email = "email: \t\t";
 		if (c.getEmail() == null) {
 			email += "null" + "\n";
 		} else {
 			email += c.getEmail() + "\n";
 		}
-
+	
 		String phone = "phone: \t\t";
 		if (c.getPhone() == null) {
 			phone += "null" + "\n";
 		} else {
 			phone += c.getPhone() + "\n";
 		}
-
+	
 		String street = "street: \t";
 		if (c.getStreet() == null) {
 			street += "null" + "\n";
 		} else {
 			street += c.getStreet() + "\n";
 		}
-
+	
 		String postal = "zipcode: \t";
 		if (c.getZipcode() == null) {
 			postal += "null" + "\n";
 		} else {
 			postal += c.getZipcode() + "\n";
 		}
-
+	
 		String city = "city: \t\t";
 		if (c.getCity() == null) {
 			city += "null" + "\n";
 		} else {
 			city += c.getCity() + "\n";
 		}
-
+	
 		String type = "type: \t\t";
 		if (c.getType() == null) {
 			type += "null" + "\n";
@@ -489,31 +492,31 @@ public class DLI_GoogleContactsConnector {
 				break;
 			}
 		}
-
+	
 		String googleid = "googleid: \t";
 		if (c.getGoogleId() == null) {
 			googleid += "null" + "\n";
 		} else {
 			googleid += c.getGoogleId() + "\n";
 		}
-
+	
 		String sapId = "sapId: \t\t";
 		if (c.getSapId() == null) {
 			sapId += "null" + "\n";
 		} else {
 			sapId += c.getSapId() + "\n";
 		}
-
+	
 		String company = "company: \t";
 		if (c.getCompany() == null) {
 			company += "null" + "\n";
 		} else {
 			company += c.getCompany() + "\n";
 		}
-
+	
 		String result = vorname + nachname + email + phone + street + postal
 				+ city + type + googleid + sapId + company;
-
+	
 		return result;
 	}
 
@@ -644,61 +647,7 @@ public class DLI_GoogleContactsConnector {
 			}
 			System.out.println("Contact's ETag: " + entry.getEtag());
 		}
-
-	}
-
-	/* This method will add a contact to that particular Google account */
-
-	public static void main(String ar[]) {
-		System.out.println("main gestartet!");
-		test();
-	}
-
-	/**
-	 * 
-	 */
-	private static void test() {
-		try {
-
-			DLI_GoogleContactsConnector googleContactsAccess = new DLI_GoogleContactsConnector();
-			System.out
-					.println("DLI_GoogleContactsConnector erstellt und authentifiziert");
-
-			// System.out.println("printAllContacts");
-			// DLI_GoogleContactsConnector
-			// .printAllContacts(googleContactsAccess.myService);
-			// printAllGroups(googleContactsAccess.groupsURL,
-			// googleContactsAccess.myService);
-
-			// Contact contact = new Contact();
-			// contact.setFirstname("Muster");
-			// contact.setLastname("Muster");
-			// contact.setEmail("zabc@def.gh");
-			// contact.setPhone("123456789");
-			// contact.setStreet("Musterstr. 123");
-			// contact.setType(ContactType.SUPPLIER);
-			// contact.setCompany("Firma");
-			// contact.setSapId("sapMuster01");
-			// System.out.println("Contact erstellt\n\n"
-			// + toStringWithContact(contact));
-			// googleContactsAccess.createContact(contact);
-
-			System.out.println("Contact hinzugefuegt");
-			Contact filter = new Contact();
-			filter.setType(ContactType.SUPPLIER);
-			filter.setFirstname("Dominic");
-
-			System.out.println("Filter erstellt");
-			System.out.println(toStringWithContact(filter));
-			List<Contact> contacts = googleContactsAccess.fetchContacts(filter);
-			System.out.println(contacts.size() + " Kontakte runtergeladen");
-			for (Contact c : contacts) {
-				System.out.println(toStringWithContact(c));
-			}
-
-		} catch (Exception ex) {
-			System.out.println(ex);
-		}
+	
 	}
 
 	/**
