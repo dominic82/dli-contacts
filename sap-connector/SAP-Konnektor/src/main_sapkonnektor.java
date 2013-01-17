@@ -598,7 +598,7 @@ public class main_sapkonnektor {
 				BindingProvider.USERNAME_PROPERTY, "S0008266219");
 		bindungDatenCast.getRequestContext().put(
 				BindingProvider.PASSWORD_PROPERTY, "Fleischgans85");
-		
+	
 
 		// Verbindung herstellen, StandardMessageFault für SAP notwendig
 		try {
