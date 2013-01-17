@@ -1,10 +1,10 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%
 % BITTE IN UTF-8 OEFFNEN %
 %%%%%%%%%%%%%%%%%%%%%%%%%%
-\documentclass[xcolor=dvipsnames, compress, 10pt]{beamer}
+\documentclass[xcolor={usenames,dvipsnames}, compress, 10pt]{beamer}
 
 \usepackage[ngerman] {babel}
-\usepackage[ansinew] {inputenc}
+\usepackage[utf8] {inputenc}
 
 \usepackage{tikz}
 \usepackage{graphics}
@@ -29,7 +29,7 @@
 
 %Farben (benoetigt fuer listings)
 \usepackage{color}
-\usepackage[usenames,dvipsnames]{xcolor}
+%\usepackage[usenames,dvipsnames]{xcolor}
 
 %vor jeder lstlisting-Umgebung aufrufen, 1. caption, 2. label
 \newcommand{\javalstset}[2]{
@@ -66,12 +66,24 @@
 \subtitle[DLI]{Vorlesung Aktuelle Themen der Dienstleistungsinformatik}
 %\date{\today} % gibt aktuelles Datum zurueck
 \date{22. Januar 2013}
-\author[M.\ Marzotko, T.\ Seeland, D. Wirkner]{Markus Marzotko, Thorben Seeland \& Dominic Wirkner\\ {\scriptsize Prof.\ Dr.\ Bernhard Steffen, Dipl.-Inf. Markus Doet}} 
+\author[M.\ Marzotko, T.\ Seeland, D.\ Wirkner]{Markus Marzotko, Thorben Seeland \& Dominic Wirkner\\ {\scriptsize Prof.\ Dr.\ Bernhard Steffen, Dipl.-Inf. Markus Doet}} 
 \institute[TU Dortmund]{Technische Universit\"at Dortmund}
 
 \nocite{*}
 
 \frame{\titlepage}
+
+\begin{frame}[fragile]{Test}
+\javalstset{Den Kontakt einer Gruppe hinzufügen}{lst:ccjoingroup}
+\begin{lstlisting}
+// Gruppe setzen
+String groupURL = null;
+switch (contactInfoCopy.getType()) {
+case CUSTOMER:
+groupURL = customerGroupURL;
+contact.addGroupMembershipInfo(new GroupMembershipInfo(false, groupURL));
+\end{lstlisting}
+\end{frame}
 
 \begin{frame}
 %%%%%%%%%%%%%%	Gliederung		%%%%%%%%%%%%%%
