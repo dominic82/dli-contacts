@@ -151,9 +151,60 @@
 \subsection*{Sarbanes-Oxley Act}
 
 %SAP 
-\subsection{
+\subsection{SAP Connector}
 
-}
+\begin{frame}
+\begin{center}
+\textbf{Programmablauf}
+
+-Art des Filterobjekts überprüfen
+-entsprechenden Webservice aufrufen
+-IDs auslesen und anderen Webservice für alle IDs (einzeln) aufrufen
+-Rückgabeobjekt auslesen und Daten zurückgeben
+->Bei Mitarbeiter reicht erster Webserviceaufruf
+
+
+\end{center}
+\end{frame}
+
+\begin{frame}
+\begin{center}
+\textbf{ProgrammablaufProblematik bei Lieferant und Kunde}
+
+-Webservices geben hier nur Liste von IDs und Namen zurück
+-Für Adressinformationen weiterer Aufruf mit anderem Webservice nötig
+\textbf{PROBLEM:}Aufruf für jede ID einzeln
+
+\end{center}
+\end{frame}
+
+\begin{frame}
+\begin{center}
+
+\includegraphics[width=\textheight]{Bilder/presi1.jpg} 
+
+\end{center}
+\end{frame}
+
+\textbf{ProgrammablaufProblematik bei Lieferant und Kunde}
+
+\begin{frame}
+\begin{center}
+
+
+
+\end{center}
+\end{frame}
+
+-Was ist der ES-Workplace?
+
+-Welche WSDLs wurden verwendet? Warum?
+
+-Wie wurden die WSDLs ins Java Format übertragen? (WsImport..)
+
+-Welche Probleme gab es bezüglich IDs und ``normalen Daten''?
+
+-Was könnte diesbezüglich auf eigener Seite verbessert werden?
 
 
 
