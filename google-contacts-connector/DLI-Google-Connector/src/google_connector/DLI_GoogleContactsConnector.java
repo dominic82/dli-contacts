@@ -33,9 +33,6 @@ import com.google.gdata.util.ServiceException;
 import dli_contacts.Contact;
 import dli_contacts.Contact.ContactType;
 
-/**
- * Entry point classes define <code>onModuleLoad()</code>.
- */
 public class DLI_GoogleContactsConnector {
 	private static String sapId = "SAP-ID";
 	private static String customerGroupURL = "http://www.google.com/m8/feeds/groups/dli.ides.api%40gmail.com/base/3abf361e0913da63";
@@ -59,12 +56,33 @@ public class DLI_GoogleContactsConnector {
 		authenticateId();
 	}
 
+	/**
+	 * Erstellt einen neuen Eintrag bei Google Contacts
+	 * 
+	 * @param contactInfo
+	 *            Basisdaten aus denen der Eintrag erstellt werden soll
+	 * @return der neu erstellte Google-Eintrag
+	 * @throws IOException
+	 * @throws ServiceException
+	 */
 	public ContactEntry createContact(Contact contactInfo) throws IOException,
 			ServiceException {
 		return createContact(contactsURL, contactInfo, myService);
 
 	}
 
+	/**
+	 * 
+	 * @param contactsURL
+	 *            die Adresse zu Google Contacts
+	 * @param contactInfo
+	 *            Basisdaten aus denen der Eintrag erstellt werden soll
+	 * @param myService
+	 *            ein schon authentifizierter Service
+	 * @return der neu erstellte Google-Eintrag
+	 * @throws IOException
+	 * @throws ServiceException
+	 */
 	public static ContactEntry createContact(String contactsURL,
 			Contact contactInfo, Service myService) throws IOException,
 			ServiceException {
@@ -159,6 +177,12 @@ public class DLI_GoogleContactsConnector {
 
 	}
 
+	/**
+	 * This method will authenticate the user credentials passed to it and
+	 * returns an instance of ContactService class.
+	 * 
+	 * @return authentifizierter Service
+	 */
 	public ContactsService authenticateId() {
 		myService = authenticateId(username, password, servicename);
 		return myService;
@@ -169,7 +193,10 @@ public class DLI_GoogleContactsConnector {
 	 * This method will authenticate the user credentials passed to it and
 	 * returns an instance of ContactService class.
 	 * 
-	 * @throws AuthenticationException
+	 * @param username
+	 * @param password
+	 * @param servicename
+	 * @return
 	 */
 	public static ContactsService authenticateId(String username,
 			String password, String servicename) {
@@ -184,6 +211,15 @@ public class DLI_GoogleContactsConnector {
 
 	}
 
+	/**
+	 * Sucht die Kontakte, die mit dem filter übereinstimmen
+	 * 
+	 * @param filter
+	 * @param myService
+	 * @return
+	 * @throws ServiceException
+	 * @throws IOException
+	 */
 	public List<Contact> fetchContacts(Contact filter) throws ServiceException,
 			IOException {
 
@@ -194,7 +230,8 @@ public class DLI_GoogleContactsConnector {
 	/**
 	 * Sucht die Kontakte, die mit dem filter übereinstimmen
 	 * 
-	 * @param filter1
+	 * @param contactsURL
+	 * @param filter
 	 * @param myService
 	 * @return
 	 * @throws ServiceException
@@ -368,16 +405,15 @@ public class DLI_GoogleContactsConnector {
 		return result;
 	}
 
-	/* This method will add a contact to that particular Google account */
-
+	/**
+	 * zum testen
+	 * @param ar
+	 */
 	public static void main(String ar[]) {
 		System.out.println("main gestartet!");
 		test();
 	}
 
-	/**
-	 * 
-	 */
 	private static void test() {
 		try {
 
@@ -426,56 +462,56 @@ public class DLI_GoogleContactsConnector {
 		if (c == null) {
 			return "Contact ist null\n";
 		}
-	
+
 		String vorname = "first name:\t";
 		if (c.getFirstname() == null) {
 			vorname += "null" + "\n";
 		} else {
 			vorname += c.getFirstname() + "\n";
 		}
-	
+
 		String nachname = "last name: \t";
 		if (c.getLastname() == null) {
 			nachname += "null" + "\n";
 		} else {
 			nachname += c.getLastname() + "\n";
 		}
-	
+
 		String email = "email: \t\t";
 		if (c.getEmail() == null) {
 			email += "null" + "\n";
 		} else {
 			email += c.getEmail() + "\n";
 		}
-	
+
 		String phone = "phone: \t\t";
 		if (c.getPhone() == null) {
 			phone += "null" + "\n";
 		} else {
 			phone += c.getPhone() + "\n";
 		}
-	
+
 		String street = "street: \t";
 		if (c.getStreet() == null) {
 			street += "null" + "\n";
 		} else {
 			street += c.getStreet() + "\n";
 		}
-	
+
 		String postal = "zipcode: \t";
 		if (c.getZipcode() == null) {
 			postal += "null" + "\n";
 		} else {
 			postal += c.getZipcode() + "\n";
 		}
-	
+
 		String city = "city: \t\t";
 		if (c.getCity() == null) {
 			city += "null" + "\n";
 		} else {
 			city += c.getCity() + "\n";
 		}
-	
+
 		String type = "type: \t\t";
 		if (c.getType() == null) {
 			type += "null" + "\n";
@@ -492,31 +528,31 @@ public class DLI_GoogleContactsConnector {
 				break;
 			}
 		}
-	
+
 		String googleid = "googleid: \t";
 		if (c.getGoogleId() == null) {
 			googleid += "null" + "\n";
 		} else {
 			googleid += c.getGoogleId() + "\n";
 		}
-	
+
 		String sapId = "sapId: \t\t";
 		if (c.getSapId() == null) {
 			sapId += "null" + "\n";
 		} else {
 			sapId += c.getSapId() + "\n";
 		}
-	
+
 		String company = "company: \t";
 		if (c.getCompany() == null) {
 			company += "null" + "\n";
 		} else {
 			company += c.getCompany() + "\n";
 		}
-	
+
 		String result = vorname + nachname + email + phone + street + postal
 				+ city + type + googleid + sapId + company;
-	
+
 		return result;
 	}
 
@@ -647,7 +683,7 @@ public class DLI_GoogleContactsConnector {
 			}
 			System.out.println("Contact's ETag: " + entry.getEtag());
 		}
-	
+
 	}
 
 	/**
