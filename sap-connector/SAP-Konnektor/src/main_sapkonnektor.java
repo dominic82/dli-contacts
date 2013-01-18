@@ -6,13 +6,11 @@ import javax.xml.ws.soap.SOAPFaultException;
 
 import com.sap.xi.appl.se.global.CustomerERPAddressBasicDataByNameAndAddressQueryMessageSync;
 import com.sap.xi.appl.se.global.CustomerERPAddressBasicDataByNameAndAddressQueryMessageSync.CustomerSelectionByNameAndAddress;
-import com.sap.xi.appl.se.global.CustomerERPAddressBasicDataByNameAndAddressQueryMessageSync.CustomerSelectionByNameAndAddress.AddressInformation.Address;
 import com.sap.xi.appl.se.global.CustomerERPAddressBasicDataByNameAndAddressQueryMessageSync.ProcessingConditions;
 import com.sap.xi.appl.se.global.CustomerERPAddressBasicDataByNameAndAddressQueryResponseIn;
 import com.sap.xi.appl.se.global.CustomerERPAddressBasicDataByNameAndAddressResponseMessageSync;
 import com.sap.xi.appl.se.global.EmailURI;
 import com.sap.xi.appl.se.global.PartyID;
-import com.sap.xi.appl.se.global.RegionCode;
 import com.sap.xi.appl.se.global.ServiceECCCUSTOMERADDRESSBASICDATAQRDEFAULTPROFILE;
 import com.sap.xi.appl.se.global.ServiceECCSUPPLIERBASICDATABYIDQRDEFAULTPROFILE;
 import com.sap.xi.appl.se.global.ServiceECCSUPPLIERSNAQRDEFAULTPROFILE;
@@ -57,8 +55,9 @@ public class main_sapkonnektor {
 		
 		List<Contact> lk = new LinkedList<Contact>();
 		
-		tk.setType(Contact.ContactType.SUPPLIER);
+		tk.setType(Contact.ContactType.EMPLOYEE);
 		
+		tk.setFirstname("Anja");
 		
 		lk = fetchContact(tk);
 		if(lk.size()>0){
