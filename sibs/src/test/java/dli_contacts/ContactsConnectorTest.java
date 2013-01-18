@@ -6,7 +6,6 @@ package dli_contacts;
 
 import com.google.gdata.util.AuthenticationException;
 import com.google.gdata.util.ServiceException;
-import dli_contacts.sapconnector.main_sapkonnektor;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -68,13 +67,35 @@ public class ContactsConnectorTest extends TestCase {
         super.tearDown();
     }
 
+    private void addGoogleAttributes(Contact contact) {
+        attributeList.add("Firstname");
+//        attributeList.add("Lastname");
+        attributeList.add("Company");
+//        attributeList.add("Zipcode");
+        attributeList.add("City");
+//        attributeList.add("Email");
+    }
+
+    private void addSapAttributes(Contact contact) {
+        if (contact.getType().equals(Contact.ContactType.CUSTOMER) || contact.getType().equals(Contact.ContactType.SUPPLIER)) {
+            attributeList.add("Company");
+            attributeList.add("Street");
+        }
+        if (contact.getType().equals(Contact.ContactType.EMPLOYEE)) {
+            attributeList.add("Firstname");
+            attributeList.add("Lastname");
+        }
+
+        attributeList.add("City");
+    }
+
     /**
      * Test of getSapContacts method, of class ContactsConnector.
      */
     public void testGetSapContacts() {
         searchSapContact(sapContactCustomer);
         searchSapContact(sapContactSupplier);
-//        searchSapContact(sapContactEmployee);
+        searchSapContact(sapContactEmployee);
 
         assertEquals(true, true);
     }
@@ -90,17 +111,87 @@ public class ContactsConnectorTest extends TestCase {
         assertEquals(true, true);
     }
 
-    /**
-     * Test of addGoogleContact method, of class ContactsConnector.
-     */
+    public void testGetSapContacts_withEmptyContact() {
+        System.out.println("Sap fetchContacts: Empty Contact...");
+        ContactsConnector instance = new ContactsConnector();
+        List result = null;
+        Contact filter = new Contact();
+
+        // CUSTOMER
+        filter = new Contact();
+        filter.setType(Contact.ContactType.CUSTOMER);
+        result = instance.getSapContacts(filter);
+        assertNotNull("Null returned from search", result);
+        assertTrue("No List returned from search", result.size() >= 0);
+
+        // SUPPLIER
+        filter = new Contact();
+        filter.setType(Contact.ContactType.SUPPLIER);
+        result = null;
+        result = instance.getSapContacts(filter);
+        assertNotNull("Null returned from search", result);
+        assertTrue("No List returned from search", result.size() >= 0);
+
+        // EMPLOYEE
+        filter = new Contact();
+        filter.setType(Contact.ContactType.EMPLOYEE);
+        result = null;
+        result = instance.getSapContacts(filter);
+        assertNotNull("Null returned from search", result);
+        assertTrue("No List returned from search", result.size() >= 0);
+    }
+
+    public void testGetGoogleContacts_withEmptyContact() {
+        System.out.println("Google fetchContacts: Empty Contact...");
+        ContactsConnector instance = new ContactsConnector();
+        List result = null;
+        Contact filter = new Contact();
+
+        // CUSTOMER
+        filter = new Contact();
+        filter.setType(Contact.ContactType.CUSTOMER);
+
+        try {
+            result = instance.getGoogleContacts(filter);
+        } catch (AuthenticationException ex) {
+        } catch (ServiceException | IOException ex) {
+        }
+        assertNotNull("Null returned from search", result);
+        assertTrue("No List returned from search", result.size() >= 0);
+
+        // SUPPLIER
+        filter = new Contact();
+        filter.setType(Contact.ContactType.SUPPLIER);
+        result = null;
+        try {
+            result = instance.getGoogleContacts(filter);
+        } catch (AuthenticationException ex) {
+        } catch (ServiceException | IOException ex) {
+        }
+        assertNotNull("Null returned from search", result);
+        assertTrue("No List returned from search", result.size() >= 0);
+
+        // EMPLOYEE
+        filter = new Contact();
+        filter.setType(Contact.ContactType.EMPLOYEE);
+        result = null;
+        try {
+            result = instance.getGoogleContacts(filter);
+        } catch (AuthenticationException ex) {
+        } catch (ServiceException | IOException ex) {
+        }
+        assertNotNull("Null returned from search", result);
+        assertTrue("No List returned from search", result.size() >= 0);
+    }
+
     public void testAddGoogleContact() throws Exception {
         System.out.println("addGoogleContact");
 
-//        Contact contactInfo1 = dm.getPerson1();
-//        Contact contactInfo2 = dm.getPerson2();
-//        Contact contactInfo3 = dm.getPerson3();
-//
-//        ContactsConnector instance = new ContactsConnector();
+        Contact contactInfo1 = dm.getPerson1();
+        Contact contactInfo2 = dm.getPerson2();
+        Contact contactInfo3 = dm.getPerson3();
+
+        ContactsConnector instance = new ContactsConnector();
 //        instance.addGoogleContact(gContactCustomer);
 //        instance.addGoogleContact(gContactSupplier);
 //        instance.addGoogleContact(gContactEmployee);
@@ -108,31 +199,9 @@ public class ContactsConnectorTest extends TestCase {
         assertEquals(true, true);
     }
 
-    private void addGoogleAttributes(Contact contact) {
-        attributeList.add("Firstname");
-//        attributeList.add("Lastname");
-        attributeList.add("Company");
-//        attributeList.add("Zipcode");
-        attributeList.add("City");
-//        attributeList.add("Email");
-    }
-    
-    private void addSapAttributes(Contact contact) {
-        if (contact.getType().equals(Contact.ContactType.CUSTOMER) || contact.getType().equals(Contact.ContactType.SUPPLIER)) {
-            attributeList.add("Company");
-        }
-        if (contact.getType().equals(Contact.ContactType.EMPLOYEE)) {
-            attributeList.add("Firstname");
-//            attributeList.add("Lastname");
-        }
-
-//        attributeList.add("Street");
-        attributeList.add("City");
-    }
-
     private void searchGoogleContact(Contact contact) {
-        System.out.println("fetchContacts: looking for..." + contact.getType().toString());
-        
+        System.out.println("Google fetchContacts: looking for..." + contact.getType().toString());
+
         attributeList.clear();
         addGoogleAttributes(contact);
 
@@ -150,7 +219,7 @@ public class ContactsConnectorTest extends TestCase {
             sum += subsets_i.size();
 
             for (Set<Integer> set : subsets_i) {
-                
+
                 Contact filter = new Contact();
                 for (Integer j : set) {
                     try {
@@ -167,8 +236,7 @@ public class ContactsConnectorTest extends TestCase {
                     }
                 }
                 filter.setType(contact.getType());
-                System.out.println("- neue Anfrage -");
-                System.out.println(filter.toString());
+
                 List result = null;
                 try {
                     result = instance.getGoogleContacts(filter);
@@ -176,22 +244,32 @@ public class ContactsConnectorTest extends TestCase {
                 } catch (ServiceException | IOException ex) {
                 }
 
-                try {
-                    Thread.sleep(500);
-                } catch (InterruptedException ex) {
-                }
+                assertNotNull("Null returned from search", result);
+                assertTrue("No List returned from search", result.size() >= 0);
 
                 int found = 0;
                 for (Iterator it = result.iterator(); it.hasNext();) {
                     Contact c = (Contact) it.next();
-                    //System.out.println(c.toString());
+
+                    assertTrue("Returned Contact Type mismatch filter", contact.getType().equals(c.getType()));
+
                     if (contact.getFirstname() == null ? c.getFirstname() == null : contact.getFirstname().equals(c.getFirstname())) {
                         found++;
-
                     }
                 }
-                System.out.println(found + " gefunden!");
-                assertTrue(found > 0);
+
+                if (found == 0) {
+                    System.out.println("Kontakt '" + contact.toString() + "' nicht gefunden mit Filter:");
+                    System.out.println(filter.getDataString());
+                    System.out.println("---------------");
+                }
+
+                assertTrue("filter not found", found > 0);
+
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException ex) {
+                }
             }
 
         }
@@ -199,8 +277,8 @@ public class ContactsConnectorTest extends TestCase {
     }
 
     private void searchSapContact(Contact contact) {
-        System.out.println("fetchContacts: looking for..." + contact.getType().toString());
-        
+        System.out.println("SAP fetchContacts: looking for..." + contact.getType().toString());
+
         attributeList.clear();
         addSapAttributes(contact);
 
@@ -240,15 +318,18 @@ public class ContactsConnectorTest extends TestCase {
 
                 filter.setType(contact.getType());
 
-                System.out.println("- neue Anfrage -");
-                System.out.println(filter.getDataString());
-
                 List result = instance.getSapContacts(filter);
+                
+                assertNotNull("Null returned from search", result);
+                assertTrue("No List returned from search", result.size() >= 0);
 
                 int found = 0;
                 for (Iterator it = result.iterator(); it.hasNext();) {
                     Contact c = (Contact) it.next();
                     //System.out.println(c.toString());
+
+                    assertTrue("Returned Contact Type mismatch filter", contact.getType().equals(c.getType()));
+
                     if (contact.getType().equals(Contact.ContactType.CUSTOMER) || contact.getType().equals(Contact.ContactType.SUPPLIER)) {
                         if (contact.getCompany() == null ? c.getCompany() == null : contact.getCompany().equals(c.getCompany())) {
                             found++;
@@ -261,8 +342,14 @@ public class ContactsConnectorTest extends TestCase {
                         }
                     }
                 }
-                System.out.println(found + " gefunden!");
-                assertTrue(found > 0);
+
+                if (found == 0) {
+                    System.out.println("Kontakt '" + contact.toString() + "' nicht gefunden mit Filter:");
+                    System.out.println(filter.getDataString());
+                    System.out.println("---------------");
+                }
+
+                assertTrue("filter not found", found > 0);
 
                 try {
                     Thread.sleep(500);

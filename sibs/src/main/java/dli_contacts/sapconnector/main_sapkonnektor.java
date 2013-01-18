@@ -61,7 +61,7 @@ public class main_sapkonnektor {
 		
 		tk.setType(Contact.ContactType.EMPLOYEE);
 		
-		tk.setFirstname("Bahnhofstrasse 21");
+		tk.setFirstname("Anja");
 		
 		lk = fetchContact(tk);
 		if(lk.size()>0){
