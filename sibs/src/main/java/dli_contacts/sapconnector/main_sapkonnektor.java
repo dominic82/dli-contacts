@@ -60,8 +60,8 @@ public class main_sapkonnektor {
 		List<Contact> lk = new LinkedList<Contact>();
 		
 		tk.setType(Contact.ContactType.EMPLOYEE);
-		tk.setFirstname("Anja");
 		
+		tk.setFirstname("Anja");
 		
 		lk = fetchContact(tk);
 		if(lk.size()>0){
@@ -205,7 +205,11 @@ public class main_sapkonnektor {
 			// return getCustomerData(cushilfsObjekt);
 
 		case SUPPLIER:
-
+			//Spezialfall Supplier wird Vorname und Nachname angegeben
+			if(filter.getFirstname()!=""||filter.getLastname()!=""){
+				List<Contact> Kontaktliste = new LinkedList<Contact>();
+				return Kontaktliste;
+			}
 			SupplierSimpleByNameAndAddressResponseMessageSync suphilfsObjekt = new SupplierSimpleByNameAndAddressResponseMessageSync();
 			suphilfsObjekt = getSupplierIDs(filter);
 			return getSupplierData(suphilfsObjekt);
@@ -355,6 +359,12 @@ public class main_sapkonnektor {
 	private static List<Contact> getCustomerIDs(Contact filter) {
 		// Diese Methode holt sich die ntwendigen Daten direkt und muss keinen
 		// umweg über die IDs gehen
+		List<Contact> Kontaktliste = new LinkedList<Contact>();
+		
+		if(filter.getFirstname()!=""||filter.getLastname()!=""){
+			return Kontaktliste;
+		}		
+		
 		CustomerERPAddressBasicDataByNameAndAddressQueryMessageSync kundeAnfrage = new CustomerERPAddressBasicDataByNameAndAddressQueryMessageSync();
 		CustomerSelectionByNameAndAddress kundeFilter = new CustomerSelectionByNameAndAddress();
 		com.sap.xi.appl.se.global.CustomerERPAddressBasicDataByNameAndAddressQueryMessageSync.CustomerSelectionByNameAndAddress.AddressInformation add1 = new com.sap.xi.appl.se.global.CustomerERPAddressBasicDataByNameAndAddressQueryMessageSync.CustomerSelectionByNameAndAddress.AddressInformation();
@@ -425,14 +435,14 @@ public class main_sapkonnektor {
 		int anzahlEintraege = resultDaten.getCustomer().size();
 
 		Contact kontaktEintrag;
-		List<Contact> Kontaktliste = new LinkedList<Contact>();
+
 
 		// Schleife auf dem gegebenen Objekt aufrufen
 
 		for (int i = 0; i < anzahlEintraege; i++) {
 
 			kontaktEintrag = new Contact();
-			kontaktEintrag.setType(Contact.ContactType.SUPPLIER);
+			kontaktEintrag.setType(Contact.ContactType.CUSTOMER);
 
 			// SAPID setzen
 			kontaktEintrag.setSapId(resultDaten.getCustomer().get(i).getID()
@@ -440,6 +450,9 @@ public class main_sapkonnektor {
 			// Firma setzen
 
 			kontaktEintrag.setCompany(resultDaten.getCustomer().get(i)
+					.getCommon().getName().getFirstLineName());
+			
+			kontaktEintrag.setFirstname(resultDaten.getCustomer().get(i)
 					.getCommon().getName().getFirstLineName());
 
 			// Stadt und Postleitzahl setzen
@@ -561,6 +574,7 @@ public class main_sapkonnektor {
 		filterWert.setValue(filter.getCity());
 		empStadt.setLowerBoundaryEmployeeHomeAddressCityName(filterWert);
 		mitarbeiterFilter.setSelectionByEmployeeHomeAddressCityName(empStadt);
+		
 		}
 		if(filter.getZipcode()!= ""){
 		empPLZ.setLowerBoundaryEmployeeHomeAddressPostalCode(filter
@@ -696,6 +710,9 @@ public class main_sapkonnektor {
 			// Firma setzen
 
 			kontaktEintrag.setCompany(supplierIDList.getSupplier().get(i)
+					.getBasicData().getCommon().getName().getFirstLineName());
+
+			kontaktEintrag.setFirstname(supplierIDList.getSupplier().get(i)
 					.getBasicData().getCommon().getName().getFirstLineName());
 
 			// Stadt und Postleitzahl setzen
