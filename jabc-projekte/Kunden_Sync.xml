@@ -2,14 +2,14 @@
 <model version="2.1">
   <id>d7e06782-e187-4cde-8336-713f124e0449</id>
   <name>Kunden_Sync</name>
-  <changecounter>32</changecounter>
+  <changecounter>37</changecounter>
   <sib>
     <id>cbbb07b1-66fc-408b-9858-ed9c1f62ceac</id>
     <name>PutContact</name>
-    <label>PutContact</label>
+    <label>Put Contact</label>
     <sib-uid>putContact</sib-uid>
     <taxonomy>dli_contacts.sibs.PutContact</taxonomy>
-    <position>115.5,138.0</position>
+    <position>158.5,78.0</position>
     <parameter name="contact">
       <de.metaframe.jabc.framework.sib.parameter.ContextKey>
         <ContextKeyFoundation>
@@ -28,10 +28,10 @@
   <sib>
     <id>3f823a53-dac9-48e9-b593-1ea1be5e180a</id>
     <name>EditContact</name>
-    <label>EditContact</label>
+    <label>EditContact_Google</label>
     <sib-uid>editContact</sib-uid>
     <taxonomy>dli_contacts.sibs.EditContact</taxonomy>
-    <position>264.0,138.0</position>
+    <position>301.0,78.0</position>
     <parameter name="contact">
       <de.metaframe.jabc.framework.sib.parameter.ContextKey>
         <ContextKeyFoundation>
@@ -42,7 +42,7 @@
       </de.metaframe.jabc.framework.sib.parameter.ContextKey>
     </parameter>
     <parameter name="title">
-      <string>Kontakt suchen</string>
+      <string>Kontakt bei Google suchen...</string>
     </parameter>
     <parameter name="validate">
       <boolean>false</boolean>
@@ -54,8 +54,8 @@
   <edge>
     <source>cbbb07b1-66fc-408b-9858-ed9c1f62ceac</source>
     <target>3f823a53-dac9-48e9-b593-1ea1be5e180a</target>
-    <point>150.0,165.0</point>
-    <point>300.0,165.0</point>
+    <point>195.0,105.0</point>
+    <point>360.0,105.0</point>
     <labelposition>500.0,0.0</labelposition>
     <branch>default</branch>
   </edge>
@@ -65,7 +65,7 @@
     <label>SearchGoogleContact</label>
     <sib-uid>searchGoogleContact</sib-uid>
     <taxonomy>dli_contacts.sibs.SearchGoogleContact</taxonomy>
-    <position>234.5,258.0</position>
+    <position>459.5,78.0</position>
     <parameter name="contact">
       <de.metaframe.jabc.framework.sib.parameter.ContextKey>
         <ContextKeyFoundation>
@@ -91,18 +91,18 @@
   <edge>
     <source>3f823a53-dac9-48e9-b593-1ea1be5e180a</source>
     <target>6269d42e-a684-494e-8ddd-f8bf7605beb7</target>
-    <point>300.0,165.0</point>
-    <point>300.0,285.0</point>
+    <point>360.0,105.0</point>
+    <point>525.0,105.0</point>
     <labelposition>500.0,0.0</labelposition>
     <branch>ok</branch>
   </edge>
   <sib>
     <id>bc7acec5-a0ea-4085-ad64-dc186ec87814</id>
     <name>ChooseContact</name>
-    <label>ChooseContact</label>
+    <label>ChooseContact_Google</label>
     <sib-uid>chooseContact</sib-uid>
     <taxonomy>dli_contacts.sibs.ChooseContact</taxonomy>
-    <position>538.0,258.0</position>
+    <position>455.0,243.0</position>
     <parameter name="contact">
       <de.metaframe.jabc.framework.sib.parameter.ContextKey>
         <ContextKeyFoundation>
@@ -131,8 +131,8 @@
   <edge>
     <source>6269d42e-a684-494e-8ddd-f8bf7605beb7</source>
     <target>bc7acec5-a0ea-4085-ad64-dc186ec87814</target>
-    <point>300.0,285.0</point>
-    <point>645.0,285.0</point>
+    <point>525.0,105.0</point>
+    <point>525.0,270.0</point>
     <labelposition>500.0,0.0</labelposition>
     <branch>found</branch>
   </edge>
@@ -142,12 +142,12 @@
     <label>Ende</label>
     <sib-uid>exercise-sibs/ShowMessageDialog</sib-uid>
     <taxonomy>tudo.sib.exercise.ShowMessageDialog</taxonomy>
-    <position>563.0,573.0</position>
+    <position>563.0,408.0</position>
     <parameter name="dialogTitle">
-      <string>Title</string>
+      <string>Ende</string>
     </parameter>
     <parameter name="messageText">
-      <string>Message</string>
+      <string>Kontakt hinzugefügt/gefunden!</string>
     </parameter>
     <parameter name="messageType">
       <de.metaframe.common.sib.parameter.ListBox>
@@ -169,8 +169,8 @@
   <edge>
     <source>bc7acec5-a0ea-4085-ad64-dc186ec87814</source>
     <target>7a768bb4-b7f6-4b8d-a211-cf3cbcf6826e</target>
-    <point>585.0,285.0</point>
-    <point>585.0,600.0</point>
+    <point>585.0,182.0</point>
+    <point>585.0,497.0</point>
     <labelposition>500.0,0.0</labelposition>
     <branch>ok</branch>
   </edge>
@@ -180,7 +180,7 @@
     <label>SearchSapContact</label>
     <sib-uid>searchSapContact</sib-uid>
     <taxonomy>dli_contacts.sibs.SearchSapContact</taxonomy>
-    <position>243.5,393.0</position>
+    <position>78.5,408.0</position>
     <parameter name="contact">
       <de.metaframe.jabc.framework.sib.parameter.ContextKey>
         <ContextKeyFoundation>
@@ -206,10 +206,10 @@
   <sib>
     <id>dd2ea9c4-fe2e-42a8-bbf7-0e32a09cfac3</id>
     <name>ChooseContact_1</name>
-    <label>ChooseContact</label>
+    <label>ChooseContact_Sap</label>
     <sib-uid>chooseContact</sib-uid>
     <taxonomy>dli_contacts.sibs.ChooseContact</taxonomy>
-    <position>88.0,393.0</position>
+    <position>74.0,603.0</position>
     <parameter name="contact">
       <de.metaframe.jabc.framework.sib.parameter.ContextKey>
         <ContextKeyFoundation>
@@ -238,8 +238,8 @@
   <edge>
     <source>8fa2924f-c0a3-4d85-a0f8-092667ca30a6</source>
     <target>dd2ea9c4-fe2e-42a8-bbf7-0e32a09cfac3</target>
-    <point>300.0,420.0</point>
-    <point>135.0,420.0</point>
+    <point>300.0,450.0</point>
+    <point>135.0,450.0</point>
     <labelposition>500.0,0.0</labelposition>
     <branch>found</branch>
   </edge>
@@ -249,7 +249,7 @@
     <label>AddGoogleContact</label>
     <sib-uid>addGoogleContact</sib-uid>
     <taxonomy>dli_contacts.sibs.AddGoogleContact</taxonomy>
-    <position>379.0,573.0</position>
+    <position>529.0,558.0</position>
     <parameter name="contact">
       <de.metaframe.jabc.framework.sib.parameter.ContextKey>
         <ContextKeyFoundation>
@@ -265,18 +265,18 @@
   <edge>
     <source>bdd685f6-6907-4b51-99ca-05a11eb24902</source>
     <target>7a768bb4-b7f6-4b8d-a211-cf3cbcf6826e</target>
-    <point>435.0,600.0</point>
-    <point>585.0,600.0</point>
+    <point>435.0,630.0</point>
+    <point>585.0,630.0</point>
     <labelposition>500.0,0.0</labelposition>
     <branch>default</branch>
   </edge>
   <sib>
     <id>ab0e78b5-5b24-40c0-975a-84274329dd53</id>
     <name>EditContact_1</name>
-    <label>EditContact</label>
+    <label>EditContact_New</label>
     <sib-uid>editContact</sib-uid>
     <taxonomy>dli_contacts.sibs.EditContact</taxonomy>
-    <position>264.0,573.0</position>
+    <position>414.0,558.0</position>
     <parameter name="contact">
       <de.metaframe.jabc.framework.sib.parameter.ContextKey>
         <ContextKeyFoundation>
@@ -298,9 +298,9 @@
   </sib>
   <edge>
     <source>dd2ea9c4-fe2e-42a8-bbf7-0e32a09cfac3</source>
-    <target>ab0e78b5-5b24-40c0-975a-84274329dd53</target>
-    <point>150.71428571428572,429.0</point>
-    <point>282.63157894736844,573.0</point>
+    <target>a5e31798-f10b-4980-8962-bb9774f792bc</target>
+    <point>153.0,615.8842105263158</point>
+    <point>402.0,537.2526315789473</point>
     <labelposition>500.0,0.0</labelposition>
     <branch>cancel</branch>
     <branch>ok</branch>
@@ -308,33 +308,142 @@
   <edge>
     <source>ab0e78b5-5b24-40c0-975a-84274329dd53</source>
     <target>bdd685f6-6907-4b51-99ca-05a11eb24902</target>
-    <point>495.0,420.0</point>
-    <point>300.0,600.0</point>
+    <point>300.0,630.0</point>
+    <point>435.0,630.0</point>
     <labelposition>500.0,0.0</labelposition>
     <branch>ok</branch>
   </edge>
   <edge>
     <source>6269d42e-a684-494e-8ddd-f8bf7605beb7</source>
-    <target>8fa2924f-c0a3-4d85-a0f8-092667ca30a6</target>
-    <point>300.0,285.0</point>
-    <point>300.0,420.0</point>
+    <target>cc1673a0-2b24-4704-a05a-898b169da3d8</target>
+    <point>525.0,105.0</point>
+    <point>360.0,270.0</point>
     <labelposition>500.0,0.0</labelposition>
     <branch>not found</branch>
   </edge>
   <edge>
     <source>8fa2924f-c0a3-4d85-a0f8-092667ca30a6</source>
-    <target>ab0e78b5-5b24-40c0-975a-84274329dd53</target>
-    <point>300.0,420.0</point>
-    <point>495.0,420.0</point>
+    <target>a5e31798-f10b-4980-8962-bb9774f792bc</target>
+    <point>153.0,433.2</point>
+    <point>402.0,524.9368421052632</point>
     <labelposition>500.0,0.0</labelposition>
     <branch>not found</branch>
   </edge>
   <edge>
     <source>bc7acec5-a0ea-4085-ad64-dc186ec87814</source>
-    <target>8fa2924f-c0a3-4d85-a0f8-092667ca30a6</target>
-    <point>585.0,285.0</point>
-    <point>307.0,404.0</point>
+    <target>cc1673a0-2b24-4704-a05a-898b169da3d8</target>
+    <point>525.0,270.0</point>
+    <point>360.0,270.0</point>
+    <labelposition>500.0,0.0</labelposition>
     <branch>cancel</branch>
+  </edge>
+  <sib>
+    <id>512ac89e-8c58-4065-b357-57a28ebf91b3</id>
+    <name>EditContact_2</name>
+    <label>EditContact_Sap</label>
+    <sib-uid>editContact</sib-uid>
+    <taxonomy>dli_contacts.sibs.EditContact</taxonomy>
+    <position>265.0,408.0</position>
+    <parameter name="contact">
+      <de.metaframe.jabc.framework.sib.parameter.ContextKey>
+        <ContextKeyFoundation>
+          <key>contact</key>
+          <scope>GLOBAL</scope>
+          <scopeMutable>false</scopeMutable>
+        </ContextKeyFoundation>
+      </de.metaframe.jabc.framework.sib.parameter.ContextKey>
+    </parameter>
+    <parameter name="title">
+      <string>Kontakt bei SAP suchen...</string>
+    </parameter>
+    <parameter name="validate">
+      <boolean>false</boolean>
+    </parameter>
+    <finalbranches>cancel</finalbranches>
+    <finalbranches>error</finalbranches>
+    <finalbranches>ok</finalbranches>
+  </sib>
+  <edge>
+    <source>512ac89e-8c58-4065-b357-57a28ebf91b3</source>
+    <target>8fa2924f-c0a3-4d85-a0f8-092667ca30a6</target>
+    <point>435.0,450.0</point>
+    <point>300.0,450.0</point>
+    <labelposition>500.0,0.0</labelposition>
+    <branch>ok</branch>
+  </edge>
+  <sib>
+    <id>cc1673a0-2b24-4704-a05a-898b169da3d8</id>
+    <name>ShowMessageDialog_1</name>
+    <label>GoogleResultInfo</label>
+    <sib-uid>exercise-sibs/ShowMessageDialog</sib-uid>
+    <taxonomy>tudo.sib.exercise.ShowMessageDialog</taxonomy>
+    <position>308.0,243.0</position>
+    <parameter name="dialogTitle">
+      <string>Information</string>
+    </parameter>
+    <parameter name="messageText">
+      <string>Kein Kontakt ausgewählt/gefunden! Suche bei SAP...</string>
+    </parameter>
+    <parameter name="messageType">
+      <de.metaframe.common.sib.parameter.ListBox>
+        <ListBoxFoundation>
+          <list>
+            <string>Plain</string>
+            <string>Information</string>
+            <string>Question</string>
+            <string>Warning</string>
+            <string>Error</string>
+          </list>
+          <selected>1</selected>
+        </ListBoxFoundation>
+      </de.metaframe.common.sib.parameter.ListBox>
+    </parameter>
+    <finalbranches>error</finalbranches>
+    <finalbranches>ok</finalbranches>
+  </sib>
+  <edge>
+    <source>cc1673a0-2b24-4704-a05a-898b169da3d8</source>
+    <target>512ac89e-8c58-4065-b357-57a28ebf91b3</target>
+    <point>300.0,315.0</point>
+    <point>302.0,424.0</point>
+    <branch>ok</branch>
+  </edge>
+  <sib>
+    <id>a5e31798-f10b-4980-8962-bb9774f792bc</id>
+    <name>ShowMessageDialog_3</name>
+    <label>SapResultInfo</label>
+    <sib-uid>exercise-sibs/ShowMessageDialog</sib-uid>
+    <taxonomy>tudo.sib.exercise.ShowMessageDialog</taxonomy>
+    <position>272.0,603.0</position>
+    <parameter name="dialogTitle">
+      <string>Information</string>
+    </parameter>
+    <parameter name="messageText">
+      <string>Neuen Kontakt anlegen. Eingaben werden übernommen.</string>
+    </parameter>
+    <parameter name="messageType">
+      <de.metaframe.common.sib.parameter.ListBox>
+        <ListBoxFoundation>
+          <list>
+            <string>Plain</string>
+            <string>Information</string>
+            <string>Question</string>
+            <string>Warning</string>
+            <string>Error</string>
+          </list>
+          <selected>1</selected>
+        </ListBoxFoundation>
+      </de.metaframe.common.sib.parameter.ListBox>
+    </parameter>
+    <finalbranches>error</finalbranches>
+    <finalbranches>ok</finalbranches>
+  </sib>
+  <edge>
+    <source>a5e31798-f10b-4980-8962-bb9774f792bc</source>
+    <target>ab0e78b5-5b24-40c0-975a-84274329dd53</target>
+    <point>285.0,630.0</point>
+    <point>421.0,617.0</point>
+    <branch>ok</branch>
   </edge>
   <values/>
 </model>

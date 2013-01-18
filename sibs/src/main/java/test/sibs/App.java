@@ -4,6 +4,7 @@ import com.google.gdata.util.AuthenticationException;
 import com.google.gdata.util.ServiceException;
 import dli_contacts.Contact;
 import dli_contacts.ContactsConnector;
+import dli_contacts.sapconnector.main_sapkonnektor;
 import dli_contacts.sibs.gui.ChooseContactFrame;
 
 import dli_contacts.sibs.gui.EditContactFrame;
@@ -18,6 +19,9 @@ import javax.swing.JFrame;
 public class App {
 
     public static void main(String[] args) {
+        
+        main_sapkonnektor.main(args);
+        
         System.out.println("Main startet...");
 
         ContactsConnector gCon = new ContactsConnector();
@@ -44,7 +48,7 @@ public class App {
 
 
         Contact filter = new Contact();
-        EditContactFrame frame = new EditContactFrame("Test Kontakt suchen", filter);
+        EditContactFrame frame = new EditContactFrame("Google Kontakt suchen", filter);
         frame.setDoValidation(false);
         frame.initializeWindow();
 
@@ -66,7 +70,7 @@ public class App {
             System.out.println(ex);
         }
 
-        ChooseContactFrame frame2 = new ChooseContactFrame("Test Kontakt auswählen", glist);
+        ChooseContactFrame frame2 = new ChooseContactFrame("Google Kontakt auswählen", glist);
         frame2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame2.initializeWindow();
 
@@ -76,7 +80,7 @@ public class App {
 //        frame.initializeWindow();
 
         Contact sapfilter = new Contact();
-        EditContactFrame sapframe = new EditContactFrame("Test Kontakt suchen", sapfilter);
+        EditContactFrame sapframe = new EditContactFrame("SAP Kontakt suchen", sapfilter);
         sapframe.setDoValidation(false);
         sapframe.initializeWindow();
 
@@ -86,13 +90,14 @@ public class App {
             } catch (InterruptedException ex) {
                 System.out.println(ex);
             }
+            System.out.println(sapframe.getContact().getDataString());
             sapfilter = sapframe.getContact();
         }
         
         List<Contact> saplist = null;
         saplist = gCon.getSapContacts(sapfilter);
         
-        ChooseContactFrame frame3 = new ChooseContactFrame("Test Kontakt auswählen", saplist);
+        ChooseContactFrame frame3 = new ChooseContactFrame("SAP Kontakt auswählen", saplist);
         frame3.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame3.initializeWindow();
 
