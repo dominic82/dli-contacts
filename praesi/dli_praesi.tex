@@ -173,8 +173,8 @@ contact.addGroupMembershipInfo(new GroupMembershipInfo(false, groupURL));
 \begin{center}
 
 \begin{itemize}
-\item Erhalte Kontaktobjekt mit Angaben zu Vorname, Nachname, Firma..
-\item Suche via Webservice und gefiltert nach den Daten 
+\item Erhalte Kontaktobjekt mit Angaben zu Typ, Vorname, Nachname, Firma..
+\item Filtere aus Datenbank entsprechende Datensätze
 \item Gib aufbereitete Liste aller zutreffenden Kontakte zurück
 \end{itemize}
 
@@ -186,8 +186,23 @@ contact.addGroupMembershipInfo(new GroupMembershipInfo(false, groupURL));
 \begin{frame}{Verwendete WSDLs}
 \begin{center}
 
+\textbf{Lieferant}
+\begin{itemize}
+\item Find Supplier by Name and Address
+\item Read Supplier Basic Data 
+\end{itemize}
 
--TODO
+\textbf{Mitarbeiter}
+\begin{itemize}
+\item Find Employee by Elements
+\item Find Employee Address by Employee
+\end{itemize}
+
+\textbf{Kunde}
+\begin{itemize}
+\item Find Customer by Elements
+\end{itemize}
+
 
 
 \end{center}
@@ -199,12 +214,25 @@ contact.addGroupMembershipInfo(new GroupMembershipInfo(false, groupURL));
 \begin{center}
 
 \begin{itemize}
-\item Art des Filterobjekts überprüfen
-\item entsprechenden Webservice aufrufen
+\item Art des Filterobjekts überprüfen und entsprechenden Webservice aufrufen
 \item IDs auslesen und anderen Webservice für alle IDs (einzeln) aufrufen
-\item Rückgabeobjekt auslesen und Daten zurückgeben
-\item[$\rightarrow$]Bei Mitarbeiter reicht erster Webserviceaufruf
+\item Rückgabeobjekte auslesen und Daten geordnet zurückgeben
+\item[$\rightarrow$]Bei Kunde reicht ein Webserviceaufruf
+\end{itemize}
 
+\end{center}
+\end{frame}
+
+\subsection*{}
+
+\begin{frame}{Lieferant, Kunde und Mitarbeiter: 3 unterschiedliche Welten}
+\begin{center}
+
+\begin{itemize}
+\item Lieferant, Kunde und Mitarbeiter verwenden völlig unterschiedliche Klassen
+\item lediglich die Übergabe von Passwort und Username ist gleich
+\item Employee kommt aus dem SAP Human Ressources (HR) Bereich
+\item [$\rightarrow$]Selbst einfachste Zuweisungen verkommen hier zur Akkordarbeit
 \end{itemize}
 
 \end{center}
@@ -218,7 +246,7 @@ contact.addGroupMembershipInfo(new GroupMembershipInfo(false, groupURL));
 \begin{itemize}
 \item Webservices geben hier nur Liste von IDs und Namen zurück
 \item Für Adressinformationen weiterer Aufruf mit anderem Webservice nötig
-\item \textbf{PROBLEM:}Aufruf für jede ID einzeln
+\item \textbf{PROBLEM: } Aufruf geschieht für jede ID einzeln
 \end{itemize}
 
 \end{center}
@@ -240,7 +268,7 @@ contact.addGroupMembershipInfo(new GroupMembershipInfo(false, groupURL));
 \begin{center}
 
 \begin{itemize}
-\item GUI Darstellung so bauen, dass zunächst nur Name/Firma angezeigt werden
+\item GUI so erstellen, dass zunächst nur Name/Firma angezeigt werden
 \item Name/Firma sind bereits nach erstem Webservice Aufruf vorhanden
 \item Erst nach Klick auf Namen werden Adressdaten via Webservice angefordert
 \end{itemize}
@@ -258,16 +286,6 @@ contact.addGroupMembershipInfo(new GroupMembershipInfo(false, groupURL));
 
 \end{center}
 \end{frame}
-
--Was ist der ES-Workplace?
-
--Welche WSDLs wurden verwendet? Warum?
-
--Wie wurden die WSDLs ins Java Format übertragen? (WsImport..)
-
--Welche Probleme gab es bezüglich IDs und ``normalen Daten''?
-
--Was könnte diesbezüglich auf eigener Seite verbessert werden?
 
 %%% jABC Teil Dominic %%%
 \input{jabc}
