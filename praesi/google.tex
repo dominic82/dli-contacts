@@ -1,19 +1,19 @@
 \section{Google Connector}
-\subsection{gdata}
+\subsection*{gdata}
 
 \begin{frame}{Die \emph{gdata}-Bibliothek}
- \begin{itemize}[<+->]
- 	\item frei verfügbar %URL
+ \begin{itemize}
+ 	\item frei verfügbar (s.\ http://code.google.com/p/gdata-java-client/downloads/list)
  	\item kapselt Google-Webservices komplett in \emph{Java}-Klasse
  	\item enthält alle benötigten Klassen und Pakete als JAR-Archive
  \end{itemize}
 \end{frame}
 
-\subsection{Service erstellen}
+\subsection*{Service erstellen}
 
 \begin{frame}[fragile]{Google-Service erstellen (1)}
-\includegraphics[width=\textwidth]{Bilder/googleOauth.jpg}
-\footnote{https://developers.google.com/accounts/docs/OAuth2}
+\includegraphics[width=0.9\textwidth]{Bilder/googleOauth.jpg}\\
+(Quelle: https://developers.google.com/accounts/docs/OAuth2)
 \end{frame}
 
 \begin{frame}[fragile]{Google-Service erstellen (2)}
@@ -31,7 +31,7 @@ try {
 \end{block}
 \end{frame}
 
-\subsection{Create Contact}
+\subsection*{Create Contact}
 
 \begin{frame}[fragile]{Einen Kontakt erstellen (1)}
 \begin{block}{Kontakt-Objekt erstellen}
@@ -65,7 +65,7 @@ contact.setName(name);
 // Firma
 if (contactInfoCopy.getCompany() != null) {
 	ExtendedProperty company = new ExtendedProperty();
-	company.setName(DLI_GoogleContactsConnector.company);
+	company.setName("Company");
 	company.setValue(contactInfoCopy.getCompany());
 	contact.addExtendedProperty(company);
 }
@@ -84,7 +84,7 @@ return myService.insert(postUrl, contact);
 \end{block}
 \end{frame}
 
-\subsection{Get Feed}
+\subsection*{Get Feed}
 
 \begin{frame}[fragile]{Kontakte suchen mit \emph{Queries}}
 \begin{block}{Kontakte suchen mit \emph{Queries}}
