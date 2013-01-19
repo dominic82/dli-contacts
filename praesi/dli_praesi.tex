@@ -15,12 +15,15 @@
 \usetheme{Warsaw}
 \usefonttheme{professionalfonts}
 
-\usecolortheme[named=ForestGreen]{structure}
+\usecolortheme[named=green4]{structure}
 
 \usepackage{ownTheme}
 \setbeamertemplate{footline}[infolines theme]
 \setbeamertemplate{headline}[miniframes theme]
 \setbeamercovered{transparent=8}
+
+%Mehrzeilige Kommentare
+\usepackage{verbatim}
 
 %Code
 \usepackage{listings}
@@ -73,6 +76,13 @@
 
 \frame{\titlepage}
 
+\begin{frame}
+%%%%%%%%%%%%%%	Gliederung		%%%%%%%%%%%%%%
+\tableofcontents
+\end{frame}			
+
+\section{Einf\"uhrung}
+
 \begin{frame}[fragile]{Test}
 \javalstset{Den Kontakt einer Gruppe hinzufügen}{lst:ccjoingroup}
 \begin{lstlisting}
@@ -84,13 +94,6 @@ groupURL = customerGroupURL;
 contact.addGroupMembershipInfo(new GroupMembershipInfo(false, groupURL));
 \end{lstlisting}
 \end{frame}
-
-\begin{frame}
-%%%%%%%%%%%%%%	Gliederung		%%%%%%%%%%%%%%
-\tableofcontents
-\end{frame}			
-
-\section{Einf\"uhrung}
 
 \subsection*{Begriffskl\"arung}
 
@@ -117,49 +120,7 @@ contact.addGroupMembershipInfo(new GroupMembershipInfo(false, groupURL));
 \end{block}
 \end{frame}
 
-\subsection*{Typische Anwendungsfelder}
 
-\begin{frame}{Typische Anwendungsfelder}
-\pause
-\begin{itemize}[<+->]
-	\item Medizin
-		\begin{itemize}[<+->]
-			\item ordnungsgem\"a{\ss}es Verschreiben von Medikamenten
-			\item Befolgen der Ratschl\"age von \"Arzten
-			\item Physiologie: Dehnbarkeit von K\"orperstrukturen
-		\end{itemize}
-	\item Cross-Compliance
-		\begin{itemize}[<+->]
-			\item landwirtschaftlicher Kontext
-			\item betrifft Verpflichtungen f\"ur den Erhalt von EU-Direktbeihilfen:
-				\begin{itemize}[<+->]
-					\item landwirtschaftlicher und \"okologischer Zustand der Fl\"achen
-					\item Futtermittel und Lebensmittelsicherheit
-					\item Tiergesundheit und Tierschutz
-				\end{itemize}
-		\end{itemize}
-	\item IT-Compliance
-	\begin{itemize}[<+->]
-		\item "`unsere"' Compliance
-		\item Bedeutungsgewinn durch Digitalisierung von Gesch\"aftsprozessen
-		\item Gesetze und Standards als Reaktion auf Computerpannen etc.
-	\end{itemize}
-\end{itemize}
-\end{frame}
-
-\section{Rechtliche Grundlagen}
-\subsection*{Sarbanes-Oxley Act}
-
-\begin{frame}{Enron, Worldcom und Neuer Markt}
-\begin{itemize}
-	\pause
-	\item \textbf{Enron} (USA, Energiekonzern)
-	\pause
-	\item \textbf{Worldcom} (USA, Telekommunikationskonzern)
-	\pause
-	\item \textbf{Neuer Markt}
-\end{itemize}
-\end{frame}
 
 %%% Einführung %%%
 \input{intro}
@@ -173,8 +134,8 @@ contact.addGroupMembershipInfo(new GroupMembershipInfo(false, groupURL));
 \begin{center}
 
 \begin{itemize}
-\item Erhalte Kontaktobjekt mit Angaben zu Typ, Vorname, Nachname, Firma..
-\item Filtere aus Datenbank entsprechende Datensätze
+\item Erhalte Kontaktobjekt mit Angaben zu Vorname, Nachname, Firma..
+\item Suche via Webservice und gefiltert nach den Daten 
 \item Gib aufbereitete Liste aller zutreffenden Kontakte zurück
 \end{itemize}
 
@@ -186,23 +147,8 @@ contact.addGroupMembershipInfo(new GroupMembershipInfo(false, groupURL));
 \begin{frame}{Verwendete WSDLs}
 \begin{center}
 
-\textbf{Lieferant}
-\begin{itemize}
-\item Find Supplier by Name and Address
-\item Read Supplier Basic Data 
-\end{itemize}
 
-\textbf{Mitarbeiter}
-\begin{itemize}
-\item Find Employee by Elements
-\item Find Employee Address by Employee
-\end{itemize}
-
-\textbf{Kunde}
-\begin{itemize}
-\item Find Customer by Elements
-\end{itemize}
-
+-TODO
 
 
 \end{center}
@@ -214,25 +160,12 @@ contact.addGroupMembershipInfo(new GroupMembershipInfo(false, groupURL));
 \begin{center}
 
 \begin{itemize}
-\item Art des Filterobjekts überprüfen und entsprechenden Webservice aufrufen
+\item Art des Filterobjekts überprüfen
+\item entsprechenden Webservice aufrufen
 \item IDs auslesen und anderen Webservice für alle IDs (einzeln) aufrufen
-\item Rückgabeobjekte auslesen und Daten geordnet zurückgeben
-\item[$\rightarrow$]Bei Kunde reicht ein Webserviceaufruf
-\end{itemize}
+\item Rückgabeobjekt auslesen und Daten zurückgeben
+\item[$\rightarrow$]Bei Mitarbeiter reicht erster Webserviceaufruf
 
-\end{center}
-\end{frame}
-
-\subsection*{}
-
-\begin{frame}{Lieferant, Kunde und Mitarbeiter: 3 unterschiedliche Welten}
-\begin{center}
-
-\begin{itemize}
-\item Lieferant, Kunde und Mitarbeiter verwenden völlig unterschiedliche Klassen
-\item lediglich die Übergabe von Passwort und Username ist gleich
-\item Employee kommt aus dem SAP Human Ressources (HR) Bereich
-\item [$\rightarrow$]Selbst einfachste Zuweisungen verkommen hier zur Akkordarbeit
 \end{itemize}
 
 \end{center}
@@ -246,7 +179,7 @@ contact.addGroupMembershipInfo(new GroupMembershipInfo(false, groupURL));
 \begin{itemize}
 \item Webservices geben hier nur Liste von IDs und Namen zurück
 \item Für Adressinformationen weiterer Aufruf mit anderem Webservice nötig
-\item \textbf{PROBLEM: } Aufruf geschieht für jede ID einzeln
+\item \textbf{PROBLEM:}Aufruf für jede ID einzeln
 \end{itemize}
 
 \end{center}
@@ -268,7 +201,7 @@ contact.addGroupMembershipInfo(new GroupMembershipInfo(false, groupURL));
 \begin{center}
 
 \begin{itemize}
-\item GUI so erstellen, dass zunächst nur Name/Firma angezeigt werden
+\item GUI Darstellung so bauen, dass zunächst nur Name/Firma angezeigt werden
 \item Name/Firma sind bereits nach erstem Webservice Aufruf vorhanden
 \item Erst nach Klick auf Namen werden Adressdaten via Webservice angefordert
 \end{itemize}
@@ -287,6 +220,7 @@ contact.addGroupMembershipInfo(new GroupMembershipInfo(false, groupURL));
 \end{center}
 \end{frame}
 
+
 %%% jABC Teil Dominic %%%
 \input{jabc}
 
@@ -294,7 +228,7 @@ contact.addGroupMembershipInfo(new GroupMembershipInfo(false, groupURL));
 \begin{frame}
 %%%%%%%%%%%%%%	Ende		%%%%%%%%%%%%%%
 \begin{center}
-Vielen Dank f\"ur die Aufmerksamkeit!
+Vielen Dank f\"ur Ihre Aufmerksamkeit!
 \end{center}
 \end{frame}
 
