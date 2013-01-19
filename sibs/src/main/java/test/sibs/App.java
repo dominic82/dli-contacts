@@ -1,14 +1,11 @@
 package test.sibs;
 
-import com.google.gdata.util.AuthenticationException;
-import com.google.gdata.util.ServiceException;
 import dli_contacts.Contact;
 import dli_contacts.ContactsConnector;
 import dli_contacts.sapconnector.main_sapkonnektor;
 import dli_contacts.sibs.gui.ChooseContactFrame;
 
 import dli_contacts.sibs.gui.EditContactFrame;
-import java.io.IOException;
 import java.util.List;
 import javax.swing.JFrame;
 
@@ -47,32 +44,32 @@ public class App {
 //        }
 
 
-        Contact filter = new Contact();
-        EditContactFrame frame = new EditContactFrame("Google Kontakt suchen", filter);
-        frame.setDoValidation(false);
-        frame.initializeWindow();
-
-        synchronized (frame) {
-            try {
-                frame.wait();
-            } catch (InterruptedException ex) {
-                System.out.println(ex);
-            }
-            filter = frame.getContact();
-        }
-
-        List<Contact> glist = null;
-        try {
-            glist = gCon.getGoogleContacts(filter);
-        } catch (AuthenticationException ex) {
-            System.out.println(ex);
-        } catch (ServiceException | IOException ex) {
-            System.out.println(ex);
-        }
-
-        ChooseContactFrame frame2 = new ChooseContactFrame("Google Kontakt auswählen", glist);
-        frame2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame2.initializeWindow();
+//        Contact filter = new Contact();
+//        EditContactFrame frame = new EditContactFrame("Google Kontakt suchen", filter);
+//        frame.setDoValidation(false);
+//        frame.initializeWindow();
+//
+//        synchronized (frame) {
+//            try {
+//                frame.wait();
+//            } catch (InterruptedException ex) {
+//                System.out.println(ex);
+//            }
+//            filter = frame.getContact();
+//        }
+//
+//        List<Contact> glist = null;
+//        try {
+//            glist = gCon.getGoogleContacts(filter);
+//        } catch (AuthenticationException ex) {
+//            System.out.println(ex);
+//        } catch (ServiceException | IOException ex) {
+//            System.out.println(ex);
+//        }
+//
+//        ChooseContactFrame frame2 = new ChooseContactFrame("Google Kontakt auswählen", glist);
+//        frame2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        frame2.initializeWindow();
 
 //        EditContactFrame frame = new EditContactFrame("Test Kontakt bearbeiten", filter);
 //        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
