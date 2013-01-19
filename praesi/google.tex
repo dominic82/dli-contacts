@@ -1,8 +1,12 @@
 \section{Google Connector}
-\subsection{\emph{gdata}}
+\subsection{gdata}
 
 \begin{frame}{Die \emph{gdata}-Bibliothek}
-
+ \begin{itemize}[<+->]
+ 	\item frei verfügbar %URL
+ 	\item kapselt Google-Webservices komplett in \emph{Java}-Klasse
+ 	\item enthält alle benötigten Klassen und Pakete als JAR-Archive
+ \end{itemize}
 \end{frame}
 
 \subsection{Service erstellen}
@@ -86,11 +90,13 @@ return myService.insert(postUrl, contact);
 \begin{block}{Kontakte suchen mit \emph{Queries}}
 \javalstset
 \begin{lstlisting}
-URL feedUrl = new URL("https://www.google.com/m8/feeds/contacts/dli.ides.api@gmail.com/full");
+URL feedUrl = new URL("https://www.google.com/m8/feeds/contacts
+	/dli.ides.api@gmail.com/full");
 Query myQuery = new Query(feedUrl);
 ContactFeed resultFeed = null;
 // Gruppe
-myQuery.setStringCustomParameter("group", "http://www.google.com/m8/feeds/groups/dli.ides.api%40gmail.com/base/587c880e884cdacb");
+myQuery.setStringCustomParameter("group", "http://www.google.com/m8/feeds/groups
+	/dli.ides.api%40gmail.com/base/587c880e884cdacb");
 // submit request
 resultFeed = myService.query(myQuery, ContactFeed.class);
 \end{lstlisting}
@@ -101,7 +107,8 @@ resultFeed = myService.query(myQuery, ContactFeed.class);
 \begin{block}{Kontakte holen ohne \emph{Queries}}
 \javalstset
 \begin{lstlisting}
-URL feedUrl = new URL("https://www.google.com/m8/feeds/contacts/dli.ides.api@gmail.com/full");
+URL feedUrl = new URL("https://www.google.com/m8/feeds/contacts
+	/dli.ides.api@gmail.com/full");
 resultFeed = myService.getFeed(feedUrl, ContactFeed.class);
 \end{lstlisting}
 \end{block}
