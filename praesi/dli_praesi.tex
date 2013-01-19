@@ -15,7 +15,7 @@
 \usetheme{Warsaw}
 \usefonttheme{professionalfonts}
 
-\usecolortheme[named=green4]{structure}
+\usecolortheme[named=SteelBlue3]{structure}
 
 \usepackage{ownTheme}
 \setbeamertemplate{footline}[infolines theme]
@@ -44,7 +44,7 @@
 	commentstyle=\color{Gray}, % white comments
 	stringstyle=\color{Blue}, % typewriter type for strings
 	showstringspaces=false % no special string spaces 
-	tabsize=2,
+	tabsize=3,
 	language=Java,
 	captionpos=b,
 % 	caption={#1},
@@ -65,8 +65,8 @@
 
 \begin{document}
 
-\title[DLI Projekt: Kontakte]{DLI Projekt: Kontakte}
-\subtitle[DLI]{Vorlesung Aktuelle Themen der Dienstleistungsinformatik}
+\title[DLI Projekt: Kontakte]{Projekt: Kontakte}
+\subtitle[DLI]{Vorlesung: Aktuelle Themen der Dienstleistungsinformatik}
 %\date{\today} % gibt aktuelles Datum zurueck
 \date{22. Januar 2013}
 \author[Marzotko, Seeland, Wirkner]{Markus Marzotko, Thorben Seeland, Dominic Wirkner\\ {\scriptsize Prof.\ Dr.\ Bernhard Steffen, Dipl.-Inf. Markus Doedt}} 
@@ -80,50 +80,6 @@
 %%%%%%%%%%%%%%	Gliederung		%%%%%%%%%%%%%%
 \tableofcontents
 \end{frame}			
-
-\section{Einf\"uhrung}
-
-\begin{frame}[fragile]{Test}
-\pause
-\begin{block}{Den Kontakt einer Gruppe hinzufügen}
-\javalstset
-\begin{lstlisting}
-// Gruppe setzen
-String groupURL = null;
-switch (contactInfoCopy.getType()) {
-case CUSTOMER:
-groupURL = customerGroupURL;
-contact.addGroupMembershipInfo(new GroupMembershipInfo(false, groupURL));
-\end{lstlisting}
-\end{block}
-\end{frame}
-
-\subsection*{Begriffskl\"arung}
-
-\begin{frame}{Was ist Compliance?}
-\pause
-\begin{block}{Definition 1}
-		\begin{quote}
-			"`Die Binsenweisheit, dass Unternehmen Gesetze einhalten m\"ussen, hei{\ss}t nun
-			Compliance."'
-		\end{quote}
-			Uwe H. Schneider, ZIP 2003, S. 645f
-\end{block}
-\pause
-\begin{block}{Definition 2}
-	\begin{quote}
-		Bei "`Compliance"' geht es um die "`Erf\"ullung"', "`Entsprechung"' bzw.
-		"`Konformit\"at"' mit staatlichen Gesetzen sowie mit Regeln und Spezifikationen,
-		mit Grunds\"atzen (ethische und moralische) und Verfahren sowie mit Standards
-		(z.B. ISO) und Konventionen, die klar definiert worden sind. Die Erf\"ullung der
-		Compliance kann sowohl auf Zwang (z.B. durch Gesetze) als auch auf
-		Freiwilligkeit (z.B. Einhaltung von Standards) beruhen.
-	\end{quote}
-		laut Compliance-Magazin.de
-\end{block}
-\end{frame}
-
-
 
 %%% Einführung %%%
 \input{intro}

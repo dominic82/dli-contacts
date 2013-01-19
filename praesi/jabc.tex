@@ -147,10 +147,10 @@
 	\item \textbf{Unterschiede in der Laufzeitumgebung:} 
 	\begin{itemize}
 			\item Code läuft ausserhalb von jABC...
-			\item ABER: Ausführung des Graphen wirft \texttt{Exception}?
+			\item \underline{ABER}: Ausführung des Graphen wirft \texttt{Exception}?
 	\end{itemize}
 	\pause
-	\item \textbf{Lösung hier:} mittels "`\underline{bad} Practice"'
+	\item \textbf{Lösung hier:} mittels \textit{"`bad Practice"'}
 \end{itemize}
 
 \begin{block}{Änderung von Systemeigenschaften}
@@ -159,7 +159,7 @@
 ...
 System.setProperty("javax.xml.parsers.SAXParser", ...);
 System.setProperty("...parsers.SAXParserFactory", ...);
-System.setProperty("oracle.xml.parser.v2.SAXParser...);
+System.setProperty("oracle.xml.parser.v2.SAXParser",...
 ...
 \end{lstlisting}
 \end{block}
@@ -168,8 +168,8 @@ System.setProperty("oracle.xml.parser.v2.SAXParser...);
 	\item \textbf{Effekt:}
 		\begin{itemize}
 			\item konfiguriert aktiv laufende JVM
-			\item auch nach Ausführung des Modells weiterhin wirksam
-			\item sollte in realem Szenario vermieden werden!
+			\item auch \underline{nach} Ausführung des Modells weiterhin wirksam
+			\item sollte in einem produktivem System \underline{nicht} werden!
 		\end{itemize}
 \end{itemize}
 \end{frame}

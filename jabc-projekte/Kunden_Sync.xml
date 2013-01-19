@@ -2,7 +2,7 @@
 <model version="2.1">
   <id>d7e06782-e187-4cde-8336-713f124e0449</id>
   <name>Kunden_Sync</name>
-  <changecounter>41</changecounter>
+  <changecounter>42</changecounter>
   <cell>
     <form>RECT</form>
     <bounds>
@@ -11,10 +11,17 @@
       <width>125.0</width>
       <height>211.0</height>
     </bounds>
+    <linewidth>4.0</linewidth>
+    <linecolor>
+      <red>153</red>
+      <green>204</green>
+      <blue>255</blue>
+      <alpha>255</alpha>
+    </linecolor>
     <foreground>
       <red>204</red>
       <green>255</green>
-      <blue>204</blue>
+      <blue>255</blue>
       <alpha>255</alpha>
     </foreground>
   </cell>
@@ -26,6 +33,13 @@
       <width>316.0</width>
       <height>226.0</height>
     </bounds>
+    <linewidth>4.0</linewidth>
+    <linecolor>
+      <red>255</red>
+      <green>204</green>
+      <blue>153</blue>
+      <alpha>255</alpha>
+    </linecolor>
     <foreground>
       <red>255</red>
       <green>255</green>
@@ -41,10 +55,17 @@
       <width>316.0</width>
       <height>239.0</height>
     </bounds>
+    <linewidth>4.0</linewidth>
+    <linecolor>
+      <red>153</red>
+      <green>204</green>
+      <blue>255</blue>
+      <alpha>255</alpha>
+    </linecolor>
     <foreground>
       <red>204</red>
       <green>255</green>
-      <blue>204</blue>
+      <blue>255</blue>
       <alpha>255</alpha>
     </foreground>
   </cell>
