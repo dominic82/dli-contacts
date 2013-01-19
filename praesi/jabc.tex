@@ -3,7 +3,7 @@
 \subsection*{}
 \begin{frame}{SIB-Programmierung}
 	\begin{center}
-		\includegraphics[width=\textheight]{Bilder/titel_sibs.png} 
+		\includegraphics[width=\textheight]{Bilder/titel_sibs.png}
 	\end{center}
 \end{frame}
 
@@ -14,13 +14,13 @@
 	\pause
 	\item \textbf{Google-SIBs:} Kontakt suchen und hinzufügen
 	\item \textbf{SAP-SIB:} Kontakt suchen
-	\pause	
-	\item \textbf{GUI-SIBs:} 
+	\pause
+	\item \textbf{GUI-SIBs:}
 		\begin{itemize}[<+->]
 			\item Eingabe von Kontakt-Attributen
 			\item Auswahl aus einer Liste von Kontakten
 		\end{itemize}
-	
+
 \end{itemize}
 \end{frame}
 
@@ -29,19 +29,19 @@
 \subsection*{SIBs im Detail}
 \begin{frame}{Google + SAP: suche Kontakt}
 \begin{itemize}[<+->]
-	\item \textbf{Input:} eine Instanz der Klasse \texttt{Contact} 
+	\item \textbf{Input:} eine Instanz der Klasse \texttt{Contact}
 		\begin{itemize}[<+->]
 			\item dient als Filter für die Suche
 		\end{itemize}
 	\item \textbf{Output:} Liste von \texttt{Contact}-Objekten
 
-	\item \textbf{Branches:} 
+	\item \textbf{Branches:}
 		\begin{itemize}[<+->]
 			\item \textbf{found:} mehr als 0 Ergebnisse
 			\item \textbf{not found:} keine Ergebnisse
 			\item \textbf{error:} es wurde eine \textit{Exception} geworfen
 		\end{itemize}
-	
+
 \end{itemize}
 \end{frame}
 
@@ -49,16 +49,16 @@
 \subsection*{SIBs im Detail}
 \begin{frame}{Google: Kontakt hinzufügen}
 \begin{itemize}[<+->]
-	\item \textbf{Input:} eine Instanz der Klasse \texttt{Contact} 
+	\item \textbf{Input:} eine Instanz der Klasse \texttt{Contact}
 
 	\item \textbf{Output:} keiner
 
-	\item \textbf{Branches:} 
+	\item \textbf{Branches:}
 		\begin{itemize}[<+->]
 			\item \textbf{default:} Kontakt erfolgreich hinzugefügt
 			\item \textbf{error:} es wurde eine \textit{Exception} geworfen
 		\end{itemize}
-	
+
 \end{itemize}
 \end{frame}
 
@@ -66,7 +66,7 @@
 \subsection*{SIBs im Detail}
 \begin{frame}{GUI: Kontakt-Daten eingeben}
 \begin{itemize}[<+->]
-	\item \textbf{Input:} eine Instanz der Klasse \texttt{Contact} 
+	\item \textbf{Input:} eine Instanz der Klasse \texttt{Contact}
 		\begin{itemize}[<+->]
 			\item Formular wird entsprechend befüllt
 			\item zudem Parameter für Fenstertitel und Validierung
@@ -76,14 +76,14 @@
 		\begin{itemize}[<+->]
 			\item wenn Button "OK" geklickt wurde
 		\end{itemize}
-	\pause	
-	\item \textbf{Branches:} 
+	\pause
+	\item \textbf{Branches:}
 		\begin{itemize}[<+->]
 			\item \textbf{ok:} Eingabe bestätigt mit Button "OK"
 			\item \textbf{cancel:} Eingabe abgebrochen mit Button "CANCEL"
 			\item \textbf{error:} es wurde eine \textit{Exception} geworfen, oder UNKNOWN
 		\end{itemize}
-	
+
 \end{itemize}
 \end{frame}
 
@@ -91,7 +91,7 @@
 \subsection*{SIBs im Detail}
 \begin{frame}{GUI: Kontakt-auswählen}
 \begin{itemize}[<+->]
-	\item \textbf{Input:} Liste von \texttt{Contact}-Objekten 
+	\item \textbf{Input:} Liste von \texttt{Contact}-Objekten
 		\begin{itemize}[<+->]
 			\item zudem Parameter für Fenstertitel
 		\end{itemize}
@@ -99,14 +99,14 @@
 		\begin{itemize}[<+->]
 			\item wenn Button "OK" geklickt wurde
 		\end{itemize}
-	
-	\item \textbf{Branches:} 
+
+	\item \textbf{Branches:}
 		\begin{itemize}[<+->]
 			\item \textbf{ok:} Eingabe bestätigt mit Button "OK"
 			\item \textbf{cancel:} Eingabe abgebrochen mit Button "CANCEL"
 			\item \textbf{error:} es wurde eine \textit{Exception} geworfen, oder UNKNOWN
 		\end{itemize}
-	
+
 \end{itemize}
 \end{frame}
 
@@ -114,14 +114,14 @@
 \subsection*{Probleme im Detail}
 \begin{frame}[fragile]{Besonderheit der GUI}
 \begin{itemize}[<+->]
-	\item \textbf{warten auf Eingabe:} wie \texttt{trace()}-Methode anhalten? 
+	\item \textbf{warten auf Eingabe:} wie \texttt{trace()}-Methode anhalten?
 		\begin{itemize}[<+->]
 			\item Swing-Frame läuft in einem eigenem Thread!
 		\end{itemize}
-	\pause		
+	\pause
 	\item \textbf{Lösung hier:} mittels \texttt{synchronized})-Block in Frame und SIB
 \end{itemize}
-		
+
 	\begin{lstlisting}
 	public String trace(ExecutionEnvironment env) {
 
@@ -130,9 +130,9 @@
 			frame.wait();
 			...
 	\end{lstlisting}
-	
-\begin{itemize}[<+->]	
-	\item \textbf{Vorgehen:} 
+
+\begin{itemize}[<+->]
+	\item \textbf{Vorgehen:}
 		\begin{itemize}[<+->]
 			\item \texttt{trace()} erstellt den Frame und wartet auf ein \texttt{notify()}
 			\item \texttt{notify()} wird vom Action-Listener der Buttons aufgerufen
@@ -143,25 +143,26 @@
 
 
 \subsection*{Probleme im Detail}
-\begin{frame}{Problem mit jABC}
+\begin{frame}[fragile]{Problem mit jABC}
 \begin{itemize}[<+->]
-	\item \textbf{eigener Java-Code im jABC:} Unterschiede zum "normalen" JRE 
+	\item \textbf{eigener Java-Code im jABC:} Unterschiede zum "`normalen"' JRE
 	\begin{itemize}[<+->]
 			\item Code läuft ausserhalb von jABC...
 			\item ABER: Ausführung im Modell wirft Exceptions?
 	\end{itemize}
-	\pause	
-	\item \textbf{Lösung hier:} mittels "bad Practice"
-\end{itemize}		
-	\begin{lstlisting}
-		...
-		System.setProperty("javax.xml.parsers.SAXParserFactory", ...);
-        System.setProperty("javax.xml.parsers.SAXParser", ...);
-        System.setProperty("oracle.xml.parser.v2.SAXParser", ...);
-        ...
-	\end{lstlisting}
-\begin{itemize}[<+->]	
-	\item \textbf{Effekt:} 
+	\pause
+	\item \textbf{Lösung hier:} mittels "`bad Practice"'
+\end{itemize}
+\javalstset
+\begin{lstlisting}
+...
+System.setProperty("javax.xml.parsers.SAXParserFactory", ...);
+System.setProperty("javax.xml.parsers.SAXParser", ...);
+System.setProperty("oracle.xml.parser.v2.SAXParser", ...);
+...
+\end{lstlisting}
+\begin{itemize}[<+->]
+	\item \textbf{Effekt:}
 		\begin{itemize}[<+->]
 			\item verstellt Optionen der aktiven JVM
 			\item auch nach Ausführung des Modells weiterhin wirksam
@@ -176,7 +177,7 @@
 \subsection*{}
 \begin{frame}{Modell und Anwendung}
 \begin{center}
-\includegraphics[width=\textheight]{Bilder/jabc_Model.png} 
+\includegraphics[height=0.8\textheight]{Bilder/jabc_Model.png} 
 \end{center}
 \end{frame}
 

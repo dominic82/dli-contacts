@@ -35,7 +35,7 @@
 %\usepackage[usenames,dvipsnames]{xcolor}
 
 %vor jeder lstlisting-Umgebung aufrufen, 1. caption, 2. label
-\newcommand{\javalstset}[2]{
+\newcommand{\javalstset}{
 \lstset{% general command to set parameter(s)
 	basicstyle=\small\ttfamily, % print whole listing small
 	keywordstyle=\color{DarkOrchid}\bfseries,
@@ -47,9 +47,9 @@
 	tabsize=3,
 	language=Java,
 	captionpos=b,
-	caption={#1},
-	label={#2},
-	frame=trbl,
+% 	caption={#1},
+% 	label={#2},
+% 	frame=trbl,
 	breaklines=true,
 	breakatwhitespace=true
 	}
@@ -84,7 +84,8 @@
 \section{Einf\"uhrung}
 
 \begin{frame}[fragile]{Test}
-\javalstset{Den Kontakt einer Gruppe hinzufügen}{lst:ccjoingroup}
+\begin{block}{Den Kontakt einer Gruppe hinzufügen}
+\javalstset
 \begin{lstlisting}
 // Gruppe setzen
 String groupURL = null;
@@ -93,6 +94,7 @@ case CUSTOMER:
 groupURL = customerGroupURL;
 contact.addGroupMembershipInfo(new GroupMembershipInfo(false, groupURL));
 \end{lstlisting}
+\end{block}
 \end{frame}
 
 \subsection*{Begriffskl\"arung}
@@ -224,14 +226,10 @@ contact.addGroupMembershipInfo(new GroupMembershipInfo(false, groupURL));
 %%% jABC Teil Dominic %%%
 \input{jabc}
 
-
-\begin{frame}
+\section*{}
+\begin{frame}{Vielen Dank f\"ur Ihre Aufmerksamkeit!}
 %%%%%%%%%%%%%%	Ende		%%%%%%%%%%%%%%
-\begin{center}
-Vielen Dank f\"ur Ihre Aufmerksamkeit!
-\end{center}
+\tableofcontents
 \end{frame}
-
-
 
 \end{document}
