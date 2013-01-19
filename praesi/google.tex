@@ -78,7 +78,8 @@ if (contactInfoCopy.getCompany() != null) {
 \javalstset
 \begin{lstlisting}
 // Kontakt senden		
-URL postUrl = new URL(contactsURL);
+URL postUrl = new URL("https://www.google.com/m8/feeds/contacts/
+	dli.ides.api@gmail.com/full");
 return myService.insert(postUrl, contact);
 \end{lstlisting}
 \end{block}
