@@ -147,6 +147,7 @@ public class main_sapkonnektor {
 		String teilName1;
 		String teilName2;
 		int charIndex;
+		int maxIndex;
 
 		// Schleife die für alle Einträge den Webservice mit der entsprechenden
 		// ID losschickt und die empfangenen Daten
@@ -176,17 +177,24 @@ public class main_sapkonnektor {
 			// SAPID setzen
 			kontaktEintrag.setSapId(empIDList.getEmployee().get(i).getID());
 			// Vorname setzen
-			kontaktEintrag.setFirstname(empIDList.getEmployee().get(i).getPersonFormattedName());
+			if(empIDList.getEmployee().get(i).getPersonFormattedName()!= null){
 			
+			maxIndex = 	empIDList.getEmployee().get(i).getPersonFormattedName().length();
+			if(maxIndex > 0){
+			
+			if(empIDList.getEmployee().get(i).getPersonFormattedName().contains(" ")){	
 			charIndex = empIDList.getEmployee().get(i).getPersonFormattedName().indexOf(" ");
-			teilName1 = empIDList.getEmployee().get(i).getPersonFormattedName().substring(0, charIndex);
-			teilName2 = empIDList.getEmployee().get(i).getPersonFormattedName().substring(charIndex + 1);
+			teilName1 = empIDList.getEmployee().get(i).getPersonFormattedName().substring(0, charIndex - 1);
+			teilName2 = empIDList.getEmployee().get(i).getPersonFormattedName().substring(charIndex);
+			
 			
 			// Nachname setzen
 			kontaktEintrag.setLastname(teilName2);
 			// Vorname setzen		
 			kontaktEintrag.setFirstname(teilName1);
-			
+			  }
+			 }
+			}
 			// Firma setzen
 
 			kontaktEintrag.setCompany(result.getEmployee().getAddress().get(0).getAddress().getDepartmentName());
