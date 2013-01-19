@@ -95,7 +95,7 @@ public class ContactsConnectorTest extends TestCase {
     public void testGetSapContacts() {
         searchSapContact(sapContactCustomer);
         searchSapContact(sapContactSupplier);
-        searchSapContact(sapContactEmployee);
+//        searchSapContact(sapContactEmployee);
 
         assertEquals(true, true);
     }
@@ -104,9 +104,9 @@ public class ContactsConnectorTest extends TestCase {
      * Test of getGoogleContacts method, of class ContactsConnector.
      */
     public void testGetGoogleContacts() throws Exception {
-//        searchGoogleContact(gContactCustomer);
-//        searchGoogleContact(gContactSupplier);
-//        searchGoogleContact(gContactEmployee);
+        searchGoogleContact(gContactCustomer);
+        searchGoogleContact(gContactSupplier);
+        searchGoogleContact(gContactEmployee);
 
         assertEquals(true, true);
     }
@@ -192,9 +192,9 @@ public class ContactsConnectorTest extends TestCase {
         Contact contactInfo3 = dm.getPerson3();
 
         ContactsConnector instance = new ContactsConnector();
-//        instance.addGoogleContact(gContactCustomer);
-//        instance.addGoogleContact(gContactSupplier);
-//        instance.addGoogleContact(gContactEmployee);
+        instance.addGoogleContact(gContactCustomer);
+        instance.addGoogleContact(gContactSupplier);
+        instance.addGoogleContact(gContactEmployee);
 
         assertEquals(true, true);
     }

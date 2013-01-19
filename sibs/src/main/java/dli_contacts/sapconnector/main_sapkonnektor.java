@@ -1,6 +1,5 @@
 package dli_contacts.sapconnector;
 
-
 import java.util.LinkedList;
 import java.util.List;
 

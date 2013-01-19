@@ -5,7 +5,7 @@
  \begin{itemize}
  	\item frei verfügbar (s.\ http://code.google.com/p/gdata-java-client/downloads/list)
  	\item benötigt Account (dli.ides.api@gmail.com)
- 	\item kapselt Google-Webservices komplett in \emph{Java}-Klasse
+ 	\item kapselt Google-Webservices komplett in \emph{Java}-Klassen
  	\item enthält alle benötigten Klassen und Pakete als JAR-Archive
  \end{itemize}
 \end{frame}
@@ -40,8 +40,8 @@ try {
 \begin{lstlisting}
 // Create the entry to insert
 ContactEntry contact = new ContactEntry();
-contact.setTitle(new PlainTextConstruct(contactInfoCopy.getFirstname()
-		+ contactInfoCopy.getLastname()));
+contact.setTitle(new PlainTextConstruct(contactInfo.getFirstname()
+		+ contactInfo.getLastname()));
 \end{lstlisting}
 \end{block}
 \end{frame}
@@ -52,8 +52,8 @@ contact.setTitle(new PlainTextConstruct(contactInfoCopy.getFirstname()
 \begin{lstlisting}
 // Name
 Name name = new Name();
-name.setFamilyName(new FamilyName(contactInfoCopy.getLastname(), null));
-name.setGivenName(new GivenName(contactInfoCopy.getFirstname(), null));
+name.setFamilyName(new FamilyName(contactInfo.getLastname(), null));
+name.setGivenName(new GivenName(contactInfo.getFirstname(), null));
 contact.setName(name);
 \end{lstlisting}
 \end{block}
@@ -62,12 +62,12 @@ contact.setName(name);
 \begin{frame}[fragile]{Einen Kontakt erstellen (3)}
 \begin{block}{Benutzerdefinierte Einträge zu einem Kontakt-Objekt hinzufügen}
 \javalstset
-\begin{lstlisting}	
+\begin{lstlisting}
 // Firma
-if (contactInfoCopy.getCompany() != null) {
+if (contactInfo.getCompany() != null) {
 	ExtendedProperty company = new ExtendedProperty();
 	company.setName("Company");
-	company.setValue(contactInfoCopy.getCompany());
+	company.setValue(contactInfo.getCompany());
 	contact.addExtendedProperty(company);
 }
 \end{lstlisting}

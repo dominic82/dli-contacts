@@ -87,16 +87,16 @@ Das Einfügen von Kontakten ist über ein erstelltes Service-Objekt
 \begin{lstlisting}
 // Create the entry to insert
 ContactEntry contact = new ContactEntry();
-contact.setTitle(new PlainTextConstruct(contactInfoCopy.getFirstname()
-		+ contactInfoCopy.getLastname()));
+contact.setTitle(new PlainTextConstruct(contactInfo.getFirstname()
+		+ contactInfo.getLastname()));
 \end{lstlisting}
 
 \javalstset{Namen in ein Kontakt-Objekt einfügen}{lst:ccsetname}
 \begin{lstlisting}
 // Name
 Name name = new Name();
-name.setFamilyName(new FamilyName(contactInfoCopy.getLastname(), null));
-name.setGivenName(new GivenName(contactInfoCopy.getFirstname(), null));
+name.setFamilyName(new FamilyName(contactInfo.getLastname(), null));
+name.setGivenName(new GivenName(contactInfo.getFirstname(), null));
 contact.setName(name);
 \end{lstlisting}
 
@@ -106,7 +106,7 @@ contact.setName(name);
 if (contactInfoCopy.getCompany() != null) {
 	ExtendedProperty company = new ExtendedProperty();
 	company.setName(DLI_GoogleContactsConnector.company);
-	company.setValue(contactInfoCopy.getCompany());
+	company.setValue(contactInfo.getCompany());
 	contact.addExtendedProperty(company);
 }
 \end{lstlisting}
@@ -115,7 +115,7 @@ if (contactInfoCopy.getCompany() != null) {
 \begin{lstlisting}
 // Gruppe setzen
 String groupURL = null;
-switch (contactInfoCopy.getType()) {
+switch (contactInfo.getType()) {
 case CUSTOMER:
 groupURL = customerGroupURL;
 contact.addGroupMembershipInfo(new GroupMembershipInfo(false, groupURL));
