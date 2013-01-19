@@ -74,7 +74,7 @@ default:
 }
 myQuery.setStringCustomParameter("group", groupId);
 // submit request
-resultFeed = myService.getFeed(feedUrl, ContactFeed.class);
+resultFeed = myService.query(myQuery, ContactFeed.class);
 \end{lstlisting}
 
 Das Suchen von Kontakten geschieht in unserem Projekt durch das Herunterladen aller Kontakte
