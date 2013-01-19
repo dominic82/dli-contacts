@@ -10,12 +10,12 @@
 \end{frame}
 
 \subsection*{}
-\begin{frame}{Die Aufgabe}
-\begin{itemize}[<+->]
-	\item \textbf{Datenmigration:} Kontakte von SAP zu Google
+\begin{frame}{Die Aufgabenstellung}
+\begin{itemize}
+	\item \textbf{Datenmigration:} Kontakte von SAP zu Google übertragen
 	\pause
-	\item \textbf{Strategie:} nicht einfach kopieren $\rightarrow$ Karteileichen
-		\begin{itemize}[<+->]
+	\item \textbf{Strategie:} nicht einfach alle kopieren $\rightarrow$ Karteileichen
+		\begin{itemize}
 			\item Kontakte nur bei Bedarf übertragen!
 			\pause
 			\item zunächst bei Google anfragen
@@ -24,17 +24,17 @@
 		\end{itemize}
 	\pause
 	\item \textbf{erste Überlegungen:}
-		\begin{itemize}[<+->]
-			\item drei Teile: Google, SAP, SIBs
-			\item GUI Elemente für Dateingabe
+		\begin{itemize}
+			\item Aufteilung in drei Bereiche: Google, SAP, SIBs
+			\item GUI Elemente für Dateingabe notwendig
 		\end{itemize}
 
 \end{itemize}
 \end{frame}
 
 
-\subsection*{}
-\begin{frame}{Projekt-Komponenten}
+
+\begin{frame}{Projekt-Struktur}
 	
 \begin{center}
 \includegraphics[width=\textheight]{Bilder/projekt_aufbau.png} 
@@ -45,12 +45,12 @@
 
 \subsection*{}
 \begin{frame}{Eingesetzte Tools}
-\begin{itemize}[<+->]
+\begin{itemize}
 	
-	\item \textbf{Standard:} automatisierte Tests (JUnit), Versionsverwaltung (git)
+	\item \textbf{Grundlage:} automatisierte Tests (JUnit), Versionsverwaltung (git)
 	\pause
 	\item \textbf{Apache Maven:} Build-Management-Tool
-		\begin{itemize}[<+->]
+		\begin{itemize}
 			
 			\item unterstützt Software-Lebenszyklus $\rightarrow$ automatische Ausführung der Tests
 			\item einfaches Einbinden von Abhängigkeiten (externe Pakete)
