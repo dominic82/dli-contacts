@@ -52,8 +52,8 @@ contact.setTitle(new PlainTextConstruct(contactInfo.getFirstname()
 \begin{lstlisting}
 // Name
 Name name = new Name();
-name.setFamilyName(new FamilyName(contactInfoCopy.getLastname(), null));
-name.setGivenName(new GivenName(contactInfoCopy.getFirstname(), null));
+name.setFamilyName(new FamilyName(contactInfo.getLastname(), null));
+name.setGivenName(new GivenName(contactInfo.getFirstname(), null));
 contact.setName(name);
 \end{lstlisting}
 \end{block}
@@ -62,12 +62,12 @@ contact.setName(name);
 \begin{frame}[fragile]{Einen Kontakt erstellen (3)}
 \begin{block}{Benutzerdefinierte Einträge zu einem Kontakt-Objekt hinzufügen}
 \javalstset
-\begin{lstlisting}	
+\begin{lstlisting}
 // Firma
 if (contactInfoCopy.getCompany() != null) {
 	ExtendedProperty company = new ExtendedProperty();
 	company.setName("Company");
-	company.setValue(contactInfoCopy.getCompany());
+	company.setValue(contactInfo.getCompany());
 	contact.addExtendedProperty(company);
 }
 \end{lstlisting}
