@@ -34,7 +34,7 @@ Die Authentifizierung wird für ein \code{ContacsService}-Objekt, wie in Listing
  automatisch durchgeführt.
 
 \javalstset{Beispiel für die Authentifizierung ohne \emph{OAuth}}{lst:authpwbeispiel}
-\begin{lstlisting}
+\begin{lstlisting}[float]
 ContactsService myService;
 myService = new ContactsService(servicename);
 try {
@@ -51,7 +51,7 @@ Das \emph{Query} kann jedoch nur zwischen Gruppen unterscheiden, jedoch nicht na
  Kriterien wie z.\ B.\ dem Vornamen oder dem Nachnamen eines Kontakts filtern.
 
 \javalstset{Kontaktsuche per \code{Query}}{lst:searchQuery}
-\begin{lstlisting}
+\begin{lstlisting}[float]
 URL feedUrl = new URL(contactsURL);
 Query myQuery = new Query(feedUrl);
 ContactFeed resultFeed = null;
@@ -83,7 +83,7 @@ Das Suchen von Kontakten geschieht in unserem Projekt durch das Herunterladen al
 Das Einfügen von Kontakten ist über ein erstelltes Service-Objekt 
 
 \javalstset{Kontakt-Objekt (\code{ContactEntry}) erstellen}{lst:createContact}
-\begin{lstlisting}
+\begin{lstlisting}[float]
 // Create the entry to insert
 ContactEntry contact = new ContactEntry();
 contact.setTitle(new PlainTextConstruct(contactInfo.getFirstname()
@@ -91,7 +91,7 @@ contact.setTitle(new PlainTextConstruct(contactInfo.getFirstname()
 \end{lstlisting}
 
 \javalstset{Namen in ein Kontakt-Objekt (\code{ContactEntry}) einfügen}{lst:ccsetname}
-\begin{lstlisting}
+\begin{lstlisting}[float]
 // Name
 Name name = new Name();
 name.setFamilyName(new FamilyName(contactInfo.getLastname(), null));
@@ -100,7 +100,7 @@ contact.setName(name);
 \end{lstlisting}
 
 \javalstset{Benutzerdefinierte Einträge zu einem Kontakt-Objekt (\code{ContactEntry}) hinzufügen}{lst:cccustomEntry}
-\begin{lstlisting}	
+\begin{lstlisting}[float]
 // Firma
 if (contactInfo.getCompany() != null) {
 	ExtendedProperty company = new ExtendedProperty();
@@ -111,7 +111,7 @@ if (contactInfo.getCompany() != null) {
 \end{lstlisting}
 
 \javalstset{Den Kontakt einer Gruppe hinzufügen}{lst:ccjoingroup}
-\begin{lstlisting}
+\begin{lstlisting}[float]
 // Gruppe setzen
 String groupURL = null;
 switch (contactInfo.getType()) {
@@ -121,7 +121,7 @@ contact.addGroupMembershipInfo(new GroupMembershipInfo(false, groupURL));
 \end{lstlisting}
 
 \javalstset{Das Kontakt-Objekt (\code{ContactEntry}) an den Service übergeben}{lst:ccsendcontact}
-\begin{lstlisting}
+\begin{lstlisting}[float]
 // Kontakt senden		
 URL postUrl = new URL(contactsURL);
 return myService.insert(postUrl, contact);

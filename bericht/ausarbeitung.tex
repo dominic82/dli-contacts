@@ -11,7 +11,8 @@
 \usepackage{setspace}
 
 %Einr�ckung eines neuen Absatzes
-\setlength{\parindent}{0em}
+\parindent 0pt
+\parskip 6pt
 
 %neue Rechtschreibung
 \usepackage[ngerman]{babel}
@@ -34,6 +35,9 @@
 
 %Bilder einfuegen
 \usepackage{graphicx}
+
+%Bilter etc. positionieren
+%\usepackage{float}
 
 %Code
 \usepackage{listings}
@@ -79,7 +83,7 @@
 	tabsize=3,
 % ACHTUNG: lstlisting stellt Tabulatorzeichen mit dar! %
 	language=Java,
-	captionpos=t,
+	captionpos=b,
 	caption={#1},
 	label={#2},
 	frame=trbl,
@@ -87,6 +91,7 @@
 	breakatwhitespace=true
 	}
 }
+% WICHTIG: listings mit \begin{lstlisting}[float] code... \end{lstlisting} aufrufen
 %
 % ein einzelnes Wort in Codeformatierung darstellen
 \newcommand{\code}[1]{{\codeformat{#1}}}% für Klassen und normalen Code
