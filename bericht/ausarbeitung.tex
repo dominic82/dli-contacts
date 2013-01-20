@@ -64,13 +64,13 @@
 %
 % Codeformatierung
 \newcommand{\codeformat}{\small\ttfamily}
-\newcommand{\classcolor}{\color{DarkOrchid}\bfseries}
+\newcommand{\jkeycolor}{\color{DarkOrchid}\bfseries}
 %
 % vor jeder lstlisting-Umgebung aufrufen, 1. caption, 2. label
 \newcommand{\javalstset}[2]{
 \lstset{% general command to set parameter(s)
 	basicstyle=\codeformat, % print whole listing small
-	keywordstyle=\classcolor,
+	keywordstyle=\jkeycolor,
 	% underlined bold black keywords
 	identifierstyle=, % nothing happens
 	commentstyle=\color{Gray}, % white comments
@@ -89,8 +89,8 @@
 }
 %
 % ein einzelnes Wort in Codeformatierung darstellen
-\newcommand{\code}[1]{{\codeformat{#1}}}
-\newcommand{\codeclass}[1]{{\classcolor\codeformat{#1}}}
+\newcommand{\code}[1]{{\codeformat{#1}}}% für Klassen und normalen Code
+\newcommand{\codejkey}[1]{{\jkeycolor\codeformat{#1}}}% für java keywords
 %
 % Anführungszeichen
 \newcommand{\gaensefuesse}[1]{"`#1"'}
