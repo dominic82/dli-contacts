@@ -188,12 +188,12 @@ public class main_sapkonnektor {
 			
 			if(empIDList.getEmployee().get(i).getPersonFormattedName().contains(" ")){	
 			charIndex = empIDList.getEmployee().get(i).getPersonFormattedName().indexOf(" ");
-			teilName1 = empIDList.getEmployee().get(i).getPersonFormattedName().substring(0, charIndex - 1);
-			teilName2 = empIDList.getEmployee().get(i).getPersonFormattedName().substring(charIndex);
-			
-			
+			teilName1 = empIDList.getEmployee().get(i).getPersonFormattedName().substring(0, charIndex);
+			if(charIndex + 1 <= maxIndex){
+			teilName2 = empIDList.getEmployee().get(i).getPersonFormattedName().substring(charIndex + 1);
 			// Nachname setzen
 			kontaktEintrag.setLastname(teilName2);
+			}
 			// Vorname setzen		
 			kontaktEintrag.setFirstname(teilName1);
 			  }
