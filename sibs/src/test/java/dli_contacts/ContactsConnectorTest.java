@@ -101,17 +101,17 @@ public class ContactsConnectorTest extends TestCase {
      * SAP Sample Tests
      */
     public void testGetSapContacts_SampleCustomer() {
-//        searchSapContact(sapContactCustomer);
+        searchSapContact(sapContactCustomer);
         assertEquals(true, true);
     }
 
     public void testGetSapContacts_SampleSupllier() {
-//        searchSapContact(sapContactSupplier);
+        searchSapContact(sapContactSupplier);
         assertEquals(true, true);
     }
 
     public void testGetSapContacts_SampleEmployee() {
-        searchSapContact(sapContactEmployee);
+//        searchSapContact(sapContactEmployee);
         assertEquals(true, true);
     }
 
@@ -119,17 +119,17 @@ public class ContactsConnectorTest extends TestCase {
      * Google Sample Tests
      */
     public void testGetGoogleContacts_SampleCustomer() throws Exception {
-//        searchGoogleContact(gContactCustomer);
+        searchGoogleContact(gContactCustomer);
         assertEquals(true, true);
     }
 
     public void testGetGoogleContacts_SampleSupplier() throws Exception {
-//        searchGoogleContact(gContactSupplier);
+        searchGoogleContact(gContactSupplier);
         assertEquals(true, true);
     }
 
     public void testGetGoogleContacts_SampleEmployee() throws Exception {
-//        searchGoogleContact(gContactEmployee);
+        searchGoogleContact(gContactEmployee);
         assertEquals(true, true);
     }
 
