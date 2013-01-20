@@ -58,6 +58,9 @@ public class main_sapkonnektor {
 		tk.setType(Contact.ContactType.EMPLOYEE);
 		
 		tk.setFirstname("Anja");
+		//tk.setCity("Karlsruhe");
+		//tk.setZipcode("76133");
+		//tk.setStreet("Bahnhofstrasse 21");
 		
 		lk = fetchContact(tk);
 		if(lk.size()>0){
@@ -200,21 +203,24 @@ public class main_sapkonnektor {
 			 }
 			}
 			// Firma setzen
-
+			if(result.getEmployee().getAddress().get(0).getAddress().getDepartmentName()!= null)
 			kontaktEintrag.setCompany(result.getEmployee().getAddress().get(0).getAddress().getDepartmentName());
 						
 
 			
 			// Stadt und Postleitzahl setzen
-
+			if(result.getEmployee().getAddress().get(0)
+					.getAddress().getPhysicalAddress().getCityName()!= null)
 			kontaktEintrag.setCity(result.getEmployee().getAddress().get(0)
 					.getAddress().getPhysicalAddress().getCityName());
-			
+			if(result.getEmployee().getAddress().get(0)
+			.getAddress().getPhysicalAddress().getStreetPostalCode()!=null)
 			kontaktEintrag.setZipcode(result.getEmployee().getAddress().get(0)
 			.getAddress().getPhysicalAddress().getStreetPostalCode());
 			
 			// Straﬂe und Hausnummer setzen
-
+			if(result.getEmployee().getAddress().get(0)
+					.getAddress().getPhysicalAddress().getStreetName()!=null);
 			kontaktEintrag.setStreet(result.getEmployee().getAddress().get(0)
 					.getAddress().getPhysicalAddress().getStreetName());
 
