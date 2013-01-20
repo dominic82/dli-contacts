@@ -44,17 +44,34 @@
 \usepackage{color}
 \usepackage[usenames,dvipsnames]{xcolor}
 
-%vor jeder lstlisting-Umgebung aufrufen, 1. caption, 2. label
+%%%%%%%%%
+% Style %
+%%%%%%%%%
+%
+% Hier ein paar Befehle und Konventionen um das Schriftbild einheitlich zu halten
+%
+% Bitte folgende standard Befehle nutzen:
+%
+% \emph{} zum Hervorheben von Text
+%
+% \url{} um Web-Adressen darzustellen 
+%
+% Codeformatierung
+\newcommand{\codeformat}{\small\ttfamily}
+\newcommand{\classcolor}{\color{DarkOrchid}\bfseries}
+%
+% vor jeder lstlisting-Umgebung aufrufen, 1. caption, 2. label
 \newcommand{\javalstset}[2]{
 \lstset{% general command to set parameter(s)
-	basicstyle=\small\ttfamily, % print whole listing small
-	keywordstyle=\color{DarkOrchid}\bfseries,
+	basicstyle=\codeformat, % print whole listing small
+	keywordstyle=\classcolor,
 	% underlined bold black keywords
 	identifierstyle=, % nothing happens
 	commentstyle=\color{Gray}, % white comments
 	stringstyle=\color{Blue}, % typewriter type for strings
 	showstringspaces=false % no special string spaces 
 	tabsize=3,
+% ACHTUNG: lstlisting stellt Tabulatorzeichen mit dar! %
 	language=Java,
 	captionpos=t,
 	caption={#1},
@@ -64,7 +81,17 @@
 	breakatwhitespace=true
 	}
 }
-
+%
+% ein einzelnes Wort in Codeformatierung darstellen
+\newcommand{\code}[1]{{\codeformat{#1}}}
+\newcommand{\codeclass}[1]{{\classcolor\codeformat{#1}}}
+%
+% Anführungszeichen
+\newcommand{\gaensefuesse}[1]{"`#1"'}
+%
+%%%%%%%%%%
+% Style/ %
+%%%%%%%%%%
 
 \begin{document}
 \input{titel}  
