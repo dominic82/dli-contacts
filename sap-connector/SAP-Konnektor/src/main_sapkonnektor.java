@@ -202,6 +202,9 @@ public class main_sapkonnektor {
 			  }
 			 }
 			}
+			
+			if(result.getEmployee()!=null ){
+			
 			// Firma setzen
 			if(result.getEmployee().getAddress().get(0).getAddress().getDepartmentName()!= null)
 			kontaktEintrag.setCompany(result.getEmployee().getAddress().get(0).getAddress().getDepartmentName());
@@ -223,7 +226,9 @@ public class main_sapkonnektor {
 					.getAddress().getPhysicalAddress().getStreetName()!=null);
 			kontaktEintrag.setStreet(result.getEmployee().getAddress().get(0)
 					.getAddress().getPhysicalAddress().getStreetName());
-
+			
+			}
+			
 			// Email und Telefon
 	/*		
 			if (result.getEmployee().getAddress().get(0).getAddress()
