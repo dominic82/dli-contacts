@@ -92,10 +92,10 @@ public class main_sapkonnektor {
 
 		case SUPPLIER:
 			//Spezialfall Supplier wird Vorname und Nachname angegeben
-			if(filter.getFirstname()!=""||filter.getLastname()!=""){
-				List<Contact> Kontaktliste = new LinkedList<Contact>();
-				return Kontaktliste;
-			}
+//			if(filter.getFirstname()!=""||filter.getLastname()!=""){
+//				List<Contact> Kontaktliste = new LinkedList<Contact>();
+//				return Kontaktliste;
+//			}
 			SupplierSimpleByNameAndAddressResponseMessageSync suphilfsObjekt = new SupplierSimpleByNameAndAddressResponseMessageSync();
 			suphilfsObjekt = getSupplierIDs(filter);
 			return getSupplierData(suphilfsObjekt);
@@ -244,9 +244,9 @@ public class main_sapkonnektor {
 		// umweg über die IDs gehen
 		List<Contact> Kontaktliste = new LinkedList<Contact>();
 		
-		if(filter.getFirstname()!=""||filter.getLastname()!=""){
-			return Kontaktliste;
-		}		
+//		if(filter.getFirstname()!=""||filter.getLastname()!=""){
+//			return Kontaktliste;
+//		}		
 		
 		CustomerERPAddressBasicDataByNameAndAddressQueryMessageSync kundeAnfrage = new CustomerERPAddressBasicDataByNameAndAddressQueryMessageSync();
 		CustomerSelectionByNameAndAddress kundeFilter = new CustomerSelectionByNameAndAddress();

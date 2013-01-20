@@ -97,8 +97,10 @@ public class DLI_GoogleContactsConnector {
 
 		// Name
 		Name name = new Name();
-		name.setFamilyName(new FamilyName(contactInfo.getLastname(), null));
-		name.setGivenName(new GivenName(contactInfo.getFirstname(), null));
+		if (!contactInfo.getLastname().isEmpty())
+			name.setFamilyName(new FamilyName(contactInfo.getLastname(), null));
+		if (!contactInfo.getFirstname().isEmpty())
+			name.setGivenName(new GivenName(contactInfo.getFirstname(), null));
 		contact.setName(name);
 
 		// Email >> es kann NICHT NUR eine geben
@@ -407,6 +409,7 @@ public class DLI_GoogleContactsConnector {
 
 	/**
 	 * zum testen
+	 * 
 	 * @param ar
 	 */
 	public static void main(String ar[]) {
