@@ -16,9 +16,9 @@ import javax.swing.JFrame;
 public class App {
 
     public static void main(String[] args) {
-        
-        main_sapkonnektor.main(args);
-        
+
+//        main_sapkonnektor.main(args);
+
         System.out.println("Main startet...");
 
         ContactsConnector gCon = new ContactsConnector();
@@ -90,10 +90,10 @@ public class App {
             System.out.println(sapframe.getContact().getDataString());
             sapfilter = sapframe.getContact();
         }
-        
+
         List<Contact> saplist = null;
         saplist = gCon.getSapContacts(sapfilter);
-        
+
         ChooseContactFrame frame3 = new ChooseContactFrame("SAP Kontakt auswählen", saplist);
         frame3.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame3.initializeWindow();
