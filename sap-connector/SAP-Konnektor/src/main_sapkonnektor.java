@@ -81,6 +81,10 @@ public class main_sapkonnektor {
 		
 		switch (filter.getType()) {
 		case CUSTOMER:
+			if(!filter.getFirstname().isEmpty()||!filter.getLastname().isEmpty()){
+				List<Contact> Kontaktliste = new LinkedList<Contact>();
+				return Kontaktliste;
+			}
 			return getCustomerIDs(filter);
 			// Beim Customer reicht eine Methode...
 			// CustomerBasicDataByIDResponseMessageSync cushilfsObjekt = new
@@ -90,7 +94,7 @@ public class main_sapkonnektor {
 
 		case SUPPLIER:
 			//Spezialfall Supplier wird Vorname und Nachname angegeben
-			if(filter.getFirstname()!=""||filter.getLastname()!=""){
+			if(!filter.getFirstname().isEmpty()||!filter.getLastname().isEmpty()){
 				List<Contact> Kontaktliste = new LinkedList<Contact>();
 				return Kontaktliste;
 			}
@@ -249,10 +253,7 @@ public class main_sapkonnektor {
 		// Diese Methode holt sich die ntwendigen Daten direkt und muss keinen
 		// umweg über die IDs gehen
 		List<Contact> Kontaktliste = new LinkedList<Contact>();
-		
-		if(filter.getFirstname()!=""||filter.getLastname()!=""){
-			return Kontaktliste;
-		}		
+			
 		
 		CustomerERPAddressBasicDataByNameAndAddressQueryMessageSync kundeAnfrage = new CustomerERPAddressBasicDataByNameAndAddressQueryMessageSync();
 		CustomerSelectionByNameAndAddress kundeFilter = new CustomerSelectionByNameAndAddress();
@@ -451,28 +452,28 @@ public class main_sapkonnektor {
 
 		//mitarbeiterFilter.setEmploymentCountryCode("US");
 
-		if(filter.getLastname()!= ""){
+		if(!filter.getLastname().isEmpty()){
 		filterWert.setValue(filter.getLastname());
 		empName.setLowerBoundaryEmployeeFamilyName(filterWert);
 		mitarbeiterFilter.setSelectionByEmployeeFamilyName(empName);
 		}
-		if(filter.getFirstname()!= ""){
+		if(!filter.getFirstname().isEmpty()){
 		filterWert.setValue(filter.getFirstname());
 		empVorname.setLowerBoundaryEmployeeGivenName(filterWert);
 		mitarbeiterFilter.setSelectionByEmployeeGivenName(empVorname);
 		}
-		if(filter.getCity()!= ""){
+		if(!filter.getCity().isEmpty()){
 		filterWert.setValue(filter.getCity());
 		empStadt.setLowerBoundaryEmployeeHomeAddressCityName(filterWert);
 		mitarbeiterFilter.setSelectionByEmployeeHomeAddressCityName(empStadt);
 		
 		}
-		if(filter.getZipcode()!= ""){
+		if(!filter.getZipcode().isEmpty()){
 		empPLZ.setLowerBoundaryEmployeeHomeAddressPostalCode(filter
 				.getZipcode());
 		mitarbeiterFilter.setSelectionByEmployeeHomeAddressPostalCode(empPLZ);
 		}
-		if(filter.getStreet()!= ""){
+		if(!filter.getStreet().isEmpty()){
 		empStrasse.setLowerBoundaryEmployeeHomeAddressStreetName(filter
 				.getStreet());
 		mitarbeiterFilter
