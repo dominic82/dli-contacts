@@ -2,7 +2,7 @@
 Die Google-Bibliothek \emph{gdata} ist eine frei verf\"ugbare Bibliothek zum erstellen von
  Clientapplications für die Services der Google-Cloud.
 \emph{gdata} kapselt die Webservices komplett in Java-Klassen, so dass ein importieren
- (z.\ B.\ mit \emph{wsimport}) nicht mehr notwendig ist.
+ (z.\ B.\ mit \wsimport) nicht mehr notwendig ist.
 
 In der Beschreibung der \emph{gdata}-Bibliothek wird beschrieben, wie man aus der zip-Datei
  ein JAR compilieren kann, da dies bei mir in mehreren Versuchen nicht geklappt hat,
@@ -29,12 +29,12 @@ Da wir unseren eigenen Account nutzen und die Daten nicht sicherheitskritisch si
  wir die zweite Variante gew\"ahlt und authentifizieren uns bei jedem Service-Aufruf mit
  Username und Passwort.
 
-Die Authentifizierung wird für ein \emph{ContacsService}-Objekt, wie in Listing
+Die Authentifizierung wird für ein \code{ContacsService}-Objekt, wie in Listing
  \ref{lst:authpwbeispiel} abgebildet, einmal durchgeführt, danach wird sie vom Framework
  automatisch durchgeführt.
 
 \javalstset{Beispiel für die Authentifizierung ohne \emph{OAuth}}{lst:authpwbeispiel}
-\begin{lstlisting}
+\begin{lstlisting}[float]
 ContactsService myService;
 myService = new ContactsService(servicename);
 try {
@@ -50,8 +50,8 @@ Die \emph{gdata}-Bibliothek bietet die Möglichkeit, Kontakte wie in Listing \re
 Das \emph{Query} kann jedoch nur zwischen Gruppen unterscheiden, jedoch nicht nach anderen
  Kriterien wie z.\ B.\ dem Vornamen oder dem Nachnamen eines Kontakts filtern.
 
-\javalstset{Kontaktsuche per Query}{lst:searchQuery}
-\begin{lstlisting}
+\javalstset{Kontaktsuche per \code{Query}}{lst:searchQuery}
+\begin{lstlisting}[float]
 URL feedUrl = new URL(contactsURL);
 Query myQuery = new Query(feedUrl);
 ContactFeed resultFeed = null;
@@ -77,21 +77,21 @@ resultFeed = myService.query(myQuery, ContactFeed.class);
 \end{lstlisting}
 
 Das Suchen von Kontakten geschieht in unserem Projekt durch das Herunterladen aller Kontakte
- einer Gruppe und anschließendem sortieren "`von Hand"'.
+ einer Gruppe und anschließendem sortieren \gaensefuesse{von Hand}.
 
 \subsubsection{Kontakte einf\"ugen}
 Das Einfügen von Kontakten ist über ein erstelltes Service-Objekt 
 
-\javalstset{Kontakt-Objekt erstellen}{lst:createContact}
-\begin{lstlisting}
+\javalstset{Kontakt-Objekt (\code{ContactEntry}) erstellen}{lst:createContact}
+\begin{lstlisting}[float]
 // Create the entry to insert
 ContactEntry contact = new ContactEntry();
 contact.setTitle(new PlainTextConstruct(contactInfo.getFirstname()
 		+ contactInfo.getLastname()));
 \end{lstlisting}
 
-\javalstset{Namen in ein Kontakt-Objekt einfügen}{lst:ccsetname}
-\begin{lstlisting}
+\javalstset{Namen in ein Kontakt-Objekt (\code{ContactEntry}) einfügen}{lst:ccsetname}
+\begin{lstlisting}[float]
 // Name
 Name name = new Name();
 name.setFamilyName(new FamilyName(contactInfo.getLastname(), null));
@@ -99,10 +99,10 @@ name.setGivenName(new GivenName(contactInfo.getFirstname(), null));
 contact.setName(name);
 \end{lstlisting}
 
-\javalstset{Benutzerdefinierte Einträge zu einem Kontakt-Objekt hinzufügen}{lst:cccustomEntry}
-\begin{lstlisting}	
+\javalstset{Benutzerdefinierte Einträge zu einem Kontakt-Objekt (\code{ContactEntry}) hinzufügen}{lst:cccustomEntry}
+\begin{lstlisting}[float]
 // Firma
-if (contactInfoCopy.getCompany() != null) {
+if (contactInfo.getCompany() != null) {
 	ExtendedProperty company = new ExtendedProperty();
 	company.setName(DLI_GoogleContactsConnector.company);
 	company.setValue(contactInfo.getCompany());
@@ -111,7 +111,7 @@ if (contactInfoCopy.getCompany() != null) {
 \end{lstlisting}
 
 \javalstset{Den Kontakt einer Gruppe hinzufügen}{lst:ccjoingroup}
-\begin{lstlisting}
+\begin{lstlisting}[float]
 // Gruppe setzen
 String groupURL = null;
 switch (contactInfo.getType()) {
@@ -120,8 +120,8 @@ groupURL = customerGroupURL;
 contact.addGroupMembershipInfo(new GroupMembershipInfo(false, groupURL));
 \end{lstlisting}
 
-\javalstset{Das Kontakt-Objekt senden}{lst:ccsendcontact}
-\begin{lstlisting}
+\javalstset{Das Kontakt-Objekt (\code{ContactEntry}) an den Service übergeben}{lst:ccsendcontact}
+\begin{lstlisting}[float]
 // Kontakt senden		
 URL postUrl = new URL(contactsURL);
 return myService.insert(postUrl, contact);

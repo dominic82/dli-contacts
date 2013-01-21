@@ -11,7 +11,8 @@
 \usepackage{setspace}
 
 %Einr�ckung eines neuen Absatzes
-\setlength{\parindent}{0em}
+\parindent 0pt
+\parskip 6pt
 
 %neue Rechtschreibung
 \usepackage[ngerman]{babel}
@@ -35,6 +36,9 @@
 %Bilder einfuegen
 \usepackage{graphicx}
 
+%Bilter etc. positionieren
+%\usepackage{float}
+
 %Code
 \usepackage{listings}
 %fuer fette typewriter Schrift
@@ -44,19 +48,42 @@
 \usepackage{color}
 \usepackage[usenames,dvipsnames]{xcolor}
 
-%vor jeder lstlisting-Umgebung aufrufen, 1. caption, 2. label
+%%%%%%%%%
+% Style %
+%%%%%%%%%
+%
+% Hier ein paar Befehle und Konventionen um das Schriftbild einheitlich zu halten
+%
+% Bitte folgende standard Befehle nutzen:
+%
+% \emph{} zum Hervorheben von Text
+%
+% \url{} um Web-Adressen darzustellen 
+%
+% \label{xxx} um einen referenzierbaren Eintrag zu erstellen und \ref{xxx} um auf
+% einen referenzierbaren Eintrag zu verweisen
+% WICHTIG: in einer Umgebung wie "figure" immer erst \caption setzen, DANACH \label
+%
+% \cite{} um auf einen Bibliothek-Eintrag zu verweisen (s. literatur.tex) 
+%
+% Codeformatierung
+\newcommand{\codeformat}{\small\ttfamily}
+\newcommand{\jkeycolor}{\color{DarkOrchid}\bfseries}
+%
+% vor jeder lstlisting-Umgebung aufrufen, 1. caption, 2. label
 \newcommand{\javalstset}[2]{
 \lstset{% general command to set parameter(s)
-	basicstyle=\small\ttfamily, % print whole listing small
-	keywordstyle=\color{DarkOrchid}\bfseries,
+	basicstyle=\codeformat, % print whole listing small
+	keywordstyle=\jkeycolor,
 	% underlined bold black keywords
 	identifierstyle=, % nothing happens
 	commentstyle=\color{Gray}, % white comments
 	stringstyle=\color{Blue}, % typewriter type for strings
 	showstringspaces=false % no special string spaces 
 	tabsize=3,
+% ACHTUNG: lstlisting stellt Tabulatorzeichen mit dar! %
 	language=Java,
-	captionpos=t,
+	captionpos=b,
 	caption={#1},
 	label={#2},
 	frame=trbl,
@@ -64,7 +91,20 @@
 	breakatwhitespace=true
 	}
 }
-
+% WICHTIG: listings mit \begin{lstlisting}[float] code... \end{lstlisting} aufrufen
+%
+% ein einzelnes Wort in Codeformatierung darstellen
+\newcommand{\code}[1]{{\codeformat{#1}}}% für Klassen und normalen Code
+\newcommand{\codejkey}[1]{{\jkeycolor\codeformat{#1}}}% für java keywords
+%
+% Anführungszeichen
+\newcommand{\gaensefuesse}[1]{"`#1"'}
+%
+% wsimport
+\newcommand{\wsimport}{\emph{wsimport}}
+%%%%%%%%%%
+% Style/ %
+%%%%%%%%%%
 
 \begin{document}
 \input{titel}  
