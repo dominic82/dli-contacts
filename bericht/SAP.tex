@@ -1,12 +1,60 @@
--Was ist der ES-Workplace?
+\subsubsection{Aufgabe des SAP Connectors}
 
--Welche WSDLs wurden verwendet? Warum?
+Die Aufgabe des SAP Connectors besteht darin, die Datenbank im ES Workplace nach einem 
+gegebenen Filter zu durchsuchen. Die gefilterten Datensätze werden zurückgegeben. 
 
--Wie wurden die WSDLs ins Java Format übertragen? (WsImport..)
+\subsubsection{Aufbau und Programmablauf}
 
--Wie lief das Programm ungefähr ab?
+Alle Operationen dienen dazu, Datensätze aus den Datenbanken des ES Workplace auszulesen. Der ES Workplace stellt hierfür 
+eine Datenbank mit Testdatensätzen bereit, sowie die erforderlichen Webservices, um eine Verbindung zur Datenbank, 
+die Authentifizierung und die Suche selbst durchzuführen. Die erforderlichen Webservices liegen als XML Dateien vor, werden 
+jedoch zur Verwendung in SIBs als Java Klassen benötigt. Dafür wird Java API for XML Web Services verwendet, welches seit
+Version 1.6  Bestandteil der Java SE ist. Mittels Jax-WS können in der Konsole durch einen wsimport Befehl alle benötigten 
+Webservices von XML Dateien in Java Klassen umgewandelt werden. 
+\ \\
+Der SAP Connektor erhält ein Objekt vom Typ Contact. Dieses Objekt enthält die vom Benutzer geforderten Filtereinstellungen 
+betreffend Vorname, Nachname, Postleitzahl, Stadt, Straße und Firma. Außerdem wird der Typ nach Kunde, Lieferant und 
+Mitarbeiter unterschieden. Dieses Objekt wird verwendet, um in der Datenbank des ES Workplace, nach dem entsprechenden Typ,
+Datensätze zu filtern. In Abhängigkeit von der Typbestimmung werden unterschiedliche Webservices ausgeführt:
+\ \\
 
--Welche Probleme gab es bezüglich IDs und ``normalen Daten''?
+\textbf{Lieferant}
+\begin{itemize}
+\item Find Supplier by Name and Address
+\item Read Supplier Basic Data 
+\end{itemize}
 
--Was könnte diesbezüglich auf eigener Seite verbessert werden?
+\textbf{Mitarbeiter}
+\begin{itemize}
+\item Find Employee by Elements
+\item Find Employee Address by Employee
+\end{itemize}
 
+\textbf{Kunde}
+\begin{itemize}
+\item Find Customer by Elements
+\end{itemize}
+
+\ \\
+Zunächst soll hier das Programm am Beispiel des Kundenwebservices beschrieben werden. Anschließend werden die Besonderheiten
+bei den Webservices für Mitarbeiter und Lieferant erläutert.
+
+\ \\
+
+Zunächst müssen die notwendigen Objekte der Klassen des Webservices ``Find Customer by Elements'' erstellt werden. Mittels
+einer Klasse die immer mit dem Schlüsselwort SERVICE beginnt, kann ein Objekt erzeugt werden auf dem eine getBinding Methode
+ausgeführt wird. Das erstellte Verbindungsobjekt wird dann zu einem Objekt vom Typ Binding Provider gecastet, auf welchem dann
+mittels getRequestContext() Methoden Passwort und Username gesetzt werden können. Für die Authentifizierung ist normalerweise
+auch noch eine Webadresse anzugeben, allerdings ist hier die Adresse der Testdatenbank bereits enthalten. Das 
+Verbindungsobjekt verfügt über eine einzige Methode, die ein Objekt mit Suchkriterien übergeben bekommt und eine Liste 
+von Suchergebnissen zurückliefert. Die Suchkriterien können mit einfachen bereits integrierten set Methoden gesetzt werden,
+die Suchergebnisse über get Methoden ausgelesen werden. Anschließend werden die Suchergebnisse als Liste von Kontaktobjekten
+zurückgegeben.
+
+
+
+
+
+\subsubsection{Probleme}
+
+\subsubsection{Ausblick}
