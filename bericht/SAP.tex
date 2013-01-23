@@ -11,12 +11,11 @@ die Authentifizierung und die Suche selbst durchzuführen. Die erforderlichen We
 jedoch zur Verwendung in SIBs als Java Klassen benötigt. Dafür wird Java API for XML Web Services verwendet, welches seit
 Version 1.6  Bestandteil der Java SE ist. Mittels Jax-WS können in der Konsole durch einen wsimport Befehl alle benötigten 
 Webservices von XML Dateien in Java Klassen umgewandelt werden. 
-\ \\
+
 Der SAP Connektor erhält ein Objekt vom Typ Contact. Dieses Objekt enthält die vom Benutzer geforderten Filtereinstellungen 
 betreffend Vorname, Nachname, Postleitzahl, Stadt, Straße und Firma. Außerdem wird der Typ nach Kunde, Lieferant und 
 Mitarbeiter unterschieden. Dieses Objekt wird verwendet, um in der Datenbank des ES Workplace, nach dem entsprechenden Typ,
 Datensätze zu filtern. In Abhängigkeit von der Typbestimmung werden unterschiedliche Webservices ausgeführt:
-\ \\
 
 \textbf{Lieferant}
 \begin{itemize}
@@ -35,11 +34,8 @@ Datensätze zu filtern. In Abhängigkeit von der Typbestimmung werden unterschie
 \item Find Customer by Elements
 \end{itemize}
 
-\ \\
 Zunächst soll hier das Programm am Beispiel des Kundenwebservices beschrieben werden. Anschließend werden die Besonderheiten
 bei den Webservices für Mitarbeiter und Lieferant erläutert.
-
-\ \\
 
 Zunächst müssen die notwendigen Objekte der Klassen des Webservices ``Find Customer by Elements'' erstellt werden. Mittels
 einer Klasse die immer mit dem Schlüsselwort SERVICE beginnt, kann ein Objekt erzeugt werden auf dem eine getBinding Methode
@@ -47,9 +43,11 @@ ausgeführt wird. Das erstellte Verbindungsobjekt wird dann zu einem Objekt vom 
 mittels getRequestContext() Methoden Passwort und Username gesetzt werden können. Für die Authentifizierung ist normalerweise
 auch noch eine Webadresse anzugeben, allerdings ist hier die Adresse der Testdatenbank bereits enthalten. Das 
 Verbindungsobjekt verfügt über eine einzige Methode, die ein Objekt mit Suchkriterien übergeben bekommt und eine Liste 
-von Suchergebnissen zurückliefert. Die Suchkriterien können mit einfachen bereits integrierten set Methoden gesetzt werden,
+von Suchergebnissen zurückliefert. Die Suchkriterien können mit bereits integrierten set Methoden gesetzt werden,
 die Suchergebnisse über get Methoden ausgelesen werden. Anschließend werden die Suchergebnisse als Liste von Kontaktobjekten
 zurückgegeben.
+
+
 
 
 

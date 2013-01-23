@@ -27,6 +27,7 @@ import com.sap.xi.ea_hr.se.global.EmplERPSimplElmntsQryMsgS;
 import com.sap.xi.ea_hr.se.global.EmplERPSimplElmntsQrySSel;
 import com.sap.xi.ea_hr.se.global.EmplERPSimplElmntsQrySSelByEmplFamName;
 import com.sap.xi.ea_hr.se.global.EmplERPSimplElmntsQrySSelByEmplGvnName;
+import com.sap.xi.ea_hr.se.global.EmplERPSimplElmntsQrySSelByEmplTtl;
 import com.sap.xi.ea_hr.se.global.EmplERPSimplElmntsQrySSelByHomeAddrCityName;
 import com.sap.xi.ea_hr.se.global.EmplERPSimplElmntsQrySSelByHomeAddrPostlCode;
 import com.sap.xi.ea_hr.se.global.EmplERPSimplElmntsQrySSelByHomeAddrStName;
@@ -57,7 +58,8 @@ public class main_sapkonnektor {
 		
 		tk.setType(Contact.ContactType.EMPLOYEE);
 		
-		tk.setFirstname("Anja");
+		//tk.setFirstname("Anja");
+		//tk.setLastname("Braunstein");
 		//tk.setCity("Karlsruhe");
 		//tk.setZipcode("76133");
 		//tk.setStreet("Bahnhofstrasse 21");
@@ -212,6 +214,8 @@ public class main_sapkonnektor {
 
 			
 			// Stadt und Postleitzahl setzen
+			
+			
 			if(result.getEmployee().getAddress().get(0)
 					.getAddress().getPhysicalAddress().getCityName()!= null)
 			kontaktEintrag.setCity(result.getEmployee().getAddress().get(0)
@@ -455,14 +459,19 @@ public class main_sapkonnektor {
 		EmplERPSimplElmntsQrySSelByHomeAddrCityName empStadt = new EmplERPSimplElmntsQrySSelByHomeAddrCityName();
 		EmplERPSimplElmntsQrySSelByHomeAddrPostlCode empPLZ = new EmplERPSimplElmntsQrySSelByHomeAddrPostlCode();
 		EmplERPSimplElmntsQrySSelByHomeAddrStName empStrasse = new EmplERPSimplElmntsQrySSelByHomeAddrStName();
-
+		
 		// Hier die Werte der inneren Klasse des zu sendenden Objekts mit den
 		// Werten von Dominiks
 		// Contacts befüllen
 		// Suche nur in Deutschland durchführen
 
-		//mitarbeiterFilter.setEmploymentCountryCode("US");
-
+		/*
+		EmplERPSimplElmntsQrySSelByEmplTtl titeltest = new EmplERPSimplElmntsQrySSelByEmplTtl();
+		filterWert.setValue("Dr.");
+		titeltest.setLowerBoundaryEmployeeTitle(filterWert);
+		mitarbeiterFilter.setSelectionByEmployeeTitle(titeltest);
+		*/
+		
 		if(!filter.getLastname().isEmpty()){
 		filterWert.setValue(filter.getLastname());
 		empName.setLowerBoundaryEmployeeFamilyName(filterWert);
@@ -477,6 +486,7 @@ public class main_sapkonnektor {
 		filterWert.setValue(filter.getCity());
 		empStadt.setLowerBoundaryEmployeeHomeAddressCityName(filterWert);
 		mitarbeiterFilter.setSelectionByEmployeeHomeAddressCityName(empStadt);
+		
 		
 		}
 		if(!filter.getZipcode().isEmpty()){
@@ -499,7 +509,7 @@ public class main_sapkonnektor {
 		//Maximale Anzahl der Einträge auf 100 begrenzen
 		WITHOUTLASTRETURNEDQueryProcessingConditions prozessAnfrage = new WITHOUTLASTRETURNEDQueryProcessingConditions();
 		
-		prozessAnfrage.setQueryHitsMaximumNumberValue(100);
+		prozessAnfrage.setQueryHitsMaximumNumberValue(10000);
 		mitarbeiterAnfrage.setQueryProcessingConditions(prozessAnfrage);
 		
 		
