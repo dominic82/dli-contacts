@@ -1,7 +1,7 @@
 \subsubsection{Aufgabe des SAP Connectors}
 
 Die Aufgabe des SAP Connectors besteht darin, die Datenbank im ES Workplace nach einem 
-gegebenen Filter zu durchsuchen. Die gefilterten Datensätze werden zurückgegeben. 
+gegebenen Filter zu durchsuchen. Die gefilterten Datensätze werden als Liste zurückgegeben. 
 
 \subsubsection{Aufbau und Programmablauf}
 
@@ -37,7 +37,7 @@ Datensätze zu filtern. In Abhängigkeit von der Typbestimmung werden unterschie
 Zunächst soll hier das Programm am Beispiel des Kundenwebservices beschrieben werden. Anschließend werden die Besonderheiten
 bei den Webservices für Mitarbeiter und Lieferant erläutert.
 
-Zunächst müssen die notwendigen Objekte der Klassen des Webservices ``Find Customer by Elements'' erstellt werden. Mittels
+Zunächst müssen die notwendigen Objekte der Klassen des Webservices Find Customer by Elements erstellt werden. Mittels
 einer Klasse die immer mit dem Schlüsselwort SERVICE beginnt, kann ein Objekt erzeugt werden auf dem eine getBinding Methode
 ausgeführt wird. Das erstellte Verbindungsobjekt wird dann zu einem Objekt vom Typ Binding Provider gecastet, auf welchem dann
 mittels getRequestContext() Methoden Passwort und Username gesetzt werden können. Für die Authentifizierung ist normalerweise
@@ -47,12 +47,38 @@ von Suchergebnissen zurückliefert. Die Suchkriterien können mit bereits integr
 die Suchergebnisse über get Methoden ausgelesen werden. Anschließend werden die Suchergebnisse als Liste von Kontaktobjekten
 zurückgegeben.
 
-
-
-
-
+Die Webservices Find Supplier by Name and Address und Find Employee by Elements funktionieren ähnlich, liefern allerdings nur 
+einle Liste mit Namen und SAP-IDs. Die SAP-IDs sind eindeutige Nummern, die jedem Datensatz zugeordnet werden. Den Webservices
+Read Supplier Basic Data und Find Employee Address by Employee ist es möglich die fehlenden Adressdaten mit den SAP-IDs 
+auszulesen. Dies muss jedoch für jede SAP-ID separat geschehen, also muss für jede SAP-ID von Lieferant und Mitarbeiter der
+entsprechende Webservice einzeln aufgerufen werden, die Übergabe einer Liste von IDs ist nicht vorgesehen. Danach können 
+die Suchergebnisse auch hier als Liste von Kontaktobjekten zurückgegeben werden.
 
 
 \subsubsection{Probleme}
+
+Die Verwendung der Webservices des ES Workplace bringt einige Herausforderungen mit sich was Programmierung und Anwendung
+angeht. Die Programmierung wird durch die hohe Anzahl unterschiedlicher Klassen in den Webservices erschwert. Da für jeden
+Webservice eigene Objekte erstellt werden müssen, die in den anderen Webservices, selbst bei gleichem Inhalt wie PLZ oder
+Stadtname, nicht wiederverwendet werden können, ist eine prozeduraler Programmieransatz die beste Lösung. Eine objektorientierte 
+Lösung ist mittels vieler Interfaces, sehr guter Planung und hohem Entwicklungsaufwand zwar auch realisierbar, ob die leicht 
+verbesserte Wiederverwendbarkeit den Aufwand allerdings rechtfertigt ist fraglich. Zumal lediglich der Verbindungsaufbau in allen
+WSDLs als ähnlich zu betrachten ist, selbst get und set Methoden sind völlig unterschiedlich. Zum Beispiel müssen im Mitarbeiter
+Webservice erst drei Objekte der inneren Klassen erstellt werden, um in der ``innerstenn'' Objekt einen String zuzuweisen und 
+dann die Objekte den Objekten der äußeren Klassen zuzuweisen:
+
+CustomerSelectionByNameAndAddress kundeFilter 	= new CustomerSelectionByNameAndAddress();
+AddressInformation add1							= new AddressInformation();
+Address add2 									= new Address();
+PhysicalAddress add3 							= new PhysicalAddress();
+
+add3.setCityName(``Hamburg'');
+add2.setPhysicalAddress(add3);
+add1.setAddress(add2);
+
+kundeFilter.setAddressInformation(add1);
+ 
+
+Ein weiteres Problem stellen die separaten Einzelaufrufe der Webservices für jede ID dar. 
 
 \subsubsection{Ausblick}
