@@ -63,9 +63,12 @@ Webservice eigene Objekte erstellt werden müssen, die in den anderen Webservice
 Stadtname, nicht wiederverwendet werden können, ist eine prozeduraler Programmieransatz die beste Lösung. Eine objektorientierte 
 Lösung ist mittels vieler Interfaces, sehr guter Planung und hohem Entwicklungsaufwand zwar auch realisierbar, ob die leicht 
 verbesserte Wiederverwendbarkeit den Aufwand allerdings rechtfertigt ist fraglich. Zumal lediglich der Verbindungsaufbau in allen
-WSDLs als ähnlich zu betrachten ist, selbst get und set Methoden sind völlig unterschiedlich. Zum Beispiel müssen im Mitarbeiter
-Webservice erst drei Objekte der inneren Klassen erstellt werden, um in der ``innerstenn'' Objekt einen String zuzuweisen und 
-dann die Objekte den Objekten der äußeren Klassen zuzuweisen:
+WSDLs als ähnlich zu betrachten ist, selbst get und set Methoden sind völlig unterschiedlich. Im Beispielcode \ref{lst:codebeispiel}
+müssen im Mitarbeiter Webservice erst drei Objekte der inneren Klassen erstellt werden, um im  ``innersten'' Objekt einen 
+String zuzuweisen und dann die Objekte den Objekten der äußeren Klassen zuzuweisen.
+
+\javalstset{Beispiel für eine einfache Zuweisung}{lst:codebeispiel}
+\begin{lstlisting}[float=h!t]
 
 CustomerSelectionByNameAndAddress kundeFilter 	= new CustomerSelectionByNameAndAddress();
 AddressInformation add1							= new AddressInformation();
@@ -77,7 +80,8 @@ add2.setPhysicalAddress(add3);
 add1.setAddress(add2);
 
 kundeFilter.setAddressInformation(add1);
- 
+
+\end{lstlisting} 
 
 Ein weiteres Problem stellen die separaten Einzelaufrufe der Webservices für jede ID dar. Sollten dem Benutzer keine vollständigen 
 Informationen vorliegen, können ggf. mehr als ein Suchergebnis zurückgegeben werden. Jeder Webserviceaufruf bedingt zusätzliche
