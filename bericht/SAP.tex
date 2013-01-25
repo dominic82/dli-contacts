@@ -7,10 +7,11 @@ gegebenen Filter zu durchsuchen. Die gefilterten Datensätze werden als Liste zu
 
 Alle Operationen dienen dazu, Datensätze aus den Datenbanken des ES Workplace auszulesen. Der ES Workplace stellt hierfür 
 eine Datenbank mit Testdatensätzen bereit, sowie die erforderlichen Webservices, um eine Verbindung zur Datenbank, 
-die Authentifizierung und die Suche selbst durchzuführen. Die erforderlichen Webservices liegen als XML Dateien vor, werden 
-jedoch zur Verwendung in SIBs als Java Klassen benötigt. Dafür wird Java API for XML Web Services verwendet, welches seit
-Version 1.6  Bestandteil der Java SE ist. Mittels Jax-WS können in der Konsole durch einen wsimport Befehl alle benötigten 
-Webservices von XML Dateien in Java Klassen umgewandelt werden. 
+die Authentifizierung und die Suche selbst durchzuführen. Ein Webservice beschreibt hier eine Software Anwendung, auf 
+deren Dienste online über eineals XML basierte Schnittstelle zugegriffen werden kann. Die erforderlichen Webservices 
+liegen als XML Dateien vor, werden jedoch zur Verwendung in SIBs als Java Klassen benötigt. Dafür wird Java API for XML Web 
+Services verwendet, welches seit Version 1.6  Bestandteil der Java SE ist. Mittels Jax-WS können in der Konsole durch 
+einen wsimport Befehl alle benötigten Webservices von XML Dateien in Java Klassen umgewandelt werden. 
 
 Der SAP Connektor erhält ein Objekt vom Typ Contact. Dieses Objekt enthält die vom Benutzer geforderten Filtereinstellungen 
 betreffend Vorname, Nachname, Postleitzahl, Stadt, Straße und Firma. Außerdem wird der Typ nach Kunde, Lieferant und 
@@ -34,16 +35,16 @@ Datensätze zu filtern. In Abhängigkeit von der Typbestimmung werden unterschie
 \item Find Customer by Elements
 \end{itemize}
 
-Das Problem soll hier am Beispiel des Kundenwebservices beschrieben werden. Anschließend werden die Besonderheiten
+Der Programmablauf soll hier am Beispiel des Kundenwebservices beschrieben werden. Anschließend werden die Besonderheiten
 bei den Webservices für Mitarbeiter und Lieferant erläutert.
 
 Zunächst müssen die notwendigen Objekte der Klassen des Webservices Find Customer by Elements erstellt werden. Mittels
 einer Klasse die immer mit dem Schlüsselwort SERVICE beginnt, kann ein Objekt erzeugt werden auf dem eine getBinding Methode
 ausgeführt wird. Das erstellte Verbindungsobjekt wird dann zu einem Objekt vom Typ Binding Provider gecastet, auf welchem dann
 mittels getRequestContext() Methoden Passwort und Username gesetzt werden können. Für die Authentifizierung ist normalerweise
-auch noch eine Webadresse anzugeben, allerdings ist hier die Adresse der Testdatenbank bereits enthalten. Das 
-Verbindungsobjekt verfügt über eine einzige Methode, die ein Objekt mit Suchkriterien übergeben bekommt und eine Liste 
-von Suchergebnissen zurückliefert. Die Suchkriterien können mit bereits integrierten set Methoden gesetzt werden,
+auch noch eine Webadresse anzugeben, allerdings ist bei den verwendeten Webservices die Adresse der Testdatenbank bereits 
+enthalten. Das Verbindungsobjekt verfügt über eine einzige Methode, die ein Objekt mit Suchkriterien übergeben bekommt 
+und eine Liste von Suchergebnissen zurückliefert. Die Suchkriterien können mit bereits integrierten set Methoden gesetzt werden,
 die Suchergebnisse über get Methoden ausgelesen werden. Anschließend werden die Suchergebnisse als Liste von Kontaktobjekten
 zurückgegeben.
 
@@ -83,9 +84,11 @@ kundeFilter.setAddressInformation(add1);
 
 \end{lstlisting} 
 
+
+
 Ein weiteres Problem stellen die separaten Einzelaufrufe der Webservices für jede ID dar. Sollten dem Benutzer keine vollständigen 
 Informationen vorliegen, können ggf. mehr als ein Suchergebnis zurückgegeben werden. Jeder Webserviceaufruf bedingt zusätzliche
-Authentifizierungen und Datenbankzugriffe die in keinem Verhältnis zum verwendeten Ergebnis stehen(1 Datensatz gesucht).
+Authentifizierungen und Datenbankzugriffe die in keinem Verhältnis zum verwendeten Ergebnis stehen.
 
 \subsubsection{Ausblick}
 
@@ -94,5 +97,5 @@ Im Folgenden soll eine Lösung für die Mehrfachaufrufe der Webservices beschrie
 Der erste Webserviceaufruf gibt uns, neben der SAP ID, auch den Namen zurück. Damit hat der Benutzer ein Identifikationsmerkmal, 
 welches eine Vorentscheidung betreffend die zu ladenden Adressdaten. Wir müssen dem Benutzer jetzt also ermöglichen, nur für 
 von ihm ausgewählte Namen die Adressdaten zu laden. Das Graphical User Interface soll nach dem erstem Webserviceaufruf eine 
-Liste aller Namen anzeigen, aus welcher der Benutzer einen auswählt. Beim Klick auf einen Namen wird liefert der Webservice 
-mittels der zugehörigen ID die Adressdaten zurück. 
+Liste aller Namen anzeigen, aus welcher der Benutzer einen auswählt. Beim Klick auf einen Namen liefert der Webservice, 
+mittels der zugehörigen ID, die Adressdaten zurück. Dadurch werden die Authentifizierungen und Datenbankzugriffe reduziert.
