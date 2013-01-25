@@ -34,7 +34,7 @@ Datensätze zu filtern. In Abhängigkeit von der Typbestimmung werden unterschie
 \item Find Customer by Elements
 \end{itemize}
 
-Zunächst soll hier das Programm am Beispiel des Kundenwebservices beschrieben werden. Anschließend werden die Besonderheiten
+Das Problem soll hier am Beispiel des Kundenwebservices beschrieben werden. Anschließend werden die Besonderheiten
 bei den Webservices für Mitarbeiter und Lieferant erläutert.
 
 Zunächst müssen die notwendigen Objekte der Klassen des Webservices Find Customer by Elements erstellt werden. Mittels
@@ -79,6 +79,16 @@ add1.setAddress(add2);
 kundeFilter.setAddressInformation(add1);
  
 
-Ein weiteres Problem stellen die separaten Einzelaufrufe der Webservices für jede ID dar. 
+Ein weiteres Problem stellen die separaten Einzelaufrufe der Webservices für jede ID dar. Sollten dem Benutzer keine vollständigen 
+Informationen vorliegen, können ggf. mehr als ein Suchergebnis zurückgegeben werden. Jeder Webserviceaufruf bedingt zusätzliche
+Authentifizierungen und Datenbankzugriffe die in keinem Verhältnis zum verwendeten Ergebnis stehen(1 Datensatz gesucht).
 
 \subsubsection{Ausblick}
+
+Im Folgenden soll eine Lösung für die Mehrfachaufrufe der Webservices beschrieben werden. 
+
+Der erste Webserviceaufruf gibt uns, neben der SAP ID, auch den Namen zurück. Damit hat der Benutzer ein Identifikationsmerkmal, 
+welches eine Vorentscheidung betreffend die zu ladenden Adressdaten. Wir müssen dem Benutzer jetzt also ermöglichen, nur für 
+von ihm ausgewählte Namen die Adressdaten zu laden. Das Graphical User Interface soll nach dem erstem Webserviceaufruf eine 
+Liste aller Namen anzeigen, aus welcher der Benutzer einen auswählt. Beim Klick auf einen Namen wird liefert der Webservice 
+mittels der zugehörigen ID die Adressdaten zurück. 
