@@ -38,6 +38,7 @@
 
 %Bilter etc. positionieren
 %\usepackage{float}
+\usepackage{placeins}
 
 %Code
 \usepackage{listings}
@@ -94,11 +95,14 @@
 % WICHTIG: listings mit \begin{lstlisting}[float] code... \end{lstlisting} aufrufen
 %
 % ein einzelnes Wort in Codeformatierung darstellen
-\newcommand{\code}[1]{{\codeformat{#1}}}% für Klassen und normalen Code
+%
+% \lstinline{code} !!!Sinnvollster Befehl, verfehlt allerdings seine Wirkung, wenn man ihn kapselt
+%
+\newcommand{\code}[1]{\codeformat{#1}}% für Klassen und normalen Code
 \newcommand{\codejkey}[1]{{\jkeycolor\codeformat{#1}}}% für java keywords
 %
 % Anführungszeichen
-\newcommand{\gaensefuesse}[1]{"`#1"'}
+\newcommand{\gaensefuesse}[1]{\glqq{#1}\grqq}
 %
 % wsimport
 \newcommand{\wsimport}{\emph{wsimport}}
