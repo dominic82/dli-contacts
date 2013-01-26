@@ -119,7 +119,8 @@ contact.setTitle(new PlainTextConstruct(contactInfo.getFirstname()
 		+ contactInfo.getLastname()));
 \end{lstlisting}
 
-Die zweite Möglichkeit ist eine von Google vorgesehene Struktur einzutragen.
+Die zweite Möglichkeit ist eine von Google vorgesehene Struktur einzutragen, dies betrifft den
+ Namen, Telefonnummer, E-mail und die Adresse.
 In Listing \ref{lst:ccsetname} wird der Name des Kontakts erstellt.
 Der Inhalt von \lstinline{Name} wird in der Weboberfläche von Google Contacts als Titel verwendet,
  deshalb fordert der Service, dass \lstinline{Name} einen \lstinline{String}-Inhalt hat, der nicht
@@ -135,20 +136,31 @@ name.setGivenName(new GivenName(contactInfo.getFirstname()));
 contact.setName(name);
 \end{lstlisting}
 
-Die dritte Möglichkeit sind benutzerdefinierte Inhalte, wie beispielsweise die Firma, die
- Lieblinsfarbe oder ein Hobbys des Kontaktes.
+Die dritte Möglichkeit sind benutzerdefinierte Inhalte, wie beispielsweise die Firma oder die
+ SAP-ID des Kontaktes.
+Benutzerdefinierte Inhalte werden von der Klasse \lstinline{ExtendedProperty} dargestellt, in der
+ der Name und der Wert des Eintrags gesetzt werden können.
+Im Listing \ref{lst:cccustomEntry} wird beispielhaft die Firma \lstinline{"Company"} des Kontakts
+ gesetzt wird.
 
 \javalstset{Benutzerdefinierte Einträge zu einem Kontakt-Objekt (\lstinline{ContactEntry})
  hinzufügen}{lst:cccustomEntry}
 \begin{lstlisting}[float=h!t]
 // Firma
-if (contactInfo.getCompany() != null) {
+if (!contactInfo.getCompany().isEmpty()) {
 	ExtendedProperty company = new ExtendedProperty();
-	company.setName(DLI_GoogleContactsConnector.company);
+	company.setName("Company");
 	company.setValue(contactInfo.getCompany());
 	contact.addExtendedProperty(company);
 }
 \end{lstlisting}
+
+Um die in der Aufgabenstellung geforderte Unterteilung der Kontakte in Lieferanten, Kunden und
+ Angestellte zu realisieren, haben wir die von Google bereitgestellten Gruppen genutzt.
+Um den Kontakt, wie in Listing \ref{lst:ccjoingroup} dargestellt, einer Gruppe hinzuzufügen muss
+ die URL der Gruppe als Identifikator der Gruppe angegeben werden.
+Bei dem Aufruf \lstinline{new GroupMembershipInfo(false, groupURL)} steht das \lstinline{false}
+ dafür, dass die Gruppe, der der Kontakt angehört nicht gelöscht wurde.
 
 \javalstset{Den Kontakt einer Gruppe hinzufügen}{lst:ccjoingroup}
 \begin{lstlisting}[float=h!t]
@@ -158,7 +170,12 @@ groupURL = customerGroupURL;
 contact.addGroupMembershipInfo(new GroupMembershipInfo(false, groupURL));
 \end{lstlisting}
 
-\javalstset{Das Kontakt-Objekt (\lstinline{ContactEntry}) an den Service übergeben}{lst:ccsendcontact}
+Ist das \lstinline{ContactEntry}-Objekt befüllt, muss es unter Angabe der URL, hinter der sich die
+ Kontakt-Datenbank befindet, an den Webservice weitergegeben werden, wie in Listing
+ \ref{lst:ccsendcontact} abgebildet.
+
+\javalstset{Das Kontakt-Objekt (\lstinline{ContactEntry}) an den
+ \lstinline{ContactsService myService} übergeben}{lst:ccsendcontact}
 \begin{lstlisting}[float=h!t]
 // Kontakt senden		
 URL postUrl = new URL(contactsURL);
