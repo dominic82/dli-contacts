@@ -92,21 +92,33 @@ kundeFilter.setAddressInformation(add1);
 \end{lstlisting} 
 
 
-Ein weiteres Problem stellen die separaten Einzelaufrufe der Webservices für jede ID dar\ref{bild1}. Sollten dem Benutzer keine
+Ein weiteres Problem stellen die separaten Einzelaufrufe der Webservices für jede ID dar\ref{fig:sapbild1}. Sollten dem Benutzer keine
 vollständigen Informationen vorliegen, könnte ggf. mehr als ein Suchergebnis zurückgegeben werden. Jeder Webserviceaufruf bedingt 
 zusätzliche Authentifizierungen und Datenbankzugriffe, die in keinem Verhältnis zum verwendeten Ergebnis stehen.
+\begin{figure}[h!t]
+\begin{center}
+\includegraphics[width=0.5\textwidth]{Bilder/presi1.png}
+\end{center}
+\caption{Bild1}
+\label{fig:sapbild1} 
+\end{figure}
 
-\includegraphics[width=\textheight]{Bilder/presi1.png}{bild1} 
-
-
+\FloatBarrier
 \subsubsection{Ausblick}
 
-Im Folgenden soll eine Lösung für die Mehrfachaufrufe der Webservices beschrieben werden. 
+Im Folgenden soll eine Lösung für die Mehrfachaufrufe der Webservices beschrieben werden.
 
 Der erste Webserviceaufruf gibt uns, neben der SAP ID, auch den Namen zurück. Damit hat der Benutzer ein Identifikationsmerkmal, 
 welches eine Vorentscheidung, betreffend die zu ladenden Adressdaten, ermöglicht. Wir müssen dem Benutzer jetzt also ermöglichen, nur für 
 von ihm ausgewählte Namen die Adressdaten zu laden. Das Graphical User Interface soll nach dem erstem Webserviceaufruf eine 
 Liste aller Namen anzeigen, aus welcher der Benutzer einen auswählt. Beim Klick auf einen Namen liefert der Webservice, 
-mittels der zugehörigen ID, die Adressdaten zurück \ref{bild2}. Dadurch werden die Authentifizierungen und Datenbankzugriffe reduziert.
+mittels der zugehörigen ID, die Adressdaten zurück \ref{fig:sapbild2}. Dadurch werden die Authentifizierungen und Datenbankzugriffe reduziert.
 
-\includegraphics[width=\textheight]{Bilder/presi2.jpg}{bild2}
+\begin{figure}[h!t]
+\begin{center}
+\includegraphics[width=0.75\textwidth]{Bilder/presi2.jpg}
+\end{center}
+\caption{}
+\label{fig:sapbild2}
+\end{figure}
+\FloatBarrier
