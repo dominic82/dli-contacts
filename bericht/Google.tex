@@ -57,11 +57,13 @@ try {
 \subsubsection{Kontakte suchen}
 Die \emph{gdata}-Bibliothek bietet die Möglichkeit, Kontakte wie in Listing \ref{lst:searchQuery}
  mit Angabe eines \lstinline{Query}-Objekts herunterzuladen.
-Im Codebeispiel wird das \lstinline{Query}-Objekt \lstinline{myQuery} für die hinter der URL \lstinline{feedURL}
- liegenden Kontakte initialisiert, danach wird es durch die \lstinline{"group"}-Option angewiesen nur
- Kontakte aus der Gruppe mit dem \lstinline{String}-Identifikator \lstinline{groupId} herunterzuladen.
-Nachdem \lstinline{myQuery} konfiguriert ist, wird mit dem authentifizierten \lstinline{ContactsService}
- \lstinline{myService} der Service-Aufruf per \lstinline{query()}-Befehl ausgeführt.
+Im Codebeispiel wird das \lstinline{Query}-Objekt \lstinline{myQuery} für die hinter der URL
+ \lstinline{feedURL} liegenden Kontakte initialisiert, danach wird es durch die
+ \lstinline{"group"}-Option angewiesen nur Kontakte aus der Gruppe mit dem
+ \lstinline{String}-Identifikator \lstinline{groupId} herunterzuladen.
+Nachdem \lstinline{myQuery} konfiguriert ist, wird mit dem authentifizierten
+ \lstinline{ContactsService} \lstinline{myService} der Service-Aufruf per
+ \lstinline{query()}-Befehl ausgeführt.
 Die Klasse \lstinline{Query} kann allerdings nur zwischen Gruppen unterscheiden, jedoch nicht nach
  anderen Kriterien wie z.\ B.\ dem Vornamen oder dem Nachnamen eines Kontakts filtern.
 
@@ -96,7 +98,18 @@ Das Suchen von Kontakten geschieht in unserem Projekt durch das Herunterladen al
 
 \FloatBarrier
 \subsubsection{Kontakte einf\"ugen}
-Das Einfügen von Kontakten ist über ein erstelltes Service-Objekt 
+Kontakte werden in Google Contacts eingefügt, indem ein Objekt der Klasse
+ \lstinline{ContactEntry} erstellt, mit den gewünschten Daten befüllt und durch ein
+ \lstinline{ContactsService}-Objekt versendet wird.\\
+In dem Beispielcode der Listings \ref{lst:createContact}-\ref{lst:ccsendcontact} wird
+ vorgeführt, wie aus dem Datencontainer \lstinline{contactInfo}, der alle relevanten
+  Kontaktinformationen enthält, ein \lstinline{ContactEntry}-Objekt erstellt wird.
+
+Die Klasse \lstinline{ContactEntry} stellt drei Möglichkeiten bereit, Daten einzutragen.
+Die Möglichkeit, die in Listing \ref{lst:createContact} zuerst gezeigt wird, ist ein Feld vom Typ
+ \lstinline{String} direkt mit einem Wert zu füllen, hier wird exemplarisch der Titel des Eintrags
+ gesetzt.
+Dies ist jedoch nur für bestimmte von Google vorgesehene Felder so.
 
 \javalstset{Kontakt-Objekt (\lstinline{ContactEntry}) erstellen}{lst:createContact}
 \begin{lstlisting}[float=h!t]
@@ -106,16 +119,27 @@ contact.setTitle(new PlainTextConstruct(contactInfo.getFirstname()
 		+ contactInfo.getLastname()));
 \end{lstlisting}
 
+Die zweite Möglichkeit ist eine von Google vorgesehene Struktur einzutragen.
+In Listing \ref{lst:ccsetname} wird der Name des Kontakts erstellt.
+Der Inhalt von \lstinline{Name} wird in der Weboberfläche von Google Contacts als Titel verwendet,
+ deshalb fordert der Service, dass \lstinline{Name} einen \lstinline{String}-Inhalt hat, der nicht
+ leer ist.
+Hier wurden \lstinline{FamilyName} und \lstinline{GivenName} gesetzt.
+
 \javalstset{Namen in ein Kontakt-Objekt (\lstinline{ContactEntry}) einfügen}{lst:ccsetname}
 \begin{lstlisting}[float=h!t]
 // Name
 Name name = new Name();
-name.setFamilyName(new FamilyName(contactInfo.getLastname(), null));
-name.setGivenName(new GivenName(contactInfo.getFirstname(), null));
+name.setFamilyName(new FamilyName(contactInfo.getLastname()));
+name.setGivenName(new GivenName(contactInfo.getFirstname()));
 contact.setName(name);
 \end{lstlisting}
 
-\javalstset{Benutzerdefinierte Einträge zu einem Kontakt-Objekt (\lstinline{ContactEntry}) hinzufügen}{lst:cccustomEntry}
+Die dritte Möglichkeit sind benutzerdefinierte Inhalte, wie beispielsweise die Firma, die
+ Lieblinsfarbe oder ein Hobbys des Kontaktes.
+
+\javalstset{Benutzerdefinierte Einträge zu einem Kontakt-Objekt (\lstinline{ContactEntry})
+ hinzufügen}{lst:cccustomEntry}
 \begin{lstlisting}[float=h!t]
 // Firma
 if (contactInfo.getCompany() != null) {
@@ -130,8 +154,6 @@ if (contactInfo.getCompany() != null) {
 \begin{lstlisting}[float=h!t]
 // Gruppe setzen
 String groupURL = null;
-switch (contactInfo.getType()) {
-case CUSTOMER:
 groupURL = customerGroupURL;
 contact.addGroupMembershipInfo(new GroupMembershipInfo(false, groupURL));
 \end{lstlisting}
