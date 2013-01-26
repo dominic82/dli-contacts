@@ -1,3 +1,9 @@
+% TODO
+% * Namen von Webservices etc mit \emph{Name} hervorheben (möglichst einheitlich, aber IMMER wenn es der Lesbarkeit dient)
+% * Gänsefüsse im Text mit \gaensefuesse{}
+% * Klassennamen und Objektnamen im Text bitte in \lstinline{}
+% * Shift+2 kann unter Window>Preferences>Texlipse>Editor>Smart keys mit der Option {Enable conversion of quotation marks}
+%	von ``'' durch abwählen der Option auf " gesetzt werden (wichtig in lstlisting Umgebungen)
 \subsubsection{Aufgabe des SAP Connectors}
 
 Die Aufgabe des SAP Connectors besteht darin, die Datenbank im ES Workplace nach einem 
@@ -71,12 +77,12 @@ String zuzuweisen und dann die Objekte den Objekten der äußeren Klassen zuzuwe
 \javalstset{Beispiel für eine einfache Zuweisung}{lst:codebeispiel}
 \begin{lstlisting}[float=h!t]
 
-CustomerSelectionByNameAndAddress kundeFilter 	= new CustomerSelectionByNameAndAddress();
-AddressInformation add1							= new AddressInformation();
-Address add2 									= new Address();
-PhysicalAddress add3 							= new PhysicalAddress();
+CustomerSelectionByNameAndAddress kundeFilter = new CustomerSelectionByNameAndAddress();
+AddressInformation add1 = new AddressInformation();
+Address add2            = new Address();
+PhysicalAddress add3    = new PhysicalAddress();
 
-add3.setCityName(``Hamburg'');
+add3.setCityName("Hamburg");
 add2.setPhysicalAddress(add3);
 add1.setAddress(add2);
 
