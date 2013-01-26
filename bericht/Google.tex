@@ -120,7 +120,7 @@ contact.setTitle(new PlainTextConstruct(contactInfo.getFirstname()
 \end{lstlisting}
 
 Die zweite Möglichkeit ist eine von Google vorgesehene Struktur einzutragen, dies betrifft den
- Namen, Telefonnummer, E-mail und die Adresse.
+ Namen, Telefonnummer, E-Mail und die Adresse.
 In Listing \ref{lst:ccsetname} wird der Name des Kontakts erstellt.
 Der Inhalt von \lstinline{Name} wird in der Weboberfläche von Google Contacts als Titel verwendet,
  deshalb fordert der Service, dass \lstinline{Name} einen \lstinline{String}-Inhalt hat, der nicht
@@ -158,7 +158,7 @@ if (!contactInfo.getCompany().isEmpty()) {
 Um die in der Aufgabenstellung geforderte Unterteilung der Kontakte in Lieferanten, Kunden und
  Angestellte zu realisieren, haben wir die von Google bereitgestellten Gruppen genutzt.
 Um den Kontakt, wie in Listing \ref{lst:ccjoingroup} dargestellt, einer Gruppe hinzuzufügen muss
- die URL der Gruppe als Identifikator der Gruppe angegeben werden.
+ die URL der Gruppe als Identifikator der Gruppe angegeben werden.\\
 Bei dem Aufruf \lstinline{new GroupMembershipInfo(false, groupURL)} steht das \lstinline{false}
  dafür, dass die Gruppe, der der Kontakt angehört nicht gelöscht wurde.
 
