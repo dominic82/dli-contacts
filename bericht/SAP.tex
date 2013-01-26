@@ -17,7 +17,7 @@ eine Datenbank mit Testdatensätzen bereit, sowie die erforderlichen Webservices
 die Authentifizierung und die Suche selbst durchzuführen. Ein Webservice beschreibt hier eine Software Anwendung, auf 
 deren Dienste online über eine auf XML basierte Schnittstelle zugegriffen werden kann. Die erforderlichen Webservices 
 liegen als XML Dateien vor, werden jedoch zur Verwendung in SIBs als Java Klassen benötigt. Dafür wird \emph{Java API for XML Web Services} 
-\emph{JAX-WS} verwendet, welches seit Version 1.6  Bestandteil der Java SE ist. Mittels \emph{JAX-WS} können in der Konsole durch 
+(\emph{JAX-WS}) verwendet, welches seit Version 1.6  Bestandteil der Java SE ist. Mittels \emph{JAX-WS} können in der Konsole durch 
 einen wsimport Befehl alle benötigten Webservices von XML Dateien in Java Klassen umgewandelt werden. 
 
 Der SAP Connektor erhält ein Objekt vom Typ \lstinline{Contact}. Dieses Objekt enthält die vom Benutzer geforderten Filtereinstellungen 
@@ -92,7 +92,7 @@ kundeFilter.setAddressInformation(add1);
 \end{lstlisting} 
 
 
-Ein weiteres Problem stellen die separaten Einzelaufrufe der Webservices für jede ID dar, siehe \ref{fig:sapbild1}. Sollten dem Benutzer keine
+Ein weiteres Problem stellen die separaten Einzelaufrufe der Webservices für jede ID dar, siehe Abbildung \ref{fig:sapbild1}. Sollten dem Benutzer keine
 vollständigen Informationen vorliegen, könnte ggf. mehr als ein Suchergebnis zurückgegeben werden. Jeder Webserviceaufruf bedingt 
 zusätzliche Authentifizierungen und Datenbankzugriffe, die in keinem Verhältnis zum verwendeten Ergebnis stehen.
 \begin{figure}[h!t]
@@ -112,7 +112,7 @@ Der erste Webserviceaufruf gibt uns, neben der SAP ID, auch den Namen zurück. D
 welches eine Vorentscheidung, betreffend die zu ladenden Adressdaten, ermöglicht. Wir müssen dem Benutzer jetzt also ermöglichen, nur für 
 von ihm ausgewählte Namen die Adressdaten zu laden. Das Graphical User Interface soll nach dem erstem Webserviceaufruf eine 
 Liste aller Namen anzeigen, aus welcher der Benutzer einen auswählt. Beim Klick auf einen Namen liefert der Webservice, 
-mittels der zugehörigen ID, die Adressdaten zurück, siehe \ref{fig:sapbild2}. Dadurch werden die Authentifizierungen und Datenbankzugriffe reduziert.
+mittels der zugehörigen ID, die Adressdaten zurück, siehe Abbildung \ref{fig:sapbild2}. Dadurch werden die Authentifizierungen und Datenbankzugriffe reduziert.
 
 \begin{figure}[h!t]
 \begin{center}
