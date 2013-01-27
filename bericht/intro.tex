@@ -1,15 +1,57 @@
 \section{Einleitung}
-\subsection{Das Projekt}
-Hinführung auf Beschreibung und erste Überlegungen
+
+- Im Rahmen der Vorlesung DLI ... Dieser Bericht erläutert im Detail ...
+
+- In diesem Kapitel
+	- Zunächst Aufgabe darstellen
+	- Daraufhin Skizzierung der Projektstruktur und erste allgemeine Überlegungen
+
+- In Kapitel 2 Darstellung der einzelnen Projektbausteine im Detail: 
+	- Beginnt mit den Connectoren: SAP-Connector, Google-Connector
+	- Dann Bereich der SIB-Programmierung: im Allgemeinen und im Speziellen bezogen auf das Projekt
+	
+- In Kapitel 3 Darstellung des fertigen jABC-Modells
+	- Erklärung Modellaufbau
+	- Erklärung von Design-Entscheidungen (Meta-SIBs), Error-Branches
+	
+- Abschließend in Kapitel 4 eine kurze Zusammenfassung sowie Beurteilung über den Erfolg des Projektes	
+
 
 \subsection{Projektbeschreibung}
-Beschreibung Ahnlich der auf den Folien
+- fiktives Szenario: Umstellung der informationstechnischen Infrastruktur bei einem Unternehmen
+	- In diesem Projekt der Teil, welcher die Migration von Stammdaten der Kontakte des Unternehmens betrifft
+		- Kontakte gliedern sich in drei Gruppen: Kunde, Lieferant und Angestellter
+	- Migration erfolgt von SAP nach Google. Dabei kommt nicht-triviale Strategie zum Einsatz (Karteilleichen):
+		- Kontakte nur nach Bedarf übertragen
+		- Erst Google prüfen, dann versuchte Migration von SAP, sonst ganz neuen Datensatz bei Google anlegen
 
 \subsection{Erste Überlegungen}
-Aufteilung des Projektes (siehe Grafik). Wahl der Contact-Attribute. Management über SAP-/Google-IDs.
+- Als erstes Zergliederung des Projektes, Aufgabenverteilung, Berührungspunkte, eingesetzte Technologien
 
+\subsubsection{Projektstruktur}
+- Analyse der Projektstruktur / Identifikation von autonomen Mechanismen:
+	- zur Aufgabenverteilung an einzelne Mitglieder: Spezialisten schaffen, Verantwortungsbereiche festlegen
+	- Identifikation von Berührungspunkten der Teilbereiche
+	- Aufteilung des Projektes (siehe Grafik)
+	
+\subsubsection{Das Kontakt-Objekt als Schnittstelle}
+- Das Kontakt Objekt:
+	- Bildung einer repräsentativen Schnittmenge von typischen Kontaktattributen
+		- Wahl der Attribute
+		- ID-Speicherung für Möglichkeit der Anwendung von komplexeren Migrations-Strategien
+	- Modellierung einer allgemeinen Klasse Kontakt als Schnittstellenobjekt
+		- zwischen den Funktionen, innerhalb des jABC-Modells
+		
+\subsubsection{Eingesetzte Technologien}
+- Verteilte Programmierung -> VCS git
+- verwendete Sprache Java -> JUnit-Tests zur Verifikation der Schnittstelle zw. SIBs und Konnektoren
+- Apache-Maven im Hinblick auf Unterstützung von build und deploy Aufgaben
+	- autom. Tests im build
+	- unterstützung beim deploy durch erzeugung eines jar-Archivs inkl. notwendiger Abhängigkeiten
+		- eingentlich Bad Practice
+		- Im Umgang mit jABC simpler
 
 
 \section{Unsere Projektbausteine}
-Im Folgenden Beschreibung, besondere Überlegungen und Probleme(!)/Entscheidungen der einzelnen Elemente
+ - Im Folgenden Beschreibung, besondere Überlegungen und Probleme(!)/Entscheidungen der einzelnen Elemente
 

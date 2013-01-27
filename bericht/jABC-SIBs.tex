@@ -1,1 +1,22 @@
-Generelles zum Aufbau von SIBs. Besonderheiten
+Generelles zum Aufbau von SIBs. Besonderheiten bezogen auf das Projekt
+
+\subsubsection{Allgemeines zur SIB-Programmierung}
+- SIBs als Java-Klasse mit Annotation
+- Muss best. Interface implementieren
+	- eine Funktion trace, welche innerhalb von jABC bei der Ausführung aufgerufen wird
+	- Übergabeparamter ist der Ausführungskontext (MAP) mit Laufzeitdaten
+	
+\subsubsection{Spezifiktion notwendiger SIBs}	
+- 3 Sorten von SIBS
+	- Google SIBs, SAP-SIBs, GUI-SIBs
+	- Skizzierung von Search, Add, Edit, Choose
+	- sonderfall "PutContact"
+- Zusammenfassend 6 SIBs:
+
+\subsubsection{Besonderheit der GUI-SIBs}
+- synchronisation mir Nutzereingabe
+- Abfrage der Nutzereingaben im SIB
+
+\subsubsection{die JAVA-Laufzeitumgebung in jABC}	
+- siehe Folie
+
