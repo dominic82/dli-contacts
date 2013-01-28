@@ -68,6 +68,9 @@ Die wartende trace()-Methode wird daraufhin weiter ausgeführt und kann über ge
 \subsubsection{die JAVA-Laufzeitumgebung in jABC}	
 Eine weitere Besonderheit hat sich während des Projektes zufällig ergeben. Um das Zusammenspiel von Konnektoren und GUI-Elementen effizient zu testen, wurde auf die Ausführung der Komponenten im jABC zunächst verzichtet. Erst zum Ende des Projektes wurden die Komponenten mittels ihrer zugehörigen SIBs in jABC getestet. Es zeigte sich ein Fehler während der Ausführung, welcher ausserhalb von jABC nicht autrat. Die geworfene Exception lies darauf vermuten, dass bestimmte Bibliotheken innerhalb der Ausführung von jABC nicht gefunden werden konnten. Unter Verwendung des selben Quellcodes ausserhalb von jABC zeigte sich dieser Fehler jedoch nicht.\\
 Dies legt die Vermutung nahe, dass die zur Laufzeit existierende Java-Umgebung in Form der Java-Virtual-Maschine (JVM) in beiden Szenarien nicht gleich ist. Einige Bibliotheken werden innerhalb von jABC unter anderen Paketpfaden referenziert, als es ausserhalb der Fall ist. Zu diesem Zweck mussten die Eigenschaften der JVM im jABC manuell verändert werden. Dies ist in folgendem Listing zu sehen.\\
+
+% Listing system.setproperty %
+
 Auch wenn die Veränderung der Laufzeit-Eigenschaften das Problem behoben haben, so ist doch generell von dieser Praxis abzuraten. Denn die veränderten Eigenschaften bleiben auch noch nach der Modellausführung im jABC bestehen, da jABC selbst ein Java-Programm ist und zur Ausführung von Modell die JVM des Programms verwendet wird. Die Ausführung anderer Modelle im Anschluss an jenes dieses Projektes kann also beeinträchtigt oder im schlimmsten Fall gar nicht erst möglich sein.
 
 
