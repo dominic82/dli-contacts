@@ -1,13 +1,15 @@
 \section{Einleitung}
-Als Abschlussübung der Vorlesung Aktuelle Themen der Dienstleistungsinformatik im Wintersemester 2012/13 an der TU-Dortmund sollten die teilnehmenden Studenten ein Projekt zum Thema Webservices durchführen. Dieser Bericht erläutert nun im Detail, wie das Projekt \textit{Kontakte} durchgeführt wurde. \\
+Als Abschlussübung der Vorlesung Aktuelle Themen der Dienstleistungsinformatik im Wintersemester
+ 2012/13 an der TU-Dortmund sollten die teilnehmenden Studenten ein Projekt zum Thema Webservices
+ durchführen. Dieser Bericht erläutert nun im Detail, wie das Projekt \textit{Kontakte} durchgeführt wurde.
 
-In Kapitel 1 wird zunächst die genaue Aufgabenstellung erläutert, welche das eigentliche Projektziel darstellt. In diesem Zusammenhang werden auch erste Überlegungen zur Projektplanung und -struktur aufgeführt.\\
+In Kapitel \ref{sec:einleitung} wird zunächst die genaue Aufgabenstellung erläutert, welche das eigentliche Projektziel darstellt. In diesem Zusammenhang werden auch erste Überlegungen zur Projektplanung und -struktur aufgeführt.\\
 
-Daraufhin werden in Kapitel 2 die konkreten Projektbausteine behandelt. Zunächst werden die beiden Schnittstellen zu SAP und Google, welche auf Webservices basieren, im Detail erläutert, bevor es im Anschluss mit dem Thema der SIB-Programmierung weitergeht. Es wird erläutert, wie die SIB-Programmierung im Detail funktioniert und inwiefern die oben beschriebenen Schnittstellen in diesem Bereich ihre Anwendung finden.\\
+Daraufhin werden in Kapitel \ref{sec:projektbausteine} die konkreten Projektbausteine behandelt. Zunächst werden die beiden Schnittstellen zu SAP und Google, welche auf Webservices basieren, im Detail erläutert, bevor es im Anschluss mit dem Thema der SIB-Programmierung weitergeht. Es wird erläutert, wie die SIB-Programmierung im Detail funktioniert und inwiefern die oben beschriebenen Schnittstellen in diesem Bereich ihre Anwendung finden.\\
 
-Kapitel 3 beschäftigt sich mit dem konkreten Projektergebnis: dem fertigen jABC-Modell. Es wird der durch das Modell beschriebene Prozess im Detail erläutert und einige Fragen des Modelldesigns behandelt.\\
+Kapitel \ref{sec:jabc} beschäftigt sich mit dem konkreten Projektergebnis: dem fertigen jABC-Modell. Es wird der durch das Modell beschriebene Prozess im Detail erläutert und einige Fragen des Modelldesigns behandelt.\\
 
-Abschliessend folgt in Kapitel 4 die konkrete Betrachtung der Projektergebnisse, um den Erfolg des Projektes zu beurteilen. 
+Abschliessend folgt in Kapitel \ref{sec:beurteilung} die konkrete Betrachtung der Projektergebnisse, um den Erfolg des Projektes zu beurteilen. 
 
 
 \subsection{Projektbeschreibung}
@@ -29,11 +31,11 @@ Diese soeben definierten Unterstrukturen der Software finden ihre Verwendung in 
 \subsubsection{Das Kontakt-Objekt als Schnittstelle}
 Die Verwendung der Unterstrukturen in der SIB-Programmierung macht es notwendig, eine geeignete Kommunikationsschnittstelle zu definieren. Die Aufgabenstellung macht deutlich, dass der primäre Gegenstand des Prozesses ein Kontaktobjekt ist. Kontaktdaten werden eingegeben und an die Programmteile weitergegeben, welche die Kommunikation mit den externen Datenbanken realisieren. Daraufhin wird eine Liste von Kontaktobjekten zurückgeliefert und ein ausgewählter Kontakt wird dann bei Google gespeichert. Ein einziges Kontaktobjekt kann also als Schnittstelle genutzt werden, wenn es hinreichend klar definiert ist. D.h. eine Abbildung gefunden werden kann, welche die Attribute des Kontaktobjektes mit den speziellen Strukturen der externen Datenbanken verknüpft.\\
 Aus diesem Grund wurden für das Projekt Attribute gewählt, welche in beiden Datenbanken verwendet werden. Insbesondere musste auch darauf geachtet werden, dass diese Attribute in allen drei Gruppen (Kunde, Lieferant, Angestellter) vorhanden sind. Aus diesem Überlegungen wurde das Kontaktobjekt mit folgenden Attributen definiert:
-
-- Vorname, Nachname, Firma
-- Adresse (Strasse, PLZ, Ort)
-- Telefonnummer, Emailadresse
-
+\begin{itemize}
+	\item Vorname, Nachname, Firma
+	\item Adresse (Strasse, PLZ, Ort)
+	\item Telefonnummer, Emailadresse
+\end{itemize}
 Desweiteren enthält das Kontaktobjekt die eindeutigen Identifikationkennungen des SAP- und Google-Systems. Zum einen kann dadurch die Herkunft eines Kontaktes verfolgt werden und zum anderen bietet es Möglichkeiten zur implementierung einer komplexeren Migrationsstrategie. Es kann dann zum Beispiel automatisch geprüft werden, ob ein Kontakt bereits migriert wurde oder ob dieser Kontakt überhaupt aus dem SAP-System stammt.
 	
 \subsubsection{Eingesetzte Technologien}
@@ -48,5 +50,4 @@ Ein weiteres Tool, welches zur Unterstützung für den Softwarelebenszyklus verw
 Dazu muss jedoch gesagt werden, dass das Zusammenschnüren von einem grossen Paket im allgemeinen nicht empfohlen wird. Falls eine einzelne Komponente des Pakets aktualisiert werden soll, muss das ganze Paket neu erstellt werden. 
 
 \section{Unsere Projektbausteine}
- - Im Folgenden Beschreibung, besondere Überlegungen und Probleme(!)/Entscheidungen der einzelnen Elemente
-
+Dieses Kapitel beschreibt die Projetbausteine und weist auf die entdeckten Probleme und getroffnen Entscheidungen hin.
