@@ -1,34 +1,30 @@
 \section{Einleitung}
+Als Abschlussübung der Vorlesung Aktuelle Themen der Dienstleistungsinformatik im Wintersemester 2012/13 an der TU-Dortmund sollten die teilnehmenden Studenten ein Projekt zum Thema Webservices durchführen. Dieser Bericht erläutert nun im Detail, wie das Projekt \textit{Kontakte} durchgeführt wurde. \\
 
-- Im Rahmen der Vorlesung DLI ... Dieser Bericht erläutert im Detail ...
+In Kapitel 1 wird zunächst die genaue Aufgabenstellung erläutert, welche das eigentliche Projektziel darstellt. In diesem Zusammenhang werden auch erste Überlegungen zur Projektplanung und -struktur aufgeführt.\\
 
-- In diesem Kapitel
-	- Zunächst Aufgabe darstellen
-	- Daraufhin Skizzierung der Projektstruktur und erste allgemeine Überlegungen
+Daraufhin werden in Kapitel 2 die konkreten Projektbausteine behandelt. Zunächst werden die beiden Schnittstellen zu SAP und Google, welche auf Webservices basieren, im Detail erläutert, bevor es im Anschluss mit dem Thema der SIB-Programmierung weitergeht. Es wird erläutert, wie die SIB-Programmierung im Detail funktioniert und inwiefern die oben beschriebenen Schnittstellen in diesem Bereich ihre Anwendung finden.\\
 
-- In Kapitel 2 Darstellung der einzelnen Projektbausteine im Detail: 
-	- Beginnt mit den Connectoren: SAP-Connector, Google-Connector
-	- Dann Bereich der SIB-Programmierung: im Allgemeinen und im Speziellen bezogen auf das Projekt
-	
-- In Kapitel 3 Darstellung des fertigen jABC-Modells
-	- Erklärung Modellaufbau
-	- Erklärung von Design-Entscheidungen (Meta-SIBs), Error-Branches
-	
-- Abschließend in Kapitel 4 eine kurze Zusammenfassung sowie Beurteilung über den Erfolg des Projektes	
+Kapitel 3 beschäftigt sich mit dem konkreten Projektergebnis: dem fertigen jABC-Modell. Es wird der durch das Modell beschriebene Prozess im Detail erläutert und einige Fragen des Modelldesigns behandelt.\\
+
+Abschliessend folgt in Kapitel 4 die konkrete Betrachtung der Projektergebnisse, um den Erfolg des Projektes zu beurteilen. 
 
 
 \subsection{Projektbeschreibung}
-- fiktives Szenario: Umstellung der informationstechnischen Infrastruktur bei einem Unternehmen
-	- In diesem Projekt der Teil, welcher die Migration von Stammdaten der Kontakte des Unternehmens betrifft
-		- Kontakte gliedern sich in drei Gruppen: Kunde, Lieferant und Angestellter
-	- Migration erfolgt von SAP nach Google. Dabei kommt nicht-triviale Strategie zum Einsatz (Karteilleichen):
-		- Kontakte nur nach Bedarf übertragen
-		- Erst Google prüfen, dann versuchte Migration von SAP, sonst ganz neuen Datensatz bei Google anlegen
+Als Grundlage für die Aufgabenstellung diente ein fiktives Szenario in Form einer Umstellung der informationstechnischen Infrastruktur eines Unternehmens. Konkretes Thema für dieses Projekt war die Migration von kontaktbezogenen Stammdaten aus der Datenbank von SAP in das System von Google. Für die Migration mussten drei Gruppen von Kontakten behandelt werden: Kunden, Lieferanten und Angestellte.\\
+Die Migration selbst sollte dabei nicht der trivialen Strategie folgen, alle vorhandenen Kontakte in einem Prozess komplett zu kopieren. Aufgrund der Existenz von sogenannten "'Karteileichen"` in der Datenbank von SAP, wurde eine Strategie vorgegeben, welche eine Migration nur bei Bedarf vorsieht. Dadurch wird garantiert, dass das System von Google nur Kontaktdaten enthält, welche aktiv von dem Unternehmen genutzt werden.\\
+Die Migrationsstrategie behandelt demnach nur einen einzelnen Kontakt und gliedert sich in drei Teile. Zunächst muss im System von Google überprüft werden, ob der gewünschte Kontakt schon migriert worden ist. Ist dies der Fall, so ist findet keine erneute Migration statt und der Prozess ist beendet.\\
+Falls der gesuchte Kontakt nicht im System von Google existiert, wird versucht, diesen in der Datenbank von SAP zu finden und im Anschluss nach Google zu übertragen. Da es bei einer Suche nach einem Kontakt, abhängig von den Kriterien, sowohl bei Google als auch bei SAP dazu kommen kann, dass mehrere Ergenisse zurückgeliefert werden, muss es dem Nutzer möglich sein, den gewünschten Kontakt aus dieser Ergebnisliste manuell auszuwählen. In diesem Fall endet der Prozess mit einer erfolgreichen Migration von SAP nach Google.\\
+Zudem muss die Tatsache abgedeckt sein, dass der gesuchte Kontakt ein gänzlich neuer ist, welcher bisher noch in keiner Datenbank auftaucht. Dann soll der Kontakt nach manueller Dateneingabe bei Google angelegt werden.
 
 \subsection{Erste Überlegungen}
-- Als erstes Zergliederung des Projektes, Aufgabenverteilung, Berührungspunkte, eingesetzte Technologien
+Damit eine effiziente Projektplanung gewährleistet werden kann, muss zunächst die Aufgabenstellung analysiert werden. Das Ziel dieser Analyse ist es zunächst, Bereiche zu identifizieren, welche unabhängig bearbeitet werden könne. Dies unterstützt die Aufgabenverteilung an die einzelnen Projektmitglieder und legt deren Verantwortungsbereiche fest.\\
+Da diese Teilbereiche im Projektzusammenhang jedoch an einigen Stellen miteinander interagieren sollen, müssen zudem geeignete Schnittstellen an den Berührungspunkten definiert werden.\\
+Zudem gilt es auch, sich am Anfang der Planung über einzusetzende Technologien zu einigen, welche die Entwicklung unterstützen.
 
 \subsubsection{Projektstruktur}
+Aufgrund der Aufgabenstellung lassen sich leicht folgende zwei unabhängige Bereiche identifizieren: die beiden Schnittstellen zu den Datanbanksystemen. 
+
 - Analyse der Projektstruktur / Identifikation von autonomen Mechanismen:
 	- zur Aufgabenverteilung an einzelne Mitglieder: Spezialisten schaffen, Verantwortungsbereiche festlegen
 	- Identifikation von Berührungspunkten der Teilbereiche
