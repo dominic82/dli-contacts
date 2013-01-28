@@ -18,7 +18,7 @@ Daraufhin werden in Kapitel \ref{sec:projektbausteine} die konkreten Projektbaus
 Kapitel \ref{sec:jabc} beschäftigt sich mit dem konkreten Projektergebnis: dem fertigen jABC-Modell.
  Es wird der durch das Modell beschriebene Prozess im Detail erläutert und einige Fragen des Modelldesigns behandelt.
 
-Abschliessend folgt in Kapitel \ref{sec:beurteilung} die konkrete Betrachtung der Projektergebnisse,
+Abschließend folgt in Kapitel \ref{sec:beurteilung} die konkrete Betrachtung der Projektergebnisse,
  um den Erfolg des Projektes zu beurteilen. 
 
 
@@ -26,12 +26,7 @@ Abschliessend folgt in Kapitel \ref{sec:beurteilung} die konkrete Betrachtung de
 Als Grundlage für die Aufgabenstellung diente ein fiktives Szenario in Form einer Umstellung der
  informationstechnischen Infrastruktur eines Unternehmens. Konkretes Thema für dieses Projekt war die
  Migration von kontaktbezogenen Stammdaten aus der Datenbank von SAP in das System von Google.
-Für die Migration mussten drei Gruppen von Kontakten behandelt werden:
-\begin{itemize}
-	\item Kunden
-	\item Liferanten
-	\item Angestellte.
-\end{itemize}
+Für die Migration mussten drei Gruppen von Kontakten behandelt werden: Kunden, Lieferanten und Mitarbeiter.
 Die Migration selbst sollte dabei nicht der trivialen Strategie folgen, alle vorhandenen Kontakte
  in einem Prozess komplett zu kopieren.
 Aufgrund der Existenz von sogenannten \gaensefuesse{Karteileichen} in der Datenbank von SAP, wurde
@@ -45,12 +40,14 @@ Ist dies der Fall, so ist findet keine erneute Migration statt und der Prozess i
 Falls der gesuchte Kontakt nicht im System von Google existiert, wird versucht, diesen in der Datenbank
  von SAP zu finden und im Anschluss nach Google zu übertragen.
 Da es bei einer Suche nach einem Kontakt, abhängig von den Kriterien, sowohl bei Google als auch bei SAP
- dazu kommen kann, dass mehrere Ergenisse zurückgeliefert werden, muss es dem Nutzer möglich sein, den
+ dazu kommen kann, dass mehrere Ergebnisse zurückgeliefert werden, muss es dem Nutzer möglich sein, den
  gewünschten Kontakt aus dieser Ergebnisliste manuell auszuwählen.
 In diesem Fall endet der Prozess mit einer erfolgreichen Migration von SAP nach Google.
 
 Zudem muss die Tatsache abgedeckt sein, dass der gesuchte Kontakt ein gänzlich neuer ist, welcher bisher
  noch in keiner Datenbank auftaucht. Dann soll der Kontakt nach manueller Dateneingabe bei Google angelegt werden.
+ 
+Die Implementierung des Projektszenarios soll dabei als Prozessmodell in der Software jABC erfolgen. jABC ist ein Akronym und steht für \gaensefuesse{Java Application Building Center}. Mit Hilfe dieser Software ist es möglich Prozesse als Graphen zu modellieren. Ein Knoten dieses Graphen wird in diesem Kontext auch SIB genannt, welches ebenfalls ein Akronym ist und für \gaensefuesse{Service Independent Building Blocks} steht.
 
 \subsection{Erste Überlegungen}
 Damit eine effiziente Projektplanung gewährleistet werden kann, muss zunächst die Aufgabenstellung
@@ -64,7 +61,7 @@ Da diese Teilbereiche im Projektzusammenhang jedoch an einigen Stellen miteinand
 Zudem gilt es auch, sich am Anfang der Planung über einzusetzende Technologien zu einigen, welche die Entwicklung unterstützen.
 
 \subsubsection{Projektstruktur}
-Aufgrund der Aufgabenstellung lassen sich die beiden Schnittstellen zu den Datanbanksystemen leicht als zwei
+Aufgrund der Aufgabenstellung lassen sich die beiden Schnittstellen zu den Datenbanksystemen leicht als zwei
  unabhängige Bereiche identifizieren.
 Ein weiterer Bereich ergibt sich durch die Tatsache, dass Nutzereingaben behandelt werden müssen.
 Die Erstellung von GUI-Elementen bildet also den dritten Bereich des Projektes.
@@ -83,26 +80,26 @@ Die Abbildung \ref{fig:projektaufbau} zeigt eine sich daraus ergebene Projektstr
 \subsubsection{Das \lstinline{Contakt}-Objekt als Schnittstelle}
 Die Verwendung der Unterstrukturen in der SIB-Programmierung macht es notwendig, eine geeignete
  Kommunikationsschnittstelle zu definieren.
-Die Aufgabenstellung macht deutlich, dass der primäre Gegenstand des Prozesses ein \lstinline{Contakt}-Objekt ist.
+Die Aufgabenstellung macht deutlich, dass der primäre Gegenstand des Prozesses ein \lstinline{Contact}-Objekt ist.
 Kontaktdaten werden eingegeben und an die Programmteile weitergegeben, welche die Kommunikation mit den
  externen Datenbanken realisieren.
-Daraufhin wird eine Liste von \lstinline{Contakt}-Objekten zurückgeliefert und ein ausgewählter Kontakt wird
+Daraufhin wird eine Liste von \lstinline{Contact}-Objekten zurückgeliefert und ein ausgewählter Kontakt wird
  dann bei Google gespeichert.
  
-Ein einziges \lstinline{Contakt}-Objekt kann also als Schnittstelle genutzt werden, wenn es hinreichend klar definiert ist.
-Das heißt, dass eine Abbildung gefunden werden kann, welche die Attribute des \lstinline{Contakt}-Objektes mit den speziellen
+Ein einziges \lstinline{Contact}-Objekt kann also als Schnittstelle genutzt werden, wenn es hinreichend klar definiert ist.
+Das heißt, dass eine Abbildung gefunden werden kann, welche die Attribute des \lstinline{Contact}-Objektes mit den speziellen
  Strukturen der externen Datenbanken verknüpft.
 Aus diesem Grund wurden für das Projekt Attribute gewählt, welche in beiden Datenbanken verwendet werden.
 Insbesondere musste auch darauf geachtet werden, dass diese Attribute in allen drei Gruppen (Kunde, Lieferant,
  Angestellter) vorhanden sind.
-Aus diesem Überlegungen wurde das \lstinline{Contakt}-Objekt mit folgenden Attributen definiert:
+Aus diesem Überlegungen wurde das \lstinline{Contact}-Objekt mit folgenden Attributen definiert:
 \begin{itemize}
 	\item Vorname, Nachname, Firma
-	\item Adresse (Strasse, PLZ, Ort)
+	\item Adresse (Straße, PLZ, Ort)
 	\item Telefonnummer, Emailadresse
 \end{itemize}
-Desweiteren enthält das Kontaktobjekt die eindeutigen Identifikationkennungen des SAP- und Google-Systems.
-Zum einen kann dadurch die Herkunft eines Kontaktes verfolgt werden und zum anderen bietet es Möglichkeiten
+Des weiteren enthält das Kontaktobjekt die eindeutigen Identifikationskennungen des SAP- und Google-Systems.
+Zum einen kann dadurch die Herkunft eines Kontakts verfolgt werden und zum anderen bietet es Möglichkeiten
  zur Implementierung einer komplexeren Migrationsstrategie.
 Es kann dann zum Beispiel automatisch geprüft werden, ob ein Kontakt bereits migriert wurde oder ob dieser
  Kontakt überhaupt aus dem SAP-System stammt.
@@ -121,14 +118,14 @@ Um die einzelnen Programmbausteine ausreichend zu testen, um deren Funktion zu v
 
 Ein weiteres Tool, welches zur Unterstützung für den Softwarelebenszyklus verwendet wurde, ist \emph{Apache Maven}.
 Es bietet den Vorteil, dass im Anschluss an die Kompilation automatisch \emph{JUnit}-Tests ausgeführt werden, bevor
- die Software zu einem grossen Paket geschnürt wird.
- \emph{Apache Maven} trägt ausserdem dafür Sorge, dass alle Abhängigkeiten, welche für die Ausführung der Software
+ die Software zu einem großen Paket geschnürt wird.
+ \emph{Apache Maven} trägt außerdem dafür Sorge, dass alle Abhängigkeiten, welche für die Ausführung der Software
   notwendig sind, mit in das erzeugt Programmpaket gepackt werden.
- Dies erleichtert die anschliessende Verwendung im jABC, da nur ein einziges Paket eingebunden werden muss.
+ Dies erleichtert die anschließende Verwendung im jABC, da nur ein einziges Paket eingebunden werden muss.
 
 Dazu muss jedoch gesagt werden, dass das Zusammenschnüren von einem großen Paket im allgemeinen nicht empfohlen wird.
 Falls eine einzelne Komponente des Pakets aktualisiert werden soll, muss das ganze Paket neu erstellt werden. 
 
 \section{Unsere Projektbausteine}
 \label{sec:projektbausteine}
-Dieses Kapitel beschreibt die Projetbausteine und weist auf die entdeckten Probleme und getroffnen Entscheidungen hin.
+Dieses Kapitel beschreibt die Projektbausteine und weist auf die entdeckten Probleme und getroffenen Entscheidungen hin.
