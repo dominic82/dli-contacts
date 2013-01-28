@@ -23,30 +23,29 @@ Da diese Teilbereiche im Projektzusammenhang jedoch an einigen Stellen miteinand
 Zudem gilt es auch, sich am Anfang der Planung über einzusetzende Technologien zu einigen, welche die Entwicklung unterstützen.
 
 \subsubsection{Projektstruktur}
-Aufgrund der Aufgabenstellung lassen sich leicht folgende zwei unabhängige Bereiche identifizieren: die beiden Schnittstellen zu den Datanbanksystemen. 
-
-- Analyse der Projektstruktur / Identifikation von autonomen Mechanismen:
-	- zur Aufgabenverteilung an einzelne Mitglieder: Spezialisten schaffen, Verantwortungsbereiche festlegen
-	- Identifikation von Berührungspunkten der Teilbereiche
-	- Aufteilung des Projektes (siehe Grafik)
+Aufgrund der Aufgabenstellung lassen sich leicht folgende zwei unabhängige Bereiche identifizieren: die beiden Schnittstellen zu den Datanbanksystemen. Ein weiterer Bereich ergibt sich durch die Tatsache, dass Nutzereingaben behandelt werden müssen. Die Erstellung von GUI-Elementen bildet also den dritten Bereich des Projektes.\\
+Diese soeben definierten Unterstrukturen der Software finden ihre Verwendung in der SIB-Programmierung, dessen Ergebnis das Produkt des Projektes darstellt: das jABC-Modell. Somit wird der letzte eigenständige Bereich durch die Generierung dieser SIBs klassifiziert. Die folgende Abbildung zeigt eine sich daraus ergebene Projektstruktur.\\
 	
 \subsubsection{Das Kontakt-Objekt als Schnittstelle}
-- Das Kontakt Objekt:
-	- Bildung einer repräsentativen Schnittmenge von typischen Kontaktattributen
-		- Wahl der Attribute
-		- ID-Speicherung für Möglichkeit der Anwendung von komplexeren Migrations-Strategien
-	- Modellierung einer allgemeinen Klasse Kontakt als Schnittstellenobjekt
-		- zwischen den Funktionen, innerhalb des jABC-Modells
-		
-\subsubsection{Eingesetzte Technologien}
-- Verteilte Programmierung -> VCS git
-- verwendete Sprache Java -> JUnit-Tests zur Verifikation der Schnittstelle zw. SIBs und Konnektoren
-- Apache-Maven im Hinblick auf Unterstützung von build und deploy Aufgaben
-	- autom. Tests im build
-	- unterstützung beim deploy durch erzeugung eines jar-Archivs inkl. notwendiger Abhängigkeiten
-		- eingentlich Bad Practice
-		- Im Umgang mit jABC simpler
+Die Verwendung der Unterstrukturen in der SIB-Programmierung macht es notwendig, eine geeignete Kommunikationsschnittstelle zu definieren. Die Aufgabenstellung macht deutlich, dass der primäre Gegenstand des Prozesses ein Kontaktobjekt ist. Kontaktdaten werden eingegeben und an die Programmteile weitergegeben, welche die Kommunikation mit den externen Datenbanken realisieren. Daraufhin wird eine Liste von Kontaktobjekten zurückgeliefert und ein ausgewählter Kontakt wird dann bei Google gespeichert. Ein einziges Kontaktobjekt kann also als Schnittstelle genutzt werden, wenn es hinreichend klar definiert ist. D.h. eine Abbildung gefunden werden kann, welche die Attribute des Kontaktobjektes mit den speziellen Strukturen der externen Datenbanken verknüpft.\\
+Aus diesem Grund wurden für das Projekt Attribute gewählt, welche in beiden Datenbanken verwendet werden. Insbesondere musste auch darauf geachtet werden, dass diese Attribute in allen drei Gruppen (Kunde, Lieferant, Angestellter) vorhanden sind. Aus diesem Überlegungen wurde das Kontaktobjekt mit folgenden Attributen definiert:
 
+- Vorname, Nachname, Firma
+- Adresse (Strasse, PLZ, Ort)
+- Telefonnummer, Emailadresse
+
+Desweiteren enthält das Kontaktobjekt die eindeutigen Identifikationkennungen des SAP- und Google-Systems. Zum einen kann dadurch die Herkunft eines Kontaktes verfolgt werden und zum anderen bietet es Möglichkeiten zur implementierung einer komplexeren Migrationsstrategie. Es kann dann zum Beispiel automatisch geprüft werden, ob ein Kontakt bereits migriert wurde oder ob dieser Kontakt überhaupt aus dem SAP-System stammt.
+	
+\subsubsection{Eingesetzte Technologien}
+Darüberhinaus wurden einige Entscheidungen über zu verwendende Tools getroffen, um die Projektarbeit und die Implementierung zu unterstützen.\\
+
+Zum einen wurde das Versionskontrollsystem Git verwendet. Neben einer zentralen Speicherung aller Projektdaten unterstützt Git die kooperative Implementierung des Programmcodes. Änderungen an verschiedenen Teilen der Software werden automatisch zu einer neuen Version zusammengefasst.\\
+
+Um die einzelnen Programmbausteine ausreichend zu testen, um deren Funktion zu verifizieren, wurde zudem das Test-Framework JUnit verwendet. Dadurch ist es beispielsweise möglich, die Suchfunktion der Konnektoren ausgiebig zu testen, bevor diese in der SIB-Programmierung ihre Verwendung finden.\\
+
+Ein weiteres Tool, welches zur Unterstützung für den Softwarelebenszyklus verwendet wurde, ist Apache Maven. Es bietet den Vorteil, dass im Anschluss an die Kompilation automatisch JUnit-Tests ausgeführt werden, bevor die Software zu einem grossen Paket geschnürt wird. Apache Maven trägt ausserdem dafür Sorge, dass alle Abhängigkeiten, welche für die Ausführung der Software notwendig sind, mit in das erzeugt Programmpaket gepackt werden. Dies erleichtert die anschliessende Verwendung im jABC, da nur ein einziges Paket eingebunden werden muss.\\
+
+Dazu muss jedoch gesagt werden, dass das Zusammenschnüren von einem grossen Paket im allgemeinen nicht empfohlen wird. Falls eine einzelne Komponente des Pakets aktualisiert werden soll, muss das ganze Paket neu erstellt werden. 
 
 \section{Unsere Projektbausteine}
  - Im Folgenden Beschreibung, besondere Überlegungen und Probleme(!)/Entscheidungen der einzelnen Elemente
