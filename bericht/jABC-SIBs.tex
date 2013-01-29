@@ -44,8 +44,8 @@ Die Methode \lstinline{trace()} besitzt hierzu den Rückgabewert \lstinline{Stri
 
 Das \autoref{lst:samplesib} zeigt exemplarisch den Kopf einer typischen Implementierung einer SIB-Klasse.
 
-% Listing SIB-Klasse %
-\javalstset{MySIB}{lst:samplesib}
+% Listing SIB-Klasse %	
+\javalstset{Implementierung der SIB-Klasse}{lst:samplesib}
 \begin{lstlisting}[float=h!t]
 @SIBClass("My-SIB")
 public class MySib implements Executable {
@@ -69,6 +69,7 @@ public class MySib implements Executable {
 % Listing SIB-Klasse ENDE %
 \FloatBarrier
 \subsubsection{Spezifikation notwendiger SIBs}
+\label{sec:sibs_spez}
 Wie bereits aus der Projektstruktur in Abbildung \ref{fig:projektaufbau} ersichtlich, sind verschiedene Arten von SIBs
  für ein geeignetes Modell notwendig.
 Zum einen werden SIBs benötigt, welche die Funktionen der Konnektoren benutzen.
@@ -101,7 +102,7 @@ Damit ist die Kommunikation zu den externen Datenbanken ausreichen spezifiziert 
 
 Damit der Nutzer eine Suchanfrage definieren kann, muss jener die Daten eingeben können.
 Hierzu wird ein SIB generiert, welches ein Fenster (Swing-Frame) öffnet und anschließend auf die Eingabe des Nutzers wartet.
-Die Eingabefelder können mit den Werten eines \lstinline{Contact}-Objektes vorbelegt werden.
+Die Eingabe"=felder können mit den Werten eines \lstinline{Contact}-Objektes vorbelegt werden.
 Wenn die Eingabe beendet ist, speichert das SIB die Daten in den Ausführungs"=kontext.
 Zu diesem Zweck wurde ein passender SIB-Parameter vom Typ \lstinline{ContextKey} definiert.
 Dieser dient sowohl für die Vorbelegung, als auch zur Speicherung der Eingaben.
@@ -114,9 +115,11 @@ Auf diese Weise ist es möglich das SIB sowohl für die Suchanfrage (keine Valid
 Zudem wurden die Branches \emph{ok} (Eingabe beendet), \emph{cancel} (Eingabe abgebrochen) und \emph{error} (s.o.) definiert.
 
 \begin{figure}[h!t]
-\includegraphics[width=\textwidth]{Bilder/Sib_EditContact_Frame.png}
+\begin{center}
+\includegraphics[width=0.6\textwidth]{Bilder/Sib_EditContact_Frame.png}
 \caption{Kontaktdaten anzeigen und verändern}
 \label{fig:sibedit}
+\end{center}
 \end{figure}
 
 Zuletzt fehlt noch die Möglichkeit, dass der Nutzer einen Kontakt aus einer Liste von Kontakten auswählen kann,
@@ -131,9 +134,11 @@ Es wurden die Branches \emph{ok} (Eingabe beendet), \emph{cancel} (Eingabe abgeb
 %Abbildung Choose
 %\usepackage{graphics} is needed for \includegraphics
 \begin{figure}[h!t]
-  \includegraphics[width=\textwidth]{Bilder/Sib_ChooseContact_Frame.png}
+\begin{center}
+  \includegraphics[width=0.7\textwidth]{Bilder/Sib_ChooseContact_Frame.png}
   \caption{Einen Kontakt aus der Liste der Suchergebnisse auswählen}
   \label{fig:sibchoose}
+\end{center}
 \end{figure}
 
 Um der Konvention von jABC zu folgen, wurde noch ein weiteres SIB implementiert.
@@ -154,9 +159,13 @@ Während der Nutzer seine Eingabe noch nicht einmal begonnen hat, ist jABC mit d
 Als Lösung des Problems bot sich die Java-eigene Möglichkeit zur Thread-Synchronisation mittels eines synchronized-Blockes an.
 Eine exemplarische Verwendung zeigt \autoref{lst:sibsynchro}.
 
-\javalstset{...}{lst:sibsynchro}
+\javalstset{Thread-Synchronisation in Java}{lst:sibsynchro}
 \begin{lstlisting}[float=h!t]
-
+	public String trace(ExecutionEnvironment env) {
+		...
+		synchronized (frame) {
+			frame.wait();
+			...
 \end{lstlisting}
 % synchro listing %
 
@@ -189,9 +198,13 @@ Einige Bibliotheken werden innerhalb von jABC unter anderen Paketpfaden referenz
 Zu diesem Zweck mussten die Eigenschaften der JVM im jABC manuell verändert werden. Dies ist in Listing \ref{lst:sibworkaround}
  zu sehen.
 
-\javalstset{Workaround}{lst:sibworkaround} 
+\javalstset{Änderung von JVM-Eigenschaften}{lst:sibworkaround} 
 \begin{lstlisting}[float=h!t]
-
+...
+System.setProperty("javax.xml.parsers.SAXParser", ...);
+System.setProperty("...parsers.SAXParserFactory", ...);
+System.setProperty("oracle.xml.parser.v2.SAXParser",...
+...
 \end{lstlisting}
 
 % Listing system.setproperty %

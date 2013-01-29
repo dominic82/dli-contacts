@@ -1,6 +1,6 @@
 \javalstset{}{}
 \section{Einleitung}
-\label{sec:einleitung}
+
 Als Abschlussübung der Vorlesung \emph{Aktuelle Themen der Dienstleistungsinformatik} im Wintersemester
  2012/13 an der TU-Dortmund sollten die teilnehmenden Studenten ein Projekt zum Thema Webservices
  durchführen. Dieser Bericht erläutert nun im Detail, wie das Projekt \textit{Kontakte} durchgeführt wurde.
@@ -23,8 +23,9 @@ Abschließend folgt in Kapitel \ref{sec:beurteilung} die konkrete Betrachtung de
 
 
 \subsection{Projektbeschreibung}
+\label{sec:einleitung}
 Als Grundlage für die Aufgabenstellung diente ein fiktives Szenario in Form einer Umstellung der
- informationstechnischen Infrastruktur eines Unternehmens. Konkretes Thema für dieses Projekt war die
+ informationstechnischen Infrastruktur eines Unterneh"=mens. Konkretes Thema für dieses Projekt war die
  Migration von kontaktbezogenen Stammdaten aus der Datenbank von SAP in das System von Google.
 Für die Migration mussten drei Gruppen von Kontakten behandelt werden: Kunden, Lieferanten und Mitarbeiter.
 Die Migration selbst sollte dabei nicht der trivialen Strategie folgen, alle vorhandenen Kontakte
@@ -56,7 +57,7 @@ Das Ziel dieser Analyse ist es zunächst, Bereiche zu identifizieren, welche una
 Dies unterstützt die Aufgabenverteilung an die einzelnen Projektmitglieder und legt deren Verantwortungsbereiche fest.
 
 Da diese Teilbereiche im Projektzusammenhang jedoch an einigen Stellen miteinander interagieren sollen, müssen
- zudem geeignete Schnittstellen an den Berührungspunkten definiert werden.
+ zudem geeignete Schnittstellen an den Berührungs"=punkten definiert werden.
  
 Zudem gilt es auch, sich am Anfang der Planung über einzusetzende Technologien zu einigen, welche die Entwicklung unterstützen.
 
@@ -77,13 +78,13 @@ Die Abbildung \ref{fig:projektaufbau} zeigt eine sich daraus ergebene Projektstr
 \label{fig:projektaufbau}
 \end{figure}
 	
-\subsubsection{Das \lstinline{Contakt}-Objekt als Schnittstelle}
+\subsubsection{Das \lstinline{Contact}-Objekt als Schnittstelle}
 Die Verwendung der Unterstrukturen in der SIB-Programmierung macht es notwendig, eine geeignete
  Kommunikationsschnittstelle zu definieren.
 Die Aufgabenstellung macht deutlich, dass der primäre Gegenstand des Prozesses ein \lstinline{Contact}-Objekt ist.
 Kontaktdaten werden eingegeben und an die Programmteile weitergegeben, welche die Kommunikation mit den
  externen Datenbanken realisieren.
-Daraufhin wird eine Liste von \lstinline{Contact}-Objekten zurückgeliefert und ein ausgewählter Kontakt wird
+Daraufhin wird eine Liste von \lstinline{Contact}-Objekten zurück"=geliefert und ein ausgewählter Kontakt wird
  dann bei Google gespeichert.
  
 Ein einziges \lstinline{Contact}-Objekt kann also als Schnittstelle genutzt werden, wenn es hinreichend klar definiert ist.
@@ -91,7 +92,7 @@ Das heißt, dass eine Abbildung gefunden werden kann, welche die Attribute des \
  Strukturen der externen Datenbanken verknüpft.
 Aus diesem Grund wurden für das Projekt Attribute gewählt, welche in beiden Datenbanken verwendet werden.
 Insbesondere musste auch darauf geachtet werden, dass diese Attribute in allen drei Gruppen (Kunde, Lieferant,
- Angestellter) vorhanden sind.
+ Mitarbeiter) vorhanden sind.
 Aus diesem Überlegungen wurde das \lstinline{Contact}-Objekt mit folgenden Attributen definiert:
 \begin{itemize}
 	\item Vorname, Nachname, Firma
@@ -113,7 +114,7 @@ Neben einer zentralen Speicherung aller Projektdaten unterstützt \emph{Git} die
 Änderungen an verschiedenen Teilen der Software werden automatisch zu einer neuen Version zusammengefasst.
 
 Um die einzelnen Programmbausteine ausreichend zu testen, um deren Funktion zu verifizieren, wurde zudem das
- Test-Framework \emph{JUnit} verwendet. Dadurch ist es beispielsweise möglich, die Suchfunktion der Konnektoren ausgiebig
+ Test-Framework \emph{JUnit} verwendet. \\ Dadurch ist es beispielsweise möglich, die Suchfunktion der Konnektoren ausgiebig
  zu testen, bevor diese in der SIB-Programmierung ihre Verwendung finden.
 
 Ein weiteres Tool, welches zur Unterstützung für den Softwarelebenszyklus verwendet wurde, ist \emph{Apache Maven}.
